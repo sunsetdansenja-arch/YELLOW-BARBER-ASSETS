@@ -7,177 +7,166 @@
     <link id="meta-icon" rel="icon" type="image/png" href="">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
         /* APPLE UI/UX CORE STYLES */
-        body { 
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
-            -webkit-tap-highlight-color: transparent; 
-            background-color: #F5F5F7; /* Apple subtle gray */
-            color: #1D1D1F; 
-            overflow-x: hidden; 
-        }
+        body { font-family: 'Inter', -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; background-color: #F5F5F7; color: #1D1D1F; overflow-x: hidden; }
         
-        /* SCROLLBAR HIDING */
+        /* SCROLLBAR HIDING & SNAP */
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .snap-container { scroll-snap-type: x mandatory; }
+        .snap-item { scroll-snap-align: center; }
 
         /* GLASSMORPHISM PANELS */
-        .glass-panel { 
-            background: rgba(255, 255, 255, 0.65); 
-            backdrop-filter: blur(24px); 
-            -webkit-backdrop-filter: blur(24px); 
-            border: 1px solid rgba(255, 255, 255, 0.8); 
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04); 
-            border-radius: 16px;
-        }
-        .glass-dark { 
-            background: rgba(29, 29, 31, 0.75); 
-            backdrop-filter: blur(24px); 
-            -webkit-backdrop-filter: blur(24px); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15); 
-            border-radius: 16px;
-        }
-        .glass-yellow {
-            background: rgba(250, 204, 21, 0.85); 
-            backdrop-filter: blur(24px); 
-            -webkit-backdrop-filter: blur(24px); 
-            border: 1px solid rgba(255, 255, 255, 0.4); 
-            box-shadow: 0 8px 24px rgba(250, 204, 21, 0.25);
-            border-radius: 16px;
-        }
+        .glass-panel { background: rgba(255, 255, 255, 0.70); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.9); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04); border-radius: 24px; }
+        .glass-dark { background: rgba(29, 29, 31, 0.85); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15); border-radius: 24px; color: white; }
+        .glass-yellow { background: rgba(250, 204, 21, 0.85); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 8px 24px rgba(250, 204, 21, 0.25); border-radius: 24px; }
 
         /* TACTILE ANIMATIONS */
         .taktil { transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
-        .taktil:active { transform: scale(0.95); opacity: 0.9; }
-        .taktil-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+        .taktil:active { transform: scale(0.96); opacity: 0.85; }
+        .taktil-hover:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(0,0,0,0.08); }
 
-        /* ANIMATIONS */
-        @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(30px) scale(0.98); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
-        .animate-slide-up { animation: slideUpFade 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        /* PREMIUM LOADING ANIMATIONS */
+        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+        .animate-shimmer { background: linear-gradient(90deg, #1D1D1F 25%, #A1A1AA 50%, #1D1D1F 75%); background-size: 200% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 2.5s infinite linear; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        .animate-float { animation: float 4s ease-in-out infinite; }
         
-        @keyframes pulseSoft { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
-        .animate-pulse-soft { animation: pulseSoft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
-
-        @keyframes slideOutUp { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-40px) scale(0.95); display: none; } }
-        .slide-out-up { animation: slideOutUp 0.5s cubic-bezier(0.85, 0, 0.15, 1) forwards; }
-
-        /* SPINNER */
-        .spinner {
-            width: 48px;
-            height: 48px;
-            border: 4px solid rgba(250, 204, 21, 0.2);
-            border-top-color: #FACC15;
-            border-radius: 50%;
-            animation: spin 1s cubic-bezier(0.6, 0.2, 0.4, 0.8) infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        /* TRANSITIONS */
+        @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+        .animate-slide-up { animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .curtain-exit { transform: translateY(-100%); transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1); }
     </style>
 </head>
 <body class="pb-32">
 
-    <div id="splash-screen" class="fixed inset-0 z-[100] bg-[#F5F5F7] flex flex-col items-center justify-center overflow-hidden transition-all duration-500">
-        <div class="glass-panel p-8 flex flex-col items-center justify-center">
-            <div class="spinner mb-6"></div>
-            <img id="splash-logo" src="" class="w-32 h-auto mb-4 drop-shadow-sm rounded-[12px]">
-            <h1 class="text-zinc-500 font-semibold text-xs tracking-[0.2em] uppercase text-center animate-pulse-soft">TA LOADING<br>SI'AT BEUH!</h1>
+    <div id="splash-screen" class="fixed inset-0 z-[100] bg-yellow-400 flex flex-col items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#1d1d1f 1px, transparent 1px); background-size: 20px 20px;"></div>
+        <div class="relative z-10 flex flex-col items-center">
+            <img id="splash-logo" src="" class="w-48 h-auto animate-float drop-shadow-2xl rounded-3xl p-2 bg-white/20 backdrop-blur-md border border-white/30">
+            <div class="mt-12 text-center">
+                <h1 class="text-4xl font-black tracking-tighter animate-shimmer">TA LOADING<br>SI'AT BEUH!</h1>
+                <div class="mt-6 w-12 h-1.5 bg-zinc-900/50 rounded-full mx-auto overflow-hidden">
+                    <div class="h-full bg-zinc-900 rounded-full animate-pulse w-full"></div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div id="success-screen" class="fixed inset-0 z-[100] bg-[#F5F5F7] hidden flex-col items-center justify-center p-6 overflow-hidden">
-        <div class="glass-panel w-full max-w-sm p-8 relative z-10 flex flex-col items-center animate-slide-up text-center">
-            <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mb-6 shadow-lg shadow-green-500/30 text-white text-3xl">✓</div>
-            <h1 class="text-[#1D1D1F] font-bold text-2xl tracking-tight mb-6">Struk Eksekusi</h1>
+    <div id="success-screen" class="fixed inset-0 z-[100] bg-zinc-900/80 backdrop-blur-xl hidden flex-col items-center justify-center p-6 overflow-hidden">
+        <div class="glass-panel w-full max-w-sm p-8 flex flex-col items-center animate-slide-up text-center relative z-10">
+            <div class="w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center mb-6 shadow-xl shadow-yellow-400/30 text-zinc-900 text-3xl font-black">✓</div>
+            <h1 class="text-[#1D1D1F] font-black text-3xl tracking-tight mb-6 uppercase">Struk Eksekusi</h1>
             
-            <div class="w-full space-y-4 text-sm font-medium text-zinc-500 mb-8 bg-white/50 p-5 rounded-2xl border border-white/60">
-                <div class="flex justify-between items-center pb-3 border-b border-zinc-200">
-                    <span class="text-xs">Cabang</span><span id="receipt-branch" class="text-[#1D1D1F] font-semibold text-right">...</span>
+            <div class="w-full space-y-4 text-sm font-semibold text-zinc-500 mb-8 bg-zinc-100/50 p-5 rounded-2xl border border-white/60">
+                <div class="flex justify-between items-center pb-3 border-b border-zinc-200/60">
+                    <span class="text-xs uppercase tracking-widest">Cabang</span><span id="receipt-branch" class="text-[#1D1D1F] font-black text-right">...</span>
                 </div>
-                <div class="flex justify-between items-center pb-3 border-b border-zinc-200">
-                    <span class="text-xs">Capster</span><span id="receipt-capster" class="text-[#1D1D1F] font-semibold text-right">...</span>
+                <div class="flex justify-between items-center pb-3 border-b border-zinc-200/60">
+                    <span class="text-xs uppercase tracking-widest">Capster</span><span id="receipt-capster" class="text-[#1D1D1F] font-black text-right">...</span>
                 </div>
                 <div class="flex justify-between items-center">
-                    <span class="text-xs">Jadwal</span><span id="receipt-time" class="text-yellow-600 font-bold text-right text-base">...</span>
+                    <span class="text-xs uppercase tracking-widest">Jadwal</span><span id="receipt-time" class="text-yellow-600 font-black text-right text-base">...</span>
                 </div>
             </div>
             
-            <a href="#" id="receipt-maps" target="_blank" class="w-full block text-center glass-dark text-white py-4 font-semibold text-sm taktil mb-4">📍 Buka Rute Maps</a>
-            <button onclick="location.reload()" class="text-xs font-semibold text-zinc-400 py-2 active:opacity-50 transition-opacity">Tutup & Kembali</button>
+            <a href="#" id="receipt-maps" target="_blank" class="w-full block text-center glass-dark text-white py-4 font-black uppercase tracking-widest text-sm taktil mb-4">📍 Buka Rute Maps</a>
+            <button onclick="location.reload()" class="text-xs font-bold text-zinc-400 py-2 active:opacity-50 transition-opacity uppercase tracking-widest border-b border-zinc-300 pb-1">Tutup & Kembali</button>
         </div>
     </div>
 
-    <nav class="sticky top-0 z-50 glass-panel border-none rounded-none border-b border-white/40 px-6 py-4 flex justify-between items-center">
-        <img id="nav-logo" src="" class="h-8 w-auto drop-shadow-sm rounded-[8px]" alt="Logo">
-        <div class="text-[10px] font-bold uppercase tracking-widest text-zinc-900 bg-yellow-400 px-3 py-1.5 rounded-full shadow-sm animate-pulse-soft">Live Booking</div>
+    <nav class="sticky top-0 z-50 glass-panel border-none rounded-none border-b border-white/50 px-6 py-4 flex justify-between items-center">
+        <img id="nav-logo" src="" class="h-9 w-auto drop-shadow-sm rounded-[8px]" alt="Logo">
+        <div class="text-[10px] font-black uppercase tracking-widest text-zinc-900 bg-yellow-400 px-3 py-1.5 rounded-full shadow-sm animate-pulse">Live Booking</div>
     </nav>
 
     <main id="app" class="max-w-md mx-auto px-5 mt-8 relative z-10">
         
         <section id="step-initial" class="animate-slide-up">
-            <h1 class="font-extrabold text-4xl mb-2 tracking-tight text-[#1D1D1F]">WELCOME<br>SYEDARA LON</h1>
-            <p class="text-sm font-medium text-zinc-500 mb-8">Kiban model ta koh ok uroenyo?</p>
+            <h1 class="font-black text-5xl mb-2 tracking-tighter text-[#1D1D1F] uppercase leading-[0.9]">Welcome<br>Syedara Lon</h1>
+            <p class="text-sm font-bold text-zinc-500 mb-8 uppercase tracking-widest">Kiban model ta koh ok uroenyo?</p>
             
-            <div class="glass-dark text-white p-6 mb-8 text-center">
-                <h2 id="hierarchy-title" class="font-bold text-sm text-yellow-400 uppercase tracking-widest mb-4">YELLOW BARBER CAPSTER</h2>
-                <ul id="hierarchy-list" class="space-y-3 font-medium text-xs">
+            <div class="glass-dark text-white p-6 mb-8 relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-yellow-400/10 rounded-full blur-xl"></div>
+                <h2 id="hierarchy-title" class="font-black text-sm text-yellow-400 uppercase tracking-widest mb-4">YELLOW BARBER CAPSTER</h2>
+                <ul id="hierarchy-list" class="space-y-3 font-semibold text-xs tracking-wider text-zinc-300">
                     </ul>
             </div>
 
-            <div id="branch-list" class="space-y-6 hidden"></div>
+            <div class="mb-8">
+                <div class="flex items-center justify-between mb-4 px-1">
+                    <h3 class="font-black text-lg text-[#1D1D1F] tracking-tight uppercase">TOP 10 PELANGGAN TERBEREH 👑</h3>
+                    <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest bg-black/5 px-2 py-1 rounded-md">TAHUN INI</span>
+                </div>
+                <div class="glass-panel p-5">
+                    <ul id="leaderboard-list" class="space-y-3">
+                        <li class="text-center py-4 animate-pulse font-bold text-xs text-zinc-400 uppercase tracking-widest">Menghitung Data Transaksi...</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="font-black text-lg text-[#1D1D1F] tracking-tight uppercase mb-4 px-1">Suasana & Vibes 🔥</h3>
+                <div id="gallery-slider" class="flex gap-4 overflow-x-auto hide-scrollbar snap-container pb-4">
+                    </div>
+            </div>
+
+            <div id="branch-list" class="space-y-6 hidden mb-10"></div>
         </section>
 
         <section id="step-staff" class="hidden animate-slide-up">
-            <button onclick="APP_LOGIC.resetToStep1()" class="text-xs font-semibold text-zinc-600 mb-6 flex items-center glass-panel px-4 py-3 taktil">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            <button onclick="APP_LOGIC.resetToStep1()" class="text-xs font-black text-zinc-600 mb-6 flex items-center glass-panel px-5 py-3 taktil uppercase tracking-widest">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                 Balek ke menu
             </button>
-            <h1 class="font-extrabold text-4xl mb-2 tracking-tight text-[#1D1D1F]">Pilih<br>Capster</h1>
-            <div class="inline-flex items-center glass-yellow px-4 py-1.5 mb-8">
-                <span class="w-2 h-2 rounded-full bg-zinc-900 mr-2 animate-pulse"></span>
-                <p id="selected-branch-text" class="text-xs font-bold text-zinc-900 uppercase tracking-widest"></p>
+            <h1 class="font-black text-5xl mb-2 tracking-tighter uppercase leading-[0.9] text-zinc-900">Pilih<br>Capster</h1>
+            <div class="inline-flex items-center glass-yellow px-4 py-2 mb-8 rounded-full">
+                <span class="w-2.5 h-2.5 rounded-full bg-zinc-900 mr-2 animate-pulse"></span>
+                <p id="selected-branch-text" class="text-xs font-black text-zinc-900 uppercase tracking-widest"></p>
             </div>
             
-            <div id="staff-list" class="space-y-6"></div>
+            <div id="staff-list" class="space-y-8"></div>
         </section>
     </main>
 
     <div id="bottom-bar" class="fixed bottom-6 left-5 right-5 z-40 hidden animate-slide-up">
         <div class="max-w-md mx-auto glass-dark p-5 flex justify-between items-center shadow-2xl">
             <div>
-                <p class="text-[10px] uppercase text-zinc-400 font-semibold tracking-widest mb-1">Total Biaya</p>
-                <p id="display-price" class="text-2xl font-bold text-white tracking-tight">Rp 0</p>
+                <p class="text-[10px] uppercase text-zinc-400 font-bold tracking-widest mb-1">Total Biaya</p>
+                <p id="display-price" class="text-2xl font-black text-white tracking-tighter">Rp 0</p>
             </div>
-            <button onclick="APP_LOGIC.openBookingForm()" class="bg-yellow-400 text-zinc-900 px-8 py-3.5 rounded-xl font-bold text-sm uppercase tracking-wider taktil shadow-lg shadow-yellow-400/20">Lanjut</button>
+            <button onclick="APP_LOGIC.openBookingForm()" class="bg-yellow-400 text-zinc-900 px-8 py-3.5 rounded-[16px] font-black text-sm uppercase tracking-widest taktil shadow-lg shadow-yellow-400/20">Lanjut</button>
         </div>
     </div>
 
-    <div id="modal-book" class="fixed inset-0 z-[60] bg-black/40 backdrop-blur-md hidden flex items-end sm:items-center justify-center p-4 transition-opacity duration-300">
-        <div class="glass-panel bg-white/80 w-full max-w-sm p-6 sm:p-8 animate-slide-up max-h-[90vh] overflow-y-auto hide-scrollbar">
+    <div id="modal-book" class="fixed inset-0 z-[60] bg-zinc-900/40 backdrop-blur-md hidden flex items-end sm:items-center justify-center p-4 transition-opacity duration-300">
+        <div class="glass-panel bg-white/90 w-full max-w-sm p-6 sm:p-8 animate-slide-up max-h-[90vh] overflow-y-auto hide-scrollbar relative">
             <div class="w-12 h-1.5 bg-zinc-300 rounded-full mx-auto mb-6"></div>
-            <h2 class="font-bold text-2xl mb-1 text-center tracking-tight text-[#1D1D1F]">Finalisasi</h2>
-            <p class="text-xs font-medium text-zinc-500 text-center mb-6">Pilih Jadwal & Data Diri</p>
+            <h2 class="font-black text-3xl mb-1 text-center tracking-tighter text-[#1D1D1F] uppercase">Finalisasi</h2>
+            <p class="text-xs font-bold text-zinc-500 text-center mb-6 uppercase tracking-widest">Pilih Jadwal & Data Diri</p>
             
             <div class="space-y-4">
-                <div class="bg-white/60 p-4 rounded-[16px] border border-white/80 shadow-sm">
-                    <p class="text-[10px] font-bold text-zinc-500 mb-3 uppercase tracking-widest">Pilih Tanggal</p>
+                <div class="bg-white/60 p-4 rounded-[20px] border border-white/80 shadow-sm">
+                    <p class="text-[10px] font-black text-zinc-500 mb-3 uppercase tracking-widest">Pilih Tanggal</p>
                     <div id="date-slots" class="flex gap-2 overflow-x-auto hide-scrollbar pb-1 pt-1 px-1"></div>
                     <input type="hidden" id="booking_date" value="">
                 </div>
-                <div class="bg-white/60 p-4 rounded-[16px] border border-white/80 shadow-sm">
-                    <p class="text-[10px] font-bold text-zinc-500 mb-3 uppercase tracking-widest">Pilih Jam</p>
+                <div class="bg-white/60 p-4 rounded-[20px] border border-white/80 shadow-sm">
+                    <p class="text-[10px] font-black text-zinc-500 mb-3 uppercase tracking-widest">Pilih Jam</p>
                     <div id="time-slots" class="grid grid-cols-3 gap-2"></div>
                     <input type="hidden" id="booking_time" value="">
                 </div>
                 
                 <div class="pt-2">
-                    <input type="text" id="cust_name" placeholder="Nama Lengkap" class="w-full bg-white/70 border border-white shadow-sm rounded-[16px] px-5 py-4 focus:ring-2 focus:ring-yellow-400 outline-none text-sm font-medium text-zinc-900 placeholder-zinc-400 transition-all mb-3" autocomplete="off">
-                    <input type="tel" id="cust_phone" placeholder="WhatsApp (08...)" class="w-full bg-white/70 border border-white shadow-sm rounded-[16px] px-5 py-4 focus:ring-2 focus:ring-yellow-400 outline-none text-sm font-medium text-zinc-900 placeholder-zinc-400 transition-all" autocomplete="off">
+                    <input type="text" id="cust_name" placeholder="NAMA LENGKAP" class="w-full bg-white border border-zinc-200 shadow-sm rounded-[16px] px-5 py-4 focus:ring-4 focus:ring-yellow-400/30 focus:border-yellow-400 outline-none text-sm font-black text-zinc-900 uppercase placeholder-zinc-400 transition-all mb-3" autocomplete="off">
+                    <input type="tel" id="cust_phone" placeholder="WHATSAPP (08...)" class="w-full bg-white border border-zinc-200 shadow-sm rounded-[16px] px-5 py-4 focus:ring-4 focus:ring-yellow-400/30 focus:border-yellow-400 outline-none text-sm font-black text-zinc-900 uppercase placeholder-zinc-400 transition-all" autocomplete="off">
                 </div>
                 
-                <button id="btn-submit" onclick="APP_LOGIC.submitBooking()" class="w-full glass-yellow text-zinc-900 py-4 font-bold text-sm uppercase tracking-widest mt-4 taktil">Eksekusi Sekarang!</button>
-                <button onclick="APP_LOGIC.closeModal()" class="w-full text-xs font-semibold text-zinc-500 py-3 taktil">Batal</button>
+                <button id="btn-submit" onclick="APP_LOGIC.submitBooking()" class="w-full glass-yellow text-zinc-900 py-4 font-black text-sm uppercase tracking-widest mt-4 taktil">EKSEKUSI SEKARANG!</button>
+                <button onclick="APP_LOGIC.closeModal()" class="w-full text-xs font-bold text-zinc-500 py-3 taktil uppercase tracking-widest mt-2 border-b border-zinc-300 pb-1 w-max mx-auto block">Batal</button>
             </div>
         </div>
     </div>
@@ -195,20 +184,26 @@
             AVAILABLE_HOURS: ["10:00", "11:00", "12:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00"],
             
             HIERARCHY: [
-                { label: "Head Barber", title: "MR" },
-                { label: "Senior Barber", title: "SR" },
-                { label: "Regular Barber", title: "JR" }
+                { label: "HEAD BARBER", title: "MR" },
+                { label: "SENIOR BARBER", title: "SR" },
+                { label: "REGULAR BARBER", title: "JR" }
             ],
 
             BRANCHES_META: {
                 "YELLOW BANDA": { 
-                    img: "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/PHOTO%20ASSETS%202.png", 
+                    cover: "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/PHOTO%20ASSETS%201.png", 
                     rating: "4.9", 
                     rev: "150+", 
                     tags: "<span>Free Wi-Fi</span><span>Full AC</span>", 
                     display_name: "BANDA ACEH" 
                 }
-            }
+            },
+
+            GALLERY_ASSETS: [
+                "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/PHOTO%20ASSETS%202.png",
+                "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/PHOTO%20ASSETS%203.png",
+                "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/PHOTO%20ASSETS%204.png"
+            ]
         };
 
         // ==============================================================
@@ -227,8 +222,10 @@
                 document.getElementById('nav-logo').src = CONFIG.LOGO_URL;
                 
                 document.getElementById('hierarchy-list').innerHTML = CONFIG.HIERARCHY.map(h => 
-                    `<li class="flex justify-between items-center border-b border-zinc-700/50 pb-2"><span class="text-zinc-300">${h.label}</span><span class="font-bold bg-zinc-800 text-white px-2 py-1 rounded-[6px] text-[10px] shadow-sm">${h.title}</span></li>`
+                    `<li class="flex items-center gap-2 pb-2"><span class="font-black bg-white/10 text-yellow-400 px-2.5 py-1 rounded-[6px] text-[10px] shadow-sm uppercase tracking-widest">${h.title}</span> <span>${h.label}</span></li>`
                 ).join('');
+
+                this.renderGallery();
 
                 try {
                     const fetchPromise = fetch(CONFIG.WEBHOOK_URL, {
@@ -237,50 +234,123 @@
                         body: JSON.stringify({ action: 'get_initial_data', tenant_id: CONFIG.TENANT_ID })
                     }).then(res => res.json());
 
-                    const [rawData] = await Promise.all([fetchPromise, delay(1500)]);
+                    const [rawData] = await Promise.all([fetchPromise, delay(2500)]); // Delay longer for premium effect
                     const payload = Array.isArray(rawData) ? rawData[0] : rawData;
                     
                     this.state.branches = payload.branches ? (Array.isArray(payload.branches) ? payload.branches.map(extractData) : [extractData(payload.branches)]) : [];
                     this.state.packages = payload.packages ? (Array.isArray(payload.packages) ? payload.packages.map(extractData) : [extractData(payload.packages)]) : [];
                     
+                    // Leaderboard Logic
+                    const history = payload.history_bookings || []; 
+                    this.renderLeaderboard(history);
+
                     document.getElementById('branch-list').classList.remove('hidden');
                     this.renderBranches();
                     
                     const splash = document.getElementById('splash-screen');
-                    splash.classList.add('slide-out-up');
-                    setTimeout(() => splash.remove(), 500);
+                    splash.classList.add('curtain-exit');
+                    setTimeout(() => splash.remove(), 800);
                 } catch (e) {
-                    document.getElementById('splash-screen').innerHTML = `<div class="glass-dark p-6 text-center"><h1 class="text-white font-bold text-xl">GAGAL KONEKSI SERVER</h1></div>`;
+                    console.error(e);
+                    document.getElementById('splash-screen').innerHTML = `<div class="glass-dark p-6 text-center"><h1 class="text-white font-black text-xl">GAGAL KONEKSI SERVER</h1></div>`;
                 }
+            },
+
+            // --- LEADERBOARD & PHONE NORMALIZATION LOGIC ---
+            normalizePhone(phone) {
+                if(!phone) return '';
+                let p = String(phone).replace(/\D/g, ''); // Hapus semua kecuali angka
+                if (p.startsWith('08')) p = '628' + p.substring(2); // Ganti 08 jadi 628
+                return p;
+            },
+
+            renderLeaderboard(historyData) {
+                const container = document.getElementById('leaderboard-list');
+                
+                if(!historyData || historyData.length === 0) {
+                    container.innerHTML = `<li class="text-center py-4 font-bold text-xs text-zinc-500 uppercase tracking-widest">Belum ada data sultan tahun ini.</li>`;
+                    return;
+                }
+
+                // Kalkulasi Total per Nomor HP
+                const sums = {};
+                historyData.forEach(trx => {
+                    const cleanPhone = this.normalizePhone(trx.cust_phone);
+                    if(!cleanPhone || !trx.price) return;
+                    
+                    if(!sums[cleanPhone]) {
+                        sums[cleanPhone] = { name: trx.cust_name || 'Hamba Allah', total: 0 };
+                    }
+                    sums[cleanPhone].total += Number(trx.price);
+                });
+
+                // Sortir & Ambil Top 10
+                const top10 = Object.values(sums).sort((a,b) => b.total - a.total).slice(0, 10);
+
+                container.innerHTML = top10.map((sultan, index) => {
+                    const rank = index + 1;
+                    let badgeColor = 'bg-zinc-100 text-zinc-500 border border-zinc-200';
+                    let icon = '';
+                    
+                    if(rank === 1) { badgeColor = 'bg-yellow-400 text-yellow-900 shadow-md shadow-yellow-400/30'; icon = '👑'; }
+                    else if(rank === 2) { badgeColor = 'bg-slate-300 text-slate-800 shadow-md'; icon = '🥈'; }
+                    else if(rank === 3) { badgeColor = 'bg-amber-700/60 text-amber-100 shadow-md'; icon = '🥉'; }
+
+                    // Format ke Juta/Ribu biar rapih (contoh: 1.5M / 500K)
+                    const totalFormatted = sultan.total >= 1000000 
+                        ? (sultan.total / 1000000).toFixed(1) + 'M' 
+                        : (sultan.total / 1000).toFixed(0) + 'K';
+
+                    return `
+                    <li class="flex items-center justify-between p-3 rounded-[16px] bg-white border border-zinc-100/50 shadow-sm taktil-hover">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full flex items-center justify-center font-black text-[10px] ${badgeColor}">${rank}</span>
+                            <div>
+                                <p class="font-black text-xs text-[#1D1D1F] uppercase tracking-wide">${sultan.name} ${icon}</p>
+                            </div>
+                        </div>
+                        <span class="font-black text-[10px] text-zinc-500 bg-zinc-100 px-2 py-1 rounded-md">IDR ${totalFormatted}</span>
+                    </li>`;
+                }).join('');
+            },
+
+            renderGallery() {
+                const container = document.getElementById('gallery-slider');
+                container.innerHTML = CONFIG.GALLERY_ASSETS.map(img => `
+                    <div class="slider-item w-3/4 sm:w-1/2 flex-shrink-0 snap-item group">
+                        <div class="relative w-full h-40 overflow-hidden rounded-[20px] shadow-sm border border-zinc-200">
+                            <img src="${img}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 grayscale-[20%] group-hover:grayscale-0">
+                        </div>
+                    </div>
+                `).join('');
             },
 
             renderBranches() {
                 const container = document.getElementById('branch-list');
                 if (this.state.branches.length === 0) return;
 
-                // Cek jam buka/tutup (Asumsi zona waktu lokal user)
                 const currentHour = new Date().getHours();
                 const isOpen = currentHour >= 10 && currentHour < 21;
                 const statusBadge = isOpen 
-                    ? `<div class="absolute top-4 left-4 bg-green-500/90 backdrop-blur-md text-white font-bold text-[10px] px-3 py-1.5 uppercase tracking-widest rounded-full shadow-sm z-20">🟢 BUKA</div>`
-                    : `<div class="absolute top-4 left-4 bg-red-500/90 backdrop-blur-md text-white font-bold text-[10px] px-3 py-1.5 uppercase tracking-widest rounded-full shadow-sm z-20">🔴 TUTUP</div>`;
+                    ? `<div class="absolute top-4 left-4 glass-yellow text-zinc-900 font-black text-[10px] px-4 py-2 uppercase tracking-widest rounded-full shadow-md z-20">🟢 BUKA</div>`
+                    : `<div class="absolute top-4 left-4 bg-red-600/90 backdrop-blur-md text-white font-black text-[10px] px-4 py-2 uppercase tracking-widest rounded-full shadow-md z-20">🔴 TUTUP</div>`;
 
                 container.innerHTML = this.state.branches.map((b, index) => {
-                    const meta = CONFIG.BRANCHES_META[b.dpb_branches_name] || { img: CONFIG.LOGO_URL, rating: "5.0", rev: "New", tags: "<span>Premium</span>", display_name: b.dpb_branches_name };
+                    const meta = CONFIG.BRANCHES_META[b.dpb_branches_name] || { cover: CONFIG.LOGO_URL, rating: "5.0", rev: "New", tags: "<span>Premium</span>", display_name: b.dpb_branches_name };
                     const gmapsLink = b.gmaps || '#'; 
 
                     return `
                     <div onclick="APP_LOGIC.selectBranch('${b.dpb_branches_name}', '${meta.display_name}')" class="glass-panel group taktil-hover transition-all cursor-pointer block animate-slide-up overflow-hidden" style="animation-delay: ${index * 0.1}s">
-                        <div class="relative w-full h-56 overflow-hidden">
-                            <img src="${meta.img}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="relative w-full h-64 overflow-hidden rounded-t-[20px]">
+                            <img src="${meta.cover}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#1D1D1F]/80 to-transparent"></div>
                             ${statusBadge}
-                            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md text-zinc-900 font-bold text-xs px-2.5 py-1.5 shadow-sm flex items-center gap-1 rounded-full z-20">⭐️ ${meta.rating} <span class="text-[9px] text-zinc-500 uppercase ml-0.5">(${meta.rev})</span></div>
-                            <a href="${gmapsLink}" target="_blank" onclick="event.stopPropagation()" class="absolute bottom-4 right-4 bg-white/20 backdrop-blur-md border border-white/30 text-white font-bold text-[10px] px-4 py-2 shadow-sm flex items-center gap-2 rounded-full hover:bg-white hover:text-zinc-900 transition-colors z-20">🗺️ MAPS</a>
+                            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md text-zinc-900 font-black text-xs px-3 py-1.5 shadow-sm flex items-center gap-1 rounded-full z-20">⭐️ ${meta.rating} <span class="text-[9px] text-zinc-500 uppercase ml-0.5">(${meta.rev})</span></div>
+                            <a href="${gmapsLink}" target="_blank" onclick="event.stopPropagation()" class="absolute bottom-5 right-5 glass-dark text-white font-black text-[10px] px-5 py-2.5 shadow-lg flex items-center gap-2 rounded-full hover:bg-yellow-400 hover:text-zinc-900 transition-colors z-20 uppercase tracking-widest">🗺️ MAPS</a>
                         </div>
-                        <div class="p-5 relative z-20">
-                            <h3 class="font-extrabold text-2xl text-[#1D1D1F] tracking-tight mb-3">${meta.display_name}</h3>
-                            <div class="flex flex-wrap gap-2 text-[10px] font-semibold uppercase tracking-wider text-zinc-600 [&>span]:bg-black/5 [&>span]:px-3 [&>span]:py-1 [&>span]:rounded-full [&>span]:border [&>span]:border-black/5">${meta.tags}</div>
+                        <div class="p-6 relative z-20 bg-white/50">
+                            <h3 class="font-black text-3xl text-[#1D1D1F] tracking-tighter uppercase mb-3">${meta.display_name}</h3>
+                            <div class="flex flex-wrap gap-2 text-[10px] font-black uppercase tracking-widest text-zinc-600 [&>span]:bg-white [&>span]:px-3 [&>span]:py-1.5 [&>span]:rounded-lg [&>span]:border [&>span]:border-zinc-200 [&>span]:shadow-sm">${meta.tags}</div>
                         </div>
                     </div>`;
                 }).join('');
@@ -294,7 +364,7 @@
                 document.getElementById('step-staff').classList.remove('hidden');
                 document.getElementById('selected-branch-text').innerText = displayName;
                 
-                document.getElementById('staff-list').innerHTML = `<div class="glass-yellow p-8 text-center animate-pulse-soft"><h2 class="font-bold text-xl text-zinc-900 tracking-tight mb-2">Mengambil Data Capster...</h2><div class="spinner border-zinc-900 mx-auto w-8 h-8"></div></div>`;
+                document.getElementById('staff-list').innerHTML = `<div class="glass-yellow p-8 text-center animate-pulse"><h2 class="font-black text-xl text-zinc-900 tracking-tight mb-2 uppercase">Memanggil Capster...</h2></div>`;
 
                 try {
                     const res = await fetch(CONFIG.WEBHOOK_URL, {
@@ -311,7 +381,7 @@
 
             renderStaff(staffs) {
                 const container = document.getElementById('staff-list');
-                if (!staffs || staffs.length === 0 || !staffs[0].id) { container.innerHTML = `<p class="text-zinc-500 font-medium text-sm text-center py-4">Tidak ada capster tersedia saat ini.</p>`; return; }
+                if (!staffs || staffs.length === 0 || !staffs[0].id) { container.innerHTML = `<p class="text-zinc-500 font-bold text-sm text-center py-4 uppercase tracking-widest">Capster belum siap.</p>`; return; }
 
                 container.innerHTML = staffs.map((s, index) => {
                     // Logic Markup Harga Berdasarkan Hierarki
@@ -323,24 +393,26 @@
                     const servicesHtml = (s.services || []).map(ser => {
                         const finalPrice = Number(ser.price) + priceMarkup;
                         return `
-                            <button onclick="APP_LOGIC.prepareBooking('${s.id}', '${ser.id}', ${finalPrice})" class="group flex justify-between items-center py-3.5 px-4 rounded-[12px] border border-zinc-200 bg-white/50 hover:bg-white hover:border-yellow-400 hover:shadow-md transition-all text-left taktil">
-                                <span class="text-sm font-semibold text-zinc-700 group-hover:text-zinc-900">${ser.name}</span>
-                                <span class="text-sm font-bold text-zinc-900">Rp ${finalPrice.toLocaleString('id-ID')}</span>
+                            <button onclick="APP_LOGIC.prepareBooking('${s.id}', '${ser.id}', ${finalPrice})" class="group flex justify-between items-center py-4 px-5 rounded-[16px] border border-zinc-200 bg-white hover:border-yellow-400 hover:shadow-lg hover:shadow-yellow-400/20 transition-all text-left taktil">
+                                <span class="text-sm font-black text-zinc-700 uppercase tracking-wide group-hover:text-zinc-900">${ser.name}</span>
+                                <span class="text-sm font-black text-zinc-900 bg-zinc-100 group-hover:bg-yellow-400 px-3 py-1 rounded-md transition-colors">Rp ${finalPrice.toLocaleString('id-ID')}</span>
                             </button>
                         `;
                     }).join('');
 
                     return `
-                    <div class="glass-panel p-5 relative animate-slide-up" style="animation-delay: ${index * 0.1}s">
-                        ${s.is_top_performance ? '<div class="absolute -top-3 -right-2 glass-yellow text-zinc-900 text-[9px] font-bold px-3 py-1.5 rounded-full shadow-sm uppercase tracking-widest z-10">🔥 Top</div>' : ''}
-                        <div class="flex items-center gap-4 mb-5">
-                            <div class="w-20 h-20 shrink-0"><img src="${s.photo_url || CONFIG.LOGO_URL}" class="w-full h-full rounded-full object-cover border-2 border-white shadow-sm"></div>
-                            <div>
-                                <h4 class="font-bold text-xl text-[#1D1D1F] tracking-tight leading-none mb-1.5">${s.dbp_staff_name}</h4>
-                                <span class="text-[10px] font-bold text-zinc-600 bg-zinc-200/50 px-2 py-1 rounded-md border border-zinc-300/50">${s.role}</span>
+                    <div class="glass-panel p-5 relative animate-slide-up border-b-4 border-r-4 border-zinc-900" style="animation-delay: ${index * 0.1}s">
+                        ${s.is_top_performance ? '<div class="absolute -top-3 -right-2 glass-yellow text-zinc-900 text-[9px] font-black px-4 py-2 rounded-full shadow-md uppercase tracking-widest z-10 border border-white">🔥 Top</div>' : ''}
+                        
+                        <div class="w-full h-96 mb-5 relative rounded-[20px] overflow-hidden border border-zinc-200 shadow-inner">
+                            <img src="${s.photo_url || CONFIG.LOGO_URL}" class="w-full h-full object-cover object-top grayscale-[20%] hover:grayscale-0 transition-all duration-500">
+                            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent p-5 pt-12">
+                                <h4 class="font-black text-3xl text-white tracking-tighter uppercase leading-none mb-2 drop-shadow-md">${s.dbp_staff_name}</h4>
+                                <span class="text-[10px] font-black text-zinc-900 bg-yellow-400 px-3 py-1.5 rounded-lg border border-yellow-300 uppercase tracking-widest">${s.role}</span>
                             </div>
                         </div>
-                        <div class="grid grid-cols-1 gap-2.5">
+
+                        <div class="grid grid-cols-1 gap-3">
                             ${servicesHtml}
                         </div>
                     </div>`;
@@ -370,7 +442,7 @@
             closeModal() { document.getElementById('modal-book').classList.add('hidden'); },
 
             renderDateSlots() {
-                document.getElementById('date-slots').innerHTML = this.generateDates().map(d => `<button id="btn-date-${d.value}" onclick="APP_LOGIC.selectDate('${d.value}')" class="date-btn flex-shrink-0 bg-white text-zinc-600 border border-zinc-200 px-4 py-2.5 rounded-[12px] text-xs font-semibold hover:border-yellow-400 transition-all taktil whitespace-nowrap shadow-sm">${d.display}</button>`).join('');
+                document.getElementById('date-slots').innerHTML = this.generateDates().map(d => `<button id="btn-date-${d.value}" onclick="APP_LOGIC.selectDate('${d.value}')" class="date-btn flex-shrink-0 bg-white text-zinc-600 border border-zinc-200 px-5 py-3 rounded-[16px] text-xs font-black uppercase tracking-wider hover:border-yellow-400 transition-all taktil whitespace-nowrap shadow-sm">${d.display}</button>`).join('');
             },
 
             selectDate(dateValue) {
@@ -382,15 +454,15 @@
 
             renderTimeSlots() {
                 const container = document.getElementById('time-slots'); const selectedDate = document.getElementById('booking_date').value;
-                if (!selectedDate) { container.innerHTML = `<div class="col-span-3 text-center py-4 text-xs font-medium text-zinc-400 border border-dashed border-zinc-300 rounded-[12px]">Pilih Tanggal Dulu</div>`; return; }
+                if (!selectedDate) { container.innerHTML = `<div class="col-span-3 text-center py-5 text-xs font-black text-zinc-400 border border-dashed border-zinc-300 rounded-[16px] uppercase tracking-widest bg-white/50">Pilih Tanggal Dulu</div>`; return; }
 
                 const selectedStaffData = this.state.staffs.find(s => s.id == this.state.selectedStaff);
                 const bookedSlots = selectedStaffData ? (selectedStaffData.booked_slots || []) : [];
 
                 container.innerHTML = CONFIG.AVAILABLE_HOURS.map(h => {
                     const isBooked = bookedSlots.some(slot => String(slot).includes(selectedDate) && String(slot).includes(h));
-                    if (isBooked) return `<div class="relative w-full"><button disabled class="w-full bg-zinc-100 border border-zinc-200 text-zinc-400 py-2.5 rounded-[12px] text-xs font-semibold opacity-60 cursor-not-allowed">${h}</button><div class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="bg-zinc-800 text-white font-bold text-[8px] px-2 py-0.5 rounded-sm uppercase tracking-widest shadow-sm">BOOKED</span></div></div>`;
-                    return `<button id="btn-time-${h.replace(':','')}" onclick="APP_LOGIC.selectTime('${h}')" class="time-btn w-full bg-white text-zinc-600 border border-zinc-200 py-2.5 rounded-[12px] text-xs font-semibold hover:border-yellow-400 transition-all taktil shadow-sm">${h}</button>`;
+                    if (isBooked) return `<div class="relative w-full"><button disabled class="w-full bg-zinc-100 border border-zinc-200 text-zinc-400 py-3 rounded-[16px] text-xs font-black opacity-60 cursor-not-allowed">${h}</button><div class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="bg-zinc-800 text-white font-black text-[8px] px-2 py-0.5 rounded-sm uppercase tracking-widest shadow-sm">BOOKED</span></div></div>`;
+                    return `<button id="btn-time-${h.replace(':','')}" onclick="APP_LOGIC.selectTime('${h}')" class="time-btn w-full bg-white text-zinc-600 border border-zinc-200 py-3 rounded-[16px] text-xs font-black hover:border-yellow-400 transition-all taktil shadow-sm">${h}</button>`;
                 }).join('');
             },
 
@@ -402,7 +474,7 @@
 
             async submitBooking() {
                 const name = document.getElementById('cust_name').value.trim(); const phone = document.getElementById('cust_phone').value.trim(); const tanggal = document.getElementById('booking_date').value; const jam = document.getElementById('booking_time').value;
-                if(!name || !phone || !tanggal || !jam) return alert('Lengkapi Jadwal dan Data Diri dulu ya.');
+                if(!name || !phone || !tanggal || !jam) return alert('Isi data yang bener dulu, Syedara.');
 
                 const btn = document.getElementById('btn-submit'); btn.innerText = "MEMPROSES..."; btn.disabled = true; btn.classList.add('opacity-70');
 
@@ -429,7 +501,7 @@
                         const successScreen = document.getElementById('success-screen');
                         successScreen.classList.remove('hidden'); successScreen.classList.add('flex', 'animate-slide-up');
                     } else { throw new Error("Server error"); }
-                } catch (e) { alert('Gagal kirim data booking. Coba lagi.'); btn.innerText = "EKSEKUSI SEKARANG!"; btn.disabled = false; btn.classList.remove('opacity-70'); }
+                } catch (e) { alert('Gagal eksekusi. Coba lagi.'); btn.innerText = "EKSEKUSI SEKARANG!"; btn.disabled = false; btn.classList.remove('opacity-70'); }
             },
 
             resetToStep1() { window.scrollTo({ top: 0, behavior: 'smooth' }); document.getElementById('step-initial').classList.remove('hidden'); document.getElementById('step-staff').classList.add('hidden'); document.getElementById('bottom-bar').classList.add('hidden'); }
