@@ -362,10 +362,8 @@
                 if (!staffs || staffs.length === 0 || !staffs[0].id) { container.innerHTML = `<p class="text-zinc-500 font-bold text-sm text-center py-4 uppercase tracking-widest">Capster belum siap.</p>`; return; }
 
                 container.innerHTML = staffs.map((s, index) => {
-                    let priceMarkup = 0;
+                    let priceMarkup = 0; // FLAT MARKUP: Semua jenjang tidak ada tambahan harga
                     const role = s.role ? s.role.toUpperCase() : '';
-                    if (role.includes('SR') || role.includes('SENIOR')) priceMarkup = 10000;
-                    else if (role.includes('MR') || role.includes('HEAD') || role.includes('MASTER')) priceMarkup = 20000;
 
                     const servicesHtml = (s.services || []).map(ser => {
                         const finalPrice = Number(ser.price) + priceMarkup;
