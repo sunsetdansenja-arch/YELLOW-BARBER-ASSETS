@@ -48,7 +48,7 @@
         <div class="relative z-10 flex flex-col items-center">
             <img id="splash-logo" src="" class="w-48 h-auto animate-float drop-shadow-2xl rounded-3xl p-2 bg-white/20 backdrop-blur-md border border-white/30">
             <div class="mt-12 text-center">
-                <h1 class="text-4xl font-black tracking-tighter animate-shimmer">TA LOADING<br>SI'AT BEUH!</h1>
+                <h1 class="text-4xl font-black tracking-tighter animate-shimmer">TA LODING<br>SI'AT BEUH!</h1>
                 <div class="mt-6 w-12 h-1.5 bg-zinc-900/50 rounded-full mx-auto overflow-hidden">
                     <div class="h-full bg-zinc-900 rounded-full animate-pulse w-full"></div>
                 </div>
@@ -108,8 +108,7 @@
                 </div>
             </div>
 
-            <h1 class="font-extrabold text-4xl mb-2 tracking-tight text-[#1D1D1F] uppercase mt-12 mb-6 px-1">Click to Book</h1>
-            <div id="branch-list" class="space-y-6 hidden mb-10"></div>
+            <div id="branch-list" class="space-y-6 hidden mb-10 mt-10"></div>
         </section>
 
         <section id="step-staff" class="hidden animate-slide-up">
@@ -174,7 +173,6 @@
             TENANT_ID: "YHB",
             BRAND_NAME: "YELLOW HAIRCUT",
             BRAND_INITIAL: "YELLOW",
-            // MODIFIKASI: Link RAW PNG yang benar digunakan
             LOGO_URL: "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png",
             WEBHOOK_URL: 'https://n8n-mzbmiib3etk4.kangkung.sumopod.my.id/webhook/dbp-public',
             AVAILABLE_HOURS: ["10:00", "11:00", "12:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00"],
@@ -195,7 +193,6 @@
                 }
             },
 
-            // MODIFIKASI: GALLERY_ASSETS dikosongkan karena galeri telah dihapus
             GALLERY_ASSETS: []
         };
 
@@ -217,8 +214,6 @@
                 document.getElementById('hierarchy-list').innerHTML = CONFIG.HIERARCHY.map(h => 
                     `<li class="flex items-center gap-2 pb-2"><span class="font-black bg-white/10 text-yellow-400 px-2.5 py-1 rounded-[6px] text-[10px] shadow-sm uppercase tracking-widest">${h.title}</span> <span>${h.label}</span></li>`
                 ).join('');
-
-                // MODIFIKASI: Panggilan renderGallery dihapus karena galeri telah dihapus
 
                 try {
                     const fetchPromise = fetch(CONFIG.WEBHOOK_URL, {
@@ -249,7 +244,6 @@
                 }
             },
 
-            // --- LEADERBOARD LOGIC ---
             normalizePhone(phone) {
                 if(!phone) return '';
                 let p = String(phone).replace(/\D/g, ''); 
@@ -304,8 +298,6 @@
                 }).join('');
             },
 
-            // MODIFIKASI: renderGallery dihapus karena galeri telah dihapus
-
             renderBranches() {
                 const container = document.getElementById('branch-list');
                 if (this.state.branches.length === 0) return;
@@ -324,7 +316,12 @@
                     <div onclick="APP_LOGIC.selectBranch('${b.dpb_branches_name}', '${meta.display_name}')" class="glass-panel group taktil-hover transition-all cursor-pointer block animate-slide-up overflow-hidden" style="animation-delay: ${index * 0.1}s">
                         <div class="relative w-full h-64 overflow-hidden rounded-t-[20px]">
                             <img src="${meta.cover}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#1D1D1F]/80 to-transparent"></div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#1D1D1F]/90 via-black/20 to-transparent"></div>
+                            
+                            <div class="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+                                <span class="font-black text-4xl tracking-tighter text-white uppercase drop-shadow-[0_4px_4px_rgba(0,0,0,0.6)] group-hover:scale-110 transition-transform duration-300">CLICK TO BOOK</span>
+                            </div>
+
                             ${statusBadge}
                             <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md text-zinc-900 font-black text-xs px-3 py-1.5 shadow-sm flex items-center gap-1 rounded-full z-20">⭐️ ${meta.rating} <span class="text-[9px] text-zinc-500 uppercase ml-0.5">(${meta.rev})</span></div>
                             <a href="${gmapsLink}" target="_blank" onclick="event.stopPropagation()" class="absolute bottom-5 right-5 glass-dark text-white font-black text-[10px] px-5 py-2.5 shadow-lg flex items-center gap-2 rounded-full hover:bg-yellow-400 hover:text-zinc-900 transition-colors z-20 uppercase tracking-widest">🗺️ MAPS</a>
@@ -365,7 +362,6 @@
                 if (!staffs || staffs.length === 0 || !staffs[0].id) { container.innerHTML = `<p class="text-zinc-500 font-bold text-sm text-center py-4 uppercase tracking-widest">Capster belum siap.</p>`; return; }
 
                 container.innerHTML = staffs.map((s, index) => {
-                    // Logic Markup Harga Berdasarkan Hierarki
                     let priceMarkup = 0;
                     const role = s.role ? s.role.toUpperCase() : '';
                     if (role.includes('SR') || role.includes('SENIOR')) priceMarkup = 10000;
@@ -442,7 +438,7 @@
 
                 container.innerHTML = CONFIG.AVAILABLE_HOURS.map(h => {
                     const isBooked = bookedSlots.some(slot => String(slot).includes(selectedDate) && String(slot).includes(h));
-                    if (isBooked) return `<div class="relative w-full"><button disabled class="w-full bg-zinc-100 border border-zinc-200 text-zinc-400 py-3 rounded-[16px] text-xs font-black opacity-60 cursor-not-allowed">${h}</button><div class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="bg-zinc-800 text-white font-black text-[8px] px-2 py-0.5 rounded-sm uppercase tracking-widest shadow-sm">BOOKED</span></div></div>`;
+                    if (isBooked) return `<div class="relative w-full"><button disabled class="w-full bg-zinc-100 border border-zinc-200 text-zinc-400 py-3 rounded-[16px] text-xs font-black opacity-60 cursor-not-allowed">${h}</button><div class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="bg-zinc-800 text-white font-black text-[8px] px-2 py-0.5 rounded-sm uppercase tracking-widest shadow-sm">AWAI GOB</span></div></div>`;
                     return `<button id="btn-time-${h.replace(':','')}" onclick="APP_LOGIC.selectTime('${h}')" class="time-btn w-full bg-white text-zinc-600 border border-zinc-200 py-3 rounded-[16px] text-xs font-black hover:border-yellow-400 transition-all taktil shadow-sm">${h}</button>`;
                 }).join('');
             },
