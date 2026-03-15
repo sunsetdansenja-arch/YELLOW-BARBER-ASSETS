@@ -38,7 +38,7 @@
         /* TRANSITIONS */
         @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
         .animate-slide-up { animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .curtain-exit { transform: translateY(-100%); transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1); }
+        .curtain-exit { transform: translateY(-100%); transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1) forwards; }
     </style>
 </head>
 <body class="pb-32">
@@ -79,7 +79,7 @@
     </div>
 
     <nav class="sticky top-0 z-50 glass-panel border-none rounded-none border-b border-white/50 px-6 py-4 flex justify-between items-center">
-        <img id="nav-logo" src="" class="h-9 w-auto drop-shadow-sm rounded-[8px]" alt="Logo">
+        <img id="nav-logo" src="" class="h-9 w-auto drop-shadow-sm" alt="Logo">
         <div class="text-[10px] font-black uppercase tracking-widest text-zinc-900 bg-yellow-400 px-3 py-1.5 rounded-full shadow-sm animate-pulse">Live Booking</div>
     </nav>
 
@@ -108,13 +108,8 @@
                 </div>
             </div>
 
+            <h1 class="font-extrabold text-4xl mb-2 tracking-tight text-[#1D1D1F] uppercase mt-12 mb-6 px-1">Click to Book</h1>
             <div id="branch-list" class="space-y-6 hidden mb-10"></div>
-
-            <div class="mb-8">
-                <h3 class="font-black text-lg text-[#1D1D1F] tracking-tight uppercase mb-4 px-1">Suasana & Vibes 🔥</h3>
-                <div id="gallery-slider" class="flex gap-4 overflow-x-auto hide-scrollbar snap-container pb-4">
-                    </div>
-            </div>
         </section>
 
         <section id="step-staff" class="hidden animate-slide-up">
@@ -179,6 +174,7 @@
             TENANT_ID: "YHB",
             BRAND_NAME: "YELLOW HAIRCUT",
             BRAND_INITIAL: "YELLOW",
+            // MODIFIKASI: Link RAW PNG yang benar digunakan
             LOGO_URL: "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png",
             WEBHOOK_URL: 'https://n8n-mzbmiib3etk4.kangkung.sumopod.my.id/webhook/dbp-public',
             AVAILABLE_HOURS: ["10:00", "11:00", "12:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00"],
@@ -199,11 +195,8 @@
                 }
             },
 
-            GALLERY_ASSETS: [
-                "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/PHOTO%20ASSETS%202.png",
-                "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/PHOTO%20ASSETS%203.png",
-                "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/PHOTO%20ASSETS%204.png"
-            ]
+            // MODIFIKASI: GALLERY_ASSETS dikosongkan karena galeri telah dihapus
+            GALLERY_ASSETS: []
         };
 
         // ==============================================================
@@ -225,7 +218,7 @@
                     `<li class="flex items-center gap-2 pb-2"><span class="font-black bg-white/10 text-yellow-400 px-2.5 py-1 rounded-[6px] text-[10px] shadow-sm uppercase tracking-widest">${h.title}</span> <span>${h.label}</span></li>`
                 ).join('');
 
-                this.renderGallery();
+                // MODIFIKASI: Panggilan renderGallery dihapus karena galeri telah dihapus
 
                 try {
                     const fetchPromise = fetch(CONFIG.WEBHOOK_URL, {
@@ -311,20 +304,7 @@
                 }).join('');
             },
 
-            // --- GALLERY LOGIC (ANTI KEPOTONG & FALLBACK ERROR) ---
-            renderGallery() {
-                const container = document.getElementById('gallery-slider');
-                container.innerHTML = CONFIG.GALLERY_ASSETS.map(img => `
-                    <div class="slider-item w-[85%] sm:w-3/4 flex-shrink-0 snap-item group">
-                        <div class="relative w-full h-56 overflow-hidden rounded-[20px] shadow-sm border border-zinc-200 bg-white flex items-center justify-center p-2">
-                            <img src="${img}" 
-                                 class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 drop-shadow-sm" 
-                                 onerror="this.onerror=null; this.src='${CONFIG.LOGO_URL}'; this.classList.add('opacity-30', 'blur-[2px]');"
-                                 alt="Suasana Yellow Barber">
-                        </div>
-                    </div>
-                `).join('');
-            },
+            // MODIFIKASI: renderGallery dihapus karena galeri telah dihapus
 
             renderBranches() {
                 const container = document.getElementById('branch-list');
@@ -385,6 +365,7 @@
                 if (!staffs || staffs.length === 0 || !staffs[0].id) { container.innerHTML = `<p class="text-zinc-500 font-bold text-sm text-center py-4 uppercase tracking-widest">Capster belum siap.</p>`; return; }
 
                 container.innerHTML = staffs.map((s, index) => {
+                    // Logic Markup Harga Berdasarkan Hierarki
                     let priceMarkup = 0;
                     const role = s.role ? s.role.toUpperCase() : '';
                     if (role.includes('SR') || role.includes('SENIOR')) priceMarkup = 10000;
