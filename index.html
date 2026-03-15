@@ -98,7 +98,7 @@
 
             <div class="mb-8">
                 <div class="flex items-center justify-between mb-4 px-1">
-                    <h3 class="font-black text-lg text-[#1D1D1F] tracking-tight uppercase">TOP 10 PELANGGAN TERBEREH 👑</h3>
+                    <h3 class="font-black text-lg text-[#1D1D1F] tracking-tight uppercase">Top 10 Sultan 👑</h3>
                     <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest bg-black/5 px-2 py-1 rounded-md">TAHUN INI</span>
                 </div>
                 <div class="glass-panel p-5">
@@ -108,13 +108,13 @@
                 </div>
             </div>
 
+            <div id="branch-list" class="space-y-6 hidden mb-10"></div>
+
             <div class="mb-8">
                 <h3 class="font-black text-lg text-[#1D1D1F] tracking-tight uppercase mb-4 px-1">Suasana & Vibes 🔥</h3>
                 <div id="gallery-slider" class="flex gap-4 overflow-x-auto hide-scrollbar snap-container pb-4">
                     </div>
             </div>
-
-            <div id="branch-list" class="space-y-6 hidden mb-10"></div>
         </section>
 
         <section id="step-staff" class="hidden animate-slide-up">
@@ -145,7 +145,7 @@
     <div id="modal-book" class="fixed inset-0 z-[60] bg-zinc-900/40 backdrop-blur-md hidden flex items-end sm:items-center justify-center p-4 transition-opacity duration-300">
         <div class="glass-panel bg-white/90 w-full max-w-sm p-6 sm:p-8 animate-slide-up max-h-[90vh] overflow-y-auto hide-scrollbar relative">
             <div class="w-12 h-1.5 bg-zinc-300 rounded-full mx-auto mb-6"></div>
-            <h2 class="font-black text-3xl mb-1 text-center tracking-tighter text-[#1D1D1F] uppercase">PEUTEUPAT AJU</h2>
+            <h2 class="font-black text-3xl mb-1 text-center tracking-tighter text-[#1D1D1F] uppercase">Finalisasi</h2>
             <p class="text-xs font-bold text-zinc-500 text-center mb-6 uppercase tracking-widest">Pilih Jadwal & Data Diri</p>
             
             <div class="space-y-4">
@@ -234,7 +234,7 @@
                         body: JSON.stringify({ action: 'get_initial_data', tenant_id: CONFIG.TENANT_ID })
                     }).then(res => res.json());
 
-                    const [rawData] = await Promise.all([fetchPromise, delay(2500)]); // Delay longer for premium effect
+                    const [rawData] = await Promise.all([fetchPromise, delay(2500)]); 
                     const payload = Array.isArray(rawData) ? rawData[0] : rawData;
                     
                     this.state.branches = payload.branches ? (Array.isArray(payload.branches) ? payload.branches.map(extractData) : [extractData(payload.branches)]) : [];
@@ -256,11 +256,11 @@
                 }
             },
 
-            // --- LEADERBOARD & PHONE NORMALIZATION LOGIC ---
+            // --- LEADERBOARD LOGIC ---
             normalizePhone(phone) {
                 if(!phone) return '';
-                let p = String(phone).replace(/\D/g, ''); // Hapus semua kecuali angka
-                if (p.startsWith('08')) p = '628' + p.substring(2); // Ganti 08 jadi 628
+                let p = String(phone).replace(/\D/g, ''); 
+                if (p.startsWith('08')) p = '628' + p.substring(2); 
                 return p;
             },
 
@@ -272,7 +272,6 @@
                     return;
                 }
 
-                // Kalkulasi Total per Nomor HP
                 const sums = {};
                 historyData.forEach(trx => {
                     const cleanPhone = this.normalizePhone(trx.cust_phone);
@@ -284,7 +283,6 @@
                     sums[cleanPhone].total += Number(trx.price);
                 });
 
-                // Sortir & Ambil Top 10
                 const top10 = Object.values(sums).sort((a,b) => b.total - a.total).slice(0, 10);
 
                 container.innerHTML = top10.map((sultan, index) => {
@@ -296,7 +294,6 @@
                     else if(rank === 2) { badgeColor = 'bg-slate-300 text-slate-800 shadow-md'; icon = '🥈'; }
                     else if(rank === 3) { badgeColor = 'bg-amber-700/60 text-amber-100 shadow-md'; icon = '🥉'; }
 
-                    // Format ke Juta/Ribu biar rapih (contoh: 1.5M / 500K)
                     const totalFormatted = sultan.total >= 1000000 
                         ? (sultan.total / 1000000).toFixed(1) + 'M' 
                         : (sultan.total / 1000).toFixed(0) + 'K';
@@ -314,12 +311,16 @@
                 }).join('');
             },
 
+            // --- GALLERY LOGIC (ANTI KEPOTONG & FALLBACK ERROR) ---
             renderGallery() {
                 const container = document.getElementById('gallery-slider');
                 container.innerHTML = CONFIG.GALLERY_ASSETS.map(img => `
-                    <div class="slider-item w-3/4 sm:w-1/2 flex-shrink-0 snap-item group">
-                        <div class="relative w-full h-40 overflow-hidden rounded-[20px] shadow-sm border border-zinc-200">
-                            <img src="${img}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 grayscale-[20%] group-hover:grayscale-0">
+                    <div class="slider-item w-[85%] sm:w-3/4 flex-shrink-0 snap-item group">
+                        <div class="relative w-full h-56 overflow-hidden rounded-[20px] shadow-sm border border-zinc-200 bg-white flex items-center justify-center p-2">
+                            <img src="${img}" 
+                                 class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 drop-shadow-sm" 
+                                 onerror="this.onerror=null; this.src='${CONFIG.LOGO_URL}'; this.classList.add('opacity-30', 'blur-[2px]');"
+                                 alt="Suasana Yellow Barber">
                         </div>
                     </div>
                 `).join('');
@@ -384,7 +385,6 @@
                 if (!staffs || staffs.length === 0 || !staffs[0].id) { container.innerHTML = `<p class="text-zinc-500 font-bold text-sm text-center py-4 uppercase tracking-widest">Capster belum siap.</p>`; return; }
 
                 container.innerHTML = staffs.map((s, index) => {
-                    // Logic Markup Harga Berdasarkan Hierarki
                     let priceMarkup = 0;
                     const role = s.role ? s.role.toUpperCase() : '';
                     if (role.includes('SR') || role.includes('SENIOR')) priceMarkup = 10000;
@@ -461,7 +461,7 @@
 
                 container.innerHTML = CONFIG.AVAILABLE_HOURS.map(h => {
                     const isBooked = bookedSlots.some(slot => String(slot).includes(selectedDate) && String(slot).includes(h));
-                    if (isBooked) return `<div class="relative w-full"><button disabled class="w-full bg-zinc-100 border border-zinc-200 text-zinc-400 py-3 rounded-[16px] text-xs font-black opacity-60 cursor-not-allowed">${h}</button><div class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="bg-zinc-800 text-white font-black text-[8px] px-2 py-0.5 rounded-sm uppercase tracking-widest shadow-sm">AWAI GOB</span></div></div>`;
+                    if (isBooked) return `<div class="relative w-full"><button disabled class="w-full bg-zinc-100 border border-zinc-200 text-zinc-400 py-3 rounded-[16px] text-xs font-black opacity-60 cursor-not-allowed">${h}</button><div class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="bg-zinc-800 text-white font-black text-[8px] px-2 py-0.5 rounded-sm uppercase tracking-widest shadow-sm">BOOKED</span></div></div>`;
                     return `<button id="btn-time-${h.replace(':','')}" onclick="APP_LOGIC.selectTime('${h}')" class="time-btn w-full bg-white text-zinc-600 border border-zinc-200 py-3 rounded-[16px] text-xs font-black hover:border-yellow-400 transition-all taktil shadow-sm">${h}</button>`;
                 }).join('');
             },
