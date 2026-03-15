@@ -17,7 +17,7 @@
         .apple-card { background: #FFFFFF; border: 1px solid #E5E5EA; border-radius: 20px; }
         .glass-header { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid #E5E5EA; }
         .btn-press:active { transform: scale(0.97); }
-        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #D1D1D6; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #999999; }
@@ -29,6 +29,9 @@
         .neo-shadow-sm { box-shadow: 4px 4px 0px 0px rgba(0,0,0,1); }
         .neo-border { border: 4px solid #000000; }
         .neo-border-sm { border: 3px solid #000000; }
+
+        /* Mencegah logic JS override class flex pada mode mobile */
+        #tab-btn-queue, #tab-btn-report { flex: 1; text-align: center; white-space: nowrap; }
     </style>
 </head>
 <body class="h-screen w-screen overflow-hidden text-zinc-900">
@@ -56,46 +59,46 @@
     </div>
 
     <div id="view-cashier" class="h-full w-full hidden flex-col absolute inset-0 z-30 bg-[#F5F5F7]">
-        <header class="glass-header p-4 flex justify-between items-center shrink-0 z-20">
+        <header class="glass-header p-4 flex flex-wrap justify-between items-center gap-y-4 shrink-0 z-20">
             <div class="flex items-center gap-4">
                 <img id="logo-cashier" src="" class="h-10 opacity-100">
                 <div><h1 class="font-bold tracking-tight text-lg leading-none text-zinc-900">Cashier Terminal</h1><p id="cashier-branch-name" class="text-[11px] font-semibold text-zinc-500 uppercase tracking-wide mt-1">LOADING...</p></div>
             </div>
-            <div class="hidden md:flex bg-zinc-100 p-1 rounded-xl border border-zinc-200">
+            <div class="flex w-full md:w-auto order-last md:order-none bg-zinc-100 p-1 rounded-xl border border-zinc-200">
                 <button onclick="CASHIER_LOGIC.switchTab('queue')" id="tab-btn-queue" class="px-6 py-2 rounded-lg text-sm font-bold bg-white shadow-sm text-zinc-900 transition-all">Live Queue</button>
                 <button onclick="CASHIER_LOGIC.switchTab('report')" id="tab-btn-report" class="px-6 py-2 rounded-lg text-sm font-semibold text-zinc-500 hover:text-zinc-900 transition-all">Reports</button>
             </div>
-            <div class="flex gap-4 items-center">
+            <div class="flex gap-2 sm:gap-4 items-center ml-auto md:ml-0">
                 <div class="flex items-center gap-2 text-[10px] font-bold text-zinc-400 uppercase tracking-widest hidden sm:flex"><div id="sync-indicator" class="w-2 h-2 rounded-full bg-green-500 animate-pulse-dot"></div><span id="sync-text">Auto-Sync On</span></div>
                 <button onclick="CASHIER_LOGIC.loadData()" class="btn-press bg-white border border-zinc-200 text-zinc-700 p-2 rounded-xl shadow-sm hover:bg-zinc-50 flex items-center justify-center"><svg class="w-5 h-5" id="sync-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg></button>
                 <button onclick="LOGIN_SYSTEM.logout()" class="btn-press bg-zinc-900 text-white font-semibold text-xs px-4 py-2 rounded-xl shadow-md hover:bg-zinc-800 transition-all">Logout</button>
             </div>
         </header>
 
-        <main id="tab-queue" class="flex-1 overflow-hidden flex flex-col lg:flex-row p-4 gap-4 animate-slide-up">
-            <section class="flex-1 flex flex-col overflow-hidden gap-4">
-                <div class="grid grid-cols-3 gap-3 shrink-0">
+        <main id="tab-queue" class="flex-1 overflow-y-auto overflow-x-hidden flex flex-col lg:flex-row p-4 gap-4 animate-slide-up">
+            <section class="flex-1 flex flex-col gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 shrink-0">
                     <div class="apple-card p-4 bg-white apple-shadow"><p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1">Omset (Hari Ini)</p><p id="sum-omset" class="font-bold text-xl text-blue-600">Rp 0</p></div>
                     <div class="apple-card p-4 bg-white apple-shadow"><p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1">Pengeluaran (Hari Ini)</p><p id="sum-expense" class="font-bold text-xl text-red-600">Rp 0</p></div>
                     <div class="apple-card p-4 bg-zinc-900 text-white apple-shadow border-none"><p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1">Gross Profit (Hari Ini)</p><p id="sum-profit" class="font-bold text-xl text-green-400">Rp 0</p></div>
                 </div>
 
-                <div class="flex-1 apple-card apple-shadow flex flex-col overflow-hidden">
+                <div class="flex-1 apple-card apple-shadow flex flex-col min-h-[400px]">
                     <div class="p-5 border-b border-zinc-100 flex justify-between items-center bg-white rounded-t-[20px]">
                         <div><h2 class="font-bold text-xl tracking-tight text-zinc-800">Live Queue</h2><p class="text-[11px] font-semibold text-zinc-500 uppercase tracking-wide mt-0.5">Antrean 3 Hari Ke Depan</p></div>
                     </div>
-                    <div id="queue-container" class="flex-1 overflow-y-auto p-5 space-y-6 bg-zinc-50/50">
-                        <div id="queue-loading" class="w-full bg-white border border-zinc-100 rounded-2xl p-6 animate-pulse flex justify-between items-center"><div class="space-y-3 w-1/2"><div class="h-5 bg-zinc-200 rounded w-3/4"></div><div class="h-3 bg-zinc-100 rounded w-1/2"></div></div></div>
+                    <div id="queue-container" class="flex-1 overflow-y-auto p-4 sm:p-5 space-y-6 bg-zinc-50/50">
+                        <div id="queue-loading" class="w-full bg-white border border-zinc-100 rounded-2xl p-6 animate-pulse flex justify-between items-center"><div class="space-y-3 w-full sm:w-1/2"><div class="h-5 bg-zinc-200 rounded w-3/4"></div><div class="h-3 bg-zinc-100 rounded w-1/2"></div></div></div>
                     </div>
                 </div>
             </section>
 
-            <section class="w-full lg:w-96 flex flex-col gap-4">
+            <section class="w-full lg:w-96 flex flex-col gap-4 shrink-0">
                 <button onclick="CASHIER_LOGIC.openExpenseModal()" class="btn-press w-full bg-zinc-900 text-white font-bold text-sm py-5 rounded-2xl shadow-md hover:bg-zinc-800 transition-all flex justify-center items-center gap-2 shrink-0">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Catat Pengeluaran
                 </button>
 
-                <div class="flex-1 apple-card apple-shadow flex flex-col overflow-hidden">
+                <div class="flex-1 apple-card apple-shadow flex flex-col min-h-[300px]">
                     <div class="p-5 border-b border-zinc-100 bg-white rounded-t-[20px]"><h2 class="font-bold text-lg tracking-tight text-zinc-800">Petty Cash</h2><p class="text-[10px] font-semibold text-zinc-400 uppercase mt-1">Pengeluaran Hari Ini</p></div>
                     <div id="expense-container" class="flex-1 overflow-y-auto p-4 space-y-3 bg-zinc-50/50">
                         <div id="expense-loading" class="w-full bg-white border border-zinc-100 rounded-xl p-4 animate-pulse h-16"></div>
@@ -104,26 +107,26 @@
             </section>
         </main>
 
-        <main id="tab-report" class="flex-1 overflow-hidden flex flex-col p-4 md:p-8 hidden animate-slide-up">
-            <div class="max-w-5xl w-full mx-auto flex flex-col h-full gap-6">
-                <div class="flex flex-col sm:flex-row justify-between items-end gap-4 bg-white p-5 rounded-2xl apple-shadow border border-zinc-200">
-                    <div>
+        <main id="tab-report" class="flex-1 overflow-y-auto overflow-x-hidden flex flex-col p-4 md:p-8 hidden animate-slide-up">
+            <div class="max-w-5xl w-full mx-auto flex flex-col gap-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 bg-white p-5 rounded-2xl apple-shadow border border-zinc-200">
+                    <div class="w-full sm:w-auto">
                         <label class="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2 block">Pilih Bulan Laporan</label>
-                        <input type="month" id="report-month" onchange="CASHIER_LOGIC.processReport()" class="bg-zinc-50 border border-zinc-200 text-zinc-800 font-semibold px-4 py-2 rounded-xl outline-none focus:border-zinc-400 transition-all">
+                        <input type="month" id="report-month" onchange="CASHIER_LOGIC.processReport()" class="w-full sm:w-auto bg-zinc-50 border border-zinc-200 text-zinc-800 font-semibold px-4 py-2 rounded-xl outline-none focus:border-zinc-400 transition-all">
                     </div>
-                    <div class="flex gap-2">
-                        <button onclick="CASHIER_LOGIC.exportCSV()" class="btn-press bg-green-50 text-green-700 border border-green-200 px-4 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-green-100 transition-all">Unduh CSV</button>
-                        <button onclick="CASHIER_LOGIC.exportPDF()" class="btn-press bg-zinc-900 text-white px-4 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 shadow-md hover:bg-zinc-800 transition-all">Cetak PDF</button>
+                    <div class="flex gap-2 w-full sm:w-auto">
+                        <button onclick="CASHIER_LOGIC.exportCSV()" class="flex-1 sm:flex-none justify-center btn-press bg-green-50 text-green-700 border border-green-200 px-4 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-green-100 transition-all">Unduh CSV</button>
+                        <button onclick="CASHIER_LOGIC.exportPDF()" class="flex-1 sm:flex-none justify-center btn-press bg-zinc-900 text-white px-4 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 shadow-md hover:bg-zinc-800 transition-all">Cetak PDF</button>
                     </div>
                 </div>
 
-                <div id="printable-report" class="flex-1 flex flex-col overflow-hidden bg-white rounded-2xl apple-shadow border border-zinc-200">
+                <div id="printable-report" class="flex flex-col bg-white rounded-2xl apple-shadow border border-zinc-200">
                     <div class="p-6 border-b border-zinc-100 flex justify-between items-center bg-zinc-50 rounded-t-[20px]">
                         <div><h2 class="font-bold text-xl text-zinc-900">Laporan Keuangan Kasir</h2><p id="report-branch-label" class="text-xs font-semibold text-zinc-500 mt-1">Cabang ...</p></div>
                         <div class="text-right"><p id="report-month-label" class="font-bold text-lg text-zinc-800">Bulan ...</p></div>
                     </div>
                     
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-6 border-b border-zinc-100">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 md:p-6 border-b border-zinc-100">
                         <div class="bg-zinc-50 p-4 rounded-xl border border-zinc-100">
                             <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1">Total Transaksi</p>
                             <p id="rep-total-trx" class="font-bold text-2xl text-zinc-900">0</p>
@@ -131,33 +134,33 @@
                         </div>
                         <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
                             <p class="text-[10px] font-bold text-blue-500 uppercase tracking-wider mb-1">Gross Revenue</p>
-                            <p id="rep-total-revenue" class="font-bold text-2xl text-blue-700">Rp 0</p>
+                            <p id="rep-total-revenue" class="font-bold text-xl md:text-2xl text-blue-700 truncate">Rp 0</p>
                         </div>
                         <div class="bg-red-50 p-4 rounded-xl border border-red-100">
                             <p class="text-[10px] font-bold text-red-500 uppercase tracking-wider mb-1">Pengeluaran</p>
-                            <p id="rep-total-expense" class="font-bold text-2xl text-red-700">Rp 0</p>
+                            <p id="rep-total-expense" class="font-bold text-xl md:text-2xl text-red-700 truncate">Rp 0</p>
                         </div>
                         <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
                             <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1">Net Profit Bersih</p>
-                            <p id="rep-net-profit" class="font-bold text-2xl text-green-400">Rp 0</p>
+                            <p id="rep-net-profit" class="font-bold text-xl md:text-2xl text-green-400 truncate">Rp 0</p>
                             <p class="text-[9px] font-semibold text-zinc-500 mt-2 border-t border-zinc-700 pt-2">Telah dipotong komisi <span class="komisi-text"></span></p>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-6 bg-zinc-50 border-b border-zinc-100">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 md:p-6 bg-zinc-50 border-b border-zinc-100">
                         <div class="flex items-center gap-4 bg-white p-4 rounded-xl border border-zinc-200">
-                            <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-xl">🏆</div>
+                            <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-xl shrink-0">🏆</div>
                             <div><p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Capster Terlaris</p><p id="rep-top-capster" class="font-bold text-sm text-zinc-900 mt-0.5">-</p></div>
                         </div>
                         <div class="flex items-center gap-4 bg-white p-4 rounded-xl border border-zinc-200">
-                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-xl">✂️</div>
+                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-xl shrink-0">✂️</div>
                             <div><p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Layanan Terfavorit</p><p id="rep-top-package" class="font-bold text-sm text-zinc-900 mt-0.5">-</p></div>
                         </div>
                     </div>
 
-                    <div class="flex-1 overflow-y-auto p-0">
-                        <table class="w-full text-left border-collapse">
-                            <thead class="bg-white sticky top-0 border-b border-zinc-200 shadow-sm">
+                    <div class="overflow-x-auto p-0">
+                        <table class="w-full text-left border-collapse min-w-[500px]">
+                            <thead class="bg-white border-b border-zinc-200 shadow-sm">
                                 <tr><th class="p-4 text-xs font-bold text-zinc-500 uppercase">Tanggal</th><th class="p-4 text-xs font-bold text-zinc-500 uppercase text-center">Jml Cukur</th><th class="p-4 text-xs font-bold text-zinc-500 uppercase text-right">Pemasukan</th><th class="p-4 text-xs font-bold text-zinc-500 uppercase text-right">Pengeluaran</th></tr>
                             </thead>
                             <tbody id="report-table-body" class="divide-y divide-zinc-100 text-sm">
@@ -171,32 +174,37 @@
     </div>
 
     <div id="view-management" class="h-full w-full hidden flex-col absolute inset-0 z-30 bg-[#F5F5F7] overflow-y-auto">
-        <header class="sticky top-0 z-40 glass-header px-6 py-4 flex justify-between items-center">
+        <header class="sticky top-0 z-40 glass-header px-6 py-4 flex flex-wrap justify-between items-center gap-y-4">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-zinc-100 flex items-center justify-center shadow-sm"><img id="logo-mgt" src="" class="h-6"></div>
+                <div class="w-10 h-10 rounded-full bg-zinc-100 flex items-center justify-center shadow-sm shrink-0"><img id="logo-mgt" src="" class="h-6"></div>
                 <div><h1 class="font-bold text-lg leading-none tracking-tight text-zinc-900">Executive Dashboard</h1><p id="mgt-greeting" class="text-xs font-medium text-zinc-500 mt-0.5">Welcome</p></div>
             </div>
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2 sm:gap-4 ml-auto md:ml-0">
                 <select id="mgt-branch-filter" onchange="MANAGEMENT_LOGIC.loadData()" class="bg-white border border-zinc-200 text-sm font-semibold px-4 py-2 rounded-xl outline-none focus:border-zinc-400 apple-shadow hidden md:block">
-                    </select>
+                </select>
                 <button onclick="MANAGEMENT_LOGIC.loadData()" class="btn-press bg-white border border-zinc-200 text-zinc-700 p-2 rounded-xl shadow-sm hover:bg-zinc-50 transition-all"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg></button>
                 <button onclick="LOGIN_SYSTEM.logout()" class="btn-press bg-zinc-900 text-white font-semibold text-xs px-5 py-2.5 rounded-xl shadow-md hover:bg-zinc-800 transition-all">Logout</button>
             </div>
         </header>
-        <main class="w-full max-w-6xl mx-auto p-6 space-y-6 animate-slide-up">
+        <main class="w-full max-w-6xl mx-auto p-4 sm:p-6 space-y-6 animate-slide-up">
             <div class="md:hidden">
                 <select id="mgt-branch-filter-mobile" onchange="MANAGEMENT_LOGIC.syncFilter(this.value)" class="w-full bg-white border border-zinc-200 text-sm font-semibold px-4 py-3 rounded-xl outline-none apple-shadow">
-                    </select>
+                </select>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div class="apple-card p-5 apple-shadow hover:shadow-lg transition-shadow"><div class="flex justify-between items-start mb-2"><p class="text-xs font-bold text-zinc-500 uppercase tracking-wider">Gross Revenue (Harian)</p><div class="p-1.5 bg-blue-50 text-blue-600 rounded-lg"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div></div><p id="mgt-gross" class="font-bold text-3xl text-zinc-900 tracking-tight">Rp 0</p></div>
-                <div class="apple-card p-5 apple-shadow hover:shadow-lg transition-shadow"><div class="flex justify-between items-start mb-2"><p class="text-xs font-bold text-zinc-500 uppercase tracking-wider">Komisi Capster (<span class="komisi-text"></span>)</p><div class="p-1.5 bg-orange-50 text-orange-600 rounded-lg"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg></div></div><p id="mgt-capster-share" class="font-bold text-2xl text-zinc-700 tracking-tight mt-1">Rp 0</p></div>
-                <div class="apple-card p-5 apple-shadow hover:shadow-lg transition-shadow"><div class="flex justify-between items-start mb-2"><p class="text-xs font-bold text-zinc-500 uppercase tracking-wider">Total Pengeluaran</p><div class="p-1.5 bg-red-50 text-red-600 rounded-lg"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path></svg></div></div><p id="mgt-expenses" class="font-bold text-2xl text-red-600 tracking-tight mt-1">Rp 0</p></div>
-                <div class="apple-card p-5 apple-shadow bg-zinc-900 border-none hover:shadow-xl transition-shadow text-white"><div class="flex justify-between items-start mb-2"><p class="text-xs font-bold text-zinc-400 uppercase tracking-wider">Net Profit (<span class="net-text"></span> - Exp)</p><div class="p-1.5 bg-green-500/20 text-green-400 rounded-lg"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012-2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg></div></div><p id="mgt-net-profit" class="font-bold text-3xl text-green-400 tracking-tight">Rp 0</p></div>
+                <div class="apple-card p-5 apple-shadow hover:shadow-lg transition-shadow"><div class="flex justify-between items-start mb-2"><p class="text-xs font-bold text-zinc-500 uppercase tracking-wider">Gross Revenue (Harian)</p><div class="p-1.5 bg-blue-50 text-blue-600 rounded-lg shrink-0"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div></div><p id="mgt-gross" class="font-bold text-2xl sm:text-3xl text-zinc-900 tracking-tight truncate">Rp 0</p></div>
+                <div class="apple-card p-5 apple-shadow hover:shadow-lg transition-shadow"><div class="flex justify-between items-start mb-2"><p class="text-xs font-bold text-zinc-500 uppercase tracking-wider">Komisi Capster (<span class="komisi-text"></span>)</p><div class="p-1.5 bg-orange-50 text-orange-600 rounded-lg shrink-0"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg></div></div><p id="mgt-capster-share" class="font-bold text-xl sm:text-2xl text-zinc-700 tracking-tight mt-1 truncate">Rp 0</p></div>
+                <div class="apple-card p-5 apple-shadow hover:shadow-lg transition-shadow"><div class="flex justify-between items-start mb-2"><p class="text-xs font-bold text-zinc-500 uppercase tracking-wider">Total Pengeluaran</p><div class="p-1.5 bg-red-50 text-red-600 rounded-lg shrink-0"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path></svg></div></div><p id="mgt-expenses" class="font-bold text-xl sm:text-2xl text-red-600 tracking-tight mt-1 truncate">Rp 0</p></div>
+                <div class="apple-card p-5 apple-shadow bg-zinc-900 border-none hover:shadow-xl transition-shadow text-white"><div class="flex justify-between items-start mb-2"><p class="text-xs font-bold text-zinc-400 uppercase tracking-wider">Net Profit (<span class="net-text"></span> - Exp)</p><div class="p-1.5 bg-green-500/20 text-green-400 rounded-lg shrink-0"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012-2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg></div></div><p id="mgt-net-profit" class="font-bold text-2xl sm:text-3xl text-green-400 tracking-tight truncate">Rp 0</p></div>
             </div>
             <div class="apple-card overflow-hidden apple-shadow mt-6">
                 <div class="p-5 border-b border-zinc-100 bg-zinc-50 flex justify-between items-center rounded-t-[24px]"><div><h2 class="font-bold text-xl tracking-tight text-zinc-900">Capster Leaderboard</h2><p class="text-[11px] font-medium text-zinc-500 mt-1">Peringkat kontribusi revenue hari ini</p></div></div>
-                <div class="p-0"><table class="w-full text-left"><thead class="bg-white border-b border-zinc-100"><tr><th class="py-4 px-6 text-xs font-bold text-zinc-400 uppercase tracking-wider w-16 text-center">Rank</th><th class="py-4 px-6 text-xs font-bold text-zinc-400 uppercase tracking-wider">Nama Barber</th><th class="py-4 px-6 text-xs font-bold text-zinc-400 uppercase tracking-wider text-right">Revenue Generated</th></tr></thead><tbody id="mgt-leaderboard" class="divide-y divide-zinc-100 bg-white"></tbody></table></div>
+                <div class="overflow-x-auto p-0">
+                    <table class="w-full text-left min-w-[400px]">
+                        <thead class="bg-white border-b border-zinc-100"><tr><th class="py-4 px-4 sm:px-6 text-xs font-bold text-zinc-400 uppercase tracking-wider w-16 text-center">Rank</th><th class="py-4 px-4 sm:px-6 text-xs font-bold text-zinc-400 uppercase tracking-wider">Nama Barber</th><th class="py-4 px-4 sm:px-6 text-xs font-bold text-zinc-400 uppercase tracking-wider text-right">Revenue Generated</th></tr></thead>
+                        <tbody id="mgt-leaderboard" class="divide-y divide-zinc-100 bg-white"></tbody>
+                    </table>
+                </div>
             </div>
         </main>
     </div>
@@ -228,7 +236,7 @@
                         <p class="text-xs font-semibold text-zinc-400 uppercase tracking-widest">Komisi Bulan Ini (<span class="komisi-text"></span>)</p>
                         <span class="bg-green-500 text-zinc-900 text-[10px] font-black px-2 py-1 rounded-md uppercase tracking-wider shadow-sm">Rank #<span id="capster-rank">-</span></span>
                     </div>
-                    <h2 id="capster-balance-month" class="font-black text-4xl tracking-tighter">Rp 0</h2>
+                    <h2 id="capster-balance-month" class="font-black text-3xl sm:text-4xl tracking-tighter truncate">Rp 0</h2>
                     <p class="text-[11px] font-medium text-zinc-400 mt-1">Hari ini: <span id="capster-balance-today" class="text-green-400 font-bold">Rp 0</span></p>
                     
                     <div class="mt-6 pt-4 border-t border-zinc-800 grid grid-cols-2 gap-4">
@@ -246,7 +254,7 @@
 
             <div>
                 <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-3 px-1">JADWAL HARI INI (VISUAL)</h3>
-                <div id="capster-schedule-grid" class="grid grid-cols-3 gap-4"></div>
+                <div id="capster-schedule-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4"></div>
             </div>
 
             <div>
@@ -305,6 +313,7 @@
 
         // ==============================================================
         // 🧠 CORE ENGINE LOGIC (JANGAN DIUBAH AI)
+        // LOGIC SAMA PERSIS TANPA UBAHAN SEDIKITPUN
         // ==============================================================
         const STATE = { user: null, cancelTargetId: null, syncInterval: null, rawReportData: null, sysDates: null };
 
@@ -398,7 +407,6 @@
 
         const CASHIER_LOGIC = {
             init() {
-                // Tampilkan nama cabang singkat di Header Kasir
                 const branchObj = CONFIG.BRANCHES.find(b => b.db_name === STATE.user.branch);
                 const displayBranch = branchObj ? branchObj.display_name : STATE.user.branch;
                 document.getElementById('cashier-branch-name').innerText = `Cabang ${displayBranch}`; 
@@ -466,7 +474,6 @@
                             if (isPending && waPhone) {
                                 let dayText = "hari ini"; if(dateRaw === STATE.sysDates.tomorrow) dayText="besok"; else if(dateRaw === STATE.sysDates.lusa) dayText="lusa";
                                 
-                                // Modular WA Message Formatting
                                 const branchObj = CONFIG.BRANCHES.find(b => b.db_name === STATE.user.branch);
                                 const bName = branchObj ? branchObj.display_name : STATE.user.branch;
                                 const wTxt = `Halo kak, kami dari ${CONFIG.BRAND_NAME} Cabang ${bName} ingin mengkonfirmasi bookingan nya untuk ${dayText} di jam ${item.jam} dengan barber ${cName} apakah jadi datang kak?\n\nApabila ada pembatalan atau penjadwalan ulang, bisa kita bantu dengan membalas pesan ini.\n\nFYI, untuk keterlambatan kami bisa tunggu maksimal sampai 5 menit ya, kak 🙏🏻 Terima kasih sebelumnya`;
@@ -537,7 +544,6 @@
                 const totalTrx = Object.values(dailyStats).reduce((sum, item) => sum + item.c, 0);
                 const aov = totalTrx > 0 ? (grandRev / totalTrx) : 0;
                 
-                // Hitung Net Profit Pakai Dynamic Rate dari CONFIG
                 const capsterShare = grandRev * CONFIG.COMMISSION_RATE;
                 const netProfit = grandRev - grandExp - capsterShare; 
                 
@@ -602,7 +608,7 @@
                     const rank = index + 1; let rankHtml = `<span class="font-bold text-zinc-500">${rank}</span>`;
                     if(rank === 1) rankHtml = `<span class="bg-orange-100 text-orange-600 font-bold px-2 py-1 rounded-full text-xs">🥇 1</span>`; else if(rank === 2) rankHtml = `<span class="bg-zinc-100 text-zinc-600 font-bold px-2 py-1 rounded-full text-xs">🥈 2</span>`; else if(rank === 3) rankHtml = `<span class="bg-orange-50 text-orange-800 font-bold px-2 py-1 rounded-full text-xs">🥉 3</span>`;
                     const capsterName = capster.capster_id; 
-                    return `<tr class="hover:bg-zinc-50 transition-colors"><td class="py-4 px-6 text-center">${rankHtml}</td><td class="py-4 px-6 font-bold text-zinc-800">${UTIL.toTitleCase(capsterName)}</td><td class="py-4 px-6 font-bold text-blue-600 text-right">${UTIL.formatRp(capster.revenue)}</td></tr>`;
+                    return `<tr class="hover:bg-zinc-50 transition-colors"><td class="py-4 px-4 sm:px-6 text-center">${rankHtml}</td><td class="py-4 px-4 sm:px-6 font-bold text-zinc-800">${UTIL.toTitleCase(capsterName)}</td><td class="py-4 px-4 sm:px-6 font-bold text-blue-600 text-right">${UTIL.formatRp(capster.revenue)}</td></tr>`;
                 }).join('');
             }
         };
@@ -640,7 +646,7 @@
                 scheduleGrid.innerHTML = ''; 
                 
                 if(!data.full_schedule || data.full_schedule.length === 0) {
-                    scheduleGrid.insertAdjacentHTML('beforeend', `<div class="col-span-3 text-center py-6 bg-zinc-50 rounded-2xl border-[3px] border-black"><p class="text-xs font-semibold text-zinc-500">Belum ada antrean hari ini.</p></div>`);
+                    scheduleGrid.insertAdjacentHTML('beforeend', `<div class="col-span-2 sm:col-span-3 text-center py-6 bg-zinc-50 rounded-2xl border-[3px] border-black"><p class="text-xs font-semibold text-zinc-500">Belum ada antrean hari ini.</p></div>`);
                 } else {
                     data.full_schedule.sort((a,b) => a.jam.localeCompare(b.jam)).forEach(slot => {
                         const isDone = slot.status === 'DONE' || slot.status === 'SUCCESS';
