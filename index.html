@@ -1,1 +1,388 @@
-xxx
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title id="meta-title">Booking | Premium System</title>
+    <link id="meta-icon" rel="icon" type="image/png" href="">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; background-color: #ECECEF; overflow-x: hidden; }
+        .glass { background: rgba(236, 236, 239, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .brutal-border { border: 4px solid #18181B; }
+        .brutal-shadow { box-shadow: 8px 8px 0px 0px #18181B; }
+        .brutal-shadow-sm { box-shadow: 4px 4px 0px 0px #18181B; }
+        .hover-brutal:hover { transform: translate(-2px, -2px); box-shadow: 10px 10px 0px 0px #18181B; }
+        .active-brutal:active { transform: translate(4px, 4px); box-shadow: 0px 0px 0px 0px #18181B; }
+
+        @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
+        .animate-slide-up { animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes strobe { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .animate-strobe { animation: strobe 0.8s step-end infinite; }
+        
+        /* Modifikasi Pulse & Animasi Crossfade Foto */
+        @keyframes brutalPulse { 0%, 100% { transform: scale(1); box-shadow: 8px 8px 0px 0px #18181B; } 50% { transform: scale(1.05); box-shadow: 16px 16px 0px 0px #FACC15; } }
+        .animate-brutal-pulse { animation: brutalPulse 0.5s infinite; }
+        
+        @keyframes fadeAnim { 0%, 20% { opacity: 1; } 25%, 95% { opacity: 0; } 100% { opacity: 1; } }
+        .slide-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; animation: fadeAnim 16s infinite; }
+        .slide-img:nth-child(1) { animation-delay: 0s; }
+        .slide-img:nth-child(2) { animation-delay: 4s; }
+        .slide-img:nth-child(3) { animation-delay: 8s; }
+        .slide-img:nth-child(4) { animation-delay: 12s; }
+
+        @keyframes slideOutUp { 0% { transform: translateY(0); } 100% { transform: translateY(-100vh); display: none; } }
+        .slide-out-up { animation: slideOutUp 0.7s cubic-bezier(0.85, 0, 0.15, 1) forwards; }
+    </style>
+</head>
+<body class="text-zinc-900 pb-32">
+
+    <div id="splash-screen" class="fixed inset-0 z-[100] bg-zinc-900 flex flex-col items-center justify-center overflow-hidden">
+        <div id="splash-bg-pattern" class="absolute inset-0 opacity-5 flex flex-wrap content-start -rotate-12 pointer-events-none text-yellow-400 font-black text-6xl leading-tight break-all"></div>
+        <img id="splash-logo" src="" class="w-40 relative z-10 bg-white p-5 rounded-3xl brutal-border animate-brutal-pulse">
+        <h1 class="mt-10 text-yellow-400 font-black text-2xl tracking-widest uppercase relative z-10 animate-strobe text-center leading-snug">TA LOADING<br>SI'AT BEUH!</h1>
+    </div>
+
+    <div id="success-screen" class="fixed inset-0 z-[100] bg-yellow-400 hidden flex-col items-center justify-center p-6 overflow-hidden">
+        <div class="absolute inset-0 opacity-10 flex flex-wrap content-start -rotate-12 pointer-events-none text-zinc-900 font-black text-6xl leading-tight break-all">
+            DONE DONE DONE DONE DONE DONE DONE DONE DONE DONE DONE DONE
+        </div>
+        <div class="bg-white w-full max-w-sm rounded-[32px] brutal-border brutal-shadow p-8 relative z-10 flex flex-col items-center animate-slide-up">
+            <h1 class="text-zinc-900 font-black text-4xl tracking-tighter uppercase text-center mb-6 border-b-4 border-zinc-900 w-full pb-4 leading-none">STRUK<br>EKSEKUSI</h1>
+            <div class="w-full space-y-3 text-sm font-black uppercase tracking-widest text-zinc-600 mb-8">
+                <div class="flex justify-between items-end border-b-2 border-dashed border-zinc-300 pb-2">
+                    <span class="text-[10px]">Cabang</span><span id="receipt-branch" class="text-zinc-900 text-right">...</span>
+                </div>
+                <div class="flex justify-between items-end border-b-2 border-dashed border-zinc-300 pb-2">
+                    <span class="text-[10px]">Capster</span><span id="receipt-capster" class="text-zinc-900 text-right">...</span>
+                </div>
+                <div class="flex justify-between items-end border-b-2 border-dashed border-zinc-300 pb-2">
+                    <span class="text-[10px]">Jadwal</span><span id="receipt-time" class="text-yellow-600 text-right text-base">...</span>
+                </div>
+            </div>
+            <a href="#" id="receipt-maps" target="_blank" class="w-full block text-center bg-zinc-900 text-yellow-400 py-4 rounded-[20px] font-black uppercase tracking-widest brutal-border brutal-shadow-sm active-brutal transition-all mb-4">📍 Buka Rute Maps</a>
+            <button onclick="location.reload()" class="text-xs font-black text-zinc-400 uppercase tracking-widest border-b-2 border-zinc-300 pb-1">Tutup & Kembali</button>
+        </div>
+    </div>
+
+    <nav class="sticky top-0 z-50 glass border-b-4 border-zinc-900 px-6 py-5 flex justify-between items-center brutal-shadow-sm">
+        <img id="nav-logo" src="" class="h-8 w-auto" alt="Logo">
+        <div class="text-[10px] font-black uppercase tracking-widest text-zinc-900 bg-yellow-400 px-3 py-1 rounded-md brutal-border animate-strobe">Live Booking</div>
+    </nav>
+
+    <main id="app" class="max-w-md mx-auto px-5 mt-8 relative z-10">
+        
+        <section id="step-initial" class="animate-slide-up">
+            <h1 class="font-black text-5xl mb-2 tracking-tighter uppercase leading-none text-zinc-900 drop-shadow-md">Pilih<br>Cabang</h1>
+            <p class="text-sm font-bold text-zinc-500 mb-6 uppercase tracking-wide">Tentukan Lokasi Eksekusi Anda</p>
+            
+            <div class="bg-zinc-900 text-white brutal-border rounded-[24px] brutal-shadow-sm p-6 mb-8 transform -rotate-1 hover:rotate-0 transition-transform">
+                <h2 id="hierarchy-title" class="font-black text-lg text-yellow-400 uppercase tracking-tighter mb-4 border-b-4 border-zinc-700 pb-2">Hierarki Capster</h2>
+                <ul id="hierarchy-list" class="space-y-3 font-semibold text-xs tracking-wide">
+                    </ul>
+            </div>
+
+            <div id="branch-list" class="space-y-8 hidden"></div>
+        </section>
+
+        <section id="step-staff" class="hidden animate-slide-up">
+            <button onclick="APP_LOGIC.resetToStep1()" class="text-xs font-black text-zinc-900 mb-6 flex items-center bg-white brutal-border px-4 py-3 rounded-[16px] brutal-shadow-sm active-brutal transition-all uppercase tracking-wider">← Kembali ke Cabang</button>
+            <h1 class="font-black text-5xl mb-2 tracking-tighter uppercase leading-none text-zinc-900">Pilih<br>Capster</h1>
+            <p id="selected-branch-text" class="text-sm font-black text-zinc-900 mb-8 uppercase tracking-widest bg-yellow-100 inline-block px-3 py-1 rounded-md brutal-border"></p>
+            <div id="staff-list" class="space-y-8"></div>
+        </section>
+    </main>
+
+    <div id="bottom-bar" class="fixed bottom-6 left-5 right-5 z-40 hidden animate-slide-up">
+        <div class="max-w-md mx-auto bg-zinc-900 brutal-border brutal-shadow rounded-[32px] p-5 flex justify-between items-center">
+            <div>
+                <p class="text-[10px] uppercase text-zinc-400 font-black tracking-widest">Total Biaya</p>
+                <p id="display-price" class="text-2xl font-black text-white tracking-tighter">Rp 0</p>
+            </div>
+            <button onclick="APP_LOGIC.openBookingForm()" class="bg-yellow-400 text-zinc-900 px-8 py-4 rounded-2xl font-black uppercase tracking-widest brutal-border brutal-shadow-sm active-brutal transition-all animate-brutal-pulse">LANJUT</button>
+        </div>
+    </div>
+
+    <div id="modal-book" class="fixed inset-0 z-[60] glass hidden flex items-end sm:items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm rounded-[36px] p-6 sm:p-8 brutal-border brutal-shadow animate-slide-up max-h-[90vh] overflow-y-auto hide-scrollbar">
+            <h2 class="font-black text-3xl mb-1 text-center tracking-tighter uppercase text-zinc-900">Finalisasi</h2>
+            <p class="text-xs font-bold text-zinc-500 text-center mb-6 uppercase tracking-wide">Pilih Jadwal & Data Diri</p>
+            
+            <div class="space-y-4">
+                <div class="bg-zinc-100 p-4 rounded-[24px] brutal-border">
+                    <p class="text-[10px] font-black text-zinc-500 mb-3 uppercase tracking-widest border-b-2 border-zinc-200 pb-2">Pilih Tanggal</p>
+                    <div id="date-slots" class="flex gap-2 overflow-x-auto hide-scrollbar pb-2 pt-1 px-1"></div>
+                    <input type="hidden" id="booking_date" value="">
+                </div>
+                <div class="bg-zinc-100 p-4 rounded-[24px] brutal-border">
+                    <p class="text-[10px] font-black text-zinc-500 mb-3 uppercase tracking-widest border-b-2 border-zinc-200 pb-2">Pilih Jam</p>
+                    <div id="time-slots" class="grid grid-cols-3 gap-2"></div>
+                    <input type="hidden" id="booking_time" value="">
+                </div>
+                <input type="text" id="cust_name" placeholder="NAMA LENGKAP" class="w-full bg-zinc-100 brutal-border rounded-[20px] px-5 py-4 focus:ring-4 focus:ring-yellow-400 focus:bg-white outline-none text-sm font-black uppercase placeholder-zinc-400 transition-all mt-2" autocomplete="off">
+                <input type="tel" id="cust_phone" placeholder="WHATSAPP (08...)" class="w-full bg-zinc-100 brutal-border rounded-[20px] px-5 py-4 focus:ring-4 focus:ring-yellow-400 focus:bg-white outline-none text-sm font-black uppercase placeholder-zinc-400 transition-all" autocomplete="off">
+                
+                <button id="btn-submit" onclick="APP_LOGIC.submitBooking()" class="w-full bg-yellow-400 text-zinc-900 py-4 rounded-[20px] font-black uppercase tracking-widest mt-4 brutal-border brutal-shadow-sm active-brutal transition-all">EKSEKUSI SEKARANG!</button>
+                <button onclick="APP_LOGIC.closeModal()" class="w-full text-xs font-black text-zinc-400 uppercase tracking-widest py-4 active:scale-95 transition-all">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==============================================================
+        // 🤖 AREA CONFIG (AI INJECTION ZONE MULTI-TENANT)
+        // ==============================================================
+        const CONFIG = {
+            TENANT_ID: "YHB",
+            BRAND_NAME: "YELLOW HAIRCUT",
+            BRAND_INITIAL: "YELLOW",
+            LOGO_URL: "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png",
+            WEBHOOK_URL: 'https://n8n-mzbmiib3etk4.kangkung.sumopod.my.id/webhook/dbp-public',
+            AVAILABLE_HOURS: ["10:00", "11:00", "12:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00"],
+            
+            HIERARCHY: [
+                { label: "Master Barber", title: "MR" },
+                { label: "Senior", title: "SR" }
+            ],
+
+            BRANCHES_META: {
+                "YELLOW BANDA": { 
+                    imgs: [
+                        "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/PHOTO%20ASSETS%201.png",
+                        "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/PHOTO%20ASSETS%202.png",
+                        "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/PHOTO%20ASSETS%203.png",
+                        "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/PHOTO%20ASSETS%204.png"
+                    ], 
+                    rating: "4.9", 
+                    rev: "150+", 
+                    tags: "<span>Free Wi-Fi</span><span>Full AC</span>", 
+                    display_name: "BANDA ACEH" 
+                }
+            }
+        };
+
+        // ==============================================================
+        // 🧠 CORE ENGINE
+        // ==============================================================
+        const extractData = (item) => item.json ? item.json : item;
+        const delay = ms => new Promise(res => setTimeout(res, ms));
+
+        const APP_LOGIC = {
+            state: { branches: [], packages: [], staffs: [], selectedBranch: null, selectedStaff: null, selectedPackage: null, finalPrice: 0, selectedStaffName: null, selectedPackageName: null },
+
+            async init() {
+                document.getElementById('meta-title').innerText = `Booking | ${CONFIG.BRAND_NAME}`;
+                document.getElementById('meta-icon').href = CONFIG.LOGO_URL;
+                document.getElementById('splash-logo').src = CONFIG.LOGO_URL;
+                document.getElementById('nav-logo').src = CONFIG.LOGO_URL;
+                document.getElementById('splash-bg-pattern').innerText = Array(20).fill(CONFIG.BRAND_INITIAL).join(' ');
+                document.getElementById('hierarchy-title').innerText = `Hierarki Capster ${CONFIG.BRAND_INITIAL}`;
+                
+                document.getElementById('hierarchy-list').innerHTML = CONFIG.HIERARCHY.map(h => 
+                    `<li class="flex justify-between items-center border-b-2 border-zinc-800 pb-2"><span class="text-zinc-300">${h.label}</span><span class="font-black bg-white text-zinc-900 px-2 py-1.5 rounded-lg brutal-border text-[9px]">${h.title}</span></li>`
+                ).join('');
+
+                try {
+                    const fetchPromise = fetch(CONFIG.WEBHOOK_URL, {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({ 
+                            action: 'get_initial_data',
+                            tenant_id: CONFIG.TENANT_ID 
+                        })
+                    }).then(res => res.json());
+
+                    const [rawData] = await Promise.all([fetchPromise, delay(2000)]);
+                    const payload = Array.isArray(rawData) ? rawData[0] : rawData;
+                    
+                    this.state.branches = payload.branches ? (Array.isArray(payload.branches) ? payload.branches.map(extractData) : [extractData(payload.branches)]) : [];
+                    this.state.packages = payload.packages ? (Array.isArray(payload.packages) ? payload.packages.map(extractData) : [extractData(payload.packages)]) : [];
+                    
+                    document.getElementById('branch-list').classList.remove('hidden');
+                    this.renderBranches();
+                    
+                    const splash = document.getElementById('splash-screen');
+                    splash.classList.add('slide-out-up');
+                    setTimeout(() => splash.remove(), 700);
+                } catch (e) {
+                    document.getElementById('splash-screen').innerHTML = `<h1 class="text-white font-black text-3xl">GAGAL KONEKSI SERVER</h1>`;
+                }
+            },
+
+            renderBranches() {
+                const container = document.getElementById('branch-list');
+                if (this.state.branches.length === 0) return;
+
+                container.innerHTML = this.state.branches.map((b, index) => {
+                    const meta = CONFIG.BRANCHES_META[b.dpb_branches_name] || { imgs: [CONFIG.LOGO_URL], rating: "5.0", rev: "New", tags: "<span>Premium Service</span>", display_name: b.dpb_branches_name };
+                    const gmapsLink = b.gmaps || '#'; 
+
+                    // Array of images injected securely with crossfade animation support
+                    const imageElements = meta.imgs.map((imgUrl) => 
+                        `<img src="${imgUrl}" class="slide-img grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500">`
+                    ).join('');
+
+                    return `
+                    <div onclick="APP_LOGIC.selectBranch('${b.dpb_branches_name}', '${meta.display_name}')" class="group relative bg-white brutal-border rounded-[40px] brutal-shadow hover-brutal active-brutal transition-all cursor-pointer block animate-slide-up" style="animation-delay: ${index * 0.1}s">
+                        <div class="relative w-full h-72 border-b-4 border-zinc-900 overflow-hidden rounded-t-[36px]">
+                            ${imageElements}
+                            <div class="absolute top-5 right-5 bg-white brutal-border font-black text-sm px-3 py-1.5 brutal-shadow-sm flex items-center gap-1 rounded-xl z-20">⭐️ ${meta.rating} <span class="text-[9px] text-zinc-500 uppercase tracking-widest ml-1">(${meta.rev} Rev)</span></div>
+                            <div class="absolute top-5 left-5 bg-yellow-400 text-zinc-900 brutal-border font-black text-[10px] px-3 py-2 brutal-shadow-sm uppercase tracking-widest rounded-xl z-20">🔴 BUKA</div>
+                            <a href="${gmapsLink}" target="_blank" onclick="event.stopPropagation()" class="absolute bottom-5 right-5 bg-zinc-900 text-yellow-400 brutal-border font-black text-[10px] px-4 py-2 brutal-shadow-sm flex items-center gap-2 rounded-xl hover:bg-yellow-400 hover:text-zinc-900 transition-colors z-20">🗺️ RUTE MAPS</a>
+                        </div>
+                        <div class="p-6 relative z-20">
+                            <h3 class="font-black text-3xl text-zinc-900 uppercase tracking-tighter -mt-12 mb-4 bg-white inline-block brutal-border px-5 py-2 brutal-shadow-sm relative rounded-2xl">${meta.display_name}</h3>
+                            <div class="flex flex-wrap gap-2 text-[10px] font-black uppercase tracking-widest [&>span]:bg-zinc-100 [&>span]:brutal-border [&>span]:px-3 [&>span]:py-1.5 [&>span]:rounded-lg">${meta.tags}</div>
+                        </div>
+                    </div>`;
+                }).join('');
+            },
+
+            async selectBranch(dbName, displayName) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                this.state.selectedBranch = dbName;
+                document.getElementById('step-initial').classList.add('hidden');
+                document.getElementById('step-staff').classList.remove('hidden');
+                document.getElementById('selected-branch-text').innerText = displayName;
+                
+                document.getElementById('staff-list').innerHTML = `<div class="bg-yellow-400 brutal-border brutal-shadow rounded-[32px] p-8 text-center animate-strobe"><h2 class="font-black text-2xl text-zinc-900 tracking-tighter uppercase leading-none">Menyiapkan<br>Peralatan...</h2></div>`;
+
+                try {
+                    const res = await fetch(CONFIG.WEBHOOK_URL, {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({ 
+                            action: 'get_staff_list', 
+                            branch_name: dbName,
+                            tenant_id: CONFIG.TENANT_ID 
+                        })
+                    });
+                    
+                    const rawStaff = await res.json();
+                    this.state.staffs = (Array.isArray(rawStaff) ? rawStaff : [rawStaff]).map(extractData);
+                    this.renderStaff(this.state.staffs);
+                } catch (e) { console.error("Error Staff:", e); }
+            },
+
+            renderStaff(staffs) {
+                const container = document.getElementById('staff-list');
+                if (!staffs || staffs.length === 0 || !staffs[0].id) { container.innerHTML = `<p class="text-zinc-500 font-bold text-sm text-center py-4">Tidak ada capster tersedia.</p>`; return; }
+
+                container.innerHTML = staffs.map((s, index) => `
+                    <div class="bg-white brutal-border rounded-[36px] brutal-shadow p-6 relative animate-slide-up" style="animation-delay: ${index * 0.1}s">
+                        ${s.is_top_performance ? '<div class="absolute -top-4 -right-2 bg-yellow-500 text-zinc-900 brutal-border text-[10px] font-black px-5 py-2 rounded-xl brutal-shadow-sm uppercase tracking-widest transform rotate-3 z-10">🔥 Top Performance</div>' : ''}
+                        <div class="w-full h-64 mb-6"><img src="${s.photo_url || CONFIG.LOGO_URL}" class="w-full h-full rounded-[24px] object-cover object-top brutal-border"></div>
+                        <div class="mb-6 flex justify-between items-end">
+                            <div><h4 class="font-bold text-4xl text-zinc-900 tracking-tighter uppercase leading-none">${s.dbp_staff_name}</h4><p class="text-[10px] font-black text-zinc-900 bg-yellow-400 uppercase tracking-widest mt-2 inline-block px-3 py-1.5 rounded-lg brutal-border">${s.role}</p></div>
+                        </div>
+                        <div class="grid grid-cols-1 gap-3">
+                            ${(s.services || []).map(ser => `
+                                <button onclick="APP_LOGIC.prepareBooking('${s.id}', '${ser.id}', ${ser.price})" class="group flex justify-between items-center py-4 px-5 rounded-[20px] brutal-border bg-zinc-50 hover:bg-zinc-900 hover:text-white active-brutal transition-all text-left">
+                                    <span class="text-sm font-black uppercase tracking-wide group-hover:text-yellow-400">${ser.name}</span>
+                                    <span class="text-lg font-black text-zinc-900 group-hover:text-yellow-400">Rp ${Number(ser.price).toLocaleString('id-ID')}</span>
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>`).join('');
+            },
+
+            prepareBooking(staffId, packageId, price) {
+                this.state.selectedStaff = staffId; this.state.selectedPackage = packageId; this.state.finalPrice = price;
+                const staff = this.state.staffs.find(s => s.id == staffId);
+                const service = staff ? staff.services.find(sr => sr.id == packageId) : null;
+                this.state.selectedStaffName = staff ? staff.dbp_staff_name : staffId;
+                this.state.selectedPackageName = service ? service.name : packageId;
+                document.getElementById('display-price').innerText = `Rp ${price.toLocaleString('id-ID')}`;
+                document.getElementById('bottom-bar').classList.remove('hidden');
+            },
+
+            generateDates() {
+                const dates = []; const today = new Date(); const monthNames = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Ags", "Sep", "Okt", "Nov", "Des"]; const dayNames = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
+                for(let i=0; i<8; i++) {
+                    const d = new Date(today); d.setDate(d.getDate() + i);
+                    const day = d.getDate().toString().padStart(2, '0'); const month = monthNames[d.getMonth()]; const dayName = dayNames[d.getDay()]; const year = d.getFullYear();
+                    dates.push({ display: i === 0 ? "Hari Ini" : `${dayName}, ${day} ${month}`, value: `${year}-${(d.getMonth()+1).toString().padStart(2,'0')}-${day}` });
+                } return dates;
+            },
+
+            openBookingForm() { document.getElementById('booking_date').value = ''; document.getElementById('booking_time').value = ''; this.renderDateSlots(); this.renderTimeSlots(); document.getElementById('modal-book').classList.remove('hidden'); },
+            closeModal() { document.getElementById('modal-book').classList.add('hidden'); },
+
+            renderDateSlots() {
+                document.getElementById('date-slots').innerHTML = this.generateDates().map(d => `<button id="btn-date-${d.value}" onclick="APP_LOGIC.selectDate('${d.value}')" class="date-btn flex-shrink-0 bg-white brutal-border brutal-shadow-sm text-zinc-900 px-5 py-3 rounded-xl text-xs font-black hover-brutal transition-all active-brutal whitespace-nowrap">${d.display}</button>`).join('');
+            },
+
+            selectDate(dateValue) {
+                document.getElementById('booking_date').value = dateValue;
+                document.querySelectorAll('.date-btn').forEach(btn => { btn.classList.remove('bg-yellow-400', 'text-zinc-900'); btn.classList.add('bg-white', 'text-zinc-900'); });
+                const selectedBtn = document.getElementById(`btn-date-${dateValue}`); selectedBtn.classList.remove('bg-white'); selectedBtn.classList.add('bg-yellow-400', 'text-zinc-900');
+                document.getElementById('booking_time').value = ''; this.renderTimeSlots();
+            },
+
+            renderTimeSlots() {
+                const container = document.getElementById('time-slots'); const selectedDate = document.getElementById('booking_date').value;
+                if (!selectedDate) { container.innerHTML = `<div class="col-span-3 text-center py-4 text-xs font-bold text-zinc-400 uppercase tracking-widest border-2 border-dashed border-zinc-300 rounded-xl">Pilih Tanggal Dulu</div>`; return; }
+
+                const selectedStaffData = this.state.staffs.find(s => s.id == this.state.selectedStaff);
+                const bookedSlots = selectedStaffData ? (selectedStaffData.booked_slots || []) : [];
+
+                container.innerHTML = CONFIG.AVAILABLE_HOURS.map(h => {
+                    const isBooked = bookedSlots.some(slot => String(slot).includes(selectedDate) && String(slot).includes(h));
+                    if (isBooked) return `<div class="relative w-full"><button disabled class="w-full bg-zinc-200 brutal-border text-zinc-400 py-3 rounded-xl text-xs font-black opacity-60 cursor-not-allowed">${h}</button><div class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="bg-red-600 text-white font-black text-[9px] px-2 py-0.5 border-2 border-black transform -rotate-12 uppercase tracking-widest shadow-sm">ON DUTY</span></div></div>`;
+                    return `<button id="btn-time-${h.replace(':','')}" onclick="APP_LOGIC.selectTime('${h}')" class="time-btn w-full bg-white brutal-border brutal-shadow-sm text-zinc-900 py-3 rounded-xl text-xs font-black hover-brutal transition-all active-brutal">${h}</button>`;
+                }).join('');
+            },
+
+            selectTime(hour) {
+                document.getElementById('booking_time').value = hour;
+                document.querySelectorAll('.time-btn').forEach(btn => { btn.classList.remove('bg-yellow-400', 'text-zinc-900'); btn.classList.add('bg-white', 'text-zinc-900'); });
+                const selectedBtn = document.getElementById(`btn-time-${hour.replace(':','')}`); selectedBtn.classList.remove('bg-white'); selectedBtn.classList.add('bg-yellow-400', 'text-zinc-900');
+            },
+
+            async submitBooking() {
+                const name = document.getElementById('cust_name').value.trim(); const phone = document.getElementById('cust_phone').value.trim(); const tanggal = document.getElementById('booking_date').value; const jam = document.getElementById('booking_time').value;
+                if(!name || !phone || !tanggal || !jam) return alert('Lengkapi Jadwal dan Data Diri dulu, Bos.');
+
+                const btn = document.getElementById('btn-submit'); btn.innerText = "LOADING..."; btn.disabled = true;
+
+                try {
+                    const res = await fetch(CONFIG.WEBHOOK_URL, {
+                        method: 'POST', headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            action: 'submit_booking', cust_name: name, cust_phone: phone, tanggal: tanggal, jam: jam,
+                            branch_id: this.state.selectedBranch, capster_id: this.state.selectedStaff, package_id: this.state.selectedPackage, 
+                            price: this.state.finalPrice, caps_in_charge: this.state.selectedStaffName, package_name: this.state.selectedPackageName,
+                            tenant_id: CONFIG.TENANT_ID
+                        })
+                    });
+                    
+                    if(res.ok) {
+                        const branchMeta = CONFIG.BRANCHES_META[this.state.selectedBranch] || { display_name: this.state.selectedBranch };
+                        document.getElementById('receipt-branch').innerText = branchMeta.display_name;
+                        
+                        const selectedStaffData = this.state.staffs.find(s => s.id == this.state.selectedStaff);
+                        document.getElementById('receipt-capster').innerText = selectedStaffData ? selectedStaffData.dbp_staff_name : 'Capster';
+                        document.getElementById('receipt-time').innerText = `${tanggal} | ${jam}`;
+                        
+                        document.getElementById('modal-book').classList.add('hidden');
+                        const successScreen = document.getElementById('success-screen');
+                        successScreen.classList.remove('hidden'); successScreen.classList.add('flex', 'animate-slide-up');
+                    } else { throw new Error("Server error"); }
+                } catch (e) { alert('Gagal kirim data booking.'); btn.innerText = "EKSEKUSI SEKARANG!"; btn.disabled = false; }
+            },
+
+            resetToStep1() { window.scrollTo({ top: 0, behavior: 'smooth' }); document.getElementById('step-initial').classList.remove('hidden'); document.getElementById('step-staff').classList.add('hidden'); document.getElementById('bottom-bar').classList.add('hidden'); }
+        };
+
+        window.onload = () => APP_LOGIC.init();
+    </script>
+</body>
+</html>
