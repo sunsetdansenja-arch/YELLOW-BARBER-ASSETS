@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title id="meta-title">System Access</title>
+    <link id="meta-icon" rel="icon" type="image/png" href="">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #F5F5F7; color: #1D1D1F; -webkit-tap-highlight-color: transparent; overflow-x: hidden; }
+        .apple-shadow { box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04); }
+        .apple-shadow-lg { box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08); }
+        .apple-card { background: #FFFFFF; border: 1px solid #E5E5EA; border-radius: 20px; }
+        .glass-header { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid #E5E5EA; }
+        .btn-press:active { transform: scale(0.97); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #D1D1D6; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #999999; }
+        @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+        .animate-slide-up { animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .animate-pulse-dot { animation: pulse-dot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        .neo-shadow { box-shadow: 6px 6px 0px 0px rgba(0,0,0,1); }
+        .neo-shadow-sm { box-shadow: 4px 4px 0px 0px rgba(0,0,0,1); }
+        .neo-border { border: 4px solid #000000; }
+        .neo-border-sm { border: 3px solid #000000; }
+    </style>
+</head>
+<body class="h-screen w-screen overflow-hidden text-zinc-900">
+
+    <div id="view-login" class="h-full w-full flex flex-col items-center justify-center px-6 absolute inset-0 z-40 bg-white transition-all duration-700">
+        <div class="w-full max-w-sm flex flex-col items-center animate-slide-up">
+            <img id="logo-login" src="" class="h-16 w-auto mb-6 opacity-100" alt="Logo">
+            <h1 class="font-bold text-2xl tracking-tight mb-1 text-zinc-900">System Access</h1>
+            <p class="text-xs font-medium text-zinc-400 uppercase tracking-widest mb-8">Authorized Personnel Only</p>
+            <div class="w-full apple-card apple-shadow p-6 mb-8 text-center">
+                <input type="text" id="userInput" placeholder="STAFF ID" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false"
+                    class="w-full bg-zinc-50 text-zinc-900 font-bold uppercase text-center text-lg px-4 py-4 rounded-2xl outline-none border border-zinc-200 focus:border-zinc-400 focus:bg-white transition-all mb-6 placeholder-zinc-400">
+                <p class="text-[10px] font-bold text-zinc-400 mb-3 uppercase tracking-widest">PIN CODE</p>
+                <div id="pin-dots" class="flex justify-center gap-4">
+                    <div class="w-3 h-3 rounded-full bg-zinc-200 transition-all" id="dot-1"></div><div class="w-3 h-3 rounded-full bg-zinc-200 transition-all" id="dot-2"></div><div class="w-3 h-3 rounded-full bg-zinc-200 transition-all" id="dot-3"></div><div class="w-3 h-3 rounded-full bg-zinc-200 transition-all" id="dot-4"></div>
+                </div>
+                <p id="error-msg" class="text-red-500 font-bold text-xs mt-4 opacity-0 transition-opacity">Akses Ditolak</p>
+            </div>
+            <div class="grid grid-cols-3 gap-3 w-full px-4">
+                <script>for(let i=1; i<=9; i++) document.write(`<button onclick="LOGIN_SYSTEM.press('${i}')" class="btn-press bg-white border border-zinc-200 rounded-2xl h-14 text-xl font-medium text-zinc-700 shadow-sm transition-all hover:bg-zinc-50">${i}</button>`);</script>
+                <button onclick="LOGIN_SYSTEM.press('clear')" class="btn-press bg-white border border-zinc-200 rounded-2xl h-14 text-xs font-bold uppercase text-zinc-400 shadow-sm transition-all hover:bg-zinc-50">Del</button>
+                <button onclick="LOGIN_SYSTEM.press('0')" class="btn-press bg-white border border-zinc-200 rounded-2xl h-14 text-xl font-medium text-zinc-700 shadow-sm transition-all hover:bg-zinc-50">0</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="view-cashier" class="h-full w-full hidden flex-col absolute inset-0 z-30 bg-[#F5F5F7]">
+        <header class="glass-header p-4 flex justify-between items-center shrink-0 z-20">
+            <div class="flex items-center gap-4">
+                <img id="logo-cashier" src="" class="h-10 opacity-100">
+                <div><h1 class="font-bold tracking-tight text-lg leading-none text-zinc-900">Cashier Terminal</h1><p id="cashier-branch-name" class="text-[11px] font-semibold text-zinc-500 uppercase tracking-wide mt-1">LOADING...</p></div>
+            </div>
+            <div class="hidden md:flex bg-zinc-100 p-1 rounded-xl border border-zinc-200">
+                <button onclick="CASHIER_LOGIC.switchTab('queue')" id="tab-btn-queue" class="px-6 py-2 rounded-lg text-sm font-bold bg-white shadow-sm text-zinc-900 transition-all">Live Queue</button>
+                <button onclick="CASHIER_LOGIC.switchTab('report')" id="tab-btn-report" class="px-6 py-2 rounded-lg text-sm font-semibold text-zinc-500 hover:text-zinc-900 transition-all">Reports</button>
+            </div>
+            <div class="flex gap-4 items-center">
+                <div class="flex items-center gap-2 text-[10px] font-bold text-zinc-400 uppercase tracking-widest hidden sm:flex"><div id="sync-indicator" class="w-2 h-2 rounded-full bg-green-500 animate-pulse-dot"></div><span id="sync-text">Auto-Sync On</span></div>
+                <button onclick="CASHIER_LOGIC.loadData()" class="btn-press bg-white border border-zinc-200 text-zinc-700 p-2 rounded-xl shadow-sm hover:bg-zinc-50 flex items-center justify-center"><svg class="w-5 h-5" id="sync-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg></button>
+                <button onclick="LOGIN_SYSTEM.logout()" class="btn-press bg-zinc-900 text-white font-semibold text-xs px-4 py-2 rounded-xl shadow-md hover:bg-zinc-800 transition-all">Logout</button>
+            </div>
+        </header>
+
+        <main id="tab-queue" class="flex-1 overflow-hidden flex flex-col lg:flex-row p-4 gap-4 animate-slide-up">
+            <section class="flex-1 flex flex-col overflow-hidden gap-4">
+                <div class="grid grid-cols-3 gap-3 shrink-0">
+                    <div class="apple-card p-4 bg-white apple-shadow"><p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1">Omset (Hari Ini)</p><p id="sum-omset" class="font-bold text-xl text-blue-600">Rp 0</p></div>
+                    <div class="apple-card p-4 bg-white apple-shadow"><p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1">Pengeluaran (Hari Ini)</p><p id="sum-expense" class="font-bold text-xl text-red-600">Rp 0</p></div>
+                    <div class="apple-card p-4 bg-zinc-900 text-white apple-shadow border-none"><p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1">Gross Profit (Hari Ini)</p><p id="sum-profit" class="font-bold text-xl text-green-400">Rp 0</p></div>
+                </div>
+
+                <div class="flex-1 apple-card apple-shadow flex flex-col overflow-hidden">
+                    <div class="p-5 border-b border-zinc-100 flex justify-between items-center bg-white rounded-t-[20px]">
+                        <div><h2 class="font-bold text-xl tracking-tight text-zinc-800">Live Queue</h2><p class="text-[11px] font-semibold text-zinc-500 uppercase tracking-wide mt-0.5">Antrean 3 Hari Ke Depan</p></div>
+                    </div>
+                    <div id="queue-container" class="flex-1 overflow-y-auto p-5 space-y-6 bg-zinc-50/50">
+                        <div id="queue-loading" class="w-full bg-white border border-zinc-100 rounded-2xl p-6 animate-pulse flex justify-between items-center"><div class="space-y-3 w-1/2"><div class="h-5 bg-zinc-200 rounded w-3/4"></div><div class="h-3 bg-zinc-100 rounded w-1/2"></div></div></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="w-full lg:w-96 flex flex-col gap-4">
+                <button onclick="CASHIER_LOGIC.openExpenseModal()" class="btn-press w-full bg-zinc-900 text-white font-bold text-sm py-5 rounded-2xl shadow-md hover:bg-zinc-800 transition-all flex justify-center items-center gap-2 shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Catat Pengeluaran
+                </button>
+
+                <div class="flex-1 apple-card apple-shadow flex flex-col overflow-hidden">
+                    <div class="p-5 border-b border-zinc-100 bg-white rounded-t-[20px]"><h2 class="font-bold text-lg tracking-tight text-zinc-800">Petty Cash</h2><p class="text-[10px] font-semibold text-zinc-400 uppercase mt-1">Pengeluaran Hari Ini</p></div>
+                    <div id="expense-container" class="flex-1 overflow-y-auto p-4 space-y-3 bg-zinc-50/50">
+                        <div id="expense-loading" class="w-full bg-white border border-zinc-100 rounded-xl p-4 animate-pulse h-16"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <main id="tab-report" class="flex-1 overflow-hidden flex flex-col p-4 md:p-8 hidden animate-slide-up">
+            <div class="max-w-5xl w-full mx-auto flex flex-col h-full gap-6">
+                <div class="flex flex-col sm:flex-row justify-between items-end gap-4 bg-white p-5 rounded-2xl apple-shadow border border-zinc-200">
+                    <div>
+                        <label class="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2 block">Pilih Bulan Laporan</label>
+                        <input type="month" id="report-month" onchange="CASHIER_LOGIC.processReport()" class="bg-zinc-50 border border-zinc-200 text-zinc-800 font-semibold px-4 py-2 rounded-xl outline-none focus:border-zinc-400 transition-all">
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="CASHIER_LOGIC.exportCSV()" class="btn-press bg-green-50 text-green-700 border border-green-200 px-4 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-green-100 transition-all">Unduh CSV</button>
+                        <button onclick="CASHIER_LOGIC.exportPDF()" class="btn-press bg-zinc-900 text-white px-4 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 shadow-md hover:bg-zinc-800 transition-all">Cetak PDF</button>
+                    </div>
+                </div>
+
+                <div id="printable-report" class="flex-1 flex flex-col overflow-hidden bg-white rounded-2xl apple-shadow border border-zinc-200">
+                    <div class="p-6 border-b border-zinc-100 flex justify-between items-center bg-zinc-50 rounded-t-[20px]">
+                        <div><h2 class="font-bold text-xl text-zinc-900">Laporan Keuangan Kasir</h2><p id="report-branch-label" class="text-xs font-semibold text-zinc-500 mt-1">Cabang ...</p></div>
+                        <div class="text-right"><p id="report-month-label" class="font-bold text-lg text-zinc-800">Bulan ...</p></div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-6 border-b border-zinc-100">
+                        <div class="bg-zinc-50 p-4 rounded-xl border border-zinc-100">
+                            <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1">Total Transaksi</p>
+                            <p id="rep-total-trx" class="font-bold text-2xl text-zinc-900">0</p>
+                            <p class="text-[10px] font-semibold text-zinc-500 mt-2 border-t border-zinc-200 pt-2">AOV: <span id="rep-aov" class="text-zinc-800">Rp 0</span></p>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                            <p class="text-[10px] font-bold text-blue-500 uppercase tracking-wider mb-1">Gross Revenue</p>
+                            <p id="rep-total-revenue" class="font-bold text-2xl text-blue-700">Rp 0</p>
+                        </div>
+                        <div class="bg-red-50 p-4 rounded-xl border border-red-100">
+                            <p class="text-[10px] font-bold text-red-500 uppercase tracking-wider mb-1">Pengeluaran</p>
+                            <p id="rep-total-expense" class="font-bold text-2xl text-red-700">Rp 0</p>
+                        </div>
+                        <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
+                            <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1">Net Profit Bersih</p>
+                            <p id="rep-net-profit" class="font-bold text-2xl text-green-400">Rp 0</p>
+                            <p class="text-[9px] font-semibold text-zinc-500 mt-2 border-t border-zinc-700 pt-2">Telah dipotong komisi <span class="komisi-text"></span></p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-6 bg-zinc-50 border-b border-zinc-100">
+                        <div class="flex items-center gap-4 bg-white p-4 rounded-xl border border-zinc-200">
+                            <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-xl">🏆</div>
+                            <div><p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Capster Terlaris</p><p id="rep-top-capster" class="font-bold text-sm text-zinc-900 mt-0.5">-</p></div>
+                        </div>
+                        <div class="flex items-center gap-4 bg-white p-4 rounded-xl border border-zinc-200">
+                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-xl">✂️</div>
+                            <div><p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Layanan Terfavorit</p><p id="rep-top-package" class="font-bold text-sm text-zinc-900 mt-0.5">-</p></div>
+                        </div>
+                    </div>
+
+                    <div class="flex-1 overflow-y-auto p-0">
+                        <table class="w-full text-left border-collapse">
+                            <thead class="bg-white sticky top-0 border-b border-zinc-200 shadow-sm">
+                                <tr><th class="p-4 text-xs font-bold text-zinc-500 uppercase">Tanggal</th><th class="p-4 text-xs font-bold text-zinc-500 uppercase text-center">Jml Cukur</th><th class="p-4 text-xs font-bold text-zinc-500 uppercase text-right">Pemasukan</th><th class="p-4 text-xs font-bold text-zinc-500 uppercase text-right">Pengeluaran</th></tr>
+                            </thead>
+                            <tbody id="report-table-body" class="divide-y divide-zinc-100 text-sm">
+                                <tr><td colspan="4" class="p-8 text-center text-zinc-400">Pilih bulan dan tunggu data dimuat...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="view-management" class="h-full w-full hidden flex-col absolute inset-0 z-30 bg-[#F5F5F7] overflow-y-auto">
+        <header class="sticky top-0 z-40 glass-header px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-zinc-100 flex items-center justify-center shadow-sm"><img id="logo-mgt" src="" class="h-6"></div>
+                <div><h1 class="font-bold text-lg leading-none tracking-tight text-zinc-900">Executive Dashboard</h1><p id="mgt-greeting" class="text-xs font-medium text-zinc-500 mt-0.5">Welcome</p></div>
+            </div>
+            <div class="flex items-center gap-4">
+                <select id="mgt-branch-filter" onchange="MANAGEMENT_LOGIC.loadData()" class="bg-white border border-zinc-200 text-sm font-semibold px-4 py-2 rounded-xl outline-none focus:border-zinc-400 apple-shadow hidden md:block">
+                    </select>
+                <button onclick="MANAGEMENT_LOGIC.loadData()" class="btn-press bg-white border border-zinc-200 text-zinc-700 p-2 rounded-xl shadow-sm hover:bg-zinc-50 transition-all"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg></button>
+                <button onclick="LOGIN_SYSTEM.logout()" class="btn-press bg-zinc-900 text-white font-semibold text-xs px-5 py-2.5 rounded-xl shadow-md hover:bg-zinc-800 transition-all">Logout</button>
+            </div>
+        </header>
+        <main class="w-full max-w-6xl mx-auto p-6 space-y-6 animate-slide-up">
+            <div class="md:hidden">
+                <select id="mgt-branch-filter-mobile" onchange="MANAGEMENT_LOGIC.syncFilter(this.value)" class="w-full bg-white border border-zinc-200 text-sm font-semibold px-4 py-3 rounded-xl outline-none apple-shadow">
+                    </select>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="apple-card p-5 apple-shadow hover:shadow-lg transition-shadow"><div class="flex justify-between items-start mb-2"><p class="text-xs font-bold text-zinc-500 uppercase tracking-wider">Gross Revenue (Harian)</p><div class="p-1.5 bg-blue-50 text-blue-600 rounded-lg"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div></div><p id="mgt-gross" class="font-bold text-3xl text-zinc-900 tracking-tight">Rp 0</p></div>
+                <div class="apple-card p-5 apple-shadow hover:shadow-lg transition-shadow"><div class="flex justify-between items-start mb-2"><p class="text-xs font-bold text-zinc-500 uppercase tracking-wider">Komisi Capster (<span class="komisi-text"></span>)</p><div class="p-1.5 bg-orange-50 text-orange-600 rounded-lg"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg></div></div><p id="mgt-capster-share" class="font-bold text-2xl text-zinc-700 tracking-tight mt-1">Rp 0</p></div>
+                <div class="apple-card p-5 apple-shadow hover:shadow-lg transition-shadow"><div class="flex justify-between items-start mb-2"><p class="text-xs font-bold text-zinc-500 uppercase tracking-wider">Total Pengeluaran</p><div class="p-1.5 bg-red-50 text-red-600 rounded-lg"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path></svg></div></div><p id="mgt-expenses" class="font-bold text-2xl text-red-600 tracking-tight mt-1">Rp 0</p></div>
+                <div class="apple-card p-5 apple-shadow bg-zinc-900 border-none hover:shadow-xl transition-shadow text-white"><div class="flex justify-between items-start mb-2"><p class="text-xs font-bold text-zinc-400 uppercase tracking-wider">Net Profit (<span class="net-text"></span> - Exp)</p><div class="p-1.5 bg-green-500/20 text-green-400 rounded-lg"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012-2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg></div></div><p id="mgt-net-profit" class="font-bold text-3xl text-green-400 tracking-tight">Rp 0</p></div>
+            </div>
+            <div class="apple-card overflow-hidden apple-shadow mt-6">
+                <div class="p-5 border-b border-zinc-100 bg-zinc-50 flex justify-between items-center rounded-t-[24px]"><div><h2 class="font-bold text-xl tracking-tight text-zinc-900">Capster Leaderboard</h2><p class="text-[11px] font-medium text-zinc-500 mt-1">Peringkat kontribusi revenue hari ini</p></div></div>
+                <div class="p-0"><table class="w-full text-left"><thead class="bg-white border-b border-zinc-100"><tr><th class="py-4 px-6 text-xs font-bold text-zinc-400 uppercase tracking-wider w-16 text-center">Rank</th><th class="py-4 px-6 text-xs font-bold text-zinc-400 uppercase tracking-wider">Nama Barber</th><th class="py-4 px-6 text-xs font-bold text-zinc-400 uppercase tracking-wider text-right">Revenue Generated</th></tr></thead><tbody id="mgt-leaderboard" class="divide-y divide-zinc-100 bg-white"></tbody></table></div>
+            </div>
+        </main>
+    </div>
+
+    <div id="view-capster" class="h-full w-full hidden flex-col absolute inset-0 z-30 bg-[#F5F5F7] overflow-y-auto pb-10">
+        <header class="glass-header px-6 py-4 flex justify-between items-center sticky top-0 z-40">
+            <div>
+                <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Dompet Digital</p>
+                <p class="font-bold text-sm text-zinc-900 mt-0.5">Barber Dashboard</p>
+            </div>
+            <button onclick="LOGIN_SYSTEM.logout()" class="btn-press bg-white border border-zinc-200 text-zinc-700 p-2.5 rounded-xl shadow-sm hover:bg-zinc-50 transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+            </button>
+        </header>
+
+        <main class="w-full max-w-md mx-auto p-5 space-y-6 animate-slide-up">
+            <div class="flex flex-col items-center justify-center pt-2 pb-4">
+                <div class="w-full aspect-[4/5] max-h-[380px] rounded-[24px] border-4 border-black neo-shadow bg-zinc-100 mb-6 overflow-hidden">
+                    <img id="capster-photo-large" src="" onerror="" class="w-full h-full object-cover object-center">
+                </div>
+                <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">WELCOME TO <span id="capster-sys-name">SYSTEM</span></p>
+                <h2 id="capster-name-welcome" class="font-black text-2xl text-zinc-900 tracking-tight mt-1 uppercase text-center leading-none">...</h2>
+            </div>
+
+            <div class="bg-zinc-900 text-white rounded-[24px] p-6 neo-shadow relative overflow-hidden neo-border">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
+                <div class="relative z-10">
+                    <div class="flex justify-between items-start mb-1">
+                        <p class="text-xs font-semibold text-zinc-400 uppercase tracking-widest">Komisi Bulan Ini (<span class="komisi-text"></span>)</p>
+                        <span class="bg-green-500 text-zinc-900 text-[10px] font-black px-2 py-1 rounded-md uppercase tracking-wider shadow-sm">Rank #<span id="capster-rank">-</span></span>
+                    </div>
+                    <h2 id="capster-balance-month" class="font-black text-4xl tracking-tighter">Rp 0</h2>
+                    <p class="text-[11px] font-medium text-zinc-400 mt-1">Hari ini: <span id="capster-balance-today" class="text-green-400 font-bold">Rp 0</span></p>
+                    
+                    <div class="mt-6 pt-4 border-t border-zinc-800 grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-[10px] font-semibold text-zinc-500 uppercase tracking-widest">Spesialis</p>
+                            <p id="capster-specialist" class="font-bold text-xs text-zinc-300 mt-0.5 truncate">-</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[10px] font-semibold text-zinc-500 uppercase tracking-widest">Tamu (Bulan Ini)</p>
+                            <p id="capster-total-cukur" class="font-bold text-xs text-zinc-300 mt-0.5">0 Orang</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-3 px-1">JADWAL HARI INI (VISUAL)</h3>
+                <div id="capster-schedule-grid" class="grid grid-cols-3 gap-4"></div>
+            </div>
+
+            <div>
+                <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-3 px-1">Pelanggan Berikutnya</h3>
+                <div id="capster-next-guest"></div>
+            </div>
+
+            <div>
+                <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-3 px-1">Riwayat Transparansi (Hari Ini)</h3>
+                <div id="capster-history" class="space-y-3"></div>
+            </div>
+        </main>
+    </div>
+
+    <div id="modal-expense" class="fixed inset-0 z-50 bg-zinc-900/40 backdrop-blur-sm hidden flex-col items-center justify-center p-4 transition-all">
+        <div class="bg-white w-full max-w-sm rounded-[24px] p-6 shadow-2xl animate-slide-up border border-zinc-100">
+            <h2 class="font-bold text-xl mb-6 text-zinc-900">Input Pengeluaran</h2>
+            <div class="space-y-4">
+                <div><label class="text-xs font-bold text-zinc-500 mb-1 block uppercase tracking-wider">Kategori</label><select id="exp-kategori" class="w-full bg-zinc-50 text-zinc-900 font-semibold text-sm px-4 py-3 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400"><option value="OPERASIONAL">Operasional</option><option value="KONSUMSI">Konsumsi</option><option value="MAINTENANCE">Maintenance</option><option value="LAINNYA">Lainnya</option></select></div>
+                <div><label class="text-xs font-bold text-zinc-500 mb-1 block uppercase tracking-wider">Deskripsi Item</label><input type="text" id="exp-deskripsi" placeholder="Contoh: Beli Silet" class="w-full bg-zinc-50 text-zinc-900 font-semibold text-sm px-4 py-3 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400 placeholder-zinc-400"></div>
+                <div><label class="text-xs font-bold text-zinc-500 mb-1 block uppercase tracking-wider">Nominal (Rp)</label><input type="number" id="exp-nominal" placeholder="0" class="w-full bg-zinc-50 text-zinc-900 font-bold text-xl px-4 py-3 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400 placeholder-zinc-400"></div>
+                <div class="flex gap-3 pt-4"><button onclick="CASHIER_LOGIC.closeExpenseModal()" class="btn-press flex-1 bg-zinc-100 text-zinc-600 py-3.5 rounded-xl font-bold text-sm hover:bg-zinc-200 transition-all">Batal</button><button id="btn-submit-exp" onclick="CASHIER_LOGIC.submitExpense()" class="btn-press flex-1 bg-zinc-900 text-white py-3.5 rounded-xl font-bold text-sm shadow-md hover:bg-zinc-800 transition-all">Simpan</button></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-cancel" class="fixed inset-0 z-50 bg-zinc-900/40 backdrop-blur-sm hidden flex-col items-center justify-center p-4 transition-all">
+        <div class="bg-white w-full max-w-sm rounded-[24px] p-6 shadow-2xl animate-slide-up border border-red-100">
+            <div class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center mb-4"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div>
+            <h2 class="font-bold text-xl text-zinc-900 mb-2 tracking-tight">Batalkan Booking?</h2><p class="text-sm text-zinc-500 mb-6 leading-relaxed">Jadwal ini akan dihapus dari antrean. Ketik <span class="font-black text-red-600">YAKIN</span> untuk melanjutkan.</p>
+            <input type="text" id="cancel-confirm-text" placeholder="Ketik YAKIN" class="w-full bg-zinc-50 text-center text-red-600 font-black tracking-widest text-lg px-4 py-3 rounded-xl outline-none border border-red-200 focus:border-red-400 mb-4">
+            <div class="flex gap-3"><button onclick="CASHIER_LOGIC.closeCancelModal()" class="btn-press flex-1 bg-zinc-100 text-zinc-600 py-3.5 rounded-xl font-bold text-sm hover:bg-zinc-200 transition-all">Kembali</button><button id="btn-submit-cancel" onclick="CASHIER_LOGIC.processCancel()" class="btn-press flex-1 bg-red-600 text-white py-3.5 rounded-xl font-bold text-sm shadow-md hover:bg-red-700 transition-all opacity-50 cursor-not-allowed" disabled>Batalkan</button></div>
+        </div>
+    </div>
+
+    <div id="loading-overlay" class="fixed inset-0 bg-white/80 backdrop-blur-sm hidden flex-col items-center justify-center z-[100] transition-all"><div class="w-10 h-10 border-4 border-zinc-200 border-t-zinc-900 rounded-full animate-spin mb-4"></div><h2 id="loading-text" class="font-bold text-zinc-800 tracking-wide text-sm uppercase">Memproses...</h2></div>
+
+    <script>
+        // ==============================================================
+        // 🤖 AREA CONFIG (AI INJECTION ZONE MULTI-TENANT)
+        // Gemini hanya perlu merubah Object ini sesuai prompt Abang.
+        // ==============================================================
+        const CONFIG = {
+            TENANT_ID: "YHB", // <--- KUNCI MULTI-TENANT
+            BRAND_NAME: "Yellow Haircut",
+            SYSTEM_NAME: "YHB", // Singkatan untuk text UI
+            LOGO_URL: "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png",
+            WEBHOOK_URL: 'https://n8n-mzbmiib3etk4.kangkung.sumopod.my.id/webhook/a6512d05-a51a-4289-9063-9a4f17ac745a',
+            COMMISSION_RATE: 0.40, // 40% Komisi Capster
+            
+            // Data Cabang (Wajib sama persis dengan yang ada di Database n8n)
+            BRANCHES: [
+                { db_name: "YELLOW BANDA", display_name: "Banda Aceh" }
+            ]
+        };
+
+        // ==============================================================
+        // 🧠 CORE ENGINE LOGIC (JANGAN DIUBAH AI)
+        // ==============================================================
+        const STATE = { user: null, cancelTargetId: null, syncInterval: null, rawReportData: null, sysDates: null };
+
+        const UTIL = {
+            formatRp: (num) => 'Rp ' + Number(num || 0).toLocaleString('id-ID'),
+            cleanDate: (dateStr) => String(dateStr || "").substring(0, 10),
+            formatDateId: (dateStr) => { if(!dateStr) return "-"; return new Date(dateStr).toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'short' }); },
+            formatWA: (phone) => { 
+                if (!phone) return ""; let p = String(phone).replace(/\D/g, ''); 
+                if (p.startsWith('0')) return '62' + p.substring(1); 
+                if (p.startsWith('8')) return '62' + p; return p;
+            },
+            toTitleCase: (str) => str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()),
+            showLoading: (t) => { document.getElementById('loading-text').innerText = t || "MEMPROSES..."; document.getElementById('loading-overlay').classList.replace('hidden', 'flex'); },
+            hideLoading: () => document.getElementById('loading-overlay').classList.replace('flex', 'hidden')
+        };
+
+        const APP_INIT = {
+            run() {
+                // Inject UI Modular based on CONFIG
+                document.getElementById('meta-title').innerText = `${CONFIG.SYSTEM_NAME} | System Access`;
+                document.getElementById('meta-icon').href = CONFIG.LOGO_URL;
+                document.getElementById('logo-login').src = CONFIG.LOGO_URL;
+                document.getElementById('logo-cashier').src = CONFIG.LOGO_URL;
+                document.getElementById('logo-mgt').src = CONFIG.LOGO_URL;
+                document.getElementById('capster-sys-name').innerText = CONFIG.SYSTEM_NAME;
+                document.getElementById('capster-photo-large').setAttribute('onerror', `this.src='${CONFIG.LOGO_URL}'`);
+                
+                // Inject Persentase
+                document.querySelectorAll('.komisi-text').forEach(el => el.innerText = `${CONFIG.COMMISSION_RATE * 100}%`);
+                document.querySelectorAll('.net-text').forEach(el => el.innerText = `${(1 - CONFIG.COMMISSION_RATE) * 100}%`);
+
+                // Generate Management Branch Filters
+                const mgtFilters = `<option value="ALL">Semua Cabang</option>` + CONFIG.BRANCHES.map(b => `<option value="${b.db_name}">${b.display_name}</option>`).join('');
+                document.getElementById('mgt-branch-filter').innerHTML = mgtFilters;
+                document.getElementById('mgt-branch-filter-mobile').innerHTML = mgtFilters;
+
+                LOGIN_SYSTEM.init();
+            }
+        };
+
+        const LOGIN_SYSTEM = {
+            pin: "",
+            init() {
+                const savedUser = localStorage.getItem('dbp_user');
+                if (savedUser) { STATE.user = JSON.parse(savedUser); this.routeUser(); }
+                document.getElementById('userInput').addEventListener('input', function() { this.value = this.value.toUpperCase(); });
+            },
+            routeUser() {
+                if (!STATE.user) return;
+                document.getElementById('view-login').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('view-login').classList.add('hidden');
+                    const role = String(STATE.user.role || "").toUpperCase().trim();
+
+                    if (/CASHIER/i.test(role)) {
+                        document.getElementById('view-cashier').classList.remove('hidden'); document.getElementById('view-cashier').classList.add('flex'); CASHIER_LOGIC.init();
+                    } else if (/MANAGEMENT|OWNER/i.test(role)) {
+                        document.getElementById('view-management').classList.remove('hidden'); document.getElementById('view-management').classList.add('flex'); MANAGEMENT_LOGIC.init();
+                    } else if (/CAPSTER|BARBER/i.test(role)) {
+                        document.getElementById('view-capster').classList.remove('hidden'); document.getElementById('view-capster').classList.add('flex'); CAPSTER_LOGIC.init();
+                    } else {
+                        alert(`DASHBOARD UNTUK JABATAN "${STATE.user.role}" BELUM TERSEDIA.`); document.getElementById('view-login').style.opacity = '1'; document.getElementById('view-login').classList.remove('hidden');
+                    }
+                }, 400);
+            },
+            press(val) {
+                document.getElementById('error-msg').style.opacity = '0';
+                if (val === 'clear') this.pin = this.pin.slice(0, -1); else if (this.pin.length < 4) this.pin += val;
+                this.updateDots(); if (this.pin.length === 4) setTimeout(() => this.submit(), 200);
+            },
+            updateDots() {
+                for (let i = 1; i <= 4; i++) {
+                    const dot = document.getElementById(`dot-${i}`);
+                    if (i <= this.pin.length) { dot.classList.add('bg-zinc-800'); dot.classList.remove('bg-zinc-200'); } 
+                    else { dot.classList.remove('bg-zinc-800'); dot.classList.add('bg-zinc-200'); }
+                }
+            },
+            async submit() {
+                const u = document.getElementById('userInput').value.trim(); if (!u) return this.triggerError("ISI STAFF ID");
+                UTIL.showLoading("Verifikasi...");
+                try {
+                    const res = await fetch(CONFIG.WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ action: 'login', username: u, password: this.pin, tenant_id: CONFIG.TENANT_ID }) });
+                    const data = await res.json(); const ok = data.success || (data[0] && data[0].success);
+                    if (ok) { STATE.user = data.user || data[0].user; localStorage.setItem('dbp_user', JSON.stringify(STATE.user)); this.routeUser(); } else throw new Error();
+                } catch (e) { this.triggerError("AKSES DITOLAK"); } finally { UTIL.hideLoading(); this.pin = ""; this.updateDots(); document.getElementById('userInput').value = ""; }
+            },
+            triggerError(msg) { this.pin = ""; this.updateDots(); document.getElementById('error-msg').innerText = msg; document.getElementById('error-msg').style.opacity = '1'; },
+            logout() { localStorage.removeItem('dbp_user'); location.reload(); }
+        };
+
+        const CASHIER_LOGIC = {
+            init() {
+                // Tampilkan nama cabang singkat di Header Kasir
+                const branchObj = CONFIG.BRANCHES.find(b => b.db_name === STATE.user.branch);
+                const displayBranch = branchObj ? branchObj.display_name : STATE.user.branch;
+                document.getElementById('cashier-branch-name').innerText = `Cabang ${displayBranch}`; 
+                document.getElementById('report-branch-label').innerText = `Cabang ${displayBranch}`;
+                
+                const now = new Date(); document.getElementById('report-month').value = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+                this.loadData(); STATE.syncInterval = setInterval(() => this.loadData(true), 120000);
+                document.getElementById('cancel-confirm-text').addEventListener('input', function() {
+                    const btn = document.getElementById('btn-submit-cancel');
+                    if(this.value === 'YAKIN') { btn.disabled = false; btn.classList.remove('opacity-50', 'cursor-not-allowed'); } else { btn.disabled = true; btn.classList.add('opacity-50', 'cursor-not-allowed'); }
+                });
+            },
+            switchTab(tab) {
+                document.getElementById('tab-queue').classList.add('hidden'); document.getElementById('tab-report').classList.add('hidden');
+                document.getElementById('tab-btn-queue').className = "px-6 py-2 rounded-lg text-sm font-semibold text-zinc-500 hover:text-zinc-900 transition-all";
+                document.getElementById('tab-btn-report').className = "px-6 py-2 rounded-lg text-sm font-semibold text-zinc-500 hover:text-zinc-900 transition-all";
+                document.getElementById(`tab-${tab}`).classList.remove('hidden'); document.getElementById(`tab-btn-${tab}`).className = "px-6 py-2 rounded-lg text-sm font-bold bg-white shadow-sm text-zinc-900 transition-all";
+                if(tab === 'report') this.processReport();
+            },
+            
+            async loadData(silent = false) {
+                const sText = document.getElementById('sync-text'); const sIcon = document.getElementById('sync-icon');
+                if(sText) sText.innerText = "Syncing..."; if(sIcon) sIcon.classList.add('animate-spin');
+                if(!silent) { document.getElementById('queue-loading').style.display = 'flex'; document.getElementById('expense-loading').style.display = 'block'; }
+                try {
+                    const res = await fetch(CONFIG.WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ action: 'get_cashier_data', branch: STATE.user.branch, tenant_id: CONFIG.TENANT_ID }) });
+                    const data = await res.json(); const payload = data[0] || data;
+                    if (payload.success) { 
+                        STATE.sysDates = payload.sys_dates; 
+                        this.renderQueue(payload.queue || []); 
+                        this.renderExpenses(payload.expenses || []); 
+                        this.updateSummary(payload.queue, payload.expenses); 
+                    }
+                    await this.loadReportData();
+                    if(!document.getElementById('tab-report').classList.contains('hidden')) this.processReport();
+                } catch (e) {} finally {
+                    if(sText) sText.innerText = "Auto-Sync On"; if(sIcon) sIcon.classList.remove('animate-spin');
+                    document.getElementById('queue-loading').style.display = 'none'; document.getElementById('expense-loading').style.display = 'none';
+                }
+            },
+
+            updateSummary(queue, expenses) {
+                let omset = 0; let exp = 0;
+                queue.forEach(q => { if((q.status === 'DONE' || q.status === 'SUCCESS') && UTIL.cleanDate(q.tanggal) === STATE.sysDates.today) omset += (Number(q.price)||0); });
+                expenses.forEach(e => { if(UTIL.cleanDate(e.tanggal) === STATE.sysDates.today) exp += (Number(e.nominal)||0); });
+                document.getElementById('sum-omset').innerText = UTIL.formatRp(omset); document.getElementById('sum-expense').innerText = UTIL.formatRp(exp); document.getElementById('sum-profit').innerText = UTIL.formatRp(omset - exp);
+            },
+            renderQueue(data) {
+                const container = document.getElementById('queue-container'); Array.from(container.children).forEach(c => { if(c.id !== 'queue-loading') c.remove(); });
+                const byDate = { today: [], tomorrow: [], lusa: [] };
+                data.forEach(d => { const dt = UTIL.cleanDate(d.tanggal); if(dt === STATE.sysDates.today) byDate.today.push(d); else if(dt === STATE.sysDates.tomorrow) byDate.tomorrow.push(d); else if(dt === STATE.sysDates.lusa) byDate.lusa.push(d); });
+
+                const buildHtml = (title, items, isFuture, dateRaw) => {
+                    if(items.length === 0) return ''; items.sort((a,b) => a.jam.localeCompare(b.jam));
+                    let html = `<div class="mb-6"><h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-3 pb-1 border-b border-zinc-200">${title}</h3><div class="space-y-3">`;
+                    items.forEach(item => {
+                        const isDone = item.status === 'DONE' || item.status === 'SUCCESS'; const isPending = item.status === 'PENDING';
+                        const cName = item.caps_in_charge || item.capster_id || 'Barber'; const pName = item.package_name || item.package_id || 'Paket'; const waPhone = UTIL.formatWA(item.cust_phone);
+                        let sBadge = isDone ? `<span class="text-[9px] font-bold uppercase px-2 py-1 rounded bg-zinc-200 text-zinc-500">✓ Selesai</span>` : (isPending ? `<span class="text-[9px] font-bold uppercase px-2 py-1 rounded bg-zinc-100 text-zinc-500">Pending</span>` : `<span class="text-[9px] font-bold uppercase px-2 py-1 rounded bg-blue-100 text-blue-700">On Duty</span>`);
+                        let aBtns = '';
+                        
+                        if (!isDone) {
+                            const cBtn = `<button onclick="CASHIER_LOGIC.openCancelModal('${item.id}')" class="btn-press bg-white border border-red-200 text-red-600 px-3 py-2 rounded-lg text-[11px] font-bold hover:bg-red-50 transition-all">Cancel</button>`;
+                            let waBtn = '';
+                            if (isPending && waPhone) {
+                                let dayText = "hari ini"; if(dateRaw === STATE.sysDates.tomorrow) dayText="besok"; else if(dateRaw === STATE.sysDates.lusa) dayText="lusa";
+                                
+                                // Modular WA Message Formatting
+                                const branchObj = CONFIG.BRANCHES.find(b => b.db_name === STATE.user.branch);
+                                const bName = branchObj ? branchObj.display_name : STATE.user.branch;
+                                const wTxt = `Halo kak, kami dari ${CONFIG.BRAND_NAME} Cabang ${bName} ingin mengkonfirmasi bookingan nya untuk ${dayText} di jam ${item.jam} dengan barber ${cName} apakah jadi datang kak?\n\nApabila ada pembatalan atau penjadwalan ulang, bisa kita bantu dengan membalas pesan ini.\n\nFYI, untuk keterlambatan kami bisa tunggu maksimal sampai 5 menit ya, kak 🙏🏻 Terima kasih sebelumnya`;
+                                
+                                waBtn = `<a href="https://wa.me/${waPhone}?text=${encodeURIComponent(wTxt)}" target="_blank" class="btn-press bg-green-50 border border-green-200 text-green-600 px-3 py-2 rounded-lg text-[11px] font-bold hover:bg-green-100 flex items-center gap-1 transition-all">WA</a>`;
+                            }
+                            let pBtn = '';
+                            if(!isFuture) { pBtn = isPending ? `<button onclick="CASHIER_LOGIC.updateStatus('${item.id}', 'ON DUTY')" class="btn-press bg-blue-600 text-white px-4 py-2 rounded-lg text-[11px] font-bold shadow-sm hover:bg-blue-700 transition-all">Mulai</button>` : `<button onclick="CASHIER_LOGIC.updateStatus('${item.id}', 'DONE')" class="btn-press bg-zinc-900 text-white px-4 py-2 rounded-lg text-[11px] font-bold shadow-sm hover:bg-zinc-800 transition-all">Selesai</button>`; 
+                            } else { pBtn = `<button disabled class="bg-transparent border border-transparent text-zinc-400 px-3 py-2 rounded-lg text-[11px] font-medium italic cursor-not-allowed">Locked</button>`; }
+                            aBtns = `<div class="flex items-center gap-2 mt-3 sm:mt-0">${waBtn}${cBtn}${pBtn}</div>`;
+                        }
+                        
+                        html += `<div class="${isDone ? 'bg-zinc-50 border-zinc-100 opacity-60' : 'bg-white border-zinc-200 apple-shadow'} border rounded-[16px] p-4 flex flex-col sm:flex-row justify-between sm:items-center transition-all">
+                            <div><div class="flex items-center gap-3 mb-1"><span class="text-base font-bold text-zinc-900">${item.jam}</span>${sBadge}</div><h3 class="font-bold text-[15px] text-zinc-800 leading-none mb-1.5">${item.cust_name || 'Walk-In'}</h3><p class="text-[11px] font-semibold text-zinc-500">Barber: <span class="text-zinc-800">${cName}</span> &bull; Paket: <span class="text-zinc-800">${pName}</span> &bull; ${UTIL.formatRp(item.price)}</p></div>${aBtns}</div>`;
+                    });
+                    return html + `</div></div>`;
+                };
+                
+                let finalHtml = buildHtml("HARI INI", byDate.today, false, STATE.sysDates.today) + buildHtml(`BESOK (${UTIL.formatDateId(STATE.sysDates.tomorrow)})`, byDate.tomorrow, true, STATE.sysDates.tomorrow) + buildHtml(`LUSA (${UTIL.formatDateId(STATE.sysDates.lusa)})`, byDate.lusa, true, STATE.sysDates.lusa);
+                if(!finalHtml) finalHtml = `<div class="text-center py-10 text-zinc-400 font-bold text-sm">Belum ada antrean.</div>`;
+                container.insertAdjacentHTML('beforeend', finalHtml);
+            },
+            renderExpenses(data) {
+                const container = document.getElementById('expense-container'); Array.from(container.children).forEach(c => { if(c.id !== 'expense-loading') c.remove(); });
+                if (data.length === 0) container.insertAdjacentHTML('beforeend', `<div class="text-center py-6 text-zinc-400 font-semibold text-xs">Belum ada pengeluaran.</div>`);
+                else data.forEach(item => { container.insertAdjacentHTML('beforeend', `<div class="bg-white border border-zinc-100 rounded-xl p-3.5 flex justify-between items-center shadow-sm"><div><p class="font-bold text-zinc-800 text-sm">${item.deskripsi}</p><p class="text-[10px] font-semibold text-zinc-400 uppercase mt-0.5">${item.kategori}</p></div><span class="font-bold text-red-500 text-sm">- ${UTIL.formatRp(item.nominal)}</span></div>`); });
+            },
+            async updateStatus(id, newStatus) { UTIL.showLoading("Update..."); try { await fetch(CONFIG.WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ action: 'update_status', id: Number(id), status: newStatus, tenant_id: CONFIG.TENANT_ID }) }); await this.loadData(true); } catch (e) { alert("Gagal Update"); } finally { UTIL.hideLoading(); } },
+            openCancelModal(id) { STATE.cancelTargetId = id; document.getElementById('cancel-confirm-text').value = ''; document.getElementById('btn-submit-cancel').disabled = true; document.getElementById('btn-submit-cancel').classList.add('opacity-50', 'cursor-not-allowed'); document.getElementById('modal-cancel').classList.replace('hidden', 'flex'); },
+            closeCancelModal() { STATE.cancelTargetId = null; document.getElementById('modal-cancel').classList.replace('flex', 'hidden'); },
+            async processCancel() { if(!STATE.cancelTargetId) return; this.closeCancelModal(); UTIL.showLoading("Membatalkan..."); try { await fetch(CONFIG.WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ action: 'cancel_book', id: Number(STATE.cancelTargetId), tenant_id: CONFIG.TENANT_ID }) }); await this.loadData(true); } catch (e) { alert("Gagal Cancel"); } finally { UTIL.hideLoading(); } },
+            openExpenseModal() { document.getElementById('exp-deskripsi').value = ''; document.getElementById('exp-nominal').value = ''; document.getElementById('modal-expense').classList.replace('hidden', 'flex'); },
+            closeExpenseModal() { document.getElementById('modal-expense').classList.replace('flex', 'hidden'); },
+            async submitExpense() { const desc = document.getElementById('exp-deskripsi').value.trim(); const nom = document.getElementById('exp-nominal').value; if(!desc || !nom) return alert("Isi form lengkap!"); this.closeExpenseModal(); UTIL.showLoading("Menyimpan..."); try { await fetch(CONFIG.WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ action: 'add_expense', tanggal: STATE.sysDates.today, branch: STATE.user.branch, cashier_id: STATE.user.staff_id, kategori: document.getElementById('exp-kategori').value, deskripsi: desc, nominal: Number(nom), tenant_id: CONFIG.TENANT_ID }) }); await this.loadData(true); } catch (e) { alert("Gagal Simpan"); } finally { UTIL.hideLoading(); } },
+
+            async loadReportData() { 
+                try { 
+                    const res = await fetch(CONFIG.WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ action: 'get_cashier_report', branch: STATE.user.branch, tenant_id: CONFIG.TENANT_ID }) }); 
+                    const data = await res.json(); 
+                    if(data.success || data[0]?.success) STATE.rawReportData = data.bookings ? data : data[0]; 
+                } catch(e){} 
+            },
+            
+            processReport() {
+                if(!STATE.rawReportData) return; 
+                const month = document.getElementById('report-month').value; if(!month) return;
+                document.getElementById('report-month-label').innerText = "Bulan: " + month;
+                
+                const dailyStats = {}; let grandRev = 0; let grandExp = 0;
+                let capsterStats = {}; let packageStats = {};
+
+                STATE.rawReportData.bookings.filter(b => UTIL.cleanDate(b.tanggal).startsWith(month)).forEach(b => { 
+                    const d = UTIL.cleanDate(b.tanggal); const v = Number(b.price)||0; 
+                    const cName = b.caps_in_charge || b.capster_id || 'Unknown';
+                    const pName = b.package_name || b.package_id || 'Unknown';
+                    if(!dailyStats[d]) dailyStats[d]={c:0,r:0,e:0}; 
+                    dailyStats[d].c++; dailyStats[d].r+=v; grandRev+=v; 
+                    capsterStats[cName] = (capsterStats[cName] || 0) + v;
+                    packageStats[pName] = (packageStats[pName] || 0) + 1;
+                });
+
+                STATE.rawReportData.expenses.filter(e => UTIL.cleanDate(e.tanggal).startsWith(month)).forEach(e => { 
+                    const d = UTIL.cleanDate(e.tanggal); const v = Number(e.nominal)||0; 
+                    if(!dailyStats[d]) dailyStats[d]={c:0,r:0,e:0}; 
+                    dailyStats[d].e+=v; grandExp+=v; 
+                });
+
+                const totalTrx = Object.values(dailyStats).reduce((sum, item) => sum + item.c, 0);
+                const aov = totalTrx > 0 ? (grandRev / totalTrx) : 0;
+                
+                // Hitung Net Profit Pakai Dynamic Rate dari CONFIG
+                const capsterShare = grandRev * CONFIG.COMMISSION_RATE;
+                const netProfit = grandRev - grandExp - capsterShare; 
+                
+                const topCapster = Object.entries(capsterStats).sort((a,b) => b[1]-a[1])[0];
+                const topPackage = Object.entries(packageStats).sort((a,b) => b[1]-a[1])[0];
+
+                document.getElementById('rep-total-trx').innerText = totalTrx; document.getElementById('rep-aov').innerText = UTIL.formatRp(aov);
+                document.getElementById('rep-total-revenue').innerText = UTIL.formatRp(grandRev); document.getElementById('rep-total-expense').innerText = UTIL.formatRp(grandExp);
+                document.getElementById('rep-net-profit').innerText = UTIL.formatRp(netProfit);
+                
+                document.getElementById('rep-top-capster').innerText = topCapster ? `${UTIL.toTitleCase(topCapster[0])} (${UTIL.formatRp(topCapster[1])})` : '-';
+                document.getElementById('rep-top-package').innerText = topPackage ? `${UTIL.toTitleCase(topPackage[0])} (${topPackage[1]}x)` : '-';
+
+                const tbody = document.getElementById('report-table-body'); tbody.innerHTML = '';
+                const sorted = Object.keys(dailyStats).sort();
+                if(sorted.length===0) return tbody.innerHTML = `<tr><td colspan="4" class="p-8 text-center text-zinc-400 font-medium">Tidak ada data untuk bulan ini.</td></tr>`;
+                
+                sorted.forEach(d => { tbody.insertAdjacentHTML('beforeend', `<tr class="border-b border-zinc-100 hover:bg-zinc-50 transition-colors"><td class="p-4 text-zinc-900 font-semibold">${d}</td><td class="p-4 text-center text-zinc-600">${dailyStats[d].c}</td><td class="p-4 text-right text-blue-600 font-semibold">${UTIL.formatRp(dailyStats[d].r)}</td><td class="p-4 text-right text-red-600 font-semibold">${UTIL.formatRp(dailyStats[d].e)}</td></tr>`); });
+            },
+            exportCSV() { const month = document.getElementById('report-month').value; const rows = document.querySelectorAll("#report-table-body tr"); if(rows.length===0 || rows[0].innerText.includes("Tidak ada data")) return alert("Kosong."); let csv = "data:text/csv;charset=utf-8,Tanggal,Jml Cukur,Pemasukan,Pengeluaran\n"; rows.forEach(r => { const c = r.querySelectorAll("td"); if(c.length===4) csv += `${c[0].innerText},${c[1].innerText},${c[2].innerText.replace(/[^0-9]/g,'')},${c[3].innerText.replace(/[^0-9]/g,'')}\n`; }); const a = document.createElement("a"); a.href = encodeURI(csv); a.download = `${CONFIG.SYSTEM_NAME}_Laporan_${month}.csv`; document.body.appendChild(a); a.click(); document.body.removeChild(a); },
+            exportPDF() { UTIL.showLoading("Cetak PDF..."); html2pdf().set({margin:0.5, filename:`${CONFIG.SYSTEM_NAME}_Laporan_${document.getElementById('report-month').value}.pdf`, html2canvas:{scale:2}, jsPDF:{unit:'in',format:'a4',orientation:'portrait'}}).from(document.getElementById('printable-report')).save().then(()=>UTIL.hideLoading()); }
+        };
+
+        const MANAGEMENT_LOGIC = {
+            init() {
+                document.getElementById('mgt-greeting').innerText = `Welcome, ${UTIL.toTitleCase(STATE.user.staff_id)}`;
+                const filterSelect = document.getElementById('mgt-branch-filter'); const filterSelectMobile = document.getElementById('mgt-branch-filter-mobile');
+                
+                if (String(STATE.user.role).toUpperCase().includes('OWNER') && !String(STATE.user.role).toUpperCase().includes('MANAGEMENT')) {
+                    const branchObj = CONFIG.BRANCHES.find(b => b.db_name === STATE.user.branch);
+                    const bName = branchObj ? branchObj.display_name : STATE.user.branch;
+                    
+                    filterSelect.innerHTML = `<option value="${STATE.user.branch}">Cabang ${bName}</option>`;
+                    filterSelectMobile.innerHTML = `<option value="${STATE.user.branch}">Cabang ${bName}</option>`;
+                    filterSelect.disabled = true; filterSelectMobile.disabled = true;
+                }
+                this.loadData();
+            },
+            syncFilter(val) { document.getElementById('mgt-branch-filter').value = val; this.loadData(); },
+            async loadData() {
+                UTIL.showLoading("Fetching Data..."); const targetBranch = document.getElementById('mgt-branch-filter').value;
+                try {
+                    const res = await fetch(CONFIG.WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ action: 'get_owner_data', role: STATE.user.role, branch: STATE.user.branch, filter_branch: targetBranch, tenant_id: CONFIG.TENANT_ID }) });
+                    const data = await res.json(); const payload = data[0] || data;
+                    if (payload.success) { this.renderStats(payload.stats); this.renderLeaderboard(payload.leaderboard); }
+                } catch(e) {} finally { UTIL.hideLoading(); }
+            },
+            renderStats(stats) { 
+                document.getElementById('mgt-gross').innerText = UTIL.formatRp(stats.gross_revenue); 
+                
+                const calculatedShare = stats.gross_revenue * CONFIG.COMMISSION_RATE;
+                const calculatedNet = stats.gross_revenue - calculatedShare - stats.total_expenses;
+
+                document.getElementById('mgt-capster-share').innerText = UTIL.formatRp(calculatedShare); 
+                document.getElementById('mgt-expenses').innerText = UTIL.formatRp(stats.total_expenses); 
+                document.getElementById('mgt-net-profit').innerText = UTIL.formatRp(calculatedNet); 
+            },
+            renderLeaderboard(lb) {
+                const tbody = document.getElementById('mgt-leaderboard');
+                if(!lb || lb.length === 0) { tbody.innerHTML = `<tr><td colspan="3" class="py-8 text-center text-zinc-400 font-medium text-sm">Belum ada transaksi hari ini.</td></tr>`; return; }
+                tbody.innerHTML = lb.map((capster, index) => {
+                    const rank = index + 1; let rankHtml = `<span class="font-bold text-zinc-500">${rank}</span>`;
+                    if(rank === 1) rankHtml = `<span class="bg-orange-100 text-orange-600 font-bold px-2 py-1 rounded-full text-xs">🥇 1</span>`; else if(rank === 2) rankHtml = `<span class="bg-zinc-100 text-zinc-600 font-bold px-2 py-1 rounded-full text-xs">🥈 2</span>`; else if(rank === 3) rankHtml = `<span class="bg-orange-50 text-orange-800 font-bold px-2 py-1 rounded-full text-xs">🥉 3</span>`;
+                    const capsterName = capster.capster_id; 
+                    return `<tr class="hover:bg-zinc-50 transition-colors"><td class="py-4 px-6 text-center">${rankHtml}</td><td class="py-4 px-6 font-bold text-zinc-800">${UTIL.toTitleCase(capsterName)}</td><td class="py-4 px-6 font-bold text-blue-600 text-right">${UTIL.formatRp(capster.revenue)}</td></tr>`;
+                }).join('');
+            }
+        };
+
+        const CAPSTER_LOGIC = {
+            init() {
+                this.loadData();
+                STATE.syncInterval = setInterval(() => this.loadData(true), 60000);
+            },
+            async loadData(silent = false) {
+                if(!silent) UTIL.showLoading("Membuka Dompet...");
+                try {
+                    const res = await fetch(CONFIG.WEBHOOK_URL, { 
+                        method: 'POST', headers: {'Content-Type': 'application/json'}, 
+                        body: JSON.stringify({ action: 'get_capster_data', staff_id: STATE.user.staff_id, branch: STATE.user.branch, tenant_id: CONFIG.TENANT_ID }) 
+                    });
+                    const data = await res.json();
+                    const payload = data[0] || data;
+                    if(payload.success) this.renderUI(payload);
+                } catch(e) {} finally { UTIL.hideLoading(); }
+            },
+            renderUI(data) {
+                document.getElementById('capster-name-welcome').innerText = `${String(data.profile.name).toUpperCase()}! 🚀`;
+                
+                const photoImg = document.getElementById('capster-photo-large');
+                photoImg.src = data.profile.photo;
+                
+                document.getElementById('capster-balance-month').innerText = UTIL.formatRp(data.stats.komisi_bulan_ini);
+                document.getElementById('capster-balance-today').innerText = UTIL.formatRp(data.stats.komisi_hari_ini);
+                document.getElementById('capster-rank').innerText = data.stats.rank;
+                document.getElementById('capster-specialist').innerText = data.stats.favorite_package;
+                document.getElementById('capster-total-cukur').innerText = `${data.stats.total_cukur_bulan} Orang`;
+
+                const scheduleGrid = document.getElementById('capster-schedule-grid');
+                scheduleGrid.innerHTML = ''; 
+                
+                if(!data.full_schedule || data.full_schedule.length === 0) {
+                    scheduleGrid.insertAdjacentHTML('beforeend', `<div class="col-span-3 text-center py-6 bg-zinc-50 rounded-2xl border-[3px] border-black"><p class="text-xs font-semibold text-zinc-500">Belum ada antrean hari ini.</p></div>`);
+                } else {
+                    data.full_schedule.sort((a,b) => a.jam.localeCompare(b.jam)).forEach(slot => {
+                        const isDone = slot.status === 'DONE' || slot.status === 'SUCCESS';
+                        const isOnDuty = slot.status === 'ON DUTY';
+                        
+                        let baseClass = "btn-press bg-white rounded-2xl py-4 px-2 flex flex-col items-center justify-center border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all";
+                        let timeClass = "font-black text-xl text-zinc-900 tracking-tight";
+                        let statusClass = "text-[9px] font-bold uppercase tracking-wider mt-1 px-2 py-0.5 rounded-md";
+                        let nameClass = "text-[11px] font-bold text-zinc-800 mt-1.5 truncate w-full text-center px-1";
+                        
+                        let statusText = slot.status;
+                        
+                        if (isDone) {
+                            baseClass += " bg-zinc-100 opacity-60 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] translate-y-[2px] translate-x-[2px]";
+                            statusClass += " bg-zinc-200 text-zinc-500";
+                            statusText = "Selesai";
+                        } else if (isOnDuty) {
+                            baseClass += " bg-blue-50";
+                            statusClass += " bg-blue-100 text-blue-700 animate-pulse";
+                            statusText = "Kerja";
+                        } else {
+                            baseClass += " hover:bg-zinc-50 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]";
+                            statusClass += " bg-zinc-100 text-zinc-500";
+                            statusText = "Antre";
+                        }
+                        
+                        scheduleGrid.insertAdjacentHTML('beforeend', `
+                            <div class="${baseClass}">
+                                <span class="${timeClass}">${slot.jam}</span>
+                                <span class="${statusClass}">${statusText}</span>
+                                <span class="${nameClass}">${slot.cust_name || 'Guest'}</span>
+                            </div>
+                        `);
+                    });
+                }
+
+                const nextContainer = document.getElementById('capster-next-guest');
+                if(data.next_guest) {
+                    const ng = data.next_guest;
+                    nextContainer.innerHTML = `
+                        <div class="bg-blue-50 border border-blue-100 rounded-[20px] p-5 shadow-sm relative overflow-hidden transition-all neo-shadow neo-border">
+                            <div class="absolute top-0 right-0 w-16 h-16 bg-blue-100 rounded-full blur-xl -mr-4 -mt-4"></div>
+                            <div class="flex justify-between items-center relative z-10 mb-2">
+                                <span class="bg-blue-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-widest">${ng.jam}</span>
+                                <span class="text-[10px] font-bold text-blue-600 uppercase tracking-widest animate-pulse">Menunggu...</span>
+                            </div>
+                            <h4 class="font-bold text-xl text-zinc-900 tracking-tight leading-none mb-1.5 relative z-10">${ng.cust_name || 'Walk-In Guest'}</h4>
+                            <p class="text-xs font-semibold text-zinc-500 relative z-10">Layanan: <span class="text-blue-700">${ng.package_name || 'Treatment'}</span></p>
+                        </div>`;
+                } else {
+                    nextContainer.innerHTML = `<div class="bg-white border border-zinc-200 border-dashed rounded-[20px] p-5 text-center"><p class="text-xs font-semibold text-zinc-400">Belum ada antrean berikutnya.</p></div>`;
+                }
+
+                const histContainer = document.getElementById('capster-history');
+                if(!data.history || data.history.length === 0) {
+                    histContainer.innerHTML = `<div class="text-center py-8"><p class="text-xs font-semibold text-zinc-400">Belum ada pelanggan selesai hari ini.</p></div>`;
+                } else {
+                    histContainer.innerHTML = data.history.map(h => `
+                        <div class="bg-white border border-zinc-200 rounded-[16px] p-4 shadow-sm flex flex-col gap-2 apple-shadow neo-border neo-shadow-sm">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span class="text-[11px] font-bold text-zinc-900">${h.jam}</span>
+                                        <span class="text-[9px] font-bold text-green-600 bg-green-50 px-1.5 py-0.5 rounded uppercase">Selesai</span>
+                                    </div>
+                                    <h4 class="font-bold text-sm text-zinc-800 leading-tight">${h.cust_name || 'Guest'}</h4>
+                                    <p class="text-[10px] font-semibold text-zinc-500 mt-0.5">${h.package_name} (${UTIL.formatRp(h.price)})</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-0.5">Komisi ${CONFIG.COMMISSION_RATE * 100}%</p>
+                                    <p class="font-bold text-base text-orange-600">+${UTIL.formatRp(h.komisi)}</p>
+                                </div>
+                            </div>
+                        </div>`).join('');
+                }
+            }
+        };
+
+        window.onload = () => APP_INIT.run();
+    </script>
+</body>
+</html>
