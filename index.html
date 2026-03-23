@@ -276,7 +276,8 @@
                 if (!staffs || staffs.length === 0 || !staffs[0].id) { container.innerHTML = `<p class="text-zinc-400 font-bold text-xs text-center py-10 uppercase tracking-widest">Capster belum tersedia.</p>`; return; }
 
                 container.innerHTML = staffs.map((s, index) => {
-                    const imgUrl = s.photo1 || 'https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/ZAMIL%20PORTRAIT.png';
+                    // DONT USE PHOTO (image_6615e3.png)
+                    // const imgUrl = s.photo1 || 'https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/ZAMIL%20PORTRAIT.png';
                     const rating = (Number(s.rating || 0) + 4.0).toFixed(1);
                     const role = s.role ? s.role.toUpperCase() : 'CAPSTER';
                     
@@ -296,12 +297,11 @@
                         `;
                     }).join('');
 
-                    // UI DENGAN SEKAT PEMBEDA ( image_65bb54.png )
+                    // UI DENGAN SEKAT PEMBEDA - NO PHOTO (image_6615e3.png)
                     return `
                     <div class="bg-white rounded-[24px] border border-zinc-100 card-shadow overflow-hidden animate-slide-up" style="animation-delay: ${index * 0.1}s">
                         
-                        <div class="flex items-center gap-4 p-5 bg-white border-b-2 border-zinc-100">
-                            <img src="${imgUrl}" class="w-16 h-16 rounded-full object-cover border-2 border-zinc-100 shadow-inner">
+                        <div class="p-5 pt-6 bg-white border-b-2 border-zinc-100">
                             <div>
                                 <h4 class="font-black text-xl text-black uppercase tracking-tighter mb-1 leading-none italic">${s.dbp_staff_name}</h4>
                                 <span class="inline-block text-[8px] font-bold text-black bg-zinc-100 border border-zinc-200 px-3 py-1 rounded-full uppercase-wider shadow-sm mb-2">${role}</span>
