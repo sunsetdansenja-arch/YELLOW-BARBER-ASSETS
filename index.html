@@ -1,404 +1,759 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title id="meta-title">Booking | Yellow Barber</title>
-    <link id="meta-icon" rel="icon" type="image/png" href="">
+    <title>YHB | System Access</title>
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
-        /* CORE STYLES - MINIMALIST PREMIUM */
-        body { font-family: 'Montserrat', sans-serif; -webkit-tap-highlight-color: transparent; background-color: #FAFAFA; color: #111111; overflow-x: hidden; }
-        .uppercase-wider { text-transform: uppercase; letter-spacing: 0.15em; }
+        body { font-family: 'Inter', sans-serif; background-color: #F5F5F7; color: #1D1D1F; -webkit-tap-highlight-color: transparent; overflow-x: hidden; }
+        .apple-shadow { box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04); }
+        .apple-shadow-lg { box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08); }
+        .apple-card { background: #FFFFFF; border: 1px solid #E5E5EA; border-radius: 20px; }
+        .glass-header { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid #E5E5EA; }
+        .btn-press:active { transform: scale(0.97); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #D1D1D6; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #999999; }
+        @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+        .animate-slide-up { animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .animate-pulse-dot { animation: pulse-dot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        .tab-active { background: #1D1D1F !important; color: #FFFFFF !important; font-weight: 700 !important; }
         
-        /* SCROLLBAR */
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-        /* PREMIUM PANELS */
-        .glass-nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .card-shadow { box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04); }
-        
-        /* ANIMATIONS */
-        .taktil { transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); }
-        .taktil:active { transform: scale(0.96); }
-        .taktil-hover:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.06); }
-
-        @keyframes shimer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-        .animate-shimer { background: linear-gradient(90deg, #111 25%, #999 50%, #111 75%); background-size: 200% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimer 2.5s infinite linear; }
-        
-        @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
-        .animate-slide-up { animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .curtain-exit { transform: translateY(-100%); transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1) forwards; }
+        #view-cashier { padding-bottom: 80px; }
     </style>
 </head>
-<body class="pb-32">
+<body class="h-screen w-screen overflow-hidden text-zinc-900">
 
-    <div id="splash-screen" class="fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center overflow-hidden">
-        <div class="relative z-10 flex flex-col items-center">
-            <img id="splash-logo" src="" class="w-32 h-auto mb-8 drop-shadow-xl">
-            <div class="text-center">
-                <h1 class="text-[10px] font-black tracking-[0.4em] animate-shimer uppercase-wider">Loading Experience</h1>
+    <div id="view-login" class="h-full w-full flex flex-col items-center justify-center px-6 absolute inset-0 z-40 bg-white transition-all duration-700">
+        <div class="w-full max-w-sm flex flex-col items-center animate-slide-up">
+            <img src="https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png" class="h-20 w-auto mb-6" alt="Logo YHB">
+            <h1 class="font-bold text-2xl tracking-tight mb-1 text-zinc-900">System Access</h1>
+            <p class="text-xs font-medium text-zinc-400 uppercase tracking-widest mb-8">Authorized Personnel Only</p>
+            
+            <div class="w-full apple-card apple-shadow p-6 mb-8 text-center space-y-4">
+                <input type="text" id="userInput" placeholder="STAFF ID (KASIR)" autocomplete="off" class="w-full bg-zinc-50 text-zinc-900 font-bold uppercase text-center text-sm px-4 py-4 rounded-2xl outline-none border border-zinc-200 focus:border-zinc-400 transition-all placeholder-zinc-400">
+                <input type="password" id="pinInput" placeholder="PIN CODE" inputmode="numeric" pattern="[0-9]*" maxlength="4" class="w-full bg-zinc-50 text-zinc-900 font-black tracking-[1em] text-center text-xl px-4 py-4 rounded-2xl outline-none border border-zinc-200 focus:border-zinc-400 transition-all placeholder-zinc-400 placeholder:tracking-normal placeholder:font-bold placeholder:text-sm">
+                
+                <button onclick="LOGIN_SYSTEM.submit()" class="btn-press w-full bg-zinc-900 text-[#FFE600] font-bold text-sm py-4 rounded-2xl shadow-md mt-4 hover:bg-zinc-800 transition-all uppercase tracking-widest">Login</button>
+                <p id="error-msg" class="text-red-500 font-bold text-xs mt-2 opacity-0 transition-opacity">Akses Ditolak</p>
             </div>
         </div>
     </div>
 
-    <div id="success-screen" class="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md hidden flex-col items-center justify-center p-6 overflow-hidden">
-        <div class="bg-white w-full max-w-sm rounded-[32px] p-8 flex flex-col items-center animate-slide-up text-center card-shadow">
-            <div class="w-16 h-16 bg-[#FFE600] rounded-full flex items-center justify-center mb-6 text-black text-2xl font-black shadow-lg shadow-yellow-400/20">✓</div>
-            <h1 class="font-black text-2xl tracking-tighter mb-6 uppercaseitalic">Booking Confirmed</h1>
-            
-            <div class="w-full space-y-4 text-[11px] font-bold text-zinc-500 mb-8 bg-zinc-50 p-6 rounded-3xl border border-zinc-100">
-                <div class="flex justify-between items-center pb-3 border-b border-zinc-200">
-                    <span class="uppercase tracking-widest">Branch</span><span id="receipt-branch" class="text-black font-black text-right">...</span>
-                </div>
-                <div class="flex justify-between items-center pb-3 border-b border-zinc-200">
-                    <span class="uppercase tracking-widest">Barber</span><span id="receipt-capster" class="text-black font-black text-right">...</span>
-                </div>
-                <div class="flex justify-between items-center">
-                    <span class="uppercase tracking-widest">Time</span><span id="receipt-time" class="text-black font-black text-right">...</span>
-                </div>
+    <div id="view-cashier" class="h-full w-full hidden flex-col absolute inset-0 z-30 bg-[#F5F5F7] overflow-y-auto">
+        <header class="glass-header sticky top-0 p-4 flex justify-between items-center shrink-0 z-20">
+            <div class="flex items-center gap-3 sm:gap-4">
+                <img src="https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png" class="h-8 sm:h-10 drop-shadow-sm">
+                <div><h1 class="font-bold tracking-tight text-sm sm:text-lg leading-none text-zinc-900">Cashier Terminal</h1><p id="cashier-branch-name" class="text-[9px] sm:text-[11px] font-semibold text-zinc-500 uppercase tracking-wide mt-1">LOADING...</p></div>
             </div>
             
-            <button onclick="location.reload()" class="w-full bg-black text-[#FFE600] py-4 rounded-full font-black uppercase-wider text-xs taktil mb-4 shadow-xl">Selesai</button>
-            <a href="#" id="receipt-maps" target="_blank" class="text-[9px] font-bold text-zinc-400 uppercase-wider tracking-widest underline">Buka Rute Maps</a>
+            <div class="hidden md:flex bg-zinc-100 p-1 rounded-xl border border-zinc-200">
+                <button onclick="CASHIER_LOGIC.switchTab('queue')" id="tab-btn-queue" class="px-5 py-1.5 rounded-lg text-xs font-semibold tab-active transition-all">Queue</button>
+                <button onclick="CASHIER_LOGIC.switchTab('report')" id="tab-btn-report" class="px-5 py-1.5 rounded-lg text-xs font-semibold text-zinc-500 transition-all">Reports</button>
+                <button onclick="CASHIER_LOGIC.switchTab('config')" id="tab-btn-config" class="px-5 py-1.5 rounded-lg text-xs font-semibold text-zinc-500 transition-all">Pricelist</button>
+            </div>
+
+            <div class="flex gap-2 sm:gap-4 items-center">
+                <div class="flex items-center gap-2 text-[10px] font-bold text-zinc-400 uppercase tracking-widest hidden lg:flex"><div id="sync-indicator" class="w-2 h-2 rounded-full bg-green-500 animate-pulse-dot"></div><span id="sync-text">Auto-Sync On</span></div>
+                <button onclick="CASHIER_LOGIC.loadData()" class="btn-press bg-white border border-zinc-200 text-zinc-700 p-2 rounded-xl shadow-sm hover:bg-zinc-50"><svg class="w-4 h-4 sm:w-5 sm:h-5" id="sync-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg></button>
+                <button onclick="LOGIN_SYSTEM.logout()" class="btn-press bg-zinc-900 text-white font-semibold text-xs px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl shadow-md hover:bg-zinc-800 transition-all">Logout</button>
+            </div>
+        </header>
+
+        <main id="tab-queue" class="flex-1 flex flex-col lg:flex-row p-4 gap-4 animate-slide-up">
+            <div class="md:hidden flex bg-zinc-100 p-1 rounded-xl border border-zinc-200 shrink-0">
+                <button onclick="CASHIER_LOGIC.switchTab('queue')" class="flex-1 py-2 rounded-lg text-xs font-bold bg-white shadow-sm text-zinc-900">Queue</button>
+                <button onclick="CASHIER_LOGIC.switchTab('report')" class="flex-1 py-2 rounded-lg text-xs font-semibold text-zinc-500">Report</button>
+                <button onclick="CASHIER_LOGIC.switchTab('config')" class="flex-1 py-2 rounded-lg text-xs font-semibold text-zinc-500">Pricelist</button>
+            </div>
+
+            <section class="flex-1 flex flex-col gap-4">
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 shrink-0">
+                    <div class="apple-card p-3 sm:p-4 bg-white apple-shadow"><p class="text-[8px] sm:text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Gross Omset</p><p id="sum-omset" class="font-bold text-sm sm:text-lg text-blue-600 truncate">Rp 0</p></div>
+                    <div class="apple-card p-3 sm:p-4 bg-white apple-shadow"><p class="text-[8px] sm:text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Komisi Capster</p><p id="sum-komisi" class="font-bold text-sm sm:text-lg text-orange-500 truncate">Rp 0</p></div>
+                    <div class="apple-card p-3 sm:p-4 bg-white apple-shadow"><p class="text-[8px] sm:text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Pengeluaran</p><p id="sum-expense" class="font-bold text-sm sm:text-lg text-red-500 truncate">Rp 0</p></div>
+                    <div class="apple-card p-3 sm:p-4 bg-zinc-900 text-white apple-shadow border-none"><p class="text-[8px] sm:text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Setoran Laci</p><p id="sum-profit" class="font-bold text-sm sm:text-lg text-[#FFE600] truncate">Rp 0</p></div>
+                </div>
+
+                <div class="apple-card apple-shadow flex flex-col min-h-[400px]">
+                    <div class="p-4 sm:p-5 border-b border-zinc-100 flex justify-between items-center bg-white rounded-t-[24px] shrink-0">
+                        <div><h2 class="font-bold text-lg sm:text-xl tracking-tight text-zinc-800">Live Queue</h2><p class="text-[10px] font-semibold text-zinc-500 uppercase tracking-wide mt-0.5">Antrean Hari Ini</p></div>
+                    </div>
+                    <div id="queue-container" class="flex-1 p-4 sm:p-5 space-y-4 bg-zinc-50/50 rounded-b-[24px] overflow-y-auto"></div>
+                </div>
+            </section>
+
+            <section class="w-full lg:w-96 flex flex-col gap-4 shrink-0">
+                <button onclick="CASHIER_LOGIC.openExpenseModal()" class="btn-press w-full bg-zinc-900 text-[#FFE600] font-bold text-sm py-4 sm:py-5 rounded-[24px] shadow-md hover:bg-zinc-800 transition-all flex justify-center items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Catat Pengeluaran
+                </button>
+                <div class="flex-1 lg:flex-none lg:h-full apple-card apple-shadow flex flex-col overflow-hidden min-h-[250px] lg:min-h-0">
+                    <div class="p-4 sm:p-5 border-b border-zinc-100 bg-white rounded-t-[24px] shrink-0"><h2 class="font-bold text-base sm:text-lg tracking-tight text-zinc-800">Petty Cash</h2><p class="text-[10px] font-semibold text-zinc-400 uppercase mt-1">Pengeluaran Hari Ini</p></div>
+                    <div id="expense-container" class="flex-1 overflow-y-auto p-4 space-y-3 bg-zinc-50/50 rounded-b-[24px]"></div>
+                </div>
+            </section>
+        </main>
+
+        <main id="tab-report" class="flex-1 flex flex-col p-4 md:p-8 hidden animate-slide-up">
+            <div class="max-w-6xl w-full mx-auto flex flex-col h-full gap-6">
+                <div class="flex flex-col sm:flex-row justify-between items-end gap-4 bg-white p-5 rounded-2xl apple-shadow border border-zinc-200 shrink-0">
+                    <div class="w-full sm:w-auto">
+                        <label class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2 block">Pilih Bulan Laporan</label>
+                        <input type="month" id="report-month" onchange="CASHIER_LOGIC.processReport()" class="w-full bg-zinc-50 border border-zinc-200 text-zinc-800 font-semibold px-4 py-2.5 rounded-xl outline-none focus:border-zinc-400 transition-all">
+                    </div>
+                    <button onclick="CASHIER_LOGIC.exportPDF()" class="w-full sm:w-auto btn-press bg-zinc-900 text-[#FFE600] px-6 py-3 rounded-xl text-sm font-bold shadow-md hover:bg-zinc-800 transition-all uppercase tracking-widest">Download PDF</button>
+                </div>
+
+                <div id="printable-report" class="flex-1 flex flex-col bg-white rounded-[24px] apple-shadow border border-zinc-200 p-6 sm:p-8 overflow-hidden hidden" >
+                    <div class="flex justify-between items-center border-b-2 border-zinc-100 pb-6 mb-6 shrink-0">
+                        <div class="flex items-center gap-4">
+                            <img src="https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png" class="h-12 sm:h-14 drop-shadow-sm">
+                            <div>
+                                <h2 class="font-black text-xl sm:text-2xl text-zinc-900 uppercase italic tracking-tighter">Laporan Keuangan</h2>
+                                <p id="report-branch-label" class="text-xs font-bold text-zinc-500 uppercase tracking-widest mt-1">Cabang ...</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Periode</p>
+                            <p id="report-month-label" class="font-black text-lg sm:text-xl text-zinc-800">...</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6 shrink-0">
+                        <div class="bg-zinc-50 p-4 rounded-[16px] border border-zinc-100">
+                            <p class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">1. Transaksi</p>
+                            <p id="rep-total-trx" class="font-black text-lg text-zinc-900">0</p>
+                            <p class="text-[9px] font-bold text-zinc-500 mt-2 border-t border-zinc-200 pt-2">AOV: <span id="rep-aov" class="text-zinc-800">Rp 0</span></p>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-[16px] border border-blue-100">
+                            <p class="text-[9px] font-bold text-blue-500 uppercase tracking-widest mb-1">2. Gross Revenue</p>
+                            <p id="rep-total-revenue" class="font-black text-lg text-blue-700 truncate">Rp 0</p>
+                        </div>
+                        <div class="bg-orange-50 p-4 rounded-[16px] border border-orange-100">
+                            <p class="text-[9px] font-bold text-orange-500 uppercase tracking-widest mb-1">3. Komisi Barber</p>
+                            <p id="rep-total-komisi" class="font-black text-lg text-orange-700 truncate">Rp 0</p>
+                        </div>
+                        <div class="bg-red-50 p-4 rounded-[16px] border border-red-100">
+                            <p class="text-[9px] font-bold text-red-500 uppercase tracking-widest mb-1">4. Pengeluaran</p>
+                            <p id="rep-total-expense" class="font-black text-lg text-red-700 truncate">Rp 0</p>
+                        </div>
+                        <div class="bg-zinc-900 p-4 rounded-[16px] border border-zinc-800 col-span-2 md:col-span-1">
+                            <p class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">5. Net Profit / Setoran</p>
+                            <p id="rep-net-profit" class="font-black text-xl text-[#FFE600] truncate">Rp 0</p>
+                            <p class="text-[8px] font-bold text-zinc-500 mt-2 border-t border-zinc-700 pt-2">Gross - Komisi - Expense</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 shrink-0">
+                        <div class="bg-white border border-zinc-200 p-4 rounded-[16px] flex flex-col">
+                            <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center text-xs">🏆</div><p class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest">Top Capster</p></div>
+                            <div id="rep-top-capster" class="space-y-2">-</div>
+                        </div>
+                        <div class="bg-white border border-zinc-200 p-4 rounded-[16px] flex flex-col">
+                            <div class="flex items-center gap-2 mb-3"><div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center text-xs">✂️</div><p class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest">Top Layanan</p></div>
+                            <div id="rep-top-package" class="space-y-2">-</div>
+                        </div>
+                    </div>
+
+                    <div class="flex-1 overflow-x-auto p-0 border border-zinc-100 rounded-[16px]">
+                        <table class="w-full text-left border-collapse min-w-[600px]">
+                            <thead class="bg-zinc-50 sticky top-0 border-b border-zinc-200">
+                                <tr>
+                                    <th class="p-4 text-[9px] font-bold text-zinc-500 uppercase tracking-widest">Tanggal</th>
+                                    <th class="p-4 text-[9px] font-bold text-zinc-500 uppercase text-center tracking-widest">Tamu</th>
+                                    <th class="p-4 text-[9px] font-bold text-zinc-500 uppercase text-right tracking-widest">Omset</th>
+                                    <th class="p-4 text-[9px] font-bold text-zinc-500 uppercase text-right tracking-widest">Komisi</th>
+                                    <th class="p-4 text-[9px] font-bold text-zinc-500 uppercase text-right tracking-widest">Pengeluaran</th>
+                                    <th class="p-4 text-[9px] font-bold text-zinc-900 uppercase text-right tracking-widest">Setoran Bersih</th>
+                                </tr>
+                            </thead>
+                            <tbody id="report-table-body" class="divide-y divide-zinc-100 text-xs sm:text-sm">
+                                <tr><td colspan="6" class="p-8 text-center text-zinc-400 font-medium">Pilih bulan laporan untuk menampilkan data...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <main id="tab-config" class="flex-1 p-4 md:p-8 hidden animate-slide-up">
+            <div class="max-w-4xl mx-auto space-y-6 pb-10">
+                <div class="apple-card p-5 sm:p-6 apple-shadow">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="font-bold text-lg text-zinc-800">Layanan Utama (Primer)</h2>
+                        <button onclick="CASHIER_LOGIC.openPackageModal('PRIMER')" class="btn-press bg-zinc-900 text-[#FFE600] px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest">+ Add New</button>
+                    </div>
+                    <div id="config-primer-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                </div>
+                
+                <div class="apple-card p-5 sm:p-6 apple-shadow">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="font-bold text-lg text-zinc-800">Daftar Add-Ons</h2>
+                        <button onclick="CASHIER_LOGIC.openPackageModal('ADD ON')" class="btn-press bg-zinc-900 text-[#FFE600] px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest">+ Add New</button>
+                    </div>
+                    <div id="config-addon-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="modal-expense" class="fixed inset-0 z-[60] bg-zinc-900/40 backdrop-blur-sm hidden flex-col items-center justify-center p-4 transition-all">
+        <div class="bg-white w-full max-w-sm rounded-[24px] p-6 shadow-2xl animate-slide-up border border-zinc-100 max-h-[90vh] overflow-y-auto">
+            <h2 class="font-bold text-xl mb-6 text-zinc-900 tracking-tight">Catat Pengeluaran</h2>
+            <div class="space-y-4">
+                <div><label class="text-[10px] font-bold text-zinc-500 mb-1 block uppercase tracking-wider">Kategori</label><select id="exp-kategori" class="w-full bg-zinc-50 text-zinc-900 font-semibold text-sm px-4 py-3.5 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400"><option value="OPERASIONAL">Operasional</option><option value="KONSUMSI">Konsumsi</option><option value="MAINTENANCE">Maintenance</option><option value="LAINNYA">Lainnya</option></select></div>
+                <div><label class="text-[10px] font-bold text-zinc-500 mb-1 block uppercase tracking-wider">Deskripsi Item</label><input type="text" id="exp-deskripsi" placeholder="Contoh: Beli Silet" class="w-full bg-zinc-50 text-zinc-900 font-semibold text-sm px-4 py-3.5 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400 placeholder-zinc-400"></div>
+                <div><label class="text-[10px] font-bold text-zinc-500 mb-1 block uppercase tracking-wider">Nominal (Rp)</label><input type="number" id="exp-nominal" placeholder="0" class="w-full bg-zinc-50 text-zinc-900 font-bold text-xl px-4 py-3.5 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400 placeholder-zinc-400"></div>
+                <div class="flex gap-3 pt-4">
+                    <button onclick="CASHIER_LOGIC.closeExpenseModal()" class="btn-press flex-1 bg-zinc-100 text-zinc-600 py-3.5 rounded-xl font-bold text-sm hover:bg-zinc-200 transition-all uppercase tracking-widest">Batal</button>
+                    <button onclick="CASHIER_LOGIC.submitExpense()" class="btn-press flex-1 bg-zinc-900 text-[#FFE600] py-3.5 rounded-xl font-bold text-sm shadow-md hover:bg-zinc-800 transition-all uppercase tracking-widest">Simpan</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <nav class="sticky top-0 z-50 glass-nav px-6 py-4 flex justify-between items-center">
-        <img id="nav-logo" src="" class="h-7 w-auto drop-shadow-sm">
-        <div class="text-[9px] font-black uppercase-wider text-black bg-[#FFE600] px-4 py-1.5 rounded-full animate-pulse shadow-sm">Live</div>
-    </nav>
+    <div id="modal-swap-capster" class="fixed inset-0 z-[60] bg-zinc-900/40 backdrop-blur-sm hidden flex-col items-center justify-center p-4 transition-all">
+        <div class="bg-white w-full max-w-sm rounded-[24px] p-6 shadow-2xl animate-slide-up border border-zinc-100 max-h-[90vh] overflow-y-auto">
+            <h2 class="font-bold text-xl mb-1 text-zinc-900 tracking-tight">Pindah Capster</h2>
+            <p id="swap-cust-name" class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-6">NAMA CUSTOMER</p>
+            <input type="hidden" id="swap-booking-id">
 
-    <main id="app" class="max-w-md mx-auto px-5 mt-8 relative z-10">
-        
-        <section id="step-initial" class="animate-slide-up flex flex-col items-center text-center">
-            <h1 class="font-black text-4xl mb-2 tracking-tighter uppercase leading-[0.9] italic">Yellow<br>Barber</h1>
-            <p class="text-[9px] font-bold text-zinc-400 mb-10 uppercase-wider">Premium Grooming Experience</p>
-
-            <div class="w-full mb-12">
-                <h3 class="font-black text-[10px] text-zinc-400 tracking-[0.3em] uppercase-wider mb-6 border-b border-zinc-200 pb-3">Select Branch</h3>
-                <div id="branch-list" class="space-y-6"></div>
-            </div>
-
-            <div class="w-full mb-10">
-                <h3 class="font-black text-[10px] text-zinc-400 tracking-[0.3em] uppercase-wider mb-6 border-b border-zinc-200 pb-3">Top 10 Sultan</h3>
-                <ul id="leaderboard-list" class="space-y-2">
-                    <li class="text-center py-4 animate-pulse font-bold text-[10px] text-zinc-400 uppercase tracking-widest">Loading...</li>
-                </ul>
-            </div>
-        </section>
-
-        <section id="step-staff" class="hidden animate-slide-up flex flex-col items-center">
-            <button onclick="APP_LOGIC.resetToStep1()" class="text-[9px] font-black text-zinc-500 mb-8 uppercase-wider border border-zinc-200 px-6 py-2.5 rounded-full taktil hover:bg-zinc-50">
-                ← Go Back
-            </button>
-            
-            <div class="inline-flex items-center bg-zinc-100 px-5 py-2.5 mb-10 rounded-full border border-zinc-200 shadow-sm">
-                <span class="w-2 h-2 rounded-full bg-[#FFE600] mr-2 animate-pulse shadow-sm"></span>
-                <p id="selected-branch-text" class="text-[9px] font-black text-black uppercase tracking-[0.2em]"></p>
-            </div>
-            
-            <div id="staff-list" class="w-full space-y-12"></div>
-        </section>
-    </main>
-
-    <div id="bottom-bar" class="fixed bottom-6 left-5 right-5 z-40 hidden animate-slide-up">
-        <div class="max-w-sm mx-auto bg-black p-3.5 rounded-[24px] flex justify-between items-center shadow-2xl border border-zinc-800">
-            <div class="pl-4">
-                <p class="text-[8px] uppercase text-zinc-400 font-bold tracking-widest mb-0.5">Total Biaya</p>
-                <p id="display-price" class="text-lg font-black text-white tracking-tighter italic">Rp 0</p>
-            </div>
-            <button onclick="APP_LOGIC.openBookingForm()" class="bg-[#FFE600] text-black px-8 py-3.5 rounded-[16px] font-black text-xs uppercase-wider taktil shadow-lg italic">Lanjut</button>
-        </div>
-    </div>
-
-    <div id="modal-book" class="fixed inset-0 z-[60] bg-black/60 backdrop-blur-md hidden flex items-end sm:items-center justify-center p-4 transition-opacity duration-300">
-        <div class="bg-white w-full max-w-sm p-6 sm:p-8 rounded-[32px] animate-slide-up max-h-[90vh] overflow-y-auto hide-scrollbar relative card-shadow">
-            <div class="w-12 h-1 bg-zinc-200 rounded-full mx-auto mb-8"></div>
-            <h2 class="font-black text-2xl mb-2 text-center tracking-tighter uppercase italic">Detail Booking</h2>
-            <p class="text-[9px] font-bold text-zinc-400 text-center mb-8 uppercase-wider">Pilih Jadwal & Data Diri</p>
-            
-            <div class="space-y-6">
+            <div class="space-y-4">
                 <div>
-                    <p class="text-[9px] font-black text-zinc-800 mb-3 uppercase tracking-widest pl-1">Tanggal</p>
-                    <div id="date-slots" class="flex gap-2 overflow-x-auto hide-scrollbar pb-2 px-1"></div>
-                    <input type="hidden" id="booking_date" value="">
+                    <label class="text-[10px] font-bold text-zinc-500 mb-1 block uppercase tracking-wider">Pilih Capster Baru</label>
+                    <select id="swap-capster-select" class="w-full bg-zinc-50 text-zinc-900 font-semibold text-sm px-4 py-3.5 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400 uppercase">
+                        </select>
                 </div>
                 
-                <div>
-                    <p class="text-[9px] font-black text-zinc-800 mb-3 uppercase tracking-widest pl-1">Waktu (12:00 - 00:00)</p>
-                    <div id="time-slots" class="grid grid-cols-4 gap-2"></div>
-                    <input type="hidden" id="booking_time" value="">
-                </div>
-                
-                <div class="space-y-3 pt-2">
-                    <input type="text" id="cust_name" placeholder="NAMA LENGKAP" class="w-full bg-zinc-50 border border-zinc-200 rounded-[16px] px-5 py-4 focus:border-black outline-none text-xs font-black text-black uppercase placeholder-zinc-400 transition-all tracking-wider" autocomplete="off">
-                    <input type="tel" id="cust_phone" placeholder="WHATSAPP (08...)" class="w-full bg-zinc-50 border border-zinc-200 rounded-[16px] px-5 py-4 focus:border-black outline-none text-xs font-black text-black uppercase placeholder-zinc-400 transition-all tracking-wider" autocomplete="off">
-                </div>
-                
-                <div class="pt-4 space-y-3">
-                    <button id="btn-submit" onclick="APP_LOGIC.submitBooking()" class="w-full bg-black text-[#FFE600] py-4 rounded-[16px] font-black text-[10px] uppercaseitalic taktil shadow-xl">Book Sekarang</button>
-                    <button onclick="APP_LOGIC.closeModal()" class="w-full text-[10px] font-bold text-zinc-400 py-3 taktil uppercase-wider underline text-center block">Batal</button>
+                <div class="flex gap-3 pt-4">
+                    <button onclick="document.getElementById('modal-swap-capster').classList.replace('flex','hidden')" class="btn-press flex-1 bg-zinc-100 text-zinc-600 py-3.5 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-zinc-200 transition-all">Batal</button>
+                    <button onclick="CASHIER_LOGIC.submitSwapCapster()" class="btn-press flex-[2] bg-[#FFE600] text-zinc-900 py-3.5 rounded-xl font-bold text-xs uppercase tracking-widest shadow-md transition-all">Pindah</button>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div id="modal-checkout" class="fixed inset-0 z-[60] bg-zinc-900/40 backdrop-blur-sm hidden flex-col items-center justify-center p-4 transition-all">
+        <div class="bg-white w-full max-w-sm rounded-[24px] p-6 shadow-2xl animate-slide-up border border-zinc-100 max-h-[90vh] overflow-hidden flex flex-col">
+            <h2 class="font-bold text-xl text-zinc-900 tracking-tight shrink-0 mb-1">Checkout Pesanan</h2>
+            <p id="checkout-cust-name" class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-4 shrink-0">NAMA CUSTOMER</p>
+            
+            <div class="flex-1 overflow-y-auto pr-1 space-y-4 hide-scrollbar">
+                <div class="bg-zinc-50 border border-zinc-200 p-4 rounded-[16px]">
+                    <p class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Layanan Utama</p>
+                    <p id="checkout-main-service" class="font-bold text-sm text-zinc-800">...</p>
+                </div>
+                
+                <div>
+                    <p class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-2 ml-1">Pilih Tambahan (Opsional)</p>
+                    <div id="checkout-addons-list" class="space-y-2"></div>
+                </div>
+            </div>
+
+            <div class="border-t border-zinc-100 pt-5 mt-4 shrink-0">
+                <div class="flex justify-between items-center mb-6">
+                    <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Total Tagihan</span>
+                    <span id="checkout-total-display" class="font-bold text-2xl text-blue-600 tracking-tight">Rp 0</span>
+                </div>
+                <div class="flex gap-3">
+                    <button onclick="document.getElementById('modal-checkout').classList.replace('flex','hidden')" class="btn-press flex-1 bg-zinc-100 text-zinc-600 py-3.5 rounded-xl font-bold text-[10px] uppercase tracking-widest hover:bg-zinc-200 transition-all">Batal</button>
+                    <button onclick="CASHIER_LOGIC.confirmCheckout()" class="btn-press flex-[2] bg-zinc-900 text-[#FFE600] py-3.5 rounded-xl font-bold text-[10px] uppercase tracking-[0.1em] shadow-md hover:bg-zinc-800 transition-all">Selesai & Catat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-pkg" class="fixed inset-0 z-[60] bg-zinc-900/40 backdrop-blur-sm hidden flex-col items-center justify-center p-4 transition-all">
+        <div class="bg-white w-full max-w-sm rounded-[24px] p-6 shadow-2xl animate-slide-up border border-zinc-100 max-h-[90vh] overflow-y-auto">
+            <h2 id="pkg-modal-title" class="font-bold text-xl mb-6 text-zinc-900">Manage Item</h2>
+            <input type="hidden" id="pkg-id">
+            <input type="hidden" id="pkg-category">
+            <div class="space-y-4">
+                <div><label class="text-[10px] font-bold text-zinc-500 mb-1 block uppercase tracking-wider">Nama Item</label><input type="text" id="pkg-name" placeholder="Misal: CUT AND CLEAN" class="w-full bg-zinc-50 text-zinc-900 font-bold text-sm px-4 py-3.5 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400 uppercase"></div>
+                <div><label class="text-[10px] font-bold text-zinc-500 mb-1 block uppercase tracking-wider">Harga (Rp)</label><input type="number" id="pkg-price" placeholder="0" class="w-full bg-zinc-50 text-zinc-900 font-bold text-xl px-4 py-3.5 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400 placeholder-zinc-400 tracking-tight"></div>
+                
+                <div class="flex gap-3 pt-4">
+                    <button onclick="document.getElementById('modal-pkg').classList.replace('flex','hidden')" class="btn-press flex-1 bg-zinc-100 text-zinc-600 py-3.5 rounded-xl font-bold text-xs hover:bg-zinc-200 transition-all uppercase tracking-widest">Batal</button>
+                    <button onclick="CASHIER_LOGIC.savePackage()" class="btn-press flex-[2] bg-zinc-900 text-[#FFE600] py-3.5 rounded-xl font-bold text-xs shadow-md hover:bg-zinc-800 transition-all uppercase tracking-widest">Simpan</button>
+                </div>
+                <button id="btn-delete-pkg" onclick="CASHIER_LOGIC.deletePackage()" class="w-full text-center text-red-500 font-bold text-[10px] uppercase underline mt-4 pt-4 border-t border-zinc-100 hidden">Hapus Item Ini</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-cancel" class="fixed inset-0 z-[60] bg-zinc-900/40 backdrop-blur-sm hidden flex-col items-center justify-center p-4 transition-all">
+        <div class="bg-white w-full max-w-sm rounded-[24px] p-6 shadow-2xl animate-slide-up border border-red-100">
+            <div class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center mb-4"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div>
+            <h2 class="font-bold text-xl text-zinc-900 mb-2 tracking-tight">Hapus / Batalkan?</h2><p class="text-xs text-zinc-500 mb-6 leading-relaxed">Jadwal ini akan dihapus dari sistem. Ketik <span class="font-black text-red-600">YAKIN</span> untuk melanjutkan.</p>
+            <input type="text" id="cancel-confirm-text" placeholder="Ketik YAKIN" class="w-full bg-zinc-50 text-center text-red-600 font-black tracking-widest text-lg px-4 py-3 rounded-xl outline-none border border-red-200 focus:border-red-400 mb-4">
+            <div class="flex gap-3"><button onclick="CASHIER_LOGIC.closeCancelModal()" class="btn-press flex-1 bg-zinc-100 text-zinc-600 py-3.5 rounded-xl font-bold text-sm hover:bg-zinc-200 transition-all">Kembali</button><button id="btn-submit-cancel" onclick="CASHIER_LOGIC.processCancel()" class="btn-press flex-1 bg-red-600 text-white py-3.5 rounded-xl font-bold text-sm shadow-md hover:bg-red-700 transition-all opacity-50 cursor-not-allowed" disabled>Hapus</button></div>
+        </div>
+    </div>
+
+    <div id="loading-overlay" class="fixed inset-0 bg-white/80 backdrop-blur-sm hidden flex-col items-center justify-center z-[200] transition-all">
+        <div class="w-10 h-10 border-4 border-zinc-200 border-t-zinc-900 rounded-full animate-spin mb-4"></div>
+        <h2 id="loading-text" class="font-bold text-zinc-800 tracking-wide text-xs uppercase">Memproses...</h2>
     </div>
 
     <script>
         const CONFIG = {
             TENANT_ID: "YHB",
-            BRAND_NAME: "YELLOW BARBER",
-            LOGO_URL: "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png",
-            WEBHOOK_URL: 'https://n8n-mzbmiib3etk4.kangkung.sumopod.my.id/webhook/dbp-public',
-            AVAILABLE_HOURS: ["12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"],
-            BRANCHES_META: {
-                "YELLOW BANDA": { cover: "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/PHOTO%20ASSETS%201.png", rating: "4.9", rev: "150+", tags: "<span>Premium</span><span>AC</span>", display_name: "BANDA ACEH" }
+            WEBHOOK_URL: 'https://n8n-mzbmiib3etk4.kangkung.sumopod.my.id/webhook/a6512d05-a51a-4289-9063-9a4f17ac745a',
+            PUBLIC_WEBHOOK_URL: 'https://n8n-mzbmiib3etk4.kangkung.sumopod.my.id/webhook/dbp-public',
+            COMMISSION_RATE: 0.50 // Default
+        };
+
+        const STATE = { user: null, cancelTargetId: null, sysDates: null, queue: [], expenses: [], packages: [], addons: [], checkout: null, rawReportData: null };
+
+        const UTIL = {
+            formatRp: (num) => 'Rp ' + Number(num || 0).toLocaleString('id-ID'),
+            cleanDate: (dateStr) => String(dateStr || "").substring(0, 10),
+            formatWA: (phone) => { if (!phone) return ""; let p = String(phone).replace(/\D/g, ''); if (p.startsWith('0')) return '62' + p.substring(1); if (p.startsWith('8')) return '62' + p; return p; },
+            toTitleCase: (str) => { return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}); },
+            showLoading: (t) => { document.getElementById('loading-text').innerText = t || "MEMPROSES..."; document.getElementById('loading-overlay').classList.replace('hidden', 'flex'); },
+            hideLoading: () => document.getElementById('loading-overlay').classList.replace('flex', 'hidden'),
+            post: async (payload) => {
+                const res = await fetch(CONFIG.WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({...payload, tenant_id: CONFIG.TENANT_ID}) });
+                return await res.json();
             }
         };
 
-        const extractData = (item) => item.json ? item.json : item;
-        const delay = ms => new Promise(res => setTimeout(res, ms));
-
-        const APP_LOGIC = {
-            state: { branches: [], staffs: [], selectedBranch: null, selectedStaff: null, selectedPackage: null, finalPrice: 0, selectedStaffName: null, selectedPackageName: null },
-
-            async init() {
-                document.getElementById('meta-title').innerText = `Booking | ${CONFIG.BRAND_NAME}`;
-                document.getElementById('meta-icon').href = CONFIG.LOGO_URL;
-                document.getElementById('splash-logo').src = CONFIG.LOGO_URL;
-                document.getElementById('nav-logo').src = CONFIG.LOGO_URL;
-
+        const LOGIN_SYSTEM = {
+            pin: "",
+            init() {
+                const saved = localStorage.getItem('yhb_v15_user');
+                if (saved) { STATE.user = JSON.parse(saved); this.route(); }
+                document.getElementById('pinInput').addEventListener('keypress', function(e) { if (e.key === 'Enter') LOGIN_SYSTEM.submit(); });
+            },
+            async submit() {
+                const u = document.getElementById('userInput').value.toUpperCase();
+                const p = document.getElementById('pinInput').value;
+                if (!u || !p) return this.triggerError("ISI ID DAN PIN");
+                UTIL.showLoading("Verifikasi...");
                 try {
-                    const fetchPromise = fetch(CONFIG.WEBHOOK_URL, {
-                        method: 'POST', headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({ action: 'get_initial_data', tenant_id: CONFIG.TENANT_ID })
-                    }).then(res => res.json());
-
-                    const [rawData] = await Promise.all([fetchPromise, delay(1500)]); 
-                    const payload = Array.isArray(rawData) ? rawData[0] : rawData;
-                    
-                    this.state.branches = payload.branches ? (Array.isArray(payload.branches) ? payload.branches.map(extractData) : [extractData(payload.branches)]) : [];
-                    this.state.branches = Array.from(new Map(this.state.branches.map(item => [item.id, item])).values());
-
-                    this.renderLeaderboard(payload.history_bookings || []);
-                    this.renderBranches();
-                    
-                    const splash = document.getElementById('splash-screen');
-                    splash.classList.add('curtain-exit');
-                    setTimeout(() => splash.remove(), 800);
-                } catch (e) {
-                    document.getElementById('splash-screen').innerHTML = `<div class="bg-white p-6 text-center"><h1 class="text-black font-black text-xl tracking-widest uppercase">Koneksi Gagal</h1></div>`;
-                }
+                    const data = await UTIL.post({ action: 'login', username: u, password: p });
+                    const res = data[0] || data;
+                    if (res.success) { STATE.user = res.user; localStorage.setItem('yhb_v15_user', JSON.stringify(res.user)); this.route(); } 
+                    else throw new Error();
+                } catch (e) { this.triggerError("AKSES DITOLAK"); } finally { UTIL.hideLoading(); document.getElementById('pinInput').value = ''; }
             },
-
-            normalizePhone(phone) {
-                if(!phone) return ''; let p = String(phone).replace(/\D/g, ''); 
-                if (p.startsWith('08')) p = '628' + p.substring(2); return p;
+            triggerError(msg) { document.getElementById('error-msg').innerText = msg; document.getElementById('error-msg').style.opacity = '1'; },
+            route() {
+                document.getElementById('view-login').classList.add('hidden');
+                document.getElementById('view-cashier').classList.replace('hidden', 'flex');
+                CASHIER_LOGIC.init();
             },
-
-            renderLeaderboard(historyData) {
-                const container = document.getElementById('leaderboard-list');
-                if(!historyData || historyData.length === 0) { container.innerHTML = `<li class="text-center py-4 font-bold text-[10px] text-zinc-400 uppercase tracking-widest">Belum ada data</li>`; return; }
-
-                const sums = {};
-                historyData.forEach(trx => {
-                    const cleanPhone = this.normalizePhone(trx.cust_phone);
-                    if(!cleanPhone || !trx.price) return;
-                    if(!sums[cleanPhone]) sums[cleanPhone] = { name: trx.cust_name || 'Hamba Allah', total: 0 };
-                    sums[cleanPhone].total += Number(trx.price);
-                });
-
-                const top10 = Object.values(sums).sort((a,b) => b.total - a.total).slice(0, 10);
-                container.innerHTML = top10.map((s, index) => {
-                    let badge = 'text-zinc-400'; if(index === 0) badge = 'text-[#FFE600] drop-shadow-md'; else if(index === 1) badge = 'text-zinc-400'; else if(index === 2) badge = 'text-amber-600';
-                    return `
-                    <li class="flex items-center justify-between py-3 border-b border-zinc-100 last:border-0">
-                        <div class="flex items-center gap-4">
-                            <span class="font-black text-sm w-4 text-center ${badge}">${index+1}</span>
-                            <span class="font-bold text-xs text-black uppercase tracking-wide">${s.name}</span>
-                        </div>
-                        <span class="font-bold text-[10px] text-zinc-400 uppercase tracking-widest">IDR ${(s.total/1000).toFixed(0)}K</span>
-                    </li>`;
-                }).join('');
-            },
-
-            renderBranches() {
-                const container = document.getElementById('branch-list');
-                if (this.state.branches.length === 0) return;
-
-                const isOpen = new Date().getHours() >= 12; 
-
-                container.innerHTML = this.state.branches.map((b, index) => {
-                    const meta = CONFIG.BRANCHES_META[b.dpb_branches_name] || { cover: CONFIG.LOGO_URL, display_name: b.dpb_branches_name };
-                    const status = isOpen ? `<span class="bg-[#FFE600] text-black px-3 py-1 rounded text-[8px] font-black uppercase tracking-widest">Open</span>` : `<span class="bg-black text-white px-3 py-1 rounded text-[8px] font-black uppercase tracking-widest">Closed</span>`;
-
-                    return `
-                    <div onclick="APP_LOGIC.selectBranch('${b.dpb_branches_name}', '${meta.display_name}')" class="bg-white rounded-[24px] overflow-hidden card-shadow taktil-hover transition-all cursor-pointer animate-slide-up" style="animation-delay: ${index * 0.1}s">
-                        <div class="relative h-56 w-full">
-                            <img src="${meta.cover}" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-black/20"></div>
-                            <div class="absolute top-4 left-4">${status}</div>
-                            <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end">
-                                <h3 class="font-black text-2xl text-white tracking-tighter uppercase drop-shadow-lg italic">${meta.display_name}</h3>
-                                <div class="bg-white/90 backdrop-blur-sm text-black font-black text-[10px] px-3 py-1.5 rounded-lg shadow-sm uppercase tracking-widest">Pilih ↗</div>
-                            </div>
-                        </div>
-                    </div>`;
-                }).join('');
-            },
-
-            async selectBranch(dbName, displayName) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                this.state.selectedBranch = dbName;
-                document.getElementById('step-initial').classList.add('hidden');
-                document.getElementById('step-staff').classList.remove('hidden');
-                document.getElementById('selected-branch-text').innerText = displayName;
-                
-                document.getElementById('staff-list').innerHTML = `<div class="text-center py-20 animate-pulse"><p class="font-black text-[10px] text-zinc-400 tracking-[0.3em] uppercase">Memuat Capster...</p></div>`;
-
-                try {
-                    const res = await fetch(CONFIG.WEBHOOK_URL, {
-                        method: 'POST', headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({ action: 'get_staff_list', branch_name: dbName, tenant_id: CONFIG.TENANT_ID })
-                    });
-                    const rawStaff = await res.json();
-                    this.state.staffs = (Array.isArray(rawStaff) ? rawStaff : [rawStaff]).map(extractData);
-                    this.renderStaff(this.state.staffs);
-                } catch (e) { console.error(e); }
-            },
-
-            renderStaff(staffs) {
-                const container = document.getElementById('staff-list');
-                if (!staffs || staffs.length === 0 || !staffs[0].id) { container.innerHTML = `<p class="text-zinc-400 font-bold text-xs text-center py-10 uppercase tracking-widest">Capster belum tersedia.</p>`; return; }
-
-                container.innerHTML = staffs.map((s, index) => {
-                    // DONT USE PHOTO (image_6615e3.png)
-                    // const imgUrl = s.photo1 || 'https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/ZAMIL%20PORTRAIT.png';
-                    const rating = (Number(s.rating || 0) + 4.0).toFixed(1);
-                    const role = s.role ? s.role.toUpperCase() : 'CAPSTER';
-                    
-                    // KUNCI: FILTER HANYA LAYANAN PRIMER DI SINI (Step 2)
-                    const primerServices = (s.services || []).filter(srv => srv.CATEGORY === 'PRIMER' || !srv.CATEGORY);
-                    if(primerServices.length === 0) return '';
-
-                    // BIKIN GRID PRICELIST COMPACT
-                    const servicesHtml = primerServices.map(ser => {
-                        const finalPrice = Number(ser.price || ser.PRICE);
-                        const serviceName = ser.name || ser.NAME;
-                        return `
-                        <button onclick="APP_LOGIC.prepareBooking('${s.id}', '${ser.id}', ${finalPrice}, '${serviceName}')" class="flex flex-col items-center justify-center text-center p-3 rounded-xl border border-zinc-200 bg-white hover:border-black hover:bg-zinc-50 transition-all taktil card-shadow space-y-1">
-                            <span class="text-[10px] font-black text-black uppercaseitalic tracking-wider leading-tight">${serviceName}</span>
-                            <span class="text-[9px] font-black text-white bg-black px-2.5 py-1 rounded-full italic shadow-md">Rp ${finalPrice.toLocaleString('id-ID')}</span>
-                        </button>
-                        `;
-                    }).join('');
-
-                    // UI DENGAN SEKAT PEMBEDA - NO PHOTO (image_6615e3.png)
-                    return `
-                    <div class="bg-white rounded-[24px] border border-zinc-100 card-shadow overflow-hidden animate-slide-up" style="animation-delay: ${index * 0.1}s">
-                        
-                        <div class="p-5 pt-6 bg-white border-b-2 border-zinc-100">
-                            <div>
-                                <h4 class="font-black text-xl text-black uppercase tracking-tighter mb-1 leading-none italic">${s.dbp_staff_name}</h4>
-                                <span class="inline-block text-[8px] font-bold text-black bg-zinc-100 border border-zinc-200 px-3 py-1 rounded-full uppercase-wider shadow-sm mb-2">${role}</span>
-                                <div class="flex items-center gap-1.5 text-black font-black text-[9px]"><span class="text-amber-500">★</span> ${rating} <span class="font-medium text-zinc-400 ml-1">Reviews (40+)</span></div>
-                            </div>
-                        </div>
-
-                        <div class="p-5 bg-zinc-50/50">
-                            <div class="grid grid-cols-2 gap-3">
-                                ${servicesHtml}
-                            </div>
-                        </div>
-                    </div>`;
-                }).join('');
-            },
-
-            prepareBooking(staffId, packageId, price, packageName) {
-                this.state.selectedStaff = staffId; this.state.selectedPackage = packageId; 
-                this.state.finalPrice = price; this.state.selectedPackageName = packageName;
-                
-                const staff = this.state.staffs.find(s => s.id == staffId);
-                this.state.selectedStaffName = staff ? staff.dbp_staff_name : staffId;
-                
-                document.getElementById('display-price').innerText = `Rp ${price.toLocaleString('id-ID')}`;
-                document.getElementById('bottom-bar').classList.remove('hidden');
-            },
-
-            generateDates() {
-                const dates = []; const today = new Date(); const monthNames = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Ags", "Sep", "Okt", "Nov", "Des"]; const dayNames = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
-                for(let i=0; i<8; i++) {
-                    const d = new Date(today); d.setDate(d.getDate() + i);
-                    const day = d.getDate().toString().padStart(2, '0'); const month = monthNames[d.getMonth()]; const dayName = dayNames[d.getDay()]; const year = d.getFullYear();
-                    dates.push({ display: i === 0 ? "Hari Ini" : `${dayName}, ${day} ${month}`, value: `${year}-${(d.getMonth()+1).toString().padStart(2,'0')}-${day}` });
-                } return dates;
-            },
-
-            openBookingForm() { document.getElementById('booking_date').value = ''; document.getElementById('booking_time').value = ''; this.renderDateSlots(); this.renderTimeSlots(); document.getElementById('modal-book').classList.remove('hidden'); },
-            closeModal() { document.getElementById('modal-book').classList.add('hidden'); },
-
-            renderDateSlots() {
-                document.getElementById('date-slots').innerHTML = this.generateDates().map(d => `<button id="btn-date-${d.value}" onclick="APP_LOGIC.selectDate('${d.value}')" class="date-btn flex-shrink-0 bg-zinc-50 border border-zinc-200 px-5 py-3 rounded-[16px] text-[10px] font-black uppercase tracking-widest text-zinc-500 taktil whitespace-nowrap">${d.display}</button>`).join('');
-            },
-
-            selectDate(dateValue) {
-                document.getElementById('booking_date').value = dateValue;
-                document.querySelectorAll('.date-btn').forEach(btn => { btn.classList.remove('bg-black', 'text-white', 'border-black'); btn.classList.add('bg-zinc-50', 'text-zinc-500', 'border-zinc-200'); });
-                const selectedBtn = document.getElementById(`btn-date-${dateValue}`); selectedBtn.classList.remove('bg-zinc-50', 'text-zinc-500', 'border-zinc-200'); selectedBtn.classList.add('bg-black', 'text-white', 'border-black');
-                document.getElementById('booking_time').value = ''; this.renderTimeSlots();
-            },
-
-            renderTimeSlots() {
-                const container = document.getElementById('time-slots'); const selectedDate = document.getElementById('booking_date').value;
-                if (!selectedDate) { container.innerHTML = `<div class="col-span-4 text-center py-4 text-[9px] font-bold text-zinc-400 uppercase tracking-widest">Pilih Tanggal</div>`; return; }
-
-                const staffData = this.state.staffs.find(s => s.id == this.state.selectedStaff);
-                const booked = staffData ? (staffData.booked_slots || []) : [];
-
-                container.innerHTML = CONFIG.AVAILABLE_HOURS.map(h => {
-                    // Cek booked slots (format must match Webhook: YYYY-MM-DD | HH:MM)
-                    if (booked.some(slot => String(slot).includes(selectedDate) && String(slot).includes(h))) {
-                        
-                        // FIX: TULISAN FULL DIBUAT KENTARA ( image_65bef0.png )
-                        return `<button disabled class="time-btn w-full bg-red-100 text-red-700 border-2 border-red-300 py-3 rounded-[12px] text-[10px] font-black opacity-60 cursor-not-allowed line-through">FULL</button>`;
-                    }
-                    return `<button id="btn-time-${h.replace(':','')}" onclick="APP_LOGIC.selectTime('${h}')" class="time-btn w-full bg-zinc-50 text-zinc-500 border border-zinc-200 py-3 rounded-[12px] text-[10px] font-black transition-all taktil">BOOK</button>`;
-                }).join('');
-            },
-
-            selectTime(hour) {
-                document.getElementById('booking_time').value = hour;
-                document.querySelectorAll('.time-btn').forEach(btn => { btn.classList.remove('bg-[#FFE600]', 'text-black', 'border-[#FFE600]'); btn.classList.add('bg-zinc-50', 'text-zinc-500', 'border-zinc-200'); });
-                const selectedBtn = document.getElementById(`btn-time-${hour.replace(':','')}`); selectedBtn.classList.remove('bg-zinc-50', 'text-zinc-500', 'border-zinc-200'); selectedBtn.classList.add('bg-[#FFE600]', 'text-black', 'border-[#FFE600]');
-            },
-
-            async submitBooking() {
-                const name = document.getElementById('cust_name').value.trim(); const phone = document.getElementById('cust_phone').value.trim(); const tanggal = document.getElementById('booking_date').value; const jam = document.getElementById('booking_time').value;
-                if(!name || !phone || !tanggal || !jam) return alert('Lengkapi semua data.');
-
-                const btn = document.getElementById('btn-submit'); btn.innerText = "PROSES..."; btn.disabled = true; btn.classList.add('opacity-50');
-
-                try {
-                    const res = await fetch(CONFIG.WEBHOOK_URL, {
-                        method: 'POST', headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({ action: 'submit_booking', cust_name: name, cust_phone: phone, tanggal: tanggal, jam: jam, branch_id: this.state.selectedBranch, capster_id: this.state.selectedStaff, package_id: this.state.selectedPackage, price: this.state.finalPrice, caps_in_charge: this.state.selectedStaffName, package_name: this.state.selectedPackageName, tenant_id: CONFIG.TENANT_ID })
-                    });
-                    if(res.ok) {
-                        const branchMeta = CONFIG.BRANCHES_META[this.state.selectedBranch] || { display_name: this.state.selectedBranch };
-                        document.getElementById('receipt-branch').innerText = branchMeta.display_name; document.getElementById('receipt-capster').innerText = this.state.selectedStaffName; document.getElementById('receipt-time').innerText = `${tanggal} | ${jam}`;
-                        document.getElementById('modal-book').classList.add('hidden');
-                        const s = document.getElementById('success-screen'); s.classList.remove('hidden'); s.classList.add('flex');
-                    } else throw new Error();
-                } catch (e) { alert('Gagal. Coba lagi.'); btn.innerText = "BOOK SEKARANG"; btn.disabled = false; btn.classList.remove('opacity-50'); }
-            },
-            resetToStep1() { window.scrollTo({ top: 0, behavior: 'smooth' }); document.getElementById('step-initial').classList.remove('hidden'); document.getElementById('step-staff').classList.add('hidden'); document.getElementById('bottom-bar').classList.add('hidden'); }
+            logout() { localStorage.removeItem('yhb_v15_user'); location.reload(); }
         };
 
-        window.onload = () => APP_LOGIC.init();
+        const CASHIER_LOGIC = {
+            init() {
+                const bName = STATE.user.branch || "YHB";
+                document.getElementById('cashier-branch-name').innerText = bName;
+                document.getElementById('report-branch-label').innerText = bName;
+                
+                const now = new Date(); document.getElementById('report-month').value = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+                this.loadData();
+                setInterval(() => this.loadData(true), 60000); 
+
+                document.getElementById('cancel-confirm-text').addEventListener('input', function() {
+                    const btn = document.getElementById('btn-submit-cancel');
+                    if(this.value === 'YAKIN') { btn.disabled = false; btn.classList.remove('opacity-50', 'cursor-not-allowed'); } 
+                    else { btn.disabled = true; btn.classList.add('opacity-50', 'cursor-not-allowed'); }
+                });
+            },
+            switchTab(tab) {
+                ['queue', 'report', 'config'].forEach(t => { 
+                    document.getElementById(`tab-${t}`).classList.add('hidden'); 
+                    const btn = document.getElementById(`tab-btn-${t}`);
+                    if(btn) { btn.classList.remove('tab-active', 'text-zinc-900'); btn.classList.add('text-zinc-500'); }
+                });
+                document.getElementById(`tab-${tab}`).classList.remove('hidden');
+                const activeBtn = document.getElementById(`tab-btn-${tab}`);
+                if(activeBtn) { activeBtn.classList.remove('text-zinc-500'); activeBtn.classList.add('tab-active', 'text-zinc-900'); }
+                if(tab === 'report') this.processReport();
+            },
+            async loadData(silent = false) {
+                const sText = document.getElementById('sync-text'); const sIcon = document.getElementById('sync-icon');
+                if(sText) sText.innerText = "Syncing..."; if(sIcon) sIcon.classList.add('animate-spin');
+                if(!silent) UTIL.showLoading("Menyinkronkan Data...");
+                
+                try {
+                    const data = await UTIL.post({ action: 'get_cashier_data', branch: STATE.user.branch });
+                    const res = data[0] || data;
+                    if (res.success) { 
+                        STATE.sysDates = res.sys_dates; 
+                        
+                        STATE.queue = Array.from(new Map((res.queue || []).map(item => [item.id, item])).values());
+                        STATE.expenses = Array.from(new Map((res.expenses || []).map(item => [item.id, item])).values());
+                        STATE.packages = Array.from(new Map((res.packages || []).map(item => [item.id, item])).values());
+                        STATE.addons = Array.from(new Map((res.addons || []).map(item => [item.id, item])).values());
+                        
+                        this.renderQueue(); 
+                        this.renderExpenses(); 
+                        this.updateSummary(); 
+                        this.renderConfig();
+                    }
+                    const repData = await UTIL.post({ action: 'get_cashier_report', branch: STATE.user.branch });
+                    STATE.rawReportData = repData[0] || repData;
+                    if(!document.getElementById('tab-report').classList.contains('hidden')) {
+                        document.getElementById('printable-report').classList.remove('hidden');
+                        this.processReport();
+                    }
+                } catch (e) {} finally {
+                    if(sText) sText.innerText = "Auto-Sync On"; if(sIcon) sIcon.classList.remove('animate-spin');
+                    UTIL.hideLoading();
+                }
+            },
+            
+            // DYNAMIC REVENUE SHARE LOGIC
+            calculateCommission(capsterName, price) {
+                const p = Number(price) || 0;
+                const cName = String(capsterName || '').toUpperCase();
+                if(cName === 'BUR') return p * 0.60;
+                return p * 0.50; // Default 50%
+            },
+
+            updateSummary() {
+                let omset = 0; let exp = 0; let komisi = 0;
+                
+                STATE.queue.forEach(q => { 
+                    if((q.status === 'DONE' || q.status === 'SUCCESS') && UTIL.cleanDate(q.tanggal) === STATE.sysDates.today) {
+                        omset += (Number(q.price)||0);
+                        komisi += this.calculateCommission(q.caps_in_charge || q.capster_id, q.price);
+                    } 
+                });
+                STATE.expenses.forEach(e => { 
+                    if(UTIL.cleanDate(e.tanggal) === STATE.sysDates.today) {
+                        exp += (Number(e.nominal)||0); 
+                    }
+                });
+                
+                document.getElementById('sum-omset').innerText = UTIL.formatRp(omset); 
+                document.getElementById('sum-komisi').innerText = UTIL.formatRp(komisi); 
+                document.getElementById('sum-expense').innerText = UTIL.formatRp(exp); 
+                document.getElementById('sum-profit').innerText = UTIL.formatRp(omset - komisi - exp); // Setoran Bersih Kasir
+            },
+            
+            renderQueue() {
+                const container = document.getElementById('queue-container'); 
+                container.innerHTML = ''; 
+                const todayData = STATE.queue.filter(d => UTIL.cleanDate(d.tanggal) === STATE.sysDates.today).sort((a,b) => a.jam.localeCompare(b.jam));
+
+                if(todayData.length === 0) { container.innerHTML = `<div class="text-center py-10 text-zinc-400 font-bold text-sm">Belum ada antrean hari ini.</div>`; return; }
+                
+                todayData.forEach(item => {
+                    const isDone = item.status === 'DONE' || item.status === 'SUCCESS'; 
+                    const isPending = item.status === 'PENDING';
+                    const cName = item.caps_in_charge || item.capster_id || 'Barber'; 
+                    const waPhone = UTIL.formatWA(item.cust_phone);
+                    
+                    let sBadge = isDone ? `<span class="text-[9px] font-bold uppercase px-2 py-1 rounded bg-zinc-200 text-zinc-500">✓ Selesai</span>` : (isPending ? `<span class="text-[9px] font-bold uppercase px-2 py-1 rounded bg-zinc-100 text-zinc-500">Pending</span>` : `<span class="text-[9px] font-bold uppercase px-2 py-1 rounded bg-blue-100 text-blue-700">On Duty</span>`);
+                    
+                    let aBtns = '';
+                    if (!isDone) {
+                        const cBtn = `<button onclick="CASHIER_LOGIC.openCancelModal('${item.id}')" class="btn-press bg-white border border-red-200 text-red-600 px-3 py-2 rounded-lg text-[11px] font-bold hover:bg-red-50 transition-all">Cancel</button>`;
+                        const swapBtn = `<button onclick="CASHIER_LOGIC.openSwapModal('${item.id}', '${item.cust_name}')" class="btn-press bg-yellow-50 border border-yellow-200 text-yellow-700 px-3 py-2 rounded-lg text-[11px] font-bold hover:bg-yellow-100 transition-all">Pindah</button>`;
+
+                        let waBtn = '';
+                        if (isPending && waPhone) {
+                            const wTxt = `Halo kak, kami dari Yellow Barber Cabang ${STATE.user.branch} ingin mengkonfirmasi bookingan nya untuk hari ini di jam ${item.jam} dengan barber ${cName} apakah jadi datang kak?\n\nApabila ada pembatalan atau penjadwalan ulang, bisa kita bantu dengan membalas pesan ini.\n\nFYI, untuk keterlambatan kami bisa tunggu maksimal sampai 5 menit ya, kak 🙏🏻 Terima kasih sebelumnya`;
+                            waBtn = `<a href="https://wa.me/${waPhone}?text=${encodeURIComponent(wTxt)}" target="_blank" class="btn-press bg-green-50 border border-green-200 text-green-600 px-3 py-2 rounded-lg text-[11px] font-bold hover:bg-green-100 flex items-center gap-1 transition-all">WA</a>`;
+                        }
+                        
+                        const defaultPrice = Number(item.price) || 0;
+                        const defaultPkgName = String(item.package_name || "").replace(/'/g, "\\'"); 
+                        
+                        let pBtn = isPending ? `<button onclick="CASHIER_LOGIC.updateStatus('${item.id}', 'ON DUTY', ${defaultPrice}, '${defaultPkgName}')" class="btn-press bg-blue-600 text-white px-4 py-2 rounded-lg text-[11px] font-bold shadow-sm hover:bg-blue-700 transition-all">Mulai</button>` : `<button onclick="CASHIER_LOGIC.openCheckout('${item.id}')" class="btn-press bg-zinc-900 text-[#FFE600] px-4 py-2 rounded-lg text-[11px] font-bold shadow-sm hover:bg-zinc-800 transition-all">Selesai</button>`;
+                        aBtns = `<div class="flex flex-wrap items-center justify-end gap-2 mt-3 sm:mt-0">${waBtn}${swapBtn}${cBtn}${pBtn}</div>`;
+                    }
+                    
+                    container.insertAdjacentHTML('beforeend', `
+                        <div class="${isDone ? 'bg-zinc-50 border-zinc-100 opacity-60' : 'bg-white border-zinc-200 apple-shadow'} border rounded-[16px] p-4 flex flex-col sm:flex-row justify-between sm:items-center transition-all mb-3 relative group">
+                            
+                            ${isDone ? `<button onclick="CASHIER_LOGIC.openCancelModal('${item.id}')" class="absolute top-2 right-2 hidden group-hover:flex w-6 h-6 items-center justify-center bg-red-100 text-red-600 rounded-full hover:bg-red-200 transition-all cursor-pointer"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>` : ''}
+
+                            <div>
+                                <div class="flex items-center gap-3 mb-1"><span class="text-base font-bold text-zinc-900">${item.jam}</span>${sBadge}</div>
+                                <h3 class="font-bold text-[15px] text-zinc-800 leading-none mb-1.5">${item.cust_name || 'Walk-In'}</h3>
+                                <p class="text-[11px] font-semibold text-zinc-500">Barber: <span class="text-zinc-800">${cName}</span> &bull; <span class="text-zinc-800">${item.package_name}</span> &bull; ${UTIL.formatRp(item.price)}</p>
+                            </div>
+                            ${aBtns}
+                        </div>`);
+                });
+            },
+
+            // --- SWAP CAPSTER (BUG FIXED VIA PUBLIC WEBHOOK) ---
+            async openSwapModal(bookingId, custName) {
+                document.getElementById('swap-booking-id').value = bookingId;
+                document.getElementById('swap-cust-name').innerText = custName || 'Guest';
+                
+                const selectEl = document.getElementById('swap-capster-select');
+                selectEl.innerHTML = '<option value="">Loading Capster...</option>';
+                document.getElementById('modal-swap-capster').classList.replace('hidden', 'flex');
+
+                try {
+                    // MENGGUNAKAN PUBLIC WEBHOOK AGAR TIDAK ERROR "GAGAL LOAD"
+                    const res = await fetch(CONFIG.PUBLIC_WEBHOOK_URL, {
+                        method: 'POST', headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({ action: 'get_staff_list', branch_name: STATE.user.branch, tenant_id: CONFIG.TENANT_ID })
+                    });
+                    const rawStaff = await res.json();
+                    const staffs = (Array.isArray(rawStaff) ? rawStaff : [rawStaff]).map(s => s.json ? s.json : s);
+                    
+                    selectEl.innerHTML = staffs.map(s => `<option value="${s.id}|${s.dbp_staff_name}">${s.dbp_staff_name} (${s.role || 'Barber'})</option>`).join('');
+                } catch (e) {
+                    selectEl.innerHTML = '<option value="">Gagal Load Capster</option>';
+                }
+            },
+            async submitSwapCapster() {
+                const bookingId = document.getElementById('swap-booking-id').value;
+                const selectVal = document.getElementById('swap-capster-select').value;
+                if(!selectVal) return alert("Pilih capster tujuan!");
+
+                const [newCapsterId, newCapsterName] = selectVal.split('|');
+
+                document.getElementById('modal-swap-capster').classList.replace('flex', 'hidden');
+                UTIL.showLoading("Memindahkan...");
+
+                try {
+                    await UTIL.post({ 
+                        action: 'swap_capster', 
+                        id: Number(bookingId), 
+                        new_capster_id: newCapsterId,
+                        new_capster_name: newCapsterName
+                    });
+                    await this.loadData(true);
+                } catch (e) { alert("Gagal pindah."); } finally { UTIL.hideLoading(); }
+            },
+
+            // --- EXPENSES (DENGAN DELETE FUNCTION) ---
+            renderExpenses() {
+                const container = document.getElementById('expense-container'); container.innerHTML = '';
+                const todayExp = STATE.expenses.filter(e => UTIL.cleanDate(e.tanggal) === STATE.sysDates.today);
+                if (todayExp.length === 0) container.innerHTML = `<div class="text-center py-6 text-zinc-400 font-semibold text-xs">Belum ada pengeluaran.</div>`;
+                else todayExp.forEach(item => { 
+                    container.insertAdjacentHTML('beforeend', `
+                    <div class="bg-white border border-zinc-100 rounded-xl p-3.5 flex justify-between items-center shadow-sm group relative">
+                        <div>
+                            <p class="font-bold text-zinc-800 text-sm">${item.deskripsi}</p>
+                            <p class="text-[10px] font-semibold text-zinc-400 uppercase mt-0.5">${item.kategori}</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="font-bold text-red-500 text-sm">- ${UTIL.formatRp(item.nominal)}</span>
+                            <button onclick="CASHIER_LOGIC.deleteExpense('${item.id}')" class="hidden sm:group-hover:flex w-8 h-8 items-center justify-center bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-all border border-red-100">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            </button>
+                        </div>
+                        <button onclick="CASHIER_LOGIC.deleteExpense('${item.id}')" class="sm:hidden absolute top-1 right-1 text-red-400 p-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                    </div>`); 
+                });
+            },
+            openExpenseModal() { document.getElementById('exp-deskripsi').value = ''; document.getElementById('exp-nominal').value = ''; document.getElementById('modal-expense').classList.replace('hidden', 'flex'); },
+            closeExpenseModal() { document.getElementById('modal-expense').classList.replace('flex', 'hidden'); },
+            async submitExpense() { 
+                const desc = document.getElementById('exp-deskripsi').value.trim(); const nom = document.getElementById('exp-nominal').value; 
+                const kat = document.getElementById('exp-kategori').value;
+                if(!desc || !nom) return alert("Isi form lengkap!"); 
+                this.closeExpenseModal(); UTIL.showLoading("Menyimpan..."); 
+                try { 
+                    await UTIL.post({ action: 'add_expense', tanggal: STATE.sysDates.today, branch: STATE.user.branch, cashier_id: STATE.user.staff_id, kategori: kat, deskripsi: desc, nominal: Number(nom) }); 
+                    await this.loadData(true); 
+                } catch (e) { alert("Gagal Simpan"); } finally { UTIL.hideLoading(); } 
+            },
+            async deleteExpense(expenseId) {
+                if(!confirm("Yakin hapus pengeluaran ini? Uang akan kembali ditambahkan ke saldo.")) return;
+                UTIL.showLoading("Menghapus...");
+                try { 
+                    await UTIL.post({ action: 'delete_expense', expense_id: expenseId }); 
+                    await this.loadData(true); 
+                } catch (e) { alert("Gagal Hapus"); } finally { UTIL.hideLoading(); }
+            },
+
+            // --- UPDATE STATUS ---
+            async updateStatus(id, newStatus, priceFallback, pkgNameFallback) { 
+                UTIL.showLoading("Update..."); 
+                try { 
+                    await UTIL.post({ action: 'update_status', id: Number(id), status: newStatus, new_price: priceFallback, new_package_name: pkgNameFallback }); 
+                    await this.loadData(true); 
+                } catch (e) { alert("Gagal Update"); } finally { UTIL.hideLoading(); } 
+            },
+            openCancelModal(id) { STATE.cancelTargetId = id; document.getElementById('cancel-confirm-text').value = ''; document.getElementById('btn-submit-cancel').disabled = true; document.getElementById('btn-submit-cancel').classList.add('opacity-50', 'cursor-not-allowed'); document.getElementById('modal-cancel').classList.replace('hidden', 'flex'); },
+            closeCancelModal() { STATE.cancelTargetId = null; document.getElementById('modal-cancel').classList.replace('flex', 'hidden'); },
+            async processCancel() { 
+                if(!STATE.cancelTargetId) return; this.closeCancelModal(); UTIL.showLoading("Menghapus/Membatalkan..."); 
+                try { await UTIL.post({ action: 'cancel_book', id: Number(STATE.cancelTargetId) }); await this.loadData(true); } 
+                catch (e) { alert("Gagal"); } finally { UTIL.hideLoading(); } 
+            },
+
+            // --- CHECKOUT LOGIC ---
+            openCheckout(id) {
+                const item = STATE.queue.find(x => x.id == id);
+                if(!item) return;
+                STATE.checkout = { ...item, selectedAddons: [], currentTotal: Number(item.price), basePrice: Number(item.price), baseName: item.package_name };
+                document.getElementById('checkout-cust-name').innerText = item.cust_name || 'Walk-In Guest';
+                document.getElementById('checkout-main-service').innerText = `${item.package_name} (${UTIL.formatRp(item.price)})`;
+                
+                const addList = document.getElementById('checkout-addons-list'); addList.innerHTML = '';
+                if(STATE.addons.length === 0) addList.innerHTML = '<p class="text-xs text-zinc-400 italic">Belum ada add-on di sistem. Tambahkan di tab Settings.</p>';
+                STATE.addons.forEach(a => {
+                    addList.insertAdjacentHTML('beforeend', `
+                        <label class="flex items-center justify-between p-3.5 bg-zinc-50 rounded-2xl border border-zinc-100 cursor-pointer hover:bg-zinc-100 transition-all">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" onchange="CASHIER_LOGIC.toggleAddon(this, '${a.NAME}', ${a.PRICE})" class="w-5 h-5 rounded border-zinc-300 accent-zinc-900">
+                                <span class="text-[11px] font-bold uppercase text-zinc-700">${a.NAME}</span>
+                            </div>
+                            <span class="text-[10px] font-black text-blue-600">+ ${UTIL.formatRp(a.PRICE)}</span>
+                        </label>`);
+                });
+                this.updateCheckoutDisplay();
+                document.getElementById('modal-checkout').classList.replace('hidden', 'flex');
+            },
+            toggleAddon(el, name, price) {
+                if(el.checked) STATE.checkout.selectedAddons.push({name, price});
+                else STATE.checkout.selectedAddons = STATE.checkout.selectedAddons.filter(x => x.name !== name);
+                this.updateCheckoutDisplay();
+            },
+            updateCheckoutDisplay() {
+                const extra = STATE.checkout.selectedAddons.reduce((sum, x) => sum + x.price, 0);
+                STATE.checkout.currentTotal = STATE.checkout.basePrice + extra;
+                document.getElementById('checkout-total-display').innerText = UTIL.formatRp(STATE.checkout.currentTotal);
+            },
+            async confirmCheckout() {
+                UTIL.showLoading("Mencatat Transaksi...");
+                const finalName = [STATE.checkout.baseName, ...STATE.checkout.selectedAddons.map(x => x.name)].join(" + ");
+                try {
+                    await UTIL.post({ action: 'update_status', id: Number(STATE.checkout.id), status: 'DONE', new_price: STATE.checkout.currentTotal, new_package_name: finalName });
+                    document.getElementById('modal-checkout').classList.replace('flex','hidden');
+                    await this.loadData(true);
+                } catch(e) { alert("Error saving transaction"); } finally { UTIL.hideLoading(); }
+            },
+
+            // --- CONFIG (PRICELIST) ---
+            renderConfig() {
+                const render = (list, containerId) => {
+                    const c = document.getElementById(containerId); c.innerHTML = '';
+                    if(list.length === 0) { c.innerHTML = '<p class="text-xs text-zinc-400 italic">Belum ada data.</p>'; return; }
+                    list.forEach(p => c.insertAdjacentHTML('beforeend', `
+                        <div class="flex justify-between items-center p-4 bg-white rounded-2xl border border-zinc-200 apple-shadow">
+                            <div><p class="font-bold text-[11px] uppercase text-zinc-800">${p.NAME}</p><p class="text-[10px] font-bold text-blue-600 mt-1">${UTIL.formatRp(p.PRICE)}</p></div>
+                            <button onclick="CASHIER_LOGIC.openPackageModal('${p.CATEGORY}', ${JSON.stringify(p).replace(/"/g, '&quot;')})" class="text-[10px] font-black uppercase text-zinc-500 hover:text-zinc-900 transition-all tracking-widest bg-zinc-100 border border-zinc-200 px-4 py-2 rounded-lg shadow-sm">Edit</button>
+                        </div>`));
+                };
+                render(STATE.packages, 'config-primer-list');
+                render(STATE.addons, 'config-addon-list');
+            },
+            openPackageModal(cat, data = null) {
+                document.getElementById('pkg-category').value = cat;
+                document.getElementById('pkg-id').value = data ? data.id : '';
+                document.getElementById('pkg-name').value = data ? data.NAME : '';
+                document.getElementById('pkg-price').value = data ? data.PRICE : '';
+                document.getElementById('pkg-modal-title').innerText = data ? 'Edit Item' : `New ${cat}`;
+                document.getElementById('btn-delete-pkg').classList.toggle('hidden', !data);
+                document.getElementById('modal-pkg').classList.replace('hidden', 'flex');
+            },
+            async savePackage() {
+                const id = document.getElementById('pkg-id').value;
+                const payload = { action: 'manage_package', operation_type: id ? 'edit' : 'add', package_id: id, name: document.getElementById('pkg-name').value.toUpperCase(), price: Number(document.getElementById('pkg-price').value), category: document.getElementById('pkg-category').value };
+                if(!payload.name || !payload.price) return alert("Isi data lengkap!");
+                UTIL.showLoading("Menyimpan Layanan...");
+                try { await UTIL.post(payload); document.getElementById('modal-pkg').classList.replace('flex','hidden'); await this.loadData(true); } catch(e){} finally { UTIL.hideLoading(); }
+            },
+            async deletePackage() {
+                if(!confirm("Yakin hapus layanan ini permanen?")) return;
+                UTIL.showLoading("Menghapus...");
+                try { await UTIL.post({ action: 'manage_package', operation_type: 'delete', package_id: document.getElementById('pkg-id').value }); document.getElementById('modal-pkg').classList.replace('flex','hidden'); await this.loadData(true); } catch(e){} finally { UTIL.hideLoading(); }
+            },
+
+            // --- REPORT (BERCERITA & DYNAMIC SHARE) ---
+            processReport() {
+                if(!STATE.rawReportData) return;
+                const month = document.getElementById('report-month').value; 
+                if(!month) return;
+                
+                document.getElementById('printable-report').classList.remove('hidden');
+                
+                const dailyStats = {}; let grandRev = 0; let grandExp = 0; let grandKomisi = 0;
+                let capsterStats = {}; let packageStats = {};
+                
+                STATE.rawReportData.bookings.filter(b => UTIL.cleanDate(b.tanggal).startsWith(month)).forEach(b => { 
+                    if(b.status === 'DONE' || b.status === 'SUCCESS') {
+                        const d = UTIL.cleanDate(b.tanggal); 
+                        const v = Number(b.price)||0; 
+                        const cName = String(b.caps_in_charge || b.capster_id || 'Unknown').toUpperCase();
+                        const pName = b.package_name || 'Unknown';
+                        
+                        const k = this.calculateCommission(cName, v);
+
+                        if(!dailyStats[d]) dailyStats[d]={c:0,r:0,e:0, k:0}; 
+                        dailyStats[d].c++; 
+                        dailyStats[d].r += v; 
+                        dailyStats[d].k += k;
+                        
+                        grandRev += v; 
+                        grandKomisi += k;
+                        
+                        capsterStats[cName] = (capsterStats[cName] || 0) + v;
+                        packageStats[pName] = (packageStats[pName] || 0) + 1;
+                    }
+                });
+
+                STATE.rawReportData.expenses.filter(e => UTIL.cleanDate(e.tanggal).startsWith(month)).forEach(e => { 
+                    const d = UTIL.cleanDate(e.tanggal); const v = Number(e.nominal)||0; 
+                    if(!dailyStats[d]) dailyStats[d]={c:0,r:0,e:0, k:0}; 
+                    dailyStats[d].e+=v; grandExp+=v; 
+                });
+
+                const totalTrx = Object.values(dailyStats).reduce((sum, item) => sum + item.c, 0);
+                const aov = totalTrx > 0 ? (grandRev / totalTrx) : 0;
+                const netProfit = grandRev - grandKomisi - grandExp; // Net Untuk Setoran Owner
+
+                // Cards Summary
+                document.getElementById('report-month-label').innerText = month;
+                document.getElementById('rep-total-trx').innerText = totalTrx; 
+                document.getElementById('rep-aov').innerText = UTIL.formatRp(aov);
+                document.getElementById('rep-total-revenue').innerText = UTIL.formatRp(grandRev); 
+                document.getElementById('rep-total-komisi').innerText = UTIL.formatRp(grandKomisi);
+                document.getElementById('rep-total-expense').innerText = UTIL.formatRp(grandExp);
+                document.getElementById('rep-net-profit').innerText = UTIL.formatRp(netProfit);
+                
+                // Top Performers (Compact List)
+                const sortedCapsters = Object.entries(capsterStats).sort((a,b) => b[1]-a[1]).slice(0,3);
+                const sortedPackages = Object.entries(packageStats).sort((a,b) => b[1]-a[1]).slice(0,3);
+
+                document.getElementById('rep-top-capster').innerHTML = sortedCapsters.length ? sortedCapsters.map((c, i) => `<div class="flex justify-between items-center border-b border-zinc-100 pb-1 last:border-0"><span class="font-bold text-[10px] text-zinc-700">${i+1}. ${UTIL.toTitleCase(c[0])}</span><span class="font-bold text-[9px] text-zinc-400">${UTIL.formatRp(c[1])}</span></div>`).join('') : '<span class="text-zinc-400 text-xs">-</span>';
+                
+                document.getElementById('rep-top-package').innerHTML = sortedPackages.length ? sortedPackages.map((p, i) => `<div class="flex justify-between items-center border-b border-zinc-100 pb-1 last:border-0"><span class="font-bold text-[10px] text-zinc-700 truncate w-32">${i+1}. ${UTIL.toTitleCase(p[0])}</span><span class="font-bold text-[9px] text-zinc-400">${p[1]}x</span></div>`).join('') : '<span class="text-zinc-400 text-xs">-</span>';
+                
+                // Table Rendering
+                const tbody = document.getElementById('report-table-body'); tbody.innerHTML = '';
+                const sorted = Object.keys(dailyStats).sort();
+                if(sorted.length===0) { tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-zinc-400 font-medium">Tidak ada data di bulan ini.</td></tr>`; return; }
+                
+                sorted.forEach(d => { 
+                    const kasBersih = dailyStats[d].r - dailyStats[d].k - dailyStats[d].e;
+                    tbody.insertAdjacentHTML('beforeend', `<tr class="border-b border-zinc-100 hover:bg-zinc-50 transition-colors">
+                        <td class="p-4 text-zinc-900 font-semibold">${d}</td>
+                        <td class="p-4 text-center text-zinc-600">${dailyStats[d].c}</td>
+                        <td class="p-4 text-right text-blue-600 font-semibold">${UTIL.formatRp(dailyStats[d].r)}</td>
+                        <td class="p-4 text-right text-orange-500 font-semibold">${UTIL.formatRp(dailyStats[d].k)}</td>
+                        <td class="p-4 text-right text-red-500 font-semibold">${UTIL.formatRp(dailyStats[d].e)}</td>
+                        <td class="p-4 text-right text-zinc-900 font-black">${UTIL.formatRp(kasBersih)}</td>
+                    </tr>`); 
+                });
+            },
+            exportPDF() { UTIL.showLoading("Generate PDF..."); html2pdf().set({margin:0.2, filename:`YHB_Report_${document.getElementById('report-month').value}.pdf`, html2canvas:{scale:2}, jsPDF:{unit:'in',format:'a4',orientation:'portrait'}}).from(document.getElementById('printable-report')).save().then(() => UTIL.hideLoading()); }
+        };
+
+        window.onload = () => { LOGIN_SYSTEM.init(); };
     </script>
 </body>
 </html>
