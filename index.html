@@ -7,181 +7,158 @@
     <link id="meta-icon" rel="icon" type="image/png" href="">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
     <style>
-        /* APPLE UI/UX CORE STYLES */
-        body { font-family: 'Inter', -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; background-color: #F5F5F7; color: #1D1D1F; overflow-x: hidden; }
+        /* CORE STYLES - CALVIN KLEIN VIBE */
+        body { font-family: 'Montserrat', sans-serif; -webkit-tap-highlight-color: transparent; background-color: #FAFAFA; color: #111111; overflow-x: hidden; }
         
-        /* SCROLLBAR HIDING & SNAP */
+        /* SCROLLBAR */
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* GLASSMORPHISM PANELS */
-        .glass-panel { background: rgba(255, 255, 255, 0.70); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.9); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04); border-radius: 24px; }
-        .glass-dark { background: rgba(29, 29, 31, 0.85); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15); border-radius: 24px; color: white; }
-        .glass-yellow { background: rgba(250, 204, 21, 0.85); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 8px 24px rgba(250, 204, 21, 0.25); border-radius: 24px; }
-
-        /* TACTILE ANIMATIONS */
-        .taktil { transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
-        .taktil:active { transform: scale(0.96); opacity: 0.85; }
-        .taktil-hover:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(0,0,0,0.08); }
-
-        /* PREMIUM LOADING ANIMATIONS */
-        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-        .animate-shimmer { background: linear-gradient(90deg, #1D1D1F 25%, #A1A1AA 50%, #1D1D1F 75%); background-size: 200% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 2.5s infinite linear; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
-        .animate-float { animation: float 4s ease-in-out infinite; }
+        /* PREMIUM PANELS */
+        .glass-nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .card-shadow { box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04); }
         
-        /* TRANSITIONS */
-        @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
-        .animate-slide-up { animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .curtain-exit { transform: translateY(-100%); transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1) forwards; }
+        /* ANIMATIONS */
+        .taktil { transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .taktil:active { transform: scale(0.96); }
+        .taktil-hover:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.06); }
+
+        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+        .animate-shimmer { background: linear-gradient(90deg, #111 25%, #999 50%, #111 75%); background-size: 200% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 2.5s infinite linear; }
+        
+        @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+        .animate-slide-up { animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .curtain-exit { transform: translateY(-100%); transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1) forwards; }
     </style>
 </head>
 <body class="pb-32">
 
-    <div id="splash-screen" class="fixed inset-0 z-[100] bg-yellow-400 flex flex-col items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#1d1d1f 1px, transparent 1px); background-size: 20px 20px;"></div>
+    <div id="splash-screen" class="fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center overflow-hidden">
         <div class="relative z-10 flex flex-col items-center">
-            <img id="splash-logo" src="" class="w-40 h-auto animate-float drop-shadow-2xl rounded-3xl p-2 bg-white/20 backdrop-blur-md border border-white/30">
-            <div class="mt-12 text-center">
-                <h1 class="text-4xl font-black tracking-tighter animate-shimmer italic uppercase">Loading...</h1>
-                <div class="mt-6 w-12 h-1.5 bg-zinc-900/50 rounded-full mx-auto overflow-hidden">
-                    <div class="h-full bg-zinc-900 rounded-full animate-pulse w-full"></div>
-                </div>
+            <img id="splash-logo" src="" class="w-32 h-auto mb-8 drop-shadow-xl">
+            <div class="text-center">
+                <h1 class="text-[10px] font-black tracking-[0.4em] animate-shimmer uppercase">Loading Experience</h1>
             </div>
         </div>
     </div>
 
-    <div id="success-screen" class="fixed inset-0 z-[100] bg-zinc-900/80 backdrop-blur-xl hidden flex-col items-center justify-center p-6 overflow-hidden">
-        <div class="glass-panel w-full max-w-sm p-8 flex flex-col items-center animate-slide-up text-center relative z-10">
-            <div class="w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center mb-6 shadow-xl shadow-yellow-400/30 text-zinc-900 text-3xl font-black">✓</div>
-            <h1 class="text-[#1D1D1F] font-black text-3xl tracking-tight mb-6 uppercase italic">Booking Sukses</h1>
+    <div id="success-screen" class="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md hidden flex-col items-center justify-center p-6 overflow-hidden">
+        <div class="bg-white w-full max-w-sm rounded-[32px] p-8 flex flex-col items-center animate-slide-up text-center card-shadow">
+            <div class="w-16 h-16 bg-[#FFE600] rounded-full flex items-center justify-center mb-6 text-black text-2xl font-black shadow-lg shadow-yellow-400/20">✓</div>
+            <h1 class="font-black text-2xl tracking-tighter mb-6 uppercase italic">Booking Confirmed</h1>
             
-            <div class="w-full space-y-4 text-sm font-semibold text-zinc-500 mb-8 bg-zinc-100/50 p-5 rounded-2xl border border-white/60">
-                <div class="flex justify-between items-center pb-3 border-b border-zinc-200/60">
-                    <span class="text-xs uppercase tracking-widest">Cabang</span><span id="receipt-branch" class="text-[#1D1D1F] font-black text-right">...</span>
+            <div class="w-full space-y-4 text-[11px] font-bold text-zinc-500 mb-8 bg-zinc-50 p-6 rounded-3xl border border-zinc-100">
+                <div class="flex justify-between items-center pb-3 border-b border-zinc-200">
+                    <span class="uppercase tracking-widest">Branch</span><span id="receipt-branch" class="text-black font-black text-right">...</span>
                 </div>
-                <div class="flex justify-between items-center pb-3 border-b border-zinc-200/60">
-                    <span class="text-xs uppercase tracking-widest">Capster</span><span id="receipt-capster" class="text-[#1D1D1F] font-black text-right">...</span>
+                <div class="flex justify-between items-center pb-3 border-b border-zinc-200">
+                    <span class="uppercase tracking-widest">Barber</span><span id="receipt-capster" class="text-black font-black text-right">...</span>
                 </div>
                 <div class="flex justify-between items-center">
-                    <span class="text-xs uppercase tracking-widest">Jadwal</span><span id="receipt-time" class="text-yellow-600 font-black text-right text-base">...</span>
+                    <span class="uppercase tracking-widest">Time</span><span id="receipt-time" class="text-black font-black text-right">...</span>
                 </div>
             </div>
             
-            <a href="#" id="receipt-maps" target="_blank" class="w-full block text-center glass-dark text-white py-4 font-black uppercase tracking-widest text-sm taktil mb-4">📍 Buka Maps</a>
-            <button onclick="location.reload()" class="text-xs font-bold text-zinc-400 py-2 active:opacity-50 transition-opacity uppercase tracking-widest border-b border-zinc-300 pb-1">Selesai</button>
+            <button onclick="location.reload()" class="w-full bg-black text-[#FFE600] py-4 rounded-full font-black uppercase tracking-[0.2em] text-xs taktil mb-4 shadow-xl">Selesai</button>
+            <a href="#" id="receipt-maps" target="_blank" class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest underline">Buka Rute Maps</a>
         </div>
     </div>
 
-    <nav class="sticky top-0 z-50 glass-panel border-none rounded-none border-b border-white/50 px-6 py-4 flex justify-between items-center">
-        <img id="nav-logo" src="" class="h-9 w-auto drop-shadow-sm" alt="Logo">
-        <div class="text-[10px] font-black uppercase tracking-widest text-zinc-900 bg-yellow-400 px-3 py-1.5 rounded-full shadow-sm animate-pulse italic">Live Booking</div>
+    <nav class="sticky top-0 z-50 glass-nav px-6 py-4 flex justify-between items-center">
+        <img id="nav-logo" src="" class="h-7 w-auto drop-shadow-sm">
+        <div class="text-[9px] font-black uppercase tracking-[0.2em] text-black bg-[#FFE600] px-4 py-1.5 rounded-full animate-pulse shadow-sm">Live</div>
     </nav>
 
     <main id="app" class="max-w-md mx-auto px-5 mt-8 relative z-10">
         
-        <section id="step-initial" class="animate-slide-up">
-            <h1 class="font-black text-5xl mb-2 tracking-tighter text-[#1D1D1F] uppercase leading-[0.9] italic">Welcome<br>Brother</h1>
-            <p class="text-sm font-bold text-zinc-500 mb-8 uppercase tracking-widest">Pilih Cabang Yellow Barber</p>
+        <section id="step-initial" class="animate-slide-up flex flex-col items-center text-center">
+            <h1 class="font-black text-4xl mb-2 tracking-tighter uppercase leading-[0.9] italic">Yellow<br>Barber</h1>
+            <p class="text-[9px] font-bold text-zinc-400 mb-10 uppercase tracking-[0.3em]">Premium Grooming Experience</p>
 
-            <div class="mb-8">
-                <div class="flex items-center justify-between mb-4 px-1">
-                    <h3 class="font-black text-lg text-[#1D1D1F] tracking-tight uppercase italic">Top 10 Sultan 👑</h3>
-                    <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest bg-black/5 px-2 py-1 rounded-md">TAHUN INI</span>
-                </div>
-                <div class="glass-panel p-5">
-                    <ul id="leaderboard-list" class="space-y-3">
-                        <li class="text-center py-4 animate-pulse font-bold text-xs text-zinc-400 uppercase tracking-widest">Sinkronisasi data...</li>
-                    </ul>
-                </div>
+            <div class="w-full mb-12">
+                <h3 class="font-black text-[10px] text-zinc-400 tracking-[0.3em] uppercase mb-6 border-b border-zinc-200 pb-3">Select Branch</h3>
+                <div id="branch-list" class="space-y-6"></div>
             </div>
 
-            <div id="branch-list" class="space-y-6 hidden mb-10 mt-10"></div>
+            <div class="w-full mb-10">
+                <h3 class="font-black text-[10px] text-zinc-400 tracking-[0.3em] uppercase mb-6 border-b border-zinc-200 pb-3">Top 10 Sultan</h3>
+                <ul id="leaderboard-list" class="space-y-2">
+                    <li class="text-center py-4 animate-pulse font-bold text-[10px] text-zinc-400 uppercase tracking-widest">Loading...</li>
+                </ul>
+            </div>
         </section>
 
-        <section id="step-staff" class="hidden animate-slide-up">
-            <button onclick="APP_LOGIC.resetToStep1()" class="text-xs font-black text-zinc-600 mb-6 flex items-center glass-panel px-5 py-3 taktil uppercase tracking-widest">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                Kembali
+        <section id="step-staff" class="hidden animate-slide-up flex flex-col items-center">
+            <button onclick="APP_LOGIC.resetToStep1()" class="text-[9px] font-black text-zinc-500 mb-8 uppercase tracking-[0.3em] border border-zinc-200 px-6 py-2.5 rounded-full taktil hover:bg-zinc-50">
+                ← Go Back
             </button>
-            <h1 class="font-black text-4xl mb-2 tracking-tighter uppercase leading-[0.9] text-zinc-900 italic">Pilih<br>Capster</h1>
-            <div class="inline-flex items-center glass-yellow px-4 py-2 mb-8 rounded-full">
-                <span class="w-2.5 h-2.5 rounded-full bg-zinc-900 mr-2 animate-pulse"></span>
-                <p id="selected-branch-text" class="text-[10px] font-black text-zinc-900 uppercase tracking-widest"></p>
+            
+            <div class="inline-flex items-center bg-zinc-100 px-5 py-2.5 mb-8 rounded-full border border-zinc-200 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-[#FFE600] mr-2 animate-pulse shadow-sm"></span>
+                <p id="selected-branch-text" class="text-[9px] font-black text-black uppercase tracking-[0.2em]"></p>
             </div>
             
-            <div id="staff-list" class="space-y-8"></div>
+            <div id="staff-list" class="w-full space-y-12"></div>
         </section>
     </main>
 
     <div id="bottom-bar" class="fixed bottom-6 left-5 right-5 z-40 hidden animate-slide-up">
-        <div class="max-w-md mx-auto glass-dark p-5 flex justify-between items-center shadow-2xl">
-            <div>
-                <p class="text-[10px] uppercase text-zinc-400 font-bold tracking-widest mb-1">Total Biaya</p>
-                <p id="display-price" class="text-2xl font-black text-white tracking-tighter italic">Rp 0</p>
+        <div class="max-w-sm mx-auto bg-black p-3.5 rounded-[24px] flex justify-between items-center shadow-2xl border border-zinc-800">
+            <div class="pl-4">
+                <p class="text-[8px] uppercase text-zinc-400 font-bold tracking-widest mb-0.5">Total Biaya</p>
+                <p id="display-price" class="text-lg font-black text-white tracking-tighter italic">Rp 0</p>
             </div>
-            <button onclick="APP_LOGIC.openBookingForm()" class="bg-yellow-400 text-zinc-900 px-8 py-3.5 rounded-[16px] font-black text-sm uppercase tracking-widest taktil shadow-lg shadow-yellow-400/20 italic">Lanjut</button>
+            <button onclick="APP_LOGIC.openBookingForm()" class="bg-[#FFE600] text-black px-8 py-3.5 rounded-[16px] font-black text-xs uppercase tracking-[0.2em] taktil shadow-lg italic">Lanjut</button>
         </div>
     </div>
 
-    <div id="modal-book" class="fixed inset-0 z-[60] bg-zinc-900/40 backdrop-blur-md hidden flex items-end sm:items-center justify-center p-4 transition-opacity duration-300">
-        <div class="glass-panel bg-white/90 w-full max-w-sm p-6 sm:p-8 animate-slide-up max-h-[90vh] overflow-y-auto hide-scrollbar relative">
-            <div class="w-12 h-1.5 bg-zinc-300 rounded-full mx-auto mb-6"></div>
-            <h2 class="font-black text-3xl mb-1 text-center tracking-tighter text-[#1D1D1F] uppercase italic">Finalisasi</h2>
-            <p class="text-[10px] font-bold text-zinc-500 text-center mb-6 uppercase tracking-widest">Pilih Jadwal & Data Diri</p>
+    <div id="modal-book" class="fixed inset-0 z-[60] bg-black/60 backdrop-blur-md hidden flex items-end sm:items-center justify-center p-4 transition-opacity duration-300">
+        <div class="bg-white w-full max-w-sm p-6 sm:p-8 rounded-[32px] animate-slide-up max-h-[90vh] overflow-y-auto hide-scrollbar relative card-shadow">
+            <div class="w-12 h-1 bg-zinc-200 rounded-full mx-auto mb-8"></div>
+            <h2 class="font-black text-2xl mb-2 text-center tracking-tighter uppercase italic">Detail Booking</h2>
+            <p class="text-[9px] font-bold text-zinc-400 text-center mb-8 uppercase tracking-[0.2em]">Pilih Jadwal & Data Diri</p>
             
-            <div class="space-y-4">
-                <div class="bg-white/60 p-4 rounded-[20px] border border-white/80 shadow-sm">
-                    <p class="text-[10px] font-black text-zinc-500 mb-3 uppercase tracking-widest">Pilih Tanggal</p>
-                    <div id="date-slots" class="flex gap-2 overflow-x-auto hide-scrollbar pb-1 pt-1 px-1"></div>
+            <div class="space-y-6">
+                <div>
+                    <p class="text-[9px] font-black text-zinc-800 mb-3 uppercase tracking-widest pl-1">Tanggal</p>
+                    <div id="date-slots" class="flex gap-2 overflow-x-auto hide-scrollbar pb-2 px-1"></div>
                     <input type="hidden" id="booking_date" value="">
                 </div>
-                <div class="bg-white/60 p-4 rounded-[20px] border border-white/80 shadow-sm">
-                    <p class="text-[10px] font-black text-zinc-500 mb-3 uppercase tracking-widest">Pilih Jam</p>
-                    <div id="time-slots" class="grid grid-cols-3 gap-2"></div>
+                
+                <div>
+                    <p class="text-[9px] font-black text-zinc-800 mb-3 uppercase tracking-widest pl-1">Waktu (12:00 - 00:00)</p>
+                    <div id="time-slots" class="grid grid-cols-4 gap-2"></div>
                     <input type="hidden" id="booking_time" value="">
                 </div>
                 
-                <div class="pt-2">
-                    <input type="text" id="cust_name" placeholder="NAMA LENGKAP" class="w-full bg-white border border-zinc-200 shadow-sm rounded-[16px] px-5 py-4 focus:ring-4 focus:ring-yellow-400/30 focus:border-yellow-400 outline-none text-sm font-black text-zinc-900 uppercase placeholder-zinc-400 transition-all mb-3" autocomplete="off">
-                    <input type="tel" id="cust_phone" placeholder="WHATSAPP (08...)" class="w-full bg-white border border-zinc-200 shadow-sm rounded-[16px] px-5 py-4 focus:ring-4 focus:ring-yellow-400/30 focus:border-yellow-400 outline-none text-sm font-black text-zinc-900 uppercase placeholder-zinc-400 transition-all" autocomplete="off">
+                <div class="space-y-3 pt-2">
+                    <input type="text" id="cust_name" placeholder="NAMA LENGKAP" class="w-full bg-zinc-50 border border-zinc-200 rounded-[16px] px-5 py-4 focus:border-black outline-none text-xs font-black text-black uppercase placeholder-zinc-400 transition-all tracking-wider" autocomplete="off">
+                    <input type="tel" id="cust_phone" placeholder="WHATSAPP (08...)" class="w-full bg-zinc-50 border border-zinc-200 rounded-[16px] px-5 py-4 focus:border-black outline-none text-xs font-black text-black uppercase placeholder-zinc-400 transition-all tracking-wider" autocomplete="off">
                 </div>
                 
-                <button id="btn-submit" onclick="APP_LOGIC.submitBooking()" class="w-full glass-yellow text-zinc-900 py-4 font-black text-sm uppercase tracking-widest mt-4 taktil italic">BOOK SEKARANG</button>
-                <button onclick="APP_LOGIC.closeModal()" class="w-full text-xs font-bold text-zinc-500 py-3 taktil uppercase tracking-widest mt-2 border-b border-zinc-300 pb-1 w-max mx-auto block">Batal</button>
+                <div class="pt-4 space-y-4">
+                    <button id="btn-submit" onclick="APP_LOGIC.submitBooking()" class="w-full bg-black text-[#FFE600] py-4 rounded-[16px] font-black text-[10px] uppercase tracking-[0.2em] taktil shadow-xl italic">Book Sekarang</button>
+                    <button onclick="APP_LOGIC.closeModal()" class="w-full text-[10px] font-bold text-zinc-400 py-2 taktil uppercase tracking-widest underline text-center block">Batal</button>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // ==============================================================
-        // 🤖 CONFIG
-        // ==============================================================
         const CONFIG = {
             TENANT_ID: "YHB",
             BRAND_NAME: "YELLOW BARBER",
             LOGO_URL: "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png",
             WEBHOOK_URL: 'https://n8n-mzbmiib3etk4.kangkung.sumopod.my.id/webhook/dbp-public',
-            // OPERASIONAL HOURS YHB: 12 Siang - 12 Malam
             AVAILABLE_HOURS: ["12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"],
-            
             BRANCHES_META: {
-                "YELLOW BANDA": { 
-                    cover: "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/PHOTO%20ASSETS%201.png", 
-                    rating: "4.9", 
-                    rev: "150+", 
-                    tags: "<span>Free Wi-Fi</span><span>Full AC</span>", 
-                    display_name: "BANDA ACEH" 
-                }
+                "YELLOW BANDA": { cover: "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/PHOTO%20ASSETS%201.png", rating: "4.9", rev: "150+", tags: "<span>Premium</span><span>AC</span>", display_name: "BANDA ACEH" }
             }
         };
 
-        // ==============================================================
-        // 🧠 CORE ENGINE
-        // ==============================================================
         const extractData = (item) => item.json ? item.json : item;
         const delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -196,46 +173,35 @@
 
                 try {
                     const fetchPromise = fetch(CONFIG.WEBHOOK_URL, {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
+                        method: 'POST', headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify({ action: 'get_initial_data', tenant_id: CONFIG.TENANT_ID })
                     }).then(res => res.json());
 
-                    const [rawData] = await Promise.all([fetchPromise, delay(2000)]); 
+                    const [rawData] = await Promise.all([fetchPromise, delay(1000)]); 
                     const payload = Array.isArray(rawData) ? rawData[0] : rawData;
                     
                     this.state.branches = payload.branches ? (Array.isArray(payload.branches) ? payload.branches.map(extractData) : [extractData(payload.branches)]) : [];
-                    
-                    // Filter duplicates if any
                     this.state.branches = Array.from(new Map(this.state.branches.map(item => [item.id, item])).values());
 
                     this.renderLeaderboard(payload.history_bookings || []);
-
-                    document.getElementById('branch-list').classList.remove('hidden');
                     this.renderBranches();
                     
                     const splash = document.getElementById('splash-screen');
                     splash.classList.add('curtain-exit');
-                    setTimeout(() => splash.remove(), 800);
+                    setTimeout(() => splash.remove(), 600);
                 } catch (e) {
-                    document.getElementById('splash-screen').innerHTML = `<div class="glass-dark p-6 text-center"><h1 class="text-white font-black text-xl">GAGAL KONEKSI SERVER</h1></div>`;
+                    document.getElementById('splash-screen').innerHTML = `<div class="bg-white p-6 text-center"><h1 class="text-black font-black text-xl tracking-widest uppercase">Koneksi Gagal</h1></div>`;
                 }
             },
 
             normalizePhone(phone) {
-                if(!phone) return '';
-                let p = String(phone).replace(/\D/g, ''); 
-                if (p.startsWith('08')) p = '628' + p.substring(2); 
-                return p;
+                if(!phone) return ''; let p = String(phone).replace(/\D/g, ''); 
+                if (p.startsWith('08')) p = '628' + p.substring(2); return p;
             },
 
             renderLeaderboard(historyData) {
                 const container = document.getElementById('leaderboard-list');
-                
-                if(!historyData || historyData.length === 0) {
-                    container.innerHTML = `<li class="text-center py-4 font-bold text-xs text-zinc-500 uppercase tracking-widest">Belum ada data sultan tahun ini.</li>`;
-                    return;
-                }
+                if(!historyData || historyData.length === 0) { container.innerHTML = `<li class="text-center py-4 font-bold text-[9px] text-zinc-400 uppercase tracking-[0.2em]">Belum ada data</li>`; return; }
 
                 const sums = {};
                 historyData.forEach(trx => {
@@ -246,27 +212,15 @@
                 });
 
                 const top10 = Object.values(sums).sort((a,b) => b.total - a.total).slice(0, 10);
-
-                container.innerHTML = top10.map((sultan, index) => {
-                    const rank = index + 1;
-                    let badgeColor = 'bg-zinc-100 text-zinc-500 border border-zinc-200';
-                    let icon = '';
-                    
-                    if(rank === 1) { badgeColor = 'bg-yellow-400 text-yellow-900 shadow-md shadow-yellow-400/30'; icon = '👑'; }
-                    else if(rank === 2) { badgeColor = 'bg-slate-300 text-slate-800 shadow-md'; icon = '🥈'; }
-                    else if(rank === 3) { badgeColor = 'bg-amber-700/60 text-amber-100 shadow-md'; icon = '🥉'; }
-
-                    const totalFormatted = sultan.total >= 1000000 
-                        ? (sultan.total / 1000000).toFixed(1) + 'M' 
-                        : (sultan.total / 1000).toFixed(0) + 'K';
-
+                container.innerHTML = top10.map((s, index) => {
+                    let badge = 'text-zinc-300'; if(index === 0) badge = 'text-[#FFE600] drop-shadow-sm'; else if(index === 1) badge = 'text-zinc-400'; else if(index === 2) badge = 'text-amber-600';
                     return `
-                    <li class="flex items-center justify-between p-3 rounded-[16px] bg-white border border-zinc-100/50 shadow-sm taktil-hover">
-                        <div class="flex items-center gap-3">
-                            <span class="w-8 h-8 rounded-full flex items-center justify-center font-black text-[10px] ${badgeColor}">${rank}</span>
-                            <div><p class="font-black text-xs text-[#1D1D1F] uppercase tracking-wide italic">${sultan.name} ${icon}</p></div>
+                    <li class="flex items-center justify-between py-3 border-b border-zinc-100 last:border-0">
+                        <div class="flex items-center gap-4">
+                            <span class="font-black text-sm w-4 text-center ${badge}">${index+1}</span>
+                            <span class="font-bold text-[11px] text-black uppercase tracking-wider italic">${s.name}</span>
                         </div>
-                        <span class="font-black text-[10px] text-zinc-500 bg-zinc-100 px-2 py-1 rounded-md italic">IDR ${totalFormatted}</span>
+                        <span class="font-bold text-[9px] text-zinc-400 uppercase tracking-widest">IDR ${(s.total/1000).toFixed(0)}K</span>
                     </li>`;
                 }).join('');
             },
@@ -275,34 +229,22 @@
                 const container = document.getElementById('branch-list');
                 if (this.state.branches.length === 0) return;
 
-                // Operational Hours YHB: 12:00 - 00:00
-                const currentHour = new Date().getHours();
-                const isOpen = currentHour >= 12 && currentHour < 24;
-                const statusBadge = isOpen 
-                    ? `<div class="absolute top-4 left-4 glass-yellow text-zinc-900 font-black text-[10px] px-4 py-2 uppercase tracking-widest rounded-full shadow-md z-20 italic">🟢 BUKA</div>`
-                    : `<div class="absolute top-4 left-4 bg-red-600/90 backdrop-blur-md text-white font-black text-[10px] px-4 py-2 uppercase tracking-widest rounded-full shadow-md z-20 italic">🔴 TUTUP</div>`;
+                const isOpen = new Date().getHours() >= 12;
 
                 container.innerHTML = this.state.branches.map((b, index) => {
-                    const meta = CONFIG.BRANCHES_META[b.dpb_branches_name] || { cover: CONFIG.LOGO_URL, rating: "5.0", rev: "New", tags: "<span>Premium</span>", display_name: b.dpb_branches_name };
-                    const gmapsLink = b.gmaps || '#'; 
+                    const meta = CONFIG.BRANCHES_META[b.dpb_branches_name] || { cover: CONFIG.LOGO_URL, display_name: b.dpb_branches_name };
+                    const status = isOpen ? `<span class="bg-[#FFE600] text-black px-3 py-1 rounded text-[8px] font-black uppercase tracking-widest">Open</span>` : `<span class="bg-black text-white px-3 py-1 rounded text-[8px] font-black uppercase tracking-widest">Closed</span>`;
 
                     return `
-                    <div onclick="APP_LOGIC.selectBranch('${b.dpb_branches_name}', '${meta.display_name}')" class="glass-panel group taktil-hover transition-all cursor-pointer block animate-slide-up overflow-hidden" style="animation-delay: ${index * 0.1}s">
-                        <div class="relative w-full h-64 overflow-hidden rounded-t-[20px]">
-                            <img src="${meta.cover}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#1D1D1F]/90 via-black/20 to-transparent"></div>
-                            
-                            <div class="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-                                <span class="font-black text-3xl tracking-tighter text-white uppercase drop-shadow-[0_4px_4px_rgba(0,0,0,0.6)] group-hover:scale-110 transition-transform duration-300 italic">CLICK TO BOOK</span>
+                    <div onclick="APP_LOGIC.selectBranch('${b.dpb_branches_name}', '${meta.display_name}')" class="bg-white rounded-[32px] overflow-hidden card-shadow taktil-hover transition-all cursor-pointer animate-slide-up border border-zinc-100" style="animation-delay: ${index * 0.1}s">
+                        <div class="relative h-60 w-full">
+                            <img src="${meta.cover}" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black/20"></div>
+                            <div class="absolute top-5 left-5">${status}</div>
+                            <div class="absolute bottom-5 left-5 right-5 flex justify-between items-end">
+                                <h3 class="font-black text-2xl text-white tracking-tighter uppercase drop-shadow-lg italic">${meta.display_name}</h3>
+                                <div class="bg-white/90 backdrop-blur-sm text-black font-black text-[9px] px-3 py-2 rounded-xl shadow-sm uppercase tracking-widest">Pilih ↗</div>
                             </div>
-
-                            ${statusBadge}
-                            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md text-zinc-900 font-black text-xs px-3 py-1.5 shadow-sm flex items-center gap-1 rounded-full z-20">⭐️ ${meta.rating} <span class="text-[9px] text-zinc-500 uppercase ml-0.5">(${meta.rev})</span></div>
-                            <a href="${gmapsLink}" target="_blank" onclick="event.stopPropagation()" class="absolute bottom-5 right-5 glass-dark text-white font-black text-[10px] px-5 py-2.5 shadow-lg flex items-center gap-2 rounded-full hover:bg-yellow-400 hover:text-zinc-900 transition-colors z-20 uppercase tracking-widest">🗺️ MAPS</a>
-                        </div>
-                        <div class="p-6 relative z-20 bg-white/50">
-                            <h3 class="font-black text-3xl text-[#1D1D1F] tracking-tighter uppercase mb-3 italic">${meta.display_name}</h3>
-                            <div class="flex flex-wrap gap-2 text-[10px] font-black uppercase tracking-widest text-zinc-600 [&>span]:bg-white [&>span]:px-3 [&>span]:py-1.5 [&>span]:rounded-lg [&>span]:border [&>span]:border-zinc-200 [&>span]:shadow-sm">${meta.tags}</div>
                         </div>
                     </div>`;
                 }).join('');
@@ -310,67 +252,53 @@
 
             async selectBranch(dbName, displayName) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-
                 this.state.selectedBranch = dbName;
                 document.getElementById('step-initial').classList.add('hidden');
                 document.getElementById('step-staff').classList.remove('hidden');
                 document.getElementById('selected-branch-text').innerText = displayName;
                 
-                document.getElementById('staff-list').innerHTML = `<div class="glass-yellow p-8 text-center animate-pulse"><h2 class="font-black text-xl text-zinc-900 tracking-tight mb-2 uppercase italic">Memanggil Capster...</h2></div>`;
+                document.getElementById('staff-list').innerHTML = `<div class="text-center py-20 animate-pulse"><p class="font-black text-[10px] text-zinc-400 tracking-[0.3em] uppercase">Memuat Capster...</p></div>`;
 
                 try {
                     const res = await fetch(CONFIG.WEBHOOK_URL, {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
+                        method: 'POST', headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify({ action: 'get_staff_list', branch_name: dbName, tenant_id: CONFIG.TENANT_ID })
                     });
-                    
                     const rawStaff = await res.json();
                     this.state.staffs = (Array.isArray(rawStaff) ? rawStaff : [rawStaff]).map(extractData);
                     this.renderStaff(this.state.staffs);
-                } catch (e) { console.error("Error Staff:", e); }
+                } catch (e) { console.error(e); }
             },
 
             renderStaff(staffs) {
                 const container = document.getElementById('staff-list');
-                if (!staffs || staffs.length === 0 || !staffs[0].id) { container.innerHTML = `<p class="text-zinc-500 font-bold text-sm text-center py-4 uppercase tracking-widest">Capster belum siap.</p>`; return; }
+                if (!staffs || staffs.length === 0 || !staffs[0].id) { container.innerHTML = `<p class="text-zinc-400 font-bold text-[10px] text-center py-10 uppercase tracking-[0.2em]">Capster belum tersedia.</p>`; return; }
 
                 container.innerHTML = staffs.map((s, index) => {
-                    const role = s.role ? s.role.toUpperCase() : 'BARBER';
-
-                    // FILTER: HANYA TAMPILKAN KATEGORI PRIMER
+                    const role = s.role ? s.role.toUpperCase() : 'CAPSTER';
                     const primerServices = (s.services || []).filter(srv => srv.CATEGORY === 'PRIMER' || !srv.CATEGORY);
-                    
                     if(primerServices.length === 0) return '';
 
                     const servicesHtml = primerServices.map(ser => {
                         const finalPrice = Number(ser.price || ser.PRICE);
                         const serviceName = ser.name || ser.NAME;
-                        const serviceId = ser.id;
-
                         return `
-                        <button onclick="APP_LOGIC.prepareBooking('${s.id}', '${serviceId}', ${finalPrice}, '${serviceName}')" class="group flex justify-between items-center py-4 px-5 rounded-[16px] border border-zinc-200 bg-white hover:border-yellow-400 hover:shadow-lg hover:shadow-yellow-400/20 transition-all text-left taktil mt-3">
-                            <span class="text-xs font-black text-zinc-700 uppercase tracking-wide group-hover:text-zinc-900 italic">${serviceName}</span>
-                            <span class="text-xs font-black text-zinc-900 bg-zinc-100 group-hover:bg-yellow-400 px-3 py-1 rounded-md transition-colors italic">Rp ${finalPrice.toLocaleString('id-ID')}</span>
+                        <button onclick="APP_LOGIC.prepareBooking('${s.id}', '${ser.id}', ${finalPrice}, '${serviceName}')" class="w-full max-w-[320px] flex justify-between items-center py-4 px-6 rounded-full border border-zinc-200 bg-white hover:border-black transition-all taktil card-shadow mt-3">
+                            <span class="text-xs font-black text-black uppercase tracking-widest italic">${serviceName}</span>
+                            <span class="text-[11px] font-black text-black bg-zinc-100 px-3 py-1 rounded-full italic">Rp ${finalPrice.toLocaleString('id-ID')}</span>
                         </button>
                         `;
                     }).join('');
 
                     return `
-                    <div class="glass-panel p-5 relative animate-slide-up border-b-4 border-r-4 border-zinc-900" style="animation-delay: ${index * 0.1}s">
-                        ${s.is_top_performance ? '<div class="absolute -top-3 -right-2 glass-yellow text-zinc-900 text-[9px] font-black px-4 py-2 rounded-full shadow-md uppercase tracking-widest z-10 border border-white italic">🔥 Top</div>' : ''}
+                    <div class="w-full flex flex-col items-center animate-slide-up mb-12" style="animation-delay: ${index * 0.1}s">
                         
-                        <div class="flex items-end gap-4 px-1">
-                            <div class="w-24 h-24 rounded-3xl bg-zinc-200 border-2 border-white shadow-lg overflow-hidden shrink-0">
-                                <img src="${s.photo_url || CONFIG.LOGO_URL}" class="w-full h-full object-cover object-top">
-                            </div>
-                            <div class="pb-2">
-                                <h4 class="font-black text-2xl text-zinc-900 tracking-tighter uppercase leading-none mb-1 italic">${s.dbp_staff_name}</h4>
-                                <span class="text-[9px] font-black text-zinc-500 uppercase tracking-widest bg-white border border-zinc-200 px-2 py-0.5 rounded-md">${role}</span>
-                            </div>
+                        <div class="w-full max-w-[320px] text-center mb-5 pb-5 border-b-2 border-zinc-100">
+                            <h4 class="font-black text-3xl text-black tracking-tighter uppercase mb-3 italic">${s.dbp_staff_name}</h4>
+                            <span class="inline-block text-[9px] font-black text-black bg-zinc-100 border border-zinc-200 px-4 py-1.5 rounded-full uppercase tracking-[0.2em] shadow-sm">${role}</span>
                         </div>
 
-                        <div class="mt-2">
+                        <div class="w-full flex flex-col items-center gap-1">
                             ${servicesHtml}
                         </div>
                     </div>`;
@@ -378,10 +306,8 @@
             },
 
             prepareBooking(staffId, packageId, price, packageName) {
-                this.state.selectedStaff = staffId; 
-                this.state.selectedPackage = packageId; 
-                this.state.finalPrice = price;
-                this.state.selectedPackageName = packageName;
+                this.state.selectedStaff = staffId; this.state.selectedPackage = packageId; 
+                this.state.finalPrice = price; this.state.selectedPackageName = packageName;
                 
                 const staff = this.state.staffs.find(s => s.id == staffId);
                 this.state.selectedStaffName = staff ? staff.dbp_staff_name : staffId;
@@ -403,66 +329,56 @@
             closeModal() { document.getElementById('modal-book').classList.add('hidden'); },
 
             renderDateSlots() {
-                document.getElementById('date-slots').innerHTML = this.generateDates().map(d => `<button id="btn-date-${d.value}" onclick="APP_LOGIC.selectDate('${d.value}')" class="date-btn flex-shrink-0 bg-white text-zinc-600 border border-zinc-200 px-5 py-3 rounded-[16px] text-[10px] font-black uppercase tracking-wider hover:border-yellow-400 transition-all taktil whitespace-nowrap shadow-sm">${d.display}</button>`).join('');
+                document.getElementById('date-slots').innerHTML = this.generateDates().map(d => `<button id="btn-date-${d.value}" onclick="APP_LOGIC.selectDate('${d.value}')" class="date-btn flex-shrink-0 bg-zinc-50 border border-zinc-200 px-5 py-3 rounded-[16px] text-[10px] font-black uppercase tracking-widest text-zinc-500 taktil whitespace-nowrap">${d.display}</button>`).join('');
             },
 
             selectDate(dateValue) {
                 document.getElementById('booking_date').value = dateValue;
-                document.querySelectorAll('.date-btn').forEach(btn => { btn.classList.remove('bg-yellow-400', 'text-zinc-900', 'border-yellow-400'); btn.classList.add('bg-white', 'text-zinc-600', 'border-zinc-200'); });
-                const selectedBtn = document.getElementById(`btn-date-${dateValue}`); selectedBtn.classList.remove('bg-white', 'text-zinc-600', 'border-zinc-200'); selectedBtn.classList.add('bg-yellow-400', 'text-zinc-900', 'border-yellow-400');
+                document.querySelectorAll('.date-btn').forEach(btn => { btn.classList.remove('bg-black', 'text-white', 'border-black'); btn.classList.add('bg-zinc-50', 'text-zinc-500', 'border-zinc-200'); });
+                const selectedBtn = document.getElementById(`btn-date-${dateValue}`); selectedBtn.classList.remove('bg-zinc-50', 'text-zinc-500', 'border-zinc-200'); selectedBtn.classList.add('bg-black', 'text-white', 'border-black');
                 document.getElementById('booking_time').value = ''; this.renderTimeSlots();
             },
 
             renderTimeSlots() {
                 const container = document.getElementById('time-slots'); const selectedDate = document.getElementById('booking_date').value;
-                if (!selectedDate) { container.innerHTML = `<div class="col-span-3 text-center py-5 text-[10px] font-black text-zinc-400 border border-dashed border-zinc-300 rounded-[16px] uppercase tracking-widest bg-white/50">Pilih Tanggal Dulu</div>`; return; }
+                if (!selectedDate) { container.innerHTML = `<div class="col-span-4 text-center py-4 text-[9px] font-bold text-zinc-400 uppercase tracking-widest">Pilih Tanggal</div>`; return; }
 
-                const selectedStaffData = this.state.staffs.find(s => s.id == this.state.selectedStaff);
-                const bookedSlots = selectedStaffData ? (selectedStaffData.booked_slots || []) : [];
+                const staffData = this.state.staffs.find(s => s.id == this.state.selectedStaff);
+                const booked = staffData ? (staffData.booked_slots || []) : [];
 
                 container.innerHTML = CONFIG.AVAILABLE_HOURS.map(h => {
-                    const isBooked = bookedSlots.some(slot => String(slot).includes(selectedDate) && String(slot).includes(h));
-                    if (isBooked) return `<div class="relative w-full"><button disabled class="w-full bg-zinc-100 border border-zinc-200 text-zinc-400 py-3 rounded-[16px] text-xs font-black opacity-60 cursor-not-allowed">${h}</button><div class="absolute inset-0 flex items-center justify-center pointer-events-none"><span class="bg-zinc-800 text-white font-black text-[8px] px-2 py-0.5 rounded-sm uppercase tracking-widest shadow-sm">PENUH</span></div></div>`;
-                    return `<button id="btn-time-${h.replace(':','')}" onclick="APP_LOGIC.selectTime('${h}')" class="time-btn w-full bg-white text-zinc-600 border border-zinc-200 py-3 rounded-[16px] text-xs font-black hover:border-yellow-400 transition-all taktil shadow-sm">${h}</button>`;
+                    if (booked.some(slot => String(slot).includes(selectedDate) && String(slot).includes(h))) {
+                        return `<button disabled class="w-full bg-zinc-100 border border-zinc-200 text-zinc-300 py-3 rounded-[12px] text-[10px] font-black opacity-50 cursor-not-allowed">FULL</button>`;
+                    }
+                    return `<button id="btn-time-${h.replace(':','')}" onclick="APP_LOGIC.selectTime('${h}')" class="time-btn w-full bg-zinc-50 text-zinc-500 border border-zinc-200 py-3 rounded-[12px] text-[10px] font-black transition-all taktil">${h}</button>`;
                 }).join('');
             },
 
             selectTime(hour) {
                 document.getElementById('booking_time').value = hour;
-                document.querySelectorAll('.time-btn').forEach(btn => { btn.classList.remove('bg-yellow-400', 'text-zinc-900', 'border-yellow-400'); btn.classList.add('bg-white', 'text-zinc-600', 'border-zinc-200'); });
-                const selectedBtn = document.getElementById(`btn-time-${hour.replace(':','')}`); selectedBtn.classList.remove('bg-white', 'text-zinc-600', 'border-zinc-200'); selectedBtn.classList.add('bg-yellow-400', 'text-zinc-900', 'border-yellow-400');
+                document.querySelectorAll('.time-btn').forEach(btn => { btn.classList.remove('bg-[#FFE600]', 'text-black', 'border-[#FFE600]'); btn.classList.add('bg-zinc-50', 'text-zinc-500', 'border-zinc-200'); });
+                const selectedBtn = document.getElementById(`btn-time-${hour.replace(':','')}`); selectedBtn.classList.remove('bg-zinc-50', 'text-zinc-500', 'border-zinc-200'); selectedBtn.classList.add('bg-[#FFE600]', 'text-black', 'border-[#FFE600]');
             },
 
             async submitBooking() {
                 const name = document.getElementById('cust_name').value.trim(); const phone = document.getElementById('cust_phone').value.trim(); const tanggal = document.getElementById('booking_date').value; const jam = document.getElementById('booking_time').value;
-                if(!name || !phone || !tanggal || !jam) return alert('Isi data yang bener dulu, Brother.');
+                if(!name || !phone || !tanggal || !jam) return alert('Lengkapi semua data.');
 
-                const btn = document.getElementById('btn-submit'); btn.innerText = "MEMPROSES..."; btn.disabled = true; btn.classList.add('opacity-70');
+                const btn = document.getElementById('btn-submit'); btn.innerText = "PROSES..."; btn.disabled = true; btn.classList.add('opacity-50');
 
                 try {
                     const res = await fetch(CONFIG.WEBHOOK_URL, {
                         method: 'POST', headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({
-                            action: 'submit_booking', cust_name: name, cust_phone: phone, tanggal: tanggal, jam: jam,
-                            branch_id: this.state.selectedBranch, capster_id: this.state.selectedStaff, package_id: this.state.selectedPackage, 
-                            price: this.state.finalPrice, caps_in_charge: this.state.selectedStaffName, package_name: this.state.selectedPackageName,
-                            tenant_id: CONFIG.TENANT_ID
-                        })
+                        body: JSON.stringify({ action: 'submit_booking', cust_name: name, cust_phone: phone, tanggal: tanggal, jam: jam, branch_id: this.state.selectedBranch, capster_id: this.state.selectedStaff, package_id: this.state.selectedPackage, price: this.state.finalPrice, caps_in_charge: this.state.selectedStaffName, package_name: this.state.selectedPackageName, tenant_id: CONFIG.TENANT_ID })
                     });
-                    
                     if(res.ok) {
                         const branchMeta = CONFIG.BRANCHES_META[this.state.selectedBranch] || { display_name: this.state.selectedBranch };
-                        document.getElementById('receipt-branch').innerText = branchMeta.display_name;
-                        document.getElementById('receipt-capster').innerText = this.state.selectedStaffName || 'Capster';
-                        document.getElementById('receipt-time').innerText = `${tanggal} | ${jam}`;
-                        
+                        document.getElementById('receipt-branch').innerText = branchMeta.display_name; document.getElementById('receipt-capster').innerText = this.state.selectedStaffName; document.getElementById('receipt-time').innerText = `${tanggal} | ${jam}`;
                         document.getElementById('modal-book').classList.add('hidden');
-                        const successScreen = document.getElementById('success-screen');
-                        successScreen.classList.remove('hidden'); successScreen.classList.add('flex', 'animate-slide-up');
-                    } else { throw new Error("Server error"); }
-                } catch (e) { alert('Gagal eksekusi. Coba lagi.'); btn.innerText = "BOOK SEKARANG"; btn.disabled = false; btn.classList.remove('opacity-70'); }
+                        const s = document.getElementById('success-screen'); s.classList.remove('hidden'); s.classList.add('flex');
+                    } else throw new Error();
+                } catch (e) { alert('Gagal. Coba lagi.'); btn.innerText = "BOOK SEKARANG"; btn.disabled = false; btn.classList.remove('opacity-50'); }
             },
-
             resetToStep1() { window.scrollTo({ top: 0, behavior: 'smooth' }); document.getElementById('step-initial').classList.remove('hidden'); document.getElementById('step-staff').classList.add('hidden'); document.getElementById('bottom-bar').classList.add('hidden'); }
         };
 
