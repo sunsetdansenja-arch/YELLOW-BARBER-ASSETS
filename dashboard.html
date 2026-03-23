@@ -1,366 +1,258 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title id="meta-title">Booking | Premium System</title>
+    <title id="meta-title">System Access | YHB</title>
     <link id="meta-icon" rel="icon" type="image/png" href="">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
-        body { font-family: 'Inter', -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; background-color: #F5F5F7; color: #1D1D1F; overflow-x: hidden; }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .glass-panel { background: rgba(255, 255, 255, 0.70); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.9); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04); border-radius: 24px; }
-        .glass-dark { background: rgba(29, 29, 31, 0.85); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; color: white; }
-        .glass-yellow { background: rgba(250, 204, 21, 0.9); backdrop-filter: blur(24px); border-radius: 24px; }
-        .taktil { transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
-        .taktil:active { transform: scale(0.96); opacity: 0.85; }
-        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-        .animate-shimmer { background: linear-gradient(90deg, #1D1D1F 25%, #A1A1AA 50%, #1D1D1F 75%); background-size: 200% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 2.5s infinite linear; }
+        body { font-family: 'Inter', sans-serif; background-color: #F5F5F7; color: #1D1D1F; -webkit-tap-highlight-color: transparent; overflow-x: hidden; }
+        .apple-shadow { box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04); }
+        .apple-card { background: #FFFFFF; border: 1px solid #E5E5EA; border-radius: 20px; }
+        .glass-header { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid #E5E5EA; }
+        .btn-press:active { transform: scale(0.97); }
         @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
-        .animate-slide-up { animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .curtain-exit { transform: translateY(-100%); transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1) forwards; }
+        .animate-slide-up { animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .neo-shadow { box-shadow: 6px 6px 0px 0px rgba(0,0,0,1); }
+        .neo-shadow-sm { box-shadow: 4px 4px 0px 0px rgba(0,0,0,1); }
+        .neo-border { border: 4px solid #000000; }
     </style>
 </head>
-<body class="pb-32">
+<body class="h-screen w-screen overflow-hidden text-zinc-900">
 
-    <div id="splash-screen" class="fixed inset-0 z-[100] bg-yellow-400 flex flex-col items-center justify-center overflow-hidden">
-        <div class="relative z-10 flex flex-col items-center">
-            <img id="splash-logo" src="" class="w-32 h-auto drop-shadow-2xl rounded-3xl p-2 bg-white/20 backdrop-blur-md">
-            <div class="mt-8 text-center">
-                <h1 class="text-3xl font-black tracking-tighter animate-shimmer italic uppercase">Loading...</h1>
+    <div id="view-login" class="h-full w-full flex flex-col items-center justify-center px-6 absolute inset-0 z-40 bg-white transition-all duration-700">
+        <div class="w-full max-w-sm flex flex-col items-center animate-slide-up">
+            <img id="logo-login" src="" class="h-16 w-auto mb-6" alt="Logo">
+            <h1 class="font-bold text-2xl tracking-tight mb-1 text-zinc-900 text-center">System Access</h1>
+            <p class="text-xs font-medium text-zinc-400 uppercase tracking-widest mb-8 text-center">Yellow Barber Staff Only</p>
+            <div class="w-full apple-card apple-shadow p-6 mb-8 text-center">
+                <input type="text" id="userInput" placeholder="STAFF ID" autocomplete="off" class="w-full bg-zinc-50 text-zinc-900 font-bold uppercase text-center text-lg px-4 py-4 rounded-2xl outline-none border border-zinc-200 focus:border-zinc-400 focus:bg-white transition-all mb-6 placeholder-zinc-400">
+                <p class="text-[10px] font-bold text-zinc-400 mb-3 uppercase tracking-widest text-center">PIN CODE</p>
+                <div id="pin-dots" class="flex justify-center gap-4">
+                    <div class="w-3 h-3 rounded-full bg-zinc-200 transition-all" id="dot-1"></div><div class="w-3 h-3 rounded-full bg-zinc-200 transition-all" id="dot-2"></div><div class="w-3 h-3 rounded-full bg-zinc-200 transition-all" id="dot-3"></div><div class="w-3 h-3 rounded-full bg-zinc-200 transition-all" id="dot-4"></div>
+                </div>
+                <p id="error-msg" class="text-red-500 font-bold text-xs mt-4 opacity-0 transition-opacity">Akses Ditolak</p>
+            </div>
+            <div class="grid grid-cols-3 gap-3 w-full px-4">
+                <script>for(let i=1; i<=9; i++) document.write(`<button onclick="LOGIN_SYSTEM.press('${i}')" class="btn-press bg-white border border-zinc-200 rounded-2xl h-14 text-xl font-medium text-zinc-700 shadow-sm transition-all hover:bg-zinc-50">${i}</button>`);</script>
+                <button onclick="LOGIN_SYSTEM.press('clear')" class="btn-press bg-white border border-zinc-200 rounded-2xl h-14 text-xs font-bold uppercase text-zinc-400 shadow-sm transition-all hover:bg-zinc-50">Del</button>
+                <button onclick="LOGIN_SYSTEM.press('0')" class="btn-press bg-white border border-zinc-200 rounded-2xl h-14 text-xl font-medium text-zinc-700 shadow-sm transition-all hover:bg-zinc-50">0</button>
             </div>
         </div>
     </div>
 
-    <div id="success-screen" class="fixed inset-0 z-[100] bg-zinc-900/80 backdrop-blur-xl hidden flex-col items-center justify-center p-6">
-        <div class="glass-panel w-full max-w-sm p-8 flex flex-col items-center animate-slide-up text-center">
-            <div class="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center mb-6 shadow-lg shadow-yellow-400/30 text-zinc-900 text-2xl font-black">✓</div>
-            <h1 class="text-[#1D1D1F] font-black text-2xl tracking-tight mb-6 uppercase italic">Booking Berhasil</h1>
-            <div class="w-full space-y-4 text-xs font-bold text-zinc-400 mb-8 bg-zinc-50 p-5 rounded-2xl border border-zinc-100">
-                <div class="flex justify-between border-b border-zinc-100 pb-2"><span>CABANG</span><span id="receipt-branch" class="text-zinc-900">...</span></div>
-                <div class="flex justify-between border-b border-zinc-100 pb-2"><span>BARBER</span><span id="receipt-capster" class="text-zinc-900">...</span></div>
-                <div class="flex justify-between"><span>JADWAL</span><span id="receipt-time" class="text-yellow-600 font-black">...</span></div>
+    <div id="view-cashier" class="h-full w-full hidden flex-col absolute inset-0 z-30 bg-[#F5F5F7]">
+        <header class="glass-header p-4 flex justify-between items-center shrink-0 z-20">
+            <div class="flex items-center gap-4">
+                <img id="logo-cashier" src="" class="h-10">
+                <div><h1 class="font-bold tracking-tight text-lg leading-none text-zinc-900">Cashier Terminal</h1><p id="cashier-branch-name" class="text-[11px] font-semibold text-zinc-500 uppercase tracking-wide mt-1">LOADING...</p></div>
             </div>
-            <button onclick="location.reload()" class="w-full bg-zinc-900 text-white py-4 font-black uppercase tracking-widest text-xs rounded-2xl taktil">OK, MENGERTI</button>
-        </div>
+            <div class="flex gap-4 items-center">
+                <button onclick="LOGIN_SYSTEM.logout()" class="btn-press bg-zinc-900 text-white font-semibold text-xs px-4 py-2 rounded-xl shadow-md hover:bg-zinc-800 transition-all">Logout</button>
+            </div>
+        </header>
+        <main id="tab-queue" class="flex-1 overflow-hidden flex flex-col p-4 gap-4 animate-slide-up">
+            <div class="grid grid-cols-3 gap-3 shrink-0">
+                <div class="apple-card p-4 bg-white apple-shadow"><p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1 text-center">Omset</p><p id="sum-omset" class="font-bold text-xl text-blue-600 text-center">Rp 0</p></div>
+                <div class="apple-card p-4 bg-white apple-shadow"><p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1 text-center">Pengeluaran</p><p id="sum-expense" class="font-bold text-xl text-red-600 text-center">Rp 0</p></div>
+                <div class="apple-card p-4 bg-zinc-900 text-white apple-shadow border-none"><p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1 text-center">Profit</p><p id="sum-profit" class="font-bold text-xl text-green-400 text-center">Rp 0</p></div>
+            </div>
+            <div class="flex-1 apple-card apple-shadow flex flex-col overflow-hidden">
+                <div class="p-5 border-b border-zinc-100 bg-white rounded-t-[20px]"><h2 class="font-bold text-xl tracking-tight text-zinc-800">Live Queue</h2></div>
+                <div id="queue-container" class="flex-1 overflow-y-auto p-5 space-y-6 bg-zinc-50/50">
+                    <div id="queue-loading" class="w-full bg-white border border-zinc-100 rounded-2xl p-6 animate-pulse h-20"></div>
+                </div>
+            </div>
+        </main>
     </div>
 
-    <nav class="sticky top-0 z-50 glass-panel border-none rounded-none border-b border-white/50 px-6 py-4 flex justify-between items-center">
-        <img id="nav-logo" src="" class="h-8 w-auto" alt="Logo">
-        <div class="text-[9px] font-black uppercase tracking-[0.2em] text-zinc-900 bg-yellow-400 px-3 py-1.5 rounded-full shadow-sm animate-pulse italic">Live Booking</div>
-    </nav>
-
-    <main id="app" class="max-w-md mx-auto px-5 mt-8 relative z-10">
-        <section id="step-initial" class="animate-slide-up">
-            <h1 class="font-black text-5xl mb-2 tracking-tighter text-[#1D1D1F] uppercase leading-[0.85] italic">Premium<br>Service</h1>
-            <p class="text-[10px] font-black text-zinc-400 mb-8 uppercase tracking-[0.3em]">Select your destination</p>
-            
-            <div id="branch-list" class="space-y-4">
+    <div id="view-capster" class="h-full w-full hidden flex-col absolute inset-0 z-30 bg-[#F5F5F7] overflow-y-auto pb-10">
+        <header class="glass-header px-6 py-4 flex justify-between items-center sticky top-0 z-40">
+            <div><p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Dompet Digital</p><p class="font-bold text-sm text-zinc-900 mt-0.5">Barber Dashboard</p></div>
+            <button onclick="LOGIN_SYSTEM.logout()" class="btn-press bg-white border border-zinc-200 text-zinc-700 p-2.5 rounded-xl shadow-sm hover:bg-zinc-50 transition-all"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg></button>
+        </header>
+        <main class="w-full max-w-md mx-auto p-5 space-y-6 animate-slide-up">
+            <div class="flex flex-col items-center justify-center pt-2 pb-4 text-center">
+                <div class="w-full aspect-[4/5] max-h-[380px] rounded-[24px] border-4 border-black neo-shadow bg-zinc-100 mb-6 overflow-hidden">
+                    <img id="capster-photo-large" src="" class="w-full h-full object-cover object-center">
                 </div>
-
-            <div class="mt-12 mb-10">
-                <div class="flex items-center justify-between mb-4 px-1">
-                    <h3 class="font-black text-sm text-[#1D1D1F] tracking-widest uppercase italic">Top 10 Sultan 👑</h3>
-                    <span class="text-[8px] font-black text-zinc-400 uppercase tracking-widest bg-zinc-200 px-2 py-1 rounded">THIS YEAR</span>
-                </div>
-                <div class="glass-panel p-4">
-                    <ul id="leaderboard-list" class="space-y-2">
-                        <li class="text-center py-4 animate-pulse font-bold text-[10px] text-zinc-400 uppercase tracking-widest italic">Calculating royalty...</li>
-                    </ul>
+                <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">WELCOME TO <span id="capster-sys-name">SYSTEM</span></p>
+                <h2 id="capster-name-welcome" class="font-black text-2xl text-zinc-900 tracking-tight mt-1 uppercase leading-none">...</h2>
+            </div>
+            <div class="bg-zinc-900 text-white rounded-[24px] p-6 neo-shadow relative overflow-hidden neo-border">
+                <div class="relative z-10 text-center">
+                    <div class="flex justify-between items-center mb-1"><p class="text-xs font-semibold text-zinc-400 uppercase tracking-widest">Komisi Bulan Ini</p><span class="bg-green-500 text-zinc-900 text-[10px] font-black px-2 py-1 rounded-md">Rank #<span id="capster-rank">-</span></span></div>
+                    <h2 id="capster-balance-month" class="font-black text-4xl tracking-tighter">Rp 0</h2>
+                    <p class="text-[11px] font-medium text-zinc-400 mt-1">Hari ini: <span id="capster-balance-today" class="text-green-400 font-bold">Rp 0</span></p>
                 </div>
             </div>
-        </section>
-
-        <section id="step-staff" class="hidden animate-slide-up">
-            <button onclick="APP_LOGIC.resetToStep1()" class="text-[9px] font-black text-zinc-400 mb-6 flex items-center glass-panel px-4 py-2 taktil uppercase tracking-widest">
-                ← Back
-            </button>
-            <h1 class="font-black text-4xl mb-1 tracking-tighter uppercase italic leading-none text-zinc-900">Choose Your<br>Barber</h1>
-            <div id="selected-branch-text" class="text-[10px] font-black text-yellow-600 uppercase tracking-widest mb-8 bg-yellow-100 px-2 py-1 rounded w-max">BRANCH NAME</div>
-            
-            <div id="staff-list" class="space-y-10">
-                </div>
-        </section>
-    </main>
-
-    <div id="bottom-bar" class="fixed bottom-6 left-5 right-5 z-40 hidden animate-slide-up">
-        <div class="max-w-md mx-auto glass-dark p-5 flex justify-between items-center shadow-2xl">
             <div>
-                <p class="text-[8px] uppercase text-zinc-500 font-black tracking-widest mb-1">Total Fee</p>
-                <p id="display-price" class="text-xl font-black text-white tracking-tighter italic">Rp 0</p>
+                <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-3 px-1">JADWAL HARI INI</h3>
+                <div id="capster-schedule-grid" class="grid grid-cols-3 gap-4"></div>
             </div>
-            <button onclick="APP_LOGIC.openBookingForm()" class="bg-yellow-400 text-zinc-900 px-8 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest taktil">Continue</button>
-        </div>
+            <div>
+                <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-3 px-1">Riwayat Selesai</h3>
+                <div id="capster-history" class="space-y-3"></div>
+            </div>
+        </main>
     </div>
 
-    <div id="modal-book" class="fixed inset-0 z-[60] bg-black/40 backdrop-blur-md hidden flex items-end sm:items-center justify-center p-4">
-        <div class="glass-panel bg-white w-full max-w-sm p-6 animate-slide-up max-h-[90vh] overflow-y-auto hide-scrollbar">
-            <div class="w-10 h-1 bg-zinc-200 rounded-full mx-auto mb-6"></div>
-            <h2 class="font-black text-2xl mb-1 text-center tracking-tighter text-[#1D1D1F] uppercase italic">Final Step</h2>
-            <p class="text-[9px] font-bold text-zinc-400 text-center mb-8 uppercase tracking-widest">Select your schedule</p>
-            
-            <div class="space-y-4">
-                <div class="bg-zinc-50 p-4 rounded-3xl border border-zinc-100">
-                    <p class="text-[9px] font-black text-zinc-400 mb-3 uppercase tracking-widest">Available Dates</p>
-                    <div id="date-slots" class="flex gap-2 overflow-x-auto hide-scrollbar px-1"></div>
-                    <input type="hidden" id="booking_date" value="">
-                </div>
-                <div class="bg-zinc-50 p-4 rounded-3xl border border-zinc-100">
-                    <p class="text-[9px] font-black text-zinc-400 mb-3 uppercase tracking-widest italic">Hours (12:00 - 00:00)</p>
-                    <div id="time-slots" class="grid grid-cols-3 gap-2"></div>
-                    <input type="hidden" id="booking_time" value="">
-                </div>
-                
-                <div class="pt-2 space-y-3">
-                    <input type="text" id="cust_name" placeholder="YOUR NAME" class="w-full bg-white border border-zinc-200 p-4 rounded-2xl font-black text-xs uppercase outline-none focus:border-yellow-400 transition-all">
-                    <input type="tel" id="cust_phone" placeholder="WHATSAPP (08...)" class="w-full bg-white border border-zinc-200 p-4 rounded-2xl font-black text-xs uppercase outline-none focus:border-yellow-400 transition-all">
-                </div>
-                
-                <button id="btn-submit" onclick="APP_LOGIC.submitBooking()" class="w-full bg-zinc-900 text-white py-4 font-black text-[10px] uppercase tracking-widest mt-4 rounded-2xl taktil shadow-xl">Complete Booking</button>
-                <button onclick="APP_LOGIC.closeModal()" class="w-full text-[9px] font-black text-zinc-400 py-3 uppercase tracking-widest mt-2 underline">Cancel</button>
-            </div>
-        </div>
-    </div>
+    <div id="loading-overlay" class="fixed inset-0 bg-white/80 backdrop-blur-sm hidden flex-col items-center justify-center z-[100] transition-all"><div class="w-10 h-10 border-4 border-zinc-200 border-t-zinc-900 rounded-full animate-spin mb-4"></div><h2 id="loading-text" class="font-bold text-zinc-800 tracking-wide text-sm uppercase">Memproses...</h2></div>
 
     <script>
         const CONFIG = {
             TENANT_ID: "YHB",
-            BRAND_NAME: "YELLOW BARBER",
+            BRAND_NAME: "Yellow Haircut",
+            SYSTEM_NAME: "YHB",
             LOGO_URL: "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png",
-            WEBHOOK_URL: 'https://n8n-mzbmiib3etk4.kangkung.sumopod.my.id/webhook/dbp-public',
-            AVAILABLE_HOURS: ["12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"],
-            BRANCHES_COVER: {
-                "YELLOW BANDA": "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/PHOTO%20ASSETS%201.png"
+            WEBHOOK_URL: 'https://n8n-mzbmiib3etk4.kangkung.sumopod.my.id/webhook/a6512d05-a51a-4289-9063-9a4f17ac745a',
+            COMMISSION_RATE: 0.40,
+            BRANCHES: [{ db_name: "YELLOW BANDA", display_name: "Banda Aceh" }]
+        };
+
+        const STATE = { user: null, sysDates: null };
+        const UTIL = {
+            formatRp: (num) => 'Rp ' + Number(num || 0).toLocaleString('id-ID'),
+            cleanDate: (dateStr) => String(dateStr || "").substring(0, 10),
+            showLoading: (t) => { document.getElementById('loading-text').innerText = t || "MEMPROSES..."; document.getElementById('loading-overlay').classList.replace('hidden', 'flex'); },
+            hideLoading: () => document.getElementById('loading-overlay').classList.replace('flex', 'hidden'),
+            toTitleCase: (str) => str ? str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) : ""
+        };
+
+        const LOGIN_SYSTEM = {
+            pin: "",
+            init() {
+                // MIGRASI KEY: Menggunakan 'yhb_user' untuk menghapus cache lama
+                const savedUser = localStorage.getItem('yhb_user');
+                if (savedUser) { STATE.user = JSON.parse(savedUser); this.routeUser(); }
+                document.getElementById('userInput').addEventListener('input', function() { this.value = this.value.toUpperCase(); });
+                this.refreshUI();
+            },
+            refreshUI() {
+                document.getElementById('meta-title').innerText = `${CONFIG.SYSTEM_NAME} | Access`;
+                document.getElementById('meta-icon').href = CONFIG.LOGO_URL;
+                document.getElementById('logo-login').src = CONFIG.LOGO_URL;
+                document.getElementById('logo-cashier').src = CONFIG.LOGO_URL;
+                document.getElementById('capster-sys-name').innerText = CONFIG.SYSTEM_NAME;
+                document.getElementById('capster-photo-large').setAttribute('onerror', `this.src='${CONFIG.LOGO_URL}'`);
+            },
+            routeUser() {
+                if (!STATE.user) return;
+                document.getElementById('view-login').classList.add('hidden');
+                const role = String(STATE.user.role || "").toUpperCase();
+                if (/CASHIER/i.test(role)) {
+                    document.getElementById('view-cashier').classList.replace('hidden', 'flex'); CASHIER_LOGIC.init();
+                } else if (/CAPSTER|BARBER/i.test(role)) {
+                    document.getElementById('view-capster').classList.replace('hidden', 'flex'); CAPSTER_LOGIC.init();
+                }
+            },
+            press(val) {
+                if (val === 'clear') this.pin = this.pin.slice(0, -1); else if (this.pin.length < 4) this.pin += val;
+                this.updateDots(); if (this.pin.length === 4) setTimeout(() => this.submit(), 200);
+            },
+            updateDots() {
+                for (let i = 1; i <= 4; i++) {
+                    const dot = document.getElementById(`dot-${i}`);
+                    dot.classList.toggle('bg-zinc-800', i <= this.pin.length);
+                    dot.classList.toggle('bg-zinc-200', i > this.pin.length);
+                }
+            },
+            async submit() {
+                const u = document.getElementById('userInput').value.trim(); if (!u) return;
+                UTIL.showLoading("Verifikasi...");
+                try {
+                    const res = await fetch(CONFIG.WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ action: 'login', username: u, password: this.pin, tenant_id: CONFIG.TENANT_ID }) });
+                    const data = await res.json();
+                    const user = data.user || (data[0] && data[0].user);
+                    if (user) { 
+                        STATE.user = user; 
+                        localStorage.setItem('yhb_user', JSON.stringify(STATE.user)); 
+                        this.routeUser(); 
+                    } else throw new Error();
+                } catch (e) { document.getElementById('error-msg').style.opacity = '1'; this.pin = ""; this.updateDots(); } finally { UTIL.hideLoading(); }
+            },
+            logout() { localStorage.removeItem('yhb_user'); location.reload(); }
+        };
+
+        const CASHIER_LOGIC = {
+            init() {
+                const br = CONFIG.BRANCHES.find(b => b.db_name === STATE.user.branch);
+                document.getElementById('cashier-branch-name').innerText = `Cabang ${br ? br.display_name : (STATE.user.branch || "Pusat")}`;
+                this.loadData();
+            },
+            async loadData() {
+                try {
+                    const res = await fetch(CONFIG.WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ action: 'get_cashier_data', branch: STATE.user.branch, tenant_id: CONFIG.TENANT_ID }) });
+                    const payload = await res.json();
+                    const data = payload[0] || payload;
+                    if (data.success) {
+                        STATE.sysDates = data.sys_dates;
+                        this.renderQueue(data.queue || []);
+                        this.updateSummary(data.queue, data.expenses || []);
+                    }
+                } catch (e) {} finally { document.getElementById('queue-loading').style.display = 'none'; }
+            },
+            updateSummary(q, e) {
+                let oms = 0; q.forEach(x => { if((x.status === 'DONE' || x.status === 'SUCCESS') && UTIL.cleanDate(x.tanggal) === STATE.sysDates.today) oms += Number(x.price || 0); });
+                let exp = 0; e.forEach(x => { if(UTIL.cleanDate(x.tanggal) === STATE.sysDates.today) exp += Number(x.nominal || 0); });
+                document.getElementById('sum-omset').innerText = UTIL.formatRp(oms);
+                document.getElementById('sum-expense').innerText = UTIL.formatRp(exp);
+                document.getElementById('sum-profit').innerText = UTIL.formatRp(oms - exp);
+            },
+            renderQueue(data) {
+                const cont = document.getElementById('queue-container'); cont.innerHTML = '';
+                const today = data.filter(d => UTIL.cleanDate(d.tanggal) === STATE.sysDates.today).sort((a,b) => a.jam.localeCompare(b.jam));
+                if(today.length === 0) cont.innerHTML = '<p class="text-center text-zinc-400 py-10 font-bold">Belum ada antrean.</p>';
+                else today.forEach(item => {
+                    const isDone = item.status === 'DONE' || item.status === 'SUCCESS';
+                    cont.insertAdjacentHTML('beforeend', `
+                        <div class="apple-card p-4 flex justify-between items-center ${isDone ? 'opacity-50' : 'apple-shadow'}">
+                            <div><p class="font-black text-lg">${item.jam}</p><p class="font-bold text-zinc-800">${item.cust_name || "Guest"}</p><p class="text-[10px] text-zinc-500 uppercase">${item.package_name} • ${item.caps_in_charge}</p></div>
+                            ${!isDone ? `<button onclick="CASHIER_LOGIC.updateStatus('${item.id}', 'DONE')" class="bg-zinc-900 text-white px-4 py-2 rounded-xl text-xs font-bold">Selesai</button>` : '✓'}
+                        </div>
+                    `);
+                });
+            },
+            async updateStatus(id, s) { UTIL.showLoading(); try { await fetch(CONFIG.WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ action: 'update_status', id: Number(id), status: s, tenant_id: CONFIG.TENANT_ID }) }); this.loadData(); } finally { UTIL.hideLoading(); } }
+        };
+
+        const CAPSTER_LOGIC = {
+            init() { this.loadData(); },
+            async loadData() {
+                try {
+                    const res = await fetch(CONFIG.WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ action: 'get_capster_data', staff_id: STATE.user.staff_id, branch: STATE.user.branch, tenant_id: CONFIG.TENANT_ID }) });
+                    const d = await res.json(); const p = d[0] || d;
+                    if(p.success) this.renderUI(p);
+                } catch(e) {} finally { UTIL.hideLoading(); }
+            },
+            renderUI(data) {
+                document.getElementById('capster-name-welcome').innerText = `${String(data.profile.name).toUpperCase()}! 🚀`;
+                document.getElementById('capster-photo-large').src = data.profile.photo;
+                document.getElementById('capster-balance-month').innerText = UTIL.formatRp(data.stats.komisi_bulan_ini);
+                document.getElementById('capster-balance-today').innerText = UTIL.formatRp(data.stats.komisi_hari_ini);
+                document.getElementById('capster-rank').innerText = data.stats.rank;
+
+                const grid = document.getElementById('capster-schedule-grid'); grid.innerHTML = '';
+                if(!data.full_schedule || data.full_schedule.length === 0) grid.innerHTML = '<div class="col-span-3 py-10 text-center text-zinc-400 font-bold">Kosong</div>';
+                else data.full_schedule.forEach(s => {
+                    const isDone = s.status === 'DONE' || s.status === 'SUCCESS';
+                    grid.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl py-4 flex flex-col items-center border-2 border-black ${isDone ? 'opacity-40 bg-zinc-100' : 'neo-shadow-sm'}"><span class="font-black">${s.jam}</span><span class="text-[9px] uppercase font-bold">${isDone ? 'Selesai' : 'Antre'}</span></div>`);
+                });
+
+                const hist = document.getElementById('capster-history'); hist.innerHTML = '';
+                data.history.forEach(h => {
+                    hist.insertAdjacentHTML('beforeend', `<div class="bg-white p-4 rounded-2xl border border-zinc-200 apple-shadow flex justify-between items-center"><div><p class="font-bold">${h.cust_name}</p><p class="text-[10px] text-zinc-400">${h.package_name}</p></div><p class="font-black text-orange-600">+${UTIL.formatRp(h.komisi)}</p></div>`);
+                });
             }
         };
 
-        const APP_LOGIC = {
-            state: { branches: [], packages: [], staffs: [], selectedBranch: null, selectedStaff: null, selectedPackage: null, finalPrice: 0, selectedStaffName: null, selectedPackageName: null },
-
-            async init() {
-                document.getElementById('meta-icon').href = CONFIG.LOGO_URL;
-                document.getElementById('splash-logo').src = CONFIG.LOGO_URL;
-                document.getElementById('nav-logo').src = CONFIG.LOGO_URL;
-
-                try {
-                    const res = await fetch(CONFIG.WEBHOOK_URL, {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({ action: 'get_initial_data', tenant_id: CONFIG.TENANT_ID })
-                    });
-                    const payload = await res.json();
-                    
-                    this.state.branches = payload.branches || [];
-                    this.state.packages = payload.packages || [];
-                    this.renderLeaderboard(payload.history_bookings || []);
-                    this.renderBranches();
-                    
-                    setTimeout(() => {
-                        document.getElementById('splash-screen').classList.add('curtain-exit');
-                    }, 1000);
-                } catch (e) { alert("Network Error. Please refresh."); }
-            },
-
-            renderLeaderboard(history) {
-                const container = document.getElementById('leaderboard-list');
-                if(!history.length) { container.innerHTML = '<li class="text-center py-4 text-[9px] font-bold text-zinc-400 uppercase">No Data Found</li>'; return; }
-
-                const sums = {};
-                history.forEach(trx => {
-                    const phone = trx.cust_phone;
-                    if(!sums[phone]) sums[phone] = { name: trx.cust_name, total: 0 };
-                    sums[phone].total += Number(trx.price || 0);
-                });
-
-                const top10 = Object.values(sums).sort((a,b) => b.total - a.total).slice(0, 10);
-                container.innerHTML = top10.map((s, i) => `
-                    <li class="flex items-center justify-between p-3 rounded-2xl bg-zinc-50 border border-zinc-100">
-                        <div class="flex items-center gap-3">
-                            <span class="w-6 h-6 rounded-full flex items-center justify-center font-black text-[9px] ${i < 3 ? 'bg-yellow-400 text-zinc-900' : 'bg-zinc-200 text-zinc-500'}">${i+1}</span>
-                            <span class="font-black text-[10px] text-zinc-800 uppercase italic">${s.name}</span>
-                        </div>
-                        <span class="font-black text-[9px] text-zinc-400 tracking-tighter">IDR ${(s.total/1000).toFixed(0)}K</span>
-                    </li>`).join('');
-            },
-
-            renderBranches() {
-                const container = document.getElementById('branch-list');
-                container.innerHTML = this.state.branches.map(b => {
-                    const cover = CONFIG.BRANCHES_COVER[b.dpb_branches_name] || CONFIG.LOGO_URL;
-                    return `
-                    <div onclick="APP_LOGIC.selectBranch('${b.dpb_branches_name}')" class="glass-panel p-2 taktil group cursor-pointer overflow-hidden border-zinc-200">
-                        <div class="relative h-48 w-full overflow-hidden rounded-[20px] mb-4">
-                            <img src="${cover}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                            <div class="absolute inset-0 bg-black/20 flex items-center justify-center">
-                                <span class="text-white font-black text-3xl italic tracking-tighter drop-shadow-lg uppercase">Select</span>
-                            </div>
-                        </div>
-                        <div class="px-3 pb-2 flex justify-between items-center">
-                            <h3 class="font-black text-xl uppercase italic tracking-tighter">${b.dpb_branches_name}</h3>
-                            <span class="text-[9px] font-black text-yellow-600 bg-yellow-50 px-2 py-1 rounded uppercase tracking-widest">Premium</span>
-                        </div>
-                    </div>`;
-                }).join('');
-            },
-
-            async selectBranch(name) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                this.state.selectedBranch = name;
-                document.getElementById('selected-branch-text').innerText = name;
-                
-                const container = document.getElementById('staff-list');
-                container.innerHTML = '<div class="text-center py-20 animate-pulse font-black text-[10px] text-zinc-400 uppercase italic">Summoning Capsters...</div>';
-                
-                document.getElementById('step-initial').classList.add('hidden');
-                document.getElementById('step-staff').classList.remove('hidden');
-
-                try {
-                    const res = await fetch(CONFIG.WEBHOOK_URL, {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({ action: 'get_staff_list', branch_name: name, tenant_id: CONFIG.TENANT_ID })
-                    });
-                    this.state.staffs = await res.json();
-                    this.renderStaff();
-                } catch(e) { alert("Error loading staff."); }
-            },
-
-            renderStaff() {
-                const container = document.getElementById('staff-list');
-                container.innerHTML = this.state.staffs.map(s => {
-                    // Filter: Hanya tampilkan layanan CATEGORY === 'PRIMER'
-                    const primerServices = (s.services || []).filter(srv => srv.CATEGORY === 'PRIMER' || !srv.CATEGORY);
-                    
-                    const servicesHtml = primerServices.map(srv => `
-                        <button onclick="APP_LOGIC.prepareBooking('${s.id}', '${srv.id}', ${srv.price})" class="flex justify-between items-center w-full p-4 bg-white border border-zinc-100 rounded-2xl taktil shadow-sm hover:border-yellow-400">
-                            <span class="font-black text-[10px] uppercase text-zinc-600 tracking-wider">${srv.name}</span>
-                            <span class="font-black text-[11px] text-zinc-900 italic">Rp ${(srv.price/1000).toFixed(0)}K</span>
-                        </button>`).join('');
-
-                    return `
-                    <div class="animate-slide-up">
-                        <div class="flex items-end gap-4 mb-5 px-1">
-                            <div class="w-24 h-24 rounded-3xl bg-zinc-200 border-2 border-white shadow-lg overflow-hidden">
-                                <img src="${s.photo_url || CONFIG.LOGO_URL}" class="w-full h-full object-cover">
-                            </div>
-                            <div class="pb-2">
-                                <h4 class="font-black text-2xl uppercase tracking-tighter italic leading-none">${s.dbp_staff_name}</h4>
-                                <span class="text-[9px] font-black text-zinc-400 uppercase tracking-widest italic">${s.role}</span>
-                            </div>
-                        </div>
-                        <div class="space-y-2">${servicesHtml}</div>
-                    </div>`;
-                }).join('');
-            },
-
-            prepareBooking(staffId, pkgId, price) {
-                this.state.selectedStaff = staffId;
-                this.state.selectedPackage = pkgId;
-                this.state.finalPrice = price;
-                
-                const staff = this.state.staffs.find(x => x.id == staffId);
-                const pkg = staff.services.find(x => x.id == pkgId);
-                this.state.selectedStaffName = staff.dbp_staff_name;
-                this.state.selectedPackageName = pkg.name;
-
-                document.getElementById('display-price').innerText = `Rp ${price.toLocaleString('id-ID')}`;
-                document.getElementById('bottom-bar').classList.remove('hidden');
-            },
-
-            openBookingForm() {
-                this.renderDateSlots();
-                document.getElementById('modal-book').classList.replace('hidden', 'flex');
-            },
-
-            renderDateSlots() {
-                const dates = []; const now = new Date();
-                for(let i=0; i<7; i++) {
-                    const d = new Date(now); d.setDate(now.getDate() + i);
-                    dates.push({ 
-                        display: i === 0 ? "Hari Ini" : d.toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric' }),
-                        val: d.toISOString().split('T')[0]
-                    });
-                }
-                document.getElementById('date-slots').innerHTML = dates.map(d => `
-                    <button onclick="APP_LOGIC.selectDate('${d.val}')" id="d-${d.val}" class="date-btn flex-shrink-0 bg-white border border-zinc-100 px-5 py-3 rounded-2xl font-black text-[9px] uppercase taktil shadow-sm">${d.display}</button>
-                `).join('');
-            },
-
-            selectDate(val) {
-                document.getElementById('booking_date').value = val;
-                document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('bg-yellow-400', 'border-yellow-400'));
-                document.getElementById(`d-${val}`).classList.add('bg-yellow-400', 'border-yellow-400');
-                this.renderTimeSlots();
-            },
-
-            renderTimeSlots() {
-                const container = document.getElementById('time-slots');
-                const selectedDate = document.getElementById('booking_date').value;
-                const staff = this.state.staffs.find(x => x.id == this.state.selectedStaff);
-                const booked = staff.booked_slots || [];
-
-                container.innerHTML = CONFIG.AVAILABLE_HOURS.map(h => {
-                    const isBusy = booked.includes(`${selectedDate}_${h}`);
-                    return isBusy ? 
-                    `<button disabled class="p-3 bg-zinc-100 text-zinc-300 rounded-xl font-black text-[10px] opacity-50 italic">Full</button>` :
-                    `<button onclick="APP_LOGIC.selectTime('${h}')" id="t-${h}" class="time-btn p-3 bg-white border border-zinc-100 rounded-xl font-black text-[10px] taktil shadow-sm">${h}</button>`;
-                }).join('');
-            },
-
-            selectTime(val) {
-                document.getElementById('booking_time').value = val;
-                document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('bg-yellow-400', 'border-yellow-400'));
-                document.getElementById(`t-${val}`).classList.add('bg-yellow-400', 'border-yellow-400');
-            },
-
-            async submitBooking() {
-                const name = document.getElementById('cust_name').value.trim();
-                const phone = document.getElementById('cust_phone').value.trim();
-                const date = document.getElementById('booking_date').value;
-                const time = document.getElementById('booking_time').value;
-
-                if(!name || !phone || !date || !time) return alert("Please fill all fields.");
-
-                const btn = document.getElementById('btn-submit');
-                btn.innerText = "Processing..."; btn.disabled = true;
-
-                try {
-                    await fetch(CONFIG.WEBHOOK_URL, {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({
-                            action: 'submit_booking',
-                            tenant_id: CONFIG.TENANT_ID,
-                            cust_name: name,
-                            cust_phone: phone,
-                            tanggal: date,
-                            jam: time,
-                            branch_id: this.state.selectedBranch,
-                            capster_id: this.state.selectedStaff,
-                            package_id: this.state.selectedPackage,
-                            price: this.state.finalPrice,
-                            caps_in_charge: this.state.selectedStaffName,
-                            package_name: this.state.selectedPackageName
-                        })
-                    });
-
-                    document.getElementById('receipt-branch').innerText = this.state.selectedBranch;
-                    document.getElementById('receipt-capster').innerText = this.state.selectedStaffName;
-                    document.getElementById('receipt-time').innerText = `${date} | ${time}`;
-                    document.getElementById('modal-book').classList.replace('flex', 'hidden');
-                    document.getElementById('success-screen').classList.replace('hidden', 'flex');
-                } catch(e) { alert("Failed to book."); btn.innerText = "Complete Booking"; btn.disabled = false; }
-            },
-
-            closeModal() { document.getElementById('modal-book').classList.replace('flex','hidden'); },
-            resetToStep1() { document.getElementById('step-staff').classList.add('hidden'); document.getElementById('step-initial').classList.remove('hidden'); document.getElementById('bottom-bar').classList.add('hidden'); }
-        };
-
-        window.onload = () => APP_LOGIC.init();
+        window.onload = () => APP_INIT.run();
+        const APP_INIT = { run() { LOGIN_SYSTEM.init(); } };
     </script>
 </body>
 </html>
