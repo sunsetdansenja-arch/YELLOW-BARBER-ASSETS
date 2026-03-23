@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title id="meta-title">System Access</title>
-    <link id="meta-icon" rel="icon" type="image/png" href="">
+    <title id="meta-title">Terminal Access</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #F5F5F7; color: #1D1D1F; -webkit-tap-highlight-color: transparent; }
         .apple-shadow { box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04); }
@@ -25,19 +23,19 @@
     <div id="view-login" class="h-full w-full flex flex-col items-center justify-center px-6 absolute inset-0 z-50 bg-white">
         <div class="w-full max-w-sm flex flex-col items-center animate-up">
             <img id="logo-login" src="" class="h-16 mb-8">
-            <div class="w-full apple-card apple-shadow p-8 text-center">
-                <h1 class="font-bold text-2xl mb-2">Terminal Access</h1>
-                <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-8">Authorized Personnel Only</p>
-                <input type="text" id="userInput" placeholder="STAFF ID" class="w-full bg-zinc-50 font-bold uppercase text-center text-lg py-4 rounded-2xl border border-zinc-200 focus:border-zinc-400 outline-none mb-6">
+            <div class="w-full apple-card apple-shadow p-8 text-center text-zinc-900">
+                <h1 class="font-bold text-2xl mb-2 tracking-tight">Staff Terminal</h1>
+                <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-8">Secure Access Only</p>
+                <input type="text" id="userInput" placeholder="STAFF ID" class="w-full bg-zinc-50 font-bold uppercase text-center text-lg py-4 rounded-2xl border border-zinc-200 outline-none mb-6">
                 <div id="pin-dots" class="flex justify-center gap-4">
                     <div class="w-3 h-3 rounded-full bg-zinc-200 transition-all" id="dot-1"></div>
                     <div class="w-3 h-3 rounded-full bg-zinc-200 transition-all" id="dot-2"></div>
                     <div class="w-3 h-3 rounded-full bg-zinc-200 transition-all" id="dot-3"></div>
                     <div class="w-3 h-3 rounded-full bg-zinc-200 transition-all" id="dot-4"></div>
                 </div>
-                <p id="error-msg" class="text-red-500 font-bold text-xs mt-4 opacity-0">Akses Ditolak</p>
+                <p id="error-msg" class="text-red-500 font-bold text-xs mt-4 opacity-0">AKSES DITOLAK</p>
             </div>
-            <div class="grid grid-cols-3 gap-3 w-full mt-8 px-4">
+            <div class="grid grid-cols-3 gap-3 w-full mt-8 px-4 text-zinc-800">
                 <script>for(let i=1; i<=9; i++) document.write(`<button onclick="LOGIN_SYSTEM.press('${i}')" class="btn-press bg-white border border-zinc-200 rounded-2xl h-14 font-semibold shadow-sm">${i}</button>`);</script>
                 <button onclick="LOGIN_SYSTEM.press('clear')" class="btn-press bg-white border border-zinc-200 rounded-2xl h-14 text-xs font-bold">DEL</button>
                 <button onclick="LOGIN_SYSTEM.press('0')" class="btn-press bg-white border border-zinc-200 rounded-2xl h-14 font-semibold">0</button>
@@ -46,137 +44,119 @@
     </div>
 
     <div id="view-cashier" class="h-full w-full hidden flex-col absolute inset-0 z-30 bg-[#F5F5F7]">
-        <header class="glass-header p-4 flex justify-between items-center shrink-0">
+        <header class="glass-header p-4 flex justify-between items-center shrink-0 z-20">
             <div class="flex items-center gap-4">
                 <img id="logo-cashier" src="" class="h-10">
-                <div><h1 class="font-bold text-sm leading-none">Cashier Terminal</h1><p id="cashier-branch-name" class="text-[10px] font-bold text-zinc-400 uppercase mt-1">...</p></div>
+                <div><h1 class="font-bold text-sm leading-none">Management</h1><p id="cashier-branch-name" class="text-[10px] font-bold text-zinc-400 uppercase mt-1">...</p></div>
             </div>
             
             <div class="flex bg-zinc-100 p-1 rounded-xl border border-zinc-200">
-                <button onclick="CASHIER_LOGIC.switchTab('queue')" id="tab-btn-queue" class="px-4 py-1.5 rounded-lg text-xs font-bold tab-active transition-all">Queue</button>
-                <button onclick="CASHIER_LOGIC.switchTab('report')" id="tab-btn-report" class="px-4 py-1.5 rounded-lg text-xs font-bold text-zinc-500 transition-all">Report</button>
-                <button onclick="CASHIER_LOGIC.switchTab('config')" id="tab-btn-config" class="px-4 py-1.5 rounded-lg text-xs font-bold text-zinc-500 transition-all">Settings</button>
+                <button onclick="CASHIER_LOGIC.switchTab('queue')" id="tab-btn-queue" class="px-5 py-1.5 rounded-lg text-[11px] font-bold tab-active transition-all uppercase">Queue</button>
+                <button onclick="CASHIER_LOGIC.switchTab('report')" id="tab-btn-report" class="px-5 py-1.5 rounded-lg text-[11px] font-bold text-zinc-400 transition-all uppercase">Report</button>
+                <button onclick="CASHIER_LOGIC.switchTab('config')" id="tab-btn-config" class="px-5 py-1.5 rounded-lg text-[11px] font-bold text-zinc-400 transition-all uppercase">Settings</button>
             </div>
 
             <div class="flex gap-2">
-                <button onclick="CASHIER_LOGIC.loadData()" class="btn-press bg-white border border-zinc-200 p-2 rounded-xl shadow-sm"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-width="2"/></svg></button>
-                <button onclick="LOGIN_SYSTEM.logout()" class="btn-press bg-zinc-900 text-white px-4 py-2 rounded-xl text-xs font-bold">Logout</button>
+                <button onclick="CASHIER_LOGIC.loadData()" class="btn-press bg-white border border-zinc-200 p-2 rounded-xl shadow-sm text-zinc-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-width="2.5"/></svg></button>
+                <button onclick="LOGIN_SYSTEM.logout()" class="btn-press bg-zinc-900 text-white px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-tight">Logout</button>
             </div>
         </header>
 
         <main id="tab-queue" class="flex-1 overflow-y-auto p-4 flex flex-col lg:flex-row gap-4 animate-up">
             <div class="flex-1 space-y-4">
                 <div class="grid grid-cols-3 gap-3">
-                    <div class="apple-card p-4"><p class="text-[10px] font-bold text-zinc-400 uppercase mb-1">Inflow</p><p id="sum-omset" class="font-bold text-lg">Rp 0</p></div>
-                    <div class="apple-card p-4"><p class="text-[10px] font-bold text-zinc-400 uppercase mb-1">Outflow</p><p id="sum-expense" class="font-bold text-lg text-red-500">Rp 0</p></div>
-                    <div class="apple-card p-4 bg-zinc-900 text-white border-none"><p class="text-[10px] font-bold text-zinc-500 uppercase mb-1">Profit</p><p id="sum-profit" class="font-bold text-lg text-green-400">Rp 0</p></div>
+                    <div class="apple-card p-4 shadow-sm border-zinc-100"><p class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Omset (Today)</p><p id="sum-omset" class="font-bold text-xl tracking-tight text-zinc-800">Rp 0</p></div>
+                    <div class="apple-card p-4 shadow-sm border-zinc-100"><p class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Expense</p><p id="sum-expense" class="font-bold text-xl tracking-tight text-red-500">Rp 0</p></div>
+                    <div class="apple-card p-4 bg-zinc-900 text-white border-none shadow-lg"><p class="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mb-1">Net Flow</p><p id="sum-profit" class="font-bold text-xl tracking-tight text-green-400">Rp 0</p></div>
                 </div>
 
-                <div class="apple-card flex-1 min-h-[400px] flex flex-col">
-                    <div class="p-5 border-b border-zinc-100 flex justify-between items-center">
-                        <h2 class="font-bold text-lg">Live Antrean</h2>
-                        <span class="text-[10px] bg-green-100 text-green-600 px-2 py-1 rounded-full font-bold uppercase">Sync Active</span>
+                <div class="apple-card flex-1 min-h-[400px] flex flex-col shadow-sm">
+                    <div class="p-5 border-b border-zinc-50 flex justify-between items-center">
+                        <h2 class="font-bold text-base text-zinc-800 tracking-tight uppercase">Live Queue (Active)</h2>
+                        <div class="flex items-center gap-1.5"><div class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div><span class="text-[9px] font-black text-green-600 uppercase">Live</span></div>
                     </div>
-                    <div id="queue-container" class="p-4 space-y-3"></div>
+                    <div id="queue-container" class="p-4 space-y-3 bg-zinc-50/30 flex-1"></div>
                 </div>
             </div>
 
             <div class="w-full lg:w-80 flex flex-col gap-4">
-                <button onclick="CASHIER_LOGIC.openExpenseModal()" class="btn-press bg-white border border-zinc-200 py-4 rounded-2xl font-bold text-sm apple-shadow">Catat Pengeluaran</button>
-                <div class="apple-card flex-1">
-                    <div class="p-4 border-b border-zinc-100 font-bold text-xs uppercase text-zinc-400">Petty Cash</div>
+                <button onclick="CASHIER_LOGIC.openExpenseModal()" class="btn-press bg-white border border-zinc-200 py-4 rounded-2xl font-bold text-xs uppercase tracking-widest text-zinc-500 apple-shadow">+ Input Expense</button>
+                <div class="apple-card flex-1 shadow-sm">
+                    <div class="p-4 border-b border-zinc-50 font-bold text-[10px] uppercase text-zinc-400 tracking-widest">Petty Cash Log</div>
                     <div id="expense-container" class="p-4 space-y-2"></div>
+                </div>
+            </div>
+        </main>
+
+        <main id="tab-report" class="flex-1 overflow-y-auto p-4 hidden animate-up">
+            <div class="max-w-4xl mx-auto apple-card p-6 shadow-sm">
+                <div class="flex flex-col sm:flex-row gap-4 mb-6 items-end">
+                    <div class="flex-1 w-full"><label class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-2 block">Monthly Filter</label><input type="month" id="report-month" onchange="CASHIER_LOGIC.processReport()" class="w-full bg-zinc-50 border border-zinc-100 p-4 rounded-2xl outline-none font-bold text-zinc-700"></div>
+                    <button onclick="CASHIER_LOGIC.exportPDF()" class="bg-zinc-900 text-white h-[56px] px-8 rounded-2xl font-bold text-xs uppercase tracking-widest shadow-lg">Cetak Report</button>
+                </div>
+                <div id="printable-report" class="bg-white rounded-2xl border border-zinc-100 overflow-x-auto">
+                    <table class="w-full text-left"><thead class="text-[10px] font-black text-zinc-400 uppercase tracking-widest border-b border-zinc-50"><tr><th class="p-4">Tgl</th><th class="p-4 text-center">Qty</th><th class="p-4 text-right">Revenue</th><th class="p-4 text-right">Expense</th></tr></thead><tbody id="report-table-body" class="text-xs font-bold divide-y divide-zinc-50 text-zinc-600"></tbody></table>
                 </div>
             </div>
         </main>
 
         <main id="tab-config" class="flex-1 overflow-y-auto p-4 hidden animate-up">
             <div class="max-w-3xl mx-auto space-y-6">
-                <div class="apple-card p-6">
+                <div class="apple-card p-6 shadow-sm">
                     <div class="flex justify-between items-center mb-6">
-                        <h2 class="font-bold text-xl">Layanan Utama</h2>
-                        <button onclick="CASHIER_LOGIC.openPackageModal('PRIMER')" class="bg-zinc-900 text-white px-4 py-2 rounded-xl text-xs font-bold">Add New</button>
+                        <h2 class="font-bold text-base uppercase tracking-tight">Daftar Layanan Utama</h2>
+                        <button onclick="CASHIER_LOGIC.openPackageModal('PRIMER')" class="bg-zinc-900 text-white px-5 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest">+ Add</button>
                     </div>
-                    <div id="config-primer-list" class="grid grid-cols-1 gap-3"></div>
+                    <div id="config-primer-list" class="grid grid-cols-1 gap-2.5"></div>
                 </div>
-                <div class="apple-card p-6">
+                <div class="apple-card p-6 shadow-sm">
                     <div class="flex justify-between items-center mb-6">
-                        <h2 class="font-bold text-xl">Add-Ons</h2>
-                        <button onclick="CASHIER_LOGIC.openPackageModal('ADD ON')" class="bg-zinc-900 text-white px-4 py-2 rounded-xl text-xs font-bold">Add New</button>
+                        <h2 class="font-bold text-base uppercase tracking-tight">Daftar Add-Ons</h2>
+                        <button onclick="CASHIER_LOGIC.openPackageModal('ADD ON')" class="bg-zinc-900 text-white px-5 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest">+ Add</button>
                     </div>
-                    <div id="config-addon-list" class="grid grid-cols-1 gap-3"></div>
+                    <div id="config-addon-list" class="grid grid-cols-1 gap-2.5"></div>
                 </div>
             </div>
         </main>
-
-        <main id="tab-report" class="flex-1 overflow-y-auto p-4 hidden animate-up">
-             <div class="max-w-4xl mx-auto apple-card p-6">
-                <div class="flex flex-col sm:flex-row gap-4 mb-6 items-end">
-                    <div class="flex-1">
-                        <label class="text-[10px] font-bold text-zinc-400 uppercase mb-2 block">Pilih Bulan</label>
-                        <input type="month" id="report-month" onchange="CASHIER_LOGIC.processReport()" class="w-full bg-zinc-50 border border-zinc-200 p-3 rounded-xl outline-none font-semibold">
-                    </div>
-                    <button onclick="CASHIER_LOGIC.exportPDF()" class="bg-zinc-900 text-white h-[50px] px-6 rounded-xl font-bold text-xs uppercase">Cetak PDF</button>
-                </div>
-                <div id="printable-report" class="bg-zinc-50 rounded-2xl p-4 overflow-x-auto">
-                    <table class="w-full text-left">
-                        <thead class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest border-b border-zinc-200">
-                            <tr><th class="p-3">Tgl</th><th class="p-3 text-center">Qty</th><th class="p-3 text-right">Revenue</th><th class="p-3 text-right">Expense</th></tr>
-                        </thead>
-                        <tbody id="report-table-body" class="text-sm font-semibold divide-y divide-zinc-100"></tbody>
-                    </table>
-                </div>
-             </div>
-        </main>
     </div>
 
-    <div id="modal-checkout" class="fixed inset-0 z-[100] bg-black/40 backdrop-blur-sm hidden items-center justify-center p-4">
-        <div class="bg-white w-full max-w-sm apple-card p-6 shadow-2xl animate-up">
-            <h2 class="font-bold text-xl mb-1">Checkout</h2>
-            <p id="checkout-cust-name" class="text-xs text-zinc-400 font-medium mb-6 uppercase">GUEST NAME</p>
-            <div class="space-y-4">
-                <div class="bg-zinc-50 p-4 rounded-2xl border border-zinc-100">
-                    <p class="text-[10px] font-bold text-zinc-400 uppercase mb-1">Layanan Terpilih:</p>
-                    <p id="checkout-main-service" class="font-bold">...</p>
-                </div>
-                <div>
-                    <p class="text-[10px] font-bold text-zinc-400 uppercase mb-2">Tambahkan Layanan (Add-on):</p>
-                    <div id="checkout-addons-list" class="space-y-2 max-h-48 overflow-y-auto pr-1"></div>
-                </div>
-                <div class="pt-4 border-t border-zinc-100 mt-4">
-                    <div class="flex justify-between items-center mb-6">
-                        <span class="font-bold text-zinc-400 uppercase text-[10px]">Total Tagihan:</span>
-                        <span id="checkout-total-display" class="font-bold text-2xl text-zinc-900">Rp 0</span>
-                    </div>
+    <div id="modal-checkout" class="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm apple-card p-6 shadow-2xl animate-up border-none">
+            <h2 class="font-bold text-xl tracking-tight mb-1">Finalize Order</h2>
+            <p id="checkout-cust-name" class="text-[10px] text-zinc-400 font-black mb-8 uppercase tracking-widest">GUEST NAME</p>
+            <div class="space-y-5">
+                <div class="bg-zinc-50 p-4 rounded-2xl border border-zinc-100"><p class="text-[9px] font-bold text-zinc-400 uppercase mb-1.5 tracking-widest">Main Treatment</p><p id="checkout-main-service" class="font-bold text-sm text-zinc-800">...</p></div>
+                <div><p class="text-[9px] font-bold text-zinc-400 uppercase mb-3 tracking-widest">Extra Services (Add-on)</p><div id="checkout-addons-list" class="space-y-2.5 max-h-48 overflow-y-auto pr-1"></div></div>
+                <div class="pt-6 border-t border-zinc-100 mt-6">
+                    <div class="flex justify-between items-center mb-8"><span class="font-bold text-zinc-400 uppercase text-[10px] tracking-widest">Grand Total</span><span id="checkout-total-display" class="font-bold text-2xl text-zinc-900 tracking-tighter italic">Rp 0</span></div>
                     <div class="flex gap-3">
-                        <button onclick="document.getElementById('modal-checkout').classList.replace('flex','hidden')" class="flex-1 font-bold text-zinc-400 text-xs">Batal</button>
-                        <button onclick="CASHIER_LOGIC.confirmCheckout()" class="flex-[2] bg-zinc-900 text-white py-4 rounded-2xl font-bold text-sm">Simpan Transaksi</button>
+                        <button onclick="document.getElementById('modal-checkout').classList.replace('flex','hidden')" class="flex-1 font-bold text-zinc-400 text-[10px] uppercase tracking-widest">Cancel</button>
+                        <button onclick="CASHIER_LOGIC.confirmCheckout()" class="flex-[2.5] bg-zinc-900 text-white py-4 rounded-2xl font-bold text-xs uppercase tracking-widest shadow-xl">Complete & Save</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="modal-pkg" class="fixed inset-0 z-[100] bg-black/40 backdrop-blur-sm hidden items-center justify-center p-4">
-        <div class="bg-white w-full max-w-sm apple-card p-6 animate-up">
-            <h2 id="pkg-modal-title" class="font-bold text-xl mb-6">Manage Item</h2>
-            <input type="hidden" id="pkg-id">
-            <input type="hidden" id="pkg-category">
+    <div id="modal-pkg" class="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm apple-card p-6 shadow-2xl animate-up border-none">
+            <h2 id="pkg-modal-title" class="font-bold text-lg mb-8 uppercase tracking-tight text-zinc-800">Manage Item</h2>
+            <input type="hidden" id="pkg-id"><input type="hidden" id="pkg-category">
             <div class="space-y-4">
-                <input type="text" id="pkg-name" placeholder="Nama Layanan" class="w-full bg-zinc-50 border border-zinc-200 p-4 rounded-2xl font-bold uppercase outline-none focus:border-zinc-400">
-                <input type="number" id="pkg-price" placeholder="Harga (Nominal)" class="w-full bg-zinc-50 border border-zinc-200 p-4 rounded-2xl font-bold text-lg outline-none focus:border-zinc-400">
-                <div class="flex gap-3 pt-4">
-                    <button onclick="document.getElementById('modal-pkg').classList.replace('flex','hidden')" class="flex-1 font-bold text-zinc-400 text-xs uppercase">Batal</button>
-                    <button onclick="CASHIER_LOGIC.savePackage()" class="flex-[2] bg-zinc-900 text-white py-4 rounded-2xl font-bold text-sm uppercase">Simpan</button>
+                <input type="text" id="pkg-name" placeholder="Item Name" class="w-full bg-zinc-50 border border-zinc-100 p-4 rounded-2xl font-bold uppercase outline-none focus:border-zinc-400 text-sm">
+                <input type="number" id="pkg-price" placeholder="Price (Amount)" class="w-full bg-zinc-50 border border-zinc-100 p-4 rounded-2xl font-bold text-xl outline-none focus:border-zinc-400 tracking-tight">
+                <div class="flex gap-3 pt-6">
+                    <button onclick="document.getElementById('modal-pkg').classList.replace('flex','hidden')" class="flex-1 font-bold text-zinc-400 text-[10px] uppercase tracking-widest">Batal</button>
+                    <button onclick="CASHIER_LOGIC.savePackage()" class="flex-[2.5] bg-zinc-900 text-white py-4 rounded-2xl font-bold text-xs uppercase tracking-widest shadow-xl">Confirm Data</button>
                 </div>
-                <button id="btn-delete-pkg" onclick="CASHIER_LOGIC.deletePackage()" class="w-full text-red-500 font-bold text-[10px] uppercase underline mt-4 hidden">Hapus Permanen</button>
+                <button id="btn-delete-pkg" onclick="CASHIER_LOGIC.deletePackage()" class="w-full text-red-500 font-bold text-[9px] uppercase tracking-widest mt-6 underline opacity-50 hover:opacity-100">Permanent Delete</button>
             </div>
         </div>
     </div>
 
     <div id="loading-overlay" class="fixed inset-0 bg-white/80 backdrop-blur-md hidden flex-col items-center justify-center z-[200]">
-        <div class="w-8 h-8 border-4 border-zinc-200 border-t-zinc-900 rounded-full animate-spin mb-4"></div>
-        <h2 id="loading-text" class="text-xs font-bold uppercase tracking-widest text-zinc-400">Processing</h2>
+        <div class="w-8 h-8 border-[3px] border-zinc-100 border-t-zinc-900 rounded-full animate-spin mb-4"></div>
+        <h2 id="loading-text" class="text-[9px] font-black uppercase tracking-[0.2em] text-zinc-400">Processing Logic</h2>
     </div>
 
     <script>
@@ -195,7 +175,11 @@
             showLoading: (t) => { document.getElementById('loading-text').innerText = t || "WAIT..."; document.getElementById('loading-overlay').classList.replace('hidden', 'flex'); },
             hideLoading: () => document.getElementById('loading-overlay').classList.replace('flex', 'hidden'),
             post: async (payload) => {
-                const res = await fetch(CONFIG.WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({...payload, tenant_id: CONFIG.TENANT_ID}) });
+                const res = await fetch(CONFIG.WEBHOOK_URL, { 
+                    method: 'POST', 
+                    headers: {'Content-Type': 'application/json'}, 
+                    body: JSON.stringify({...payload, tenant_id: CONFIG.TENANT_ID}) 
+                });
                 return await res.json();
             }
         };
@@ -203,9 +187,8 @@
         const LOGIN_SYSTEM = {
             pin: "",
             init() {
-                const saved = localStorage.getItem('yhb_user_v2');
+                const saved = localStorage.getItem('yhb_terminal_user');
                 if (saved) { STATE.user = JSON.parse(saved); this.route(); }
-                document.getElementById('meta-title').innerText = `${CONFIG.TENANT_ID} Terminal`;
                 document.getElementById('logo-login').src = CONFIG.LOGO_URL;
                 document.getElementById('logo-cashier').src = CONFIG.LOGO_URL;
             },
@@ -220,7 +203,7 @@
                 try {
                     const data = await UTIL.post({ action: 'login', username: u, password: this.pin });
                     const res = data[0] || data;
-                    if(res.success) { STATE.user = res.user; localStorage.setItem('yhb_user_v2', JSON.stringify(res.user)); this.route(); }
+                    if(res.success) { STATE.user = res.user; localStorage.setItem('yhb_terminal_user', JSON.stringify(res.user)); this.route(); }
                     else throw new Error();
                 } catch (e) { document.getElementById('error-msg').style.opacity = '1'; this.pin = ""; }
                 finally { UTIL.hideLoading(); }
@@ -230,23 +213,26 @@
                 document.getElementById('view-cashier').classList.replace('hidden', 'flex');
                 CASHIER_LOGIC.init();
             },
-            logout() { localStorage.removeItem('yhb_user_v2'); location.reload(); }
+            logout() { localStorage.removeItem('yhb_terminal_user'); location.reload(); }
         };
 
         const CASHIER_LOGIC = {
             async init() {
                 const b = CONFIG.BRANCHES.find(x => x.db_name === STATE.user.branch);
-                document.getElementById('cashier-branch-name').innerText = b ? `Cabang ${b.display_name}` : STATE.user.branch;
+                document.getElementById('cashier-branch-name').innerText = b ? b.display_name : STATE.user.branch;
+                const now = new Date(); document.getElementById('report-month').value = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
                 await this.loadData();
                 setInterval(() => this.loadData(true), 60000);
             },
             switchTab(tab) {
                 ['queue', 'report', 'config'].forEach(t => { 
                     document.getElementById(`tab-${t}`).classList.add('hidden'); 
-                    document.getElementById(`tab-btn-${t}`).classList.remove('tab-active');
+                    document.getElementById(`tab-btn-${t}`).classList.remove('tab-active', 'text-zinc-400');
+                    if(t !== tab) document.getElementById(`tab-btn-${t}`).classList.add('text-zinc-400');
                 });
                 document.getElementById(`tab-${tab}`).classList.remove('hidden');
                 document.getElementById(`tab-btn-${tab}`).classList.add('tab-active');
+                if(tab === 'config') this.renderConfig();
                 if(tab === 'report') this.processReport();
             },
             async loadData(silent = false) {
@@ -262,7 +248,6 @@
                         this.renderQueue();
                         this.renderExpenses(res.expenses);
                         this.updateSum(res.queue, res.expenses);
-                        this.renderConfig();
                     }
                     const rep = await UTIL.post({ action: 'get_cashier_report', branch: STATE.user.branch });
                     STATE.rawReport = rep[0] || rep;
@@ -280,25 +265,25 @@
                 const container = document.getElementById('queue-container');
                 container.innerHTML = '';
                 const today = STATE.queue.filter(x => x.tanggal.substring(0,10) === STATE.sysDates.today).sort((a,b) => a.jam.localeCompare(b.jam));
-                if(today.length === 0) container.innerHTML = `<div class="text-center py-10 font-bold text-zinc-300 uppercase italic">Belum Ada Antrean</div>`;
+                if(today.length === 0) container.innerHTML = `<div class="text-center py-20 font-bold text-zinc-300 uppercase text-[10px] tracking-[0.2em]">Queue is empty</div>`;
                 today.forEach(item => {
                     const isDone = item.status === 'DONE' || item.status === 'SUCCESS';
                     container.insertAdjacentHTML('beforeend', `
-                        <div class="apple-card p-4 flex justify-between items-center ${isDone ? 'opacity-40 bg-zinc-50' : ''}">
-                            <div>
-                                <div class="flex items-center gap-2 mb-1"><span class="font-bold text-lg">${item.jam}</span><span class="text-[9px] font-bold uppercase px-2 py-0.5 rounded-full ${isDone ? 'bg-zinc-200 text-zinc-500' : 'bg-blue-100 text-blue-600'}">${item.status}</span></div>
-                                <h3 class="font-bold text-sm uppercase">${item.cust_name || 'Walk-In'}</h3>
-                                <p class="text-[10px] font-semibold text-zinc-400 uppercase">${item.package_name} • ${UTIL.formatRp(item.price)}</p>
+                        <div class="apple-card p-5 flex justify-between items-center shadow-sm border-zinc-100 ${isDone ? 'opacity-40 bg-zinc-50' : ''}">
+                            <div class="space-y-1">
+                                <div class="flex items-center gap-2.5"><span class="font-bold text-lg tracking-tight text-zinc-800">${item.jam}</span><span class="text-[8px] font-black uppercase px-2 py-0.5 rounded-full ${isDone ? 'bg-zinc-200 text-zinc-500' : 'bg-blue-100 text-blue-600'}">${item.status}</span></div>
+                                <h3 class="font-bold text-xs uppercase tracking-wide text-zinc-500">${item.cust_name || 'Walk-In Customer'}</h3>
+                                <p class="text-[10px] font-bold text-zinc-900 uppercase tracking-tight">${item.package_name} &bull; ${UTIL.formatRp(item.price)}</p>
                             </div>
-                            ${!isDone ? `<button onclick="CASHIER_LOGIC.openCheckout(${item.id})" class="btn-press bg-zinc-900 text-white px-5 py-2.5 rounded-xl text-xs font-bold uppercase">Selesai</button>` : ''}
+                            ${!isDone ? `<button onclick="CASHIER_LOGIC.openCheckout(${item.id})" class="btn-press bg-zinc-900 text-white px-6 py-2.5 rounded-2xl text-[10px] font-bold uppercase tracking-widest shadow-xl">Selesai</button>` : ''}
                         </div>
                     `);
                 });
             },
             renderExpenses(data) {
                 const container = document.getElementById('expense-container'); container.innerHTML = '';
-                if(data.length === 0) container.innerHTML = `<p class="text-center text-[10px] font-bold text-zinc-300 py-4 uppercase">No Expense</p>`;
-                data.forEach(item => { container.insertAdjacentHTML('beforeend', `<div class="bg-white border border-zinc-100 p-3 rounded-xl flex justify-between items-center text-[11px] font-bold"><span>${item.deskripsi}</span><span class="text-red-500">-${UTIL.formatRp(item.nominal)}</span></div>`); });
+                if(data.length === 0) container.innerHTML = `<div class="text-center py-10 font-bold text-zinc-200 uppercase text-[8px] tracking-widest">No Records</div>`;
+                data.forEach(item => { container.insertAdjacentHTML('beforeend', `<div class="bg-white border border-zinc-50 p-3.5 rounded-2xl flex justify-between items-center text-[10px] font-bold shadow-sm"><span>${item.deskripsi}</span><span class="text-red-500">-${UTIL.formatRp(item.nominal)}</span></div>`); });
             },
 
             // --- CHECKOUT LOGIC ---
@@ -311,9 +296,9 @@
                 
                 const addonContainer = document.getElementById('checkout-addons-list');
                 addonContainer.innerHTML = STATE.addons.map(a => `
-                    <label class="flex items-center justify-between p-3 bg-zinc-50 rounded-xl border border-zinc-100 cursor-pointer hover:bg-zinc-100 transition-all">
-                        <div class="flex items-center gap-3"><input type="checkbox" onchange="CASHIER_LOGIC.toggleAddon(this, '${a.NAME}', ${a.PRICE})" class="w-4 h-4 accent-zinc-900"><span class="text-xs font-bold uppercase">${a.NAME}</span></div>
-                        <span class="text-[11px] font-bold text-blue-600">+${UTIL.formatRp(a.PRICE)}</span>
+                    <label class="flex items-center justify-between p-4 bg-zinc-50 rounded-2xl border border-zinc-100 cursor-pointer hover:bg-zinc-100 transition-all">
+                        <div class="flex items-center gap-3"><input type="checkbox" onchange="CASHIER_LOGIC.toggleAddon(this, '${a.NAME}', ${a.PRICE})" class="w-5 h-5 rounded-lg border-zinc-300 accent-zinc-900"><span class="text-[11px] font-bold uppercase text-zinc-700">${a.NAME}</span></div>
+                        <span class="text-[10px] font-black text-blue-600">+ ${Number(a.PRICE)/1000}K</span>
                     </label>`).join('');
                 
                 this.updateCheckoutDisplay();
@@ -330,7 +315,7 @@
                 document.getElementById('checkout-total-display').innerText = UTIL.formatRp(STATE.checkout.currentTotal);
             },
             async confirmCheckout() {
-                UTIL.showLoading("SAVING...");
+                UTIL.showLoading("SAVING TRANSACTION...");
                 const finalName = [STATE.checkout.baseName, ...STATE.checkout.selectedAddons.map(x => x.name)].join(" + ");
                 try {
                     await UTIL.post({ 
@@ -342,7 +327,7 @@
                     });
                     document.getElementById('modal-checkout').classList.replace('flex','hidden');
                     await this.loadData();
-                } catch(e) { alert("Error saving transaction"); } finally { UTIL.hideLoading(); }
+                } catch(e) { alert("Error saving transaction. Check console or n8n node."); } finally { UTIL.hideLoading(); }
             },
 
             // --- CONFIG LOGIC ---
@@ -351,8 +336,8 @@
                     const c = document.getElementById(containerId); c.innerHTML = '';
                     list.forEach(p => c.insertAdjacentHTML('beforeend', `
                         <div class="flex justify-between items-center p-4 bg-zinc-50 rounded-2xl border border-zinc-100">
-                            <div><p class="font-bold text-sm uppercase">${p.NAME}</p><p class="text-xs font-bold text-blue-600">${UTIL.formatRp(p.PRICE)}</p></div>
-                            <button onclick="CASHIER_LOGIC.openPackageModal('${p.CATEGORY}', ${JSON.stringify(p).replace(/"/g, '&quot;')})" class="text-[10px] font-black uppercase text-zinc-400 hover:text-zinc-900 transition-all">Edit</button>
+                            <div><p class="font-bold text-[11px] uppercase text-zinc-800">${p.NAME}</p><p class="text-[10px] font-bold text-blue-600">${UTIL.formatRp(p.PRICE)}</p></div>
+                            <button onclick="CASHIER_LOGIC.openPackageModal('${p.CATEGORY}', ${JSON.stringify(p).replace(/"/g, '&quot;')})" class="text-[9px] font-black uppercase text-zinc-300 hover:text-zinc-900 transition-all tracking-widest">Edit</button>
                         </div>`));
                 };
                 render(STATE.packages, 'config-primer-list');
@@ -378,11 +363,11 @@
                     category: document.getElementById('pkg-category').value
                 };
                 if(!payload.name || !payload.price) return alert("Isi data lengkap!");
-                UTIL.showLoading("UPDATING...");
+                UTIL.showLoading("UPDATING CONFIG...");
                 try { await UTIL.post(payload); document.getElementById('modal-pkg').classList.replace('flex','hidden'); await this.loadData(); } catch(e){} finally { UTIL.hideLoading(); }
             },
             async deletePackage() {
-                if(!confirm("Hapus Item Ini?")) return;
+                if(!confirm("Hapus Permanen?")) return;
                 UTIL.showLoading("DELETING...");
                 try { await UTIL.post({ action: 'manage_package', operation_type: 'delete', package_id: document.getElementById('pkg-id').value }); document.getElementById('modal-pkg').classList.replace('flex','hidden'); await this.loadData(); } catch(e){} finally { UTIL.hideLoading(); }
             },
@@ -391,24 +376,24 @@
             processReport() {
                 if(!STATE.rawReport) return;
                 const month = document.getElementById('report-month').value;
-                const daily = {}; let gRev = 0; let gExp = 0;
+                const daily = {};
                 STATE.rawReport.bookings.filter(b => b.tanggal.startsWith(month)).forEach(b => {
                     const d = b.tanggal.substring(0,10); const v = Number(b.price)||0;
                     if(!daily[d]) daily[d] = {c:0, r:0, e:0};
-                    daily[d].c++; daily[d].r += v; gRev += v;
+                    daily[d].c++; daily[d].r += v;
                 });
                 STATE.rawReport.expenses.filter(e => e.tanggal.startsWith(month)).forEach(e => {
                     const d = e.tanggal.substring(0,10); const v = Number(e.nominal)||0;
                     if(!daily[d]) daily[d] = {c:0, r:0, e:0};
-                    daily[d].e += v; gExp += v;
+                    daily[d].e += v;
                 });
                 const tbody = document.getElementById('report-table-body'); tbody.innerHTML = '';
                 Object.keys(daily).sort().forEach(d => {
-                    tbody.insertAdjacentHTML('beforeend', `<tr><td class="p-3">${d}</td><td class="p-3 text-center">${daily[d].c}</td><td class="p-3 text-right text-blue-600">${UTIL.formatRp(daily[d].r)}</td><td class="p-3 text-right text-red-400">${UTIL.formatRp(daily[d].e)}</td></tr>`);
+                    tbody.insertAdjacentHTML('beforeend', `<tr><td class="p-4">${d}</td><td class="p-4 text-center text-zinc-400">${daily[d].c}</td><td class="p-4 text-right text-zinc-900">${UTIL.formatRp(daily[d].r)}</td><td class="p-4 text-right text-red-400">${UTIL.formatRp(daily[d].e)}</td></tr>`);
                 });
             },
-            exportPDF() { html2pdf().from(document.getElementById('printable-report')).save(`${CONFIG.TENANT_ID}_Report.pdf`); },
-            openExpenseModal() { alert("Gunakan flow input pengeluaran seperti versi sebelumnya di n8n."); }
+            exportPDF() { html2pdf().set({margin: 1, filename: 'Report.pdf', jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }}).from(document.getElementById('printable-report')).save().then(() => UTIL.hideLoading()); },
+            openExpenseModal() { alert("Flow input pengeluaran sedang divalidasi."); }
         };
 
         window.onload = () => APP_INIT.run();
