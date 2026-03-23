@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title id="meta-title">System Access | YHB</title>
-    <link id="meta-icon" rel="icon" type="image/png" href="">
+    <title>YHB | System Access</title>
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -13,35 +13,35 @@
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #F5F5F7; color: #1D1D1F; -webkit-tap-highlight-color: transparent; overflow-x: hidden; }
         .apple-shadow { box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04); }
-        .apple-card { background: #FFFFFF; border: 1px solid #E5E5EA; border-radius: 20px; }
+        .apple-card { background: #FFFFFF; border: 1px solid #E5E5EA; border-radius: 24px; }
         .glass-header { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid #E5E5EA; }
         .btn-press:active { transform: scale(0.97); }
-        @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
-        .animate-slide-up { animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .neo-shadow { box-shadow: 6px 6px 0px 0px rgba(0,0,0,1); }
-        .neo-shadow-sm { box-shadow: 4px 4px 0px 0px rgba(0,0,0,1); }
-        .neo-border { border: 4px solid #000000; }
+        .tab-active { background: #1D1D1F !important; color: #FFFFFF !important; }
+        @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+        .animate-up { animation: slideUpFade 0.4s ease forwards; }
     </style>
 </head>
 <body class="h-screen w-screen overflow-hidden text-zinc-900">
 
-    <div id="view-login" class="h-full w-full flex flex-col items-center justify-center px-6 absolute inset-0 z-40 bg-white transition-all duration-700">
-        <div class="w-full max-w-sm flex flex-col items-center animate-slide-up">
-            <img id="logo-login" src="" class="h-16 w-auto mb-6" alt="Logo">
-            <h1 class="font-bold text-2xl tracking-tight mb-1 text-zinc-900 text-center">System Access</h1>
-            <p class="text-xs font-medium text-zinc-400 uppercase tracking-widest mb-8 text-center">Yellow Barber Staff Only</p>
-            <div class="w-full apple-card apple-shadow p-6 mb-8 text-center">
-                <input type="text" id="userInput" placeholder="STAFF ID" autocomplete="off" class="w-full bg-zinc-50 text-zinc-900 font-bold uppercase text-center text-lg px-4 py-4 rounded-2xl outline-none border border-zinc-200 focus:border-zinc-400 focus:bg-white transition-all mb-6 placeholder-zinc-400">
-                <p class="text-[10px] font-bold text-zinc-400 mb-3 uppercase tracking-widest text-center">PIN CODE</p>
+    <div id="view-login" class="h-full w-full flex flex-col items-center justify-center px-6 absolute inset-0 z-50 bg-white transition-all duration-700">
+        <div class="w-full max-w-sm flex flex-col items-center animate-up">
+            <img src="https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png" class="h-20 w-auto mb-8 drop-shadow-xl">
+            <div class="w-full apple-card apple-shadow p-8 text-center">
+                <h1 class="font-bold text-2xl tracking-tight mb-1 uppercase italic">Terminal Login</h1>
+                <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-8">Authorized Personnel Only</p>
+                <input type="text" id="userInput" placeholder="STAFF ID" class="w-full bg-zinc-50 font-bold uppercase text-center text-lg py-4 rounded-2xl border border-zinc-200 focus:border-zinc-400 outline-none mb-6">
                 <div id="pin-dots" class="flex justify-center gap-4">
-                    <div class="w-3 h-3 rounded-full bg-zinc-200 transition-all" id="dot-1"></div><div class="w-3 h-3 rounded-full bg-zinc-200 transition-all" id="dot-2"></div><div class="w-3 h-3 rounded-full bg-zinc-200 transition-all" id="dot-3"></div><div class="w-3 h-3 rounded-full bg-zinc-200 transition-all" id="dot-4"></div>
+                    <div class="w-3 h-3 rounded-full bg-zinc-200 transition-all" id="dot-1"></div>
+                    <div class="w-3 h-3 rounded-full bg-zinc-200 transition-all" id="dot-2"></div>
+                    <div class="w-3 h-3 rounded-full bg-zinc-200 transition-all" id="dot-3"></div>
+                    <div class="w-3 h-3 rounded-full bg-zinc-200 transition-all" id="dot-4"></div>
                 </div>
-                <p id="error-msg" class="text-red-500 font-bold text-xs mt-4 opacity-0 transition-opacity">Akses Ditolak</p>
+                <p id="error-msg" class="text-red-500 font-bold text-xs mt-4 opacity-0 uppercase">Akses Ditolak</p>
             </div>
-            <div class="grid grid-cols-3 gap-3 w-full px-4">
-                <script>for(let i=1; i<=9; i++) document.write(`<button onclick="LOGIN_SYSTEM.press('${i}')" class="btn-press bg-white border border-zinc-200 rounded-2xl h-14 text-xl font-medium text-zinc-700 shadow-sm transition-all hover:bg-zinc-50">${i}</button>`);</script>
-                <button onclick="LOGIN_SYSTEM.press('clear')" class="btn-press bg-white border border-zinc-200 rounded-2xl h-14 text-xs font-bold uppercase text-zinc-400 shadow-sm transition-all hover:bg-zinc-50">Del</button>
-                <button onclick="LOGIN_SYSTEM.press('0')" class="btn-press bg-white border border-zinc-200 rounded-2xl h-14 text-xl font-medium text-zinc-700 shadow-sm transition-all hover:bg-zinc-50">0</button>
+            <div class="grid grid-cols-3 gap-3 w-full mt-8 px-4 text-zinc-800">
+                <script>for(let i=1; i<=9; i++) document.write(`<button onclick="LOGIN_SYSTEM.press('${i}')" class="btn-press bg-white border border-zinc-200 rounded-2xl h-14 font-semibold shadow-sm text-xl">${i}</button>`);</script>
+                <button onclick="LOGIN_SYSTEM.press('clear')" class="btn-press bg-white border border-zinc-200 rounded-2xl h-14 text-xs font-bold uppercase">Del</button>
+                <button onclick="LOGIN_SYSTEM.press('0')" class="btn-press bg-white border border-zinc-200 rounded-2xl h-14 font-semibold text-xl">0</button>
             </div>
         </div>
     </div>
@@ -49,210 +49,352 @@
     <div id="view-cashier" class="h-full w-full hidden flex-col absolute inset-0 z-30 bg-[#F5F5F7]">
         <header class="glass-header p-4 flex justify-between items-center shrink-0 z-20">
             <div class="flex items-center gap-4">
-                <img id="logo-cashier" src="" class="h-10">
-                <div><h1 class="font-bold tracking-tight text-lg leading-none text-zinc-900">Cashier Terminal</h1><p id="cashier-branch-name" class="text-[11px] font-semibold text-zinc-500 uppercase tracking-wide mt-1">LOADING...</p></div>
+                <img src="https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png" class="h-10">
+                <div><h1 class="font-bold text-sm tracking-tight leading-none uppercase italic">YHB Terminal</h1><p id="cashier-branch-name" class="text-[10px] font-bold text-zinc-400 uppercase mt-1">...</p></div>
             </div>
-            <div class="flex gap-4 items-center">
-                <button onclick="LOGIN_SYSTEM.logout()" class="btn-press bg-zinc-900 text-white font-semibold text-xs px-4 py-2 rounded-xl shadow-md hover:bg-zinc-800 transition-all">Logout</button>
+            
+            <div class="flex bg-zinc-100 p-1 rounded-xl border border-zinc-200">
+                <button onclick="CASHIER_LOGIC.switchTab('queue')" id="tab-btn-queue" class="px-5 py-1.5 rounded-lg text-[10px] font-black uppercase tab-active transition-all">Queue</button>
+                <button onclick="CASHIER_LOGIC.switchTab('report')" id="tab-btn-report" class="px-5 py-1.5 rounded-lg text-[10px] font-black uppercase text-zinc-400 transition-all">Report</button>
+                <button onclick="CASHIER_LOGIC.switchTab('config')" id="tab-btn-config" class="px-5 py-1.5 rounded-lg text-[10px] font-black uppercase text-zinc-400 transition-all tracking-tight">Pricelist</button>
+            </div>
+
+            <div class="flex gap-2">
+                <button onclick="CASHIER_LOGIC.loadData()" class="btn-press bg-white border border-zinc-200 p-2 rounded-xl shadow-sm text-zinc-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-width="2.5"/></svg></button>
+                <button onclick="LOGIN_SYSTEM.logout()" class="btn-press bg-zinc-900 text-white px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-tight">Logout</button>
             </div>
         </header>
-        <main id="tab-queue" class="flex-1 overflow-hidden flex flex-col p-4 gap-4 animate-slide-up">
-            <div class="grid grid-cols-3 gap-3 shrink-0">
-                <div class="apple-card p-4 bg-white apple-shadow"><p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1 text-center">Omset</p><p id="sum-omset" class="font-bold text-xl text-blue-600 text-center">Rp 0</p></div>
-                <div class="apple-card p-4 bg-white apple-shadow"><p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1 text-center">Pengeluaran</p><p id="sum-expense" class="font-bold text-xl text-red-600 text-center">Rp 0</p></div>
-                <div class="apple-card p-4 bg-zinc-900 text-white apple-shadow border-none"><p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1 text-center">Profit</p><p id="sum-profit" class="font-bold text-xl text-green-400 text-center">Rp 0</p></div>
+
+        <main id="tab-queue" class="flex-1 overflow-y-auto p-4 flex flex-col lg:flex-row gap-4 animate-up">
+            <div class="flex-1 space-y-4">
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="apple-card p-4 shadow-sm border-zinc-100"><p class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Omset (Today)</p><p id="sum-omset" class="font-bold text-xl tracking-tight text-zinc-800">Rp 0</p></div>
+                    <div class="apple-card p-4 shadow-sm border-zinc-100"><p class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Expense</p><p id="sum-expense" class="font-bold text-xl tracking-tight text-red-500">Rp 0</p></div>
+                    <div class="apple-card p-4 bg-zinc-900 text-white border-none shadow-lg"><p class="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mb-1">Profit</p><p id="sum-profit" class="font-bold text-xl tracking-tight text-green-400">Rp 0</p></div>
+                </div>
+
+                <div class="apple-card flex-1 min-h-[400px] flex flex-col shadow-sm">
+                    <div class="p-5 border-b border-zinc-50 flex justify-between items-center">
+                        <h2 class="font-bold text-base text-zinc-800 uppercase italic tracking-tighter">Live Queue (12:00 - 00:00)</h2>
+                    </div>
+                    <div id="queue-container" class="p-4 space-y-3 flex-1 bg-zinc-50/20"></div>
+                </div>
             </div>
-            <div class="flex-1 apple-card apple-shadow flex flex-col overflow-hidden">
-                <div class="p-5 border-b border-zinc-100 bg-white rounded-t-[20px]"><h2 class="font-bold text-xl tracking-tight text-zinc-800">Live Queue</h2></div>
-                <div id="queue-container" class="flex-1 overflow-y-auto p-5 space-y-6 bg-zinc-50/50">
-                    <div id="queue-loading" class="w-full bg-white border border-zinc-100 rounded-2xl p-6 animate-pulse h-20"></div>
+
+            <div class="w-full lg:w-80 flex flex-col gap-4">
+                <button onclick="CASHIER_LOGIC.openExpenseModal()" class="btn-press bg-white border border-zinc-200 py-4 rounded-2xl font-bold text-[10px] uppercase tracking-widest text-zinc-400 apple-shadow">+ Input Expense</button>
+                <div class="apple-card flex-1 shadow-sm overflow-hidden">
+                    <div class="p-4 border-b border-zinc-50 font-bold text-[10px] uppercase text-zinc-400 tracking-widest">Petty Cash Today</div>
+                    <div id="expense-container" class="p-4 space-y-2"></div>
+                </div>
+            </div>
+        </main>
+
+        <main id="tab-report" class="flex-1 overflow-y-auto p-4 hidden animate-up">
+            <div class="max-w-4xl mx-auto apple-card p-6 shadow-sm">
+                <div class="flex flex-col sm:flex-row gap-4 mb-6 items-end">
+                    <div class="flex-1">
+                        <label class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-2 block">Monthly Filter</label>
+                        <input type="month" id="report-month" onchange="CASHIER_LOGIC.processReport()" class="w-full bg-zinc-50 border border-zinc-100 p-4 rounded-2xl outline-none font-bold text-zinc-700">
+                    </div>
+                    <button onclick="CASHIER_LOGIC.exportPDF()" class="bg-zinc-900 text-white h-[56px] px-8 rounded-2xl font-bold text-xs uppercase tracking-widest">Download PDF</button>
+                </div>
+                <div id="printable-report" class="bg-white rounded-2xl border border-zinc-100 overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="text-[10px] font-black text-zinc-400 uppercase border-b border-zinc-50">
+                            <tr><th class="p-4">Tanggal</th><th class="p-4 text-center">Qty</th><th class="p-4 text-right">Inflow</th><th class="p-4 text-right">Outflow</th></tr>
+                        </thead>
+                        <tbody id="report-table-body" class="text-xs font-bold divide-y divide-zinc-50"></tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <main id="tab-config" class="flex-1 overflow-y-auto p-4 hidden animate-up">
+            <div class="max-w-3xl mx-auto space-y-6">
+                <div class="apple-card p-6 shadow-sm">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="font-bold text-sm uppercase italic tracking-widest">Primer Services</h2>
+                        <button onclick="CASHIER_LOGIC.openPackageModal('PRIMER')" class="bg-zinc-900 text-white px-5 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest">+ NEW</button>
+                    </div>
+                    <div id="config-primer-list" class="grid gap-2.5"></div>
+                </div>
+                <div class="apple-card p-6 shadow-sm">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="font-bold text-sm uppercase italic tracking-widest">Extra Add-Ons</h2>
+                        <button onclick="CASHIER_LOGIC.openPackageModal('ADD ON')" class="bg-zinc-900 text-white px-5 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest">+ NEW</button>
+                    </div>
+                    <div id="config-addon-list" class="grid gap-2.5"></div>
                 </div>
             </div>
         </main>
     </div>
 
-    <div id="view-capster" class="h-full w-full hidden flex-col absolute inset-0 z-30 bg-[#F5F5F7] overflow-y-auto pb-10">
-        <header class="glass-header px-6 py-4 flex justify-between items-center sticky top-0 z-40">
-            <div><p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Dompet Digital</p><p class="font-bold text-sm text-zinc-900 mt-0.5">Barber Dashboard</p></div>
-            <button onclick="LOGIN_SYSTEM.logout()" class="btn-press bg-white border border-zinc-200 text-zinc-700 p-2.5 rounded-xl shadow-sm hover:bg-zinc-50 transition-all"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg></button>
-        </header>
-        <main class="w-full max-w-md mx-auto p-5 space-y-6 animate-slide-up">
-            <div class="flex flex-col items-center justify-center pt-2 pb-4 text-center">
-                <div class="w-full aspect-[4/5] max-h-[380px] rounded-[24px] border-4 border-black neo-shadow bg-zinc-100 mb-6 overflow-hidden">
-                    <img id="capster-photo-large" src="" class="w-full h-full object-cover object-center">
+    <div id="modal-checkout" class="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm apple-card p-6 shadow-2xl animate-up border-none">
+            <h2 class="font-black text-xl italic uppercase mb-1">Checkout</h2>
+            <p id="checkout-cust-name" class="text-[10px] text-zinc-400 font-black mb-8 uppercase tracking-widest">GUEST NAME</p>
+            <div class="space-y-5">
+                <div class="bg-zinc-50 p-4 rounded-2xl border border-zinc-100">
+                    <p class="text-[9px] font-bold text-zinc-400 uppercase mb-1.5 tracking-widest">Selected Service</p>
+                    <p id="checkout-main-service" class="font-bold text-sm text-zinc-800 uppercase italic">...</p>
                 </div>
-                <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">WELCOME TO <span id="capster-sys-name">SYSTEM</span></p>
-                <h2 id="capster-name-welcome" class="font-black text-2xl text-zinc-900 tracking-tight mt-1 uppercase leading-none">...</h2>
-            </div>
-            <div class="bg-zinc-900 text-white rounded-[24px] p-6 neo-shadow relative overflow-hidden neo-border">
-                <div class="relative z-10 text-center">
-                    <div class="flex justify-between items-center mb-1"><p class="text-xs font-semibold text-zinc-400 uppercase tracking-widest">Komisi Bulan Ini</p><span class="bg-green-500 text-zinc-900 text-[10px] font-black px-2 py-1 rounded-md">Rank #<span id="capster-rank">-</span></span></div>
-                    <h2 id="capster-balance-month" class="font-black text-4xl tracking-tighter">Rp 0</h2>
-                    <p class="text-[11px] font-medium text-zinc-400 mt-1">Hari ini: <span id="capster-balance-today" class="text-green-400 font-bold">Rp 0</span></p>
+                <div>
+                    <p class="text-[9px] font-bold text-zinc-400 uppercase mb-3 tracking-widest">Add Additional (Add-on)</p>
+                    <div id="checkout-addons-list" class="space-y-2.5 max-h-48 overflow-y-auto pr-1"></div>
+                </div>
+                <div class="pt-6 border-t border-zinc-100 mt-6">
+                    <div class="flex justify-between items-center mb-8">
+                        <span class="font-bold text-zinc-400 uppercase text-[9px] tracking-widest">Total Bill</span>
+                        <span id="checkout-total-display" class="font-bold text-2xl text-zinc-900 tracking-tighter italic">Rp 0</span>
+                    </div>
+                    <div class="flex gap-3">
+                        <button onclick="document.getElementById('modal-checkout').classList.replace('flex','hidden')" class="flex-1 font-bold text-zinc-400 text-[10px] uppercase tracking-widest">Batal</button>
+                        <button onclick="CASHIER_LOGIC.confirmCheckout()" class="flex-[3] bg-zinc-900 text-white py-4 rounded-2xl font-bold text-[11px] uppercase tracking-[0.2em] shadow-xl">Confirm & Pay</button>
+                    </div>
                 </div>
             </div>
-            <div>
-                <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-3 px-1">JADWAL HARI INI</h3>
-                <div id="capster-schedule-grid" class="grid grid-cols-3 gap-4"></div>
-            </div>
-            <div>
-                <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-3 px-1">Riwayat Selesai</h3>
-                <div id="capster-history" class="space-y-3"></div>
-            </div>
-        </main>
+        </div>
     </div>
 
-    <div id="loading-overlay" class="fixed inset-0 bg-white/80 backdrop-blur-sm hidden flex-col items-center justify-center z-[100] transition-all"><div class="w-10 h-10 border-4 border-zinc-200 border-t-zinc-900 rounded-full animate-spin mb-4"></div><h2 id="loading-text" class="font-bold text-zinc-800 tracking-wide text-sm uppercase">Memproses...</h2></div>
+    <div id="modal-pkg" class="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm apple-card p-8 shadow-2xl animate-up border-none">
+            <h2 id="pkg-modal-title" class="font-bold text-lg mb-8 uppercase tracking-tight italic text-center">Manage Item</h2>
+            <input type="hidden" id="pkg-id"><input type="hidden" id="pkg-category">
+            <div class="space-y-4">
+                <input type="text" id="pkg-name" placeholder="NAMA ITEM" class="w-full bg-zinc-50 border border-zinc-100 p-4 rounded-2xl font-bold uppercase outline-none text-sm tracking-tight">
+                <input type="number" id="pkg-price" placeholder="HARGA" class="w-full bg-zinc-50 border border-zinc-100 p-4 rounded-2xl font-bold text-xl outline-none tracking-tight">
+                <div class="flex gap-3 pt-6">
+                    <button onclick="document.getElementById('modal-pkg').classList.replace('flex','hidden')" class="flex-1 font-bold text-zinc-400 text-[10px] uppercase">Batal</button>
+                    <button onclick="CASHIER_LOGIC.savePackage()" class="flex-[3] bg-zinc-900 text-white py-4 rounded-2xl font-bold text-[10px] uppercase tracking-widest shadow-xl">Confirm Data</button>
+                </div>
+                <button id="btn-delete-pkg" onclick="CASHIER_LOGIC.deletePackage()" class="w-full text-red-500 font-bold text-[9px] uppercase tracking-widest mt-6 underline opacity-40 hover:opacity-100">Delete Permanently</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="loading-overlay" class="fixed inset-0 bg-white/90 backdrop-blur-md hidden flex-col items-center justify-center z-[200]">
+        <div class="w-8 h-8 border-[3px] border-zinc-100 border-t-zinc-900 rounded-full animate-spin mb-4"></div>
+        <h2 id="loading-text" class="text-[9px] font-black uppercase tracking-[0.2em] text-zinc-400 italic">Syncing Logic...</h2>
+    </div>
 
     <script>
         const CONFIG = {
             TENANT_ID: "YHB",
-            BRAND_NAME: "Yellow Haircut",
-            SYSTEM_NAME: "YHB",
-            LOGO_URL: "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png",
             WEBHOOK_URL: 'https://n8n-mzbmiib3etk4.kangkung.sumopod.my.id/webhook/a6512d05-a51a-4289-9063-9a4f17ac745a',
-            COMMISSION_RATE: 0.40,
-            BRANCHES: [{ db_name: "YELLOW BANDA", display_name: "Banda Aceh" }]
+            BRANCHES: [ { db_name: "YELLOW BANDA", display_name: "Banda Aceh" } ]
         };
 
-        const STATE = { user: null, sysDates: null };
+        const STATE = { user: null, packages: [], addons: [], queue: [], checkout: null, sysDates: null, rawReport: null };
+
         const UTIL = {
-            formatRp: (num) => 'Rp ' + Number(num || 0).toLocaleString('id-ID'),
-            cleanDate: (dateStr) => String(dateStr || "").substring(0, 10),
-            showLoading: (t) => { document.getElementById('loading-text').innerText = t || "MEMPROSES..."; document.getElementById('loading-overlay').classList.replace('hidden', 'flex'); },
+            formatRp: (n) => 'Rp ' + Number(n || 0).toLocaleString('id-ID'),
+            showLoading: (t) => { document.getElementById('loading-text').innerText = t || "WAIT..."; document.getElementById('loading-overlay').classList.replace('hidden', 'flex'); },
             hideLoading: () => document.getElementById('loading-overlay').classList.replace('flex', 'hidden'),
-            toTitleCase: (str) => str ? str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) : ""
+            post: async (payload) => {
+                const res = await fetch(CONFIG.WEBHOOK_URL, { 
+                    method: 'POST', headers: {'Content-Type': 'application/json'}, 
+                    body: JSON.stringify({...payload, tenant_id: CONFIG.TENANT_ID}) 
+                });
+                return await res.json();
+            }
         };
 
         const LOGIN_SYSTEM = {
             pin: "",
             init() {
-                // MIGRASI KEY: Menggunakan 'yhb_user' untuk menghapus cache lama
-                const savedUser = localStorage.getItem('yhb_user');
-                if (savedUser) { STATE.user = JSON.parse(savedUser); this.routeUser(); }
-                document.getElementById('userInput').addEventListener('input', function() { this.value = this.value.toUpperCase(); });
-                this.refreshUI();
+                const saved = localStorage.getItem('yhb_v4_user');
+                if (saved) { STATE.user = JSON.parse(saved); this.route(); }
             },
-            refreshUI() {
-                document.getElementById('meta-title').innerText = `${CONFIG.SYSTEM_NAME} | Access`;
-                document.getElementById('meta-icon').href = CONFIG.LOGO_URL;
-                document.getElementById('logo-login').src = CONFIG.LOGO_URL;
-                document.getElementById('logo-cashier').src = CONFIG.LOGO_URL;
-                document.getElementById('capster-sys-name').innerText = CONFIG.SYSTEM_NAME;
-                document.getElementById('capster-photo-large').setAttribute('onerror', `this.src='${CONFIG.LOGO_URL}'`);
-            },
-            routeUser() {
-                if (!STATE.user) return;
-                document.getElementById('view-login').classList.add('hidden');
-                const role = String(STATE.user.role || "").toUpperCase();
-                if (/CASHIER/i.test(role)) {
-                    document.getElementById('view-cashier').classList.replace('hidden', 'flex'); CASHIER_LOGIC.init();
-                } else if (/CAPSTER|BARBER/i.test(role)) {
-                    document.getElementById('view-capster').classList.replace('hidden', 'flex'); CAPSTER_LOGIC.init();
-                }
-            },
-            press(val) {
-                if (val === 'clear') this.pin = this.pin.slice(0, -1); else if (this.pin.length < 4) this.pin += val;
-                this.updateDots(); if (this.pin.length === 4) setTimeout(() => this.submit(), 200);
-            },
-            updateDots() {
-                for (let i = 1; i <= 4; i++) {
-                    const dot = document.getElementById(`dot-${i}`);
-                    dot.classList.toggle('bg-zinc-800', i <= this.pin.length);
-                    dot.classList.toggle('bg-zinc-200', i > this.pin.length);
-                }
+            press(v) {
+                if (v === 'clear') this.pin = this.pin.slice(0, -1); else if (this.pin.length < 4) this.pin += v;
+                for(let i=1; i<=4; i++) document.getElementById(`dot-${i}`).style.background = i <= this.pin.length ? '#1D1D1F' : '#E5E5EA';
+                if (this.pin.length === 4) this.submit();
             },
             async submit() {
-                const u = document.getElementById('userInput').value.trim(); if (!u) return;
-                UTIL.showLoading("Verifikasi...");
+                const u = document.getElementById('userInput').value.toUpperCase();
+                UTIL.showLoading("VERIFYING...");
                 try {
-                    const res = await fetch(CONFIG.WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ action: 'login', username: u, password: this.pin, tenant_id: CONFIG.TENANT_ID }) });
-                    const data = await res.json();
-                    const user = data.user || (data[0] && data[0].user);
-                    if (user) { 
-                        STATE.user = user; 
-                        localStorage.setItem('yhb_user', JSON.stringify(STATE.user)); 
-                        this.routeUser(); 
-                    } else throw new Error();
-                } catch (e) { document.getElementById('error-msg').style.opacity = '1'; this.pin = ""; this.updateDots(); } finally { UTIL.hideLoading(); }
+                    const data = await UTIL.post({ action: 'login', username: u, password: this.pin });
+                    const res = data[0] || data;
+                    if(res.success) { STATE.user = res.user; localStorage.setItem('yhb_v4_user', JSON.stringify(res.user)); this.route(); }
+                    else throw new Error();
+                } catch (e) { document.getElementById('error-msg').style.opacity = '1'; this.pin = ""; }
+                finally { UTIL.hideLoading(); }
             },
-            logout() { localStorage.removeItem('yhb_user'); location.reload(); }
+            route() {
+                document.getElementById('view-login').classList.add('hidden');
+                document.getElementById('view-cashier').classList.replace('hidden', 'flex');
+                CASHIER_LOGIC.init();
+            },
+            logout() { localStorage.removeItem('yhb_v4_user'); location.reload(); }
         };
 
         const CASHIER_LOGIC = {
-            init() {
-                const br = CONFIG.BRANCHES.find(b => b.db_name === STATE.user.branch);
-                document.getElementById('cashier-branch-name').innerText = `Cabang ${br ? br.display_name : (STATE.user.branch || "Pusat")}`;
-                this.loadData();
+            async init() {
+                const b = CONFIG.BRANCHES.find(x => x.db_name === STATE.user.branch);
+                document.getElementById('cashier-branch-name').innerText = b ? b.display_name : STATE.user.branch;
+                await this.loadData();
+                setInterval(() => this.loadData(true), 60000);
             },
-            async loadData() {
-                try {
-                    const res = await fetch(CONFIG.WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ action: 'get_cashier_data', branch: STATE.user.branch, tenant_id: CONFIG.TENANT_ID }) });
-                    const payload = await res.json();
-                    const data = payload[0] || payload;
-                    if (data.success) {
-                        STATE.sysDates = data.sys_dates;
-                        this.renderQueue(data.queue || []);
-                        this.updateSummary(data.queue, data.expenses || []);
-                    }
-                } catch (e) {} finally { document.getElementById('queue-loading').style.display = 'none'; }
-            },
-            updateSummary(q, e) {
-                let oms = 0; q.forEach(x => { if((x.status === 'DONE' || x.status === 'SUCCESS') && UTIL.cleanDate(x.tanggal) === STATE.sysDates.today) oms += Number(x.price || 0); });
-                let exp = 0; e.forEach(x => { if(UTIL.cleanDate(x.tanggal) === STATE.sysDates.today) exp += Number(x.nominal || 0); });
-                document.getElementById('sum-omset').innerText = UTIL.formatRp(oms);
-                document.getElementById('sum-expense').innerText = UTIL.formatRp(exp);
-                document.getElementById('sum-profit').innerText = UTIL.formatRp(oms - exp);
-            },
-            renderQueue(data) {
-                const cont = document.getElementById('queue-container'); cont.innerHTML = '';
-                const today = data.filter(d => UTIL.cleanDate(d.tanggal) === STATE.sysDates.today).sort((a,b) => a.jam.localeCompare(b.jam));
-                if(today.length === 0) cont.innerHTML = '<p class="text-center text-zinc-400 py-10 font-bold">Belum ada antrean.</p>';
-                else today.forEach(item => {
-                    const isDone = item.status === 'DONE' || item.status === 'SUCCESS';
-                    cont.insertAdjacentHTML('beforeend', `
-                        <div class="apple-card p-4 flex justify-between items-center ${isDone ? 'opacity-50' : 'apple-shadow'}">
-                            <div><p class="font-black text-lg">${item.jam}</p><p class="font-bold text-zinc-800">${item.cust_name || "Guest"}</p><p class="text-[10px] text-zinc-500 uppercase">${item.package_name} • ${item.caps_in_charge}</p></div>
-                            ${!isDone ? `<button onclick="CASHIER_LOGIC.updateStatus('${item.id}', 'DONE')" class="bg-zinc-900 text-white px-4 py-2 rounded-xl text-xs font-bold">Selesai</button>` : '✓'}
-                        </div>
-                    `);
+            switchTab(tab) {
+                ['queue', 'report', 'config'].forEach(t => { 
+                    document.getElementById(`tab-${t}`).classList.add('hidden'); 
+                    document.getElementById(`tab-btn-${t}`).classList.remove('tab-active', 'text-zinc-900');
+                    if(t !== tab) document.getElementById(`tab-btn-${t}`).classList.add('text-zinc-400');
                 });
+                document.getElementById(`tab-${tab}`).classList.remove('hidden');
+                document.getElementById(`tab-btn-${tab}`).classList.add('tab-active');
+                if(tab === 'config') this.renderConfig();
+                if(tab === 'report') this.processReport();
             },
-            async updateStatus(id, s) { UTIL.showLoading(); try { await fetch(CONFIG.WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ action: 'update_status', id: Number(id), status: s, tenant_id: CONFIG.TENANT_ID }) }); this.loadData(); } finally { UTIL.hideLoading(); } }
-        };
-
-        const CAPSTER_LOGIC = {
-            init() { this.loadData(); },
-            async loadData() {
+            async loadData(silent = false) {
+                if(!silent) UTIL.showLoading("UPDATING...");
                 try {
-                    const res = await fetch(CONFIG.WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ action: 'get_capster_data', staff_id: STATE.user.staff_id, branch: STATE.user.branch, tenant_id: CONFIG.TENANT_ID }) });
-                    const d = await res.json(); const p = d[0] || d;
-                    if(p.success) this.renderUI(p);
+                    const data = await UTIL.post({ action: 'get_cashier_data', branch: STATE.user.branch });
+                    const res = data[0] || data;
+                    if(res.success) {
+                        STATE.queue = res.queue; STATE.packages = res.packages || []; STATE.addons = res.addons || []; STATE.sysDates = res.sys_dates;
+                        this.renderQueue(); this.renderExpenses(res.expenses); this.updateSum(res.queue, res.expenses);
+                    }
+                    const rep = await UTIL.post({ action: 'get_cashier_report', branch: STATE.user.branch });
+                    STATE.rawReport = rep[0] || rep;
                 } catch(e) {} finally { UTIL.hideLoading(); }
             },
-            renderUI(data) {
-                document.getElementById('capster-name-welcome').innerText = `${String(data.profile.name).toUpperCase()}! 🚀`;
-                document.getElementById('capster-photo-large').src = data.profile.photo;
-                document.getElementById('capster-balance-month').innerText = UTIL.formatRp(data.stats.komisi_bulan_ini);
-                document.getElementById('capster-balance-today').innerText = UTIL.formatRp(data.stats.komisi_hari_ini);
-                document.getElementById('capster-rank').innerText = data.stats.rank;
-
-                const grid = document.getElementById('capster-schedule-grid'); grid.innerHTML = '';
-                if(!data.full_schedule || data.full_schedule.length === 0) grid.innerHTML = '<div class="col-span-3 py-10 text-center text-zinc-400 font-bold">Kosong</div>';
-                else data.full_schedule.forEach(s => {
-                    const isDone = s.status === 'DONE' || s.status === 'SUCCESS';
-                    grid.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl py-4 flex flex-col items-center border-2 border-black ${isDone ? 'opacity-40 bg-zinc-100' : 'neo-shadow-sm'}"><span class="font-black">${s.jam}</span><span class="text-[9px] uppercase font-bold">${isDone ? 'Selesai' : 'Antre'}</span></div>`);
+            updateSum(q, e) {
+                let omset = 0; let exp = 0;
+                q.forEach(i => { if((i.status === 'DONE' || i.status === 'SUCCESS') && i.tanggal.substring(0,10) === STATE.sysDates.today) omset += Number(i.price); });
+                e.forEach(i => { if(i.tanggal.substring(0,10) === STATE.sysDates.today) exp += Number(i.nominal); });
+                document.getElementById('sum-omset').innerText = UTIL.formatRp(omset);
+                document.getElementById('sum-expense').innerText = UTIL.formatRp(exp);
+                document.getElementById('sum-profit').innerText = UTIL.formatRp(omset - exp);
+            },
+            renderQueue() {
+                const container = document.getElementById('queue-container'); container.innerHTML = '';
+                const today = STATE.queue.filter(x => x.tanggal.substring(0,10) === STATE.sysDates.today).sort((a,b) => a.jam.localeCompare(b.jam));
+                if(!today.length) container.innerHTML = `<div class="text-center py-20 font-black text-zinc-200 uppercase text-[9px] tracking-widest italic">No bookings found</div>`;
+                today.forEach(item => {
+                    const isDone = item.status === 'DONE' || item.status === 'SUCCESS';
+                    container.insertAdjacentHTML('beforeend', `
+                        <div class="apple-card p-5 flex justify-between items-center shadow-sm border-zinc-50 ${isDone ? 'opacity-30 bg-zinc-50' : ''}">
+                            <div>
+                                <div class="flex items-center gap-2 mb-1"><span class="font-bold text-lg tracking-tighter text-zinc-800">${item.jam}</span><span class="text-[8px] font-black uppercase px-2 py-0.5 rounded-full ${isDone ? 'bg-zinc-100 text-zinc-400' : 'bg-blue-50 text-blue-500'} tracking-widest">${item.status}</span></div>
+                                <h3 class="font-bold text-[11px] uppercase text-zinc-400 tracking-wide">${item.cust_name || 'Walk-In'}</h3>
+                                <p class="text-[10px] font-black text-zinc-900 uppercase italic">${item.package_name} &bull; ${UTIL.formatRp(item.price)}</p>
+                            </div>
+                            ${!isDone ? `<button onclick="CASHIER_LOGIC.openCheckout(${item.id})" class="btn-press bg-zinc-900 text-white px-6 py-2.5 rounded-2xl text-[9px] font-black uppercase tracking-widest shadow-xl">Selesai</button>` : ''}
+                        </div>`);
                 });
+            },
+            renderExpenses(data) {
+                const container = document.getElementById('expense-container'); container.innerHTML = '';
+                data.forEach(item => { container.insertAdjacentHTML('beforeend', `<div class="bg-white border border-zinc-50 p-3.5 rounded-2xl flex justify-between items-center text-[10px] font-bold shadow-sm italic uppercase tracking-tighter"><span>${item.deskripsi}</span><span class="text-red-500">-${UTIL.formatRp(item.nominal)}</span></div>`); });
+            },
 
-                const hist = document.getElementById('capster-history'); hist.innerHTML = '';
-                data.history.forEach(h => {
-                    hist.insertAdjacentHTML('beforeend', `<div class="bg-white p-4 rounded-2xl border border-zinc-200 apple-shadow flex justify-between items-center"><div><p class="font-bold">${h.cust_name}</p><p class="text-[10px] text-zinc-400">${h.package_name}</p></div><p class="font-black text-orange-600">+${UTIL.formatRp(h.komisi)}</p></div>`);
+            // --- CHECKOUT ---
+            openCheckout(id) {
+                const item = STATE.queue.find(x => x.id == id);
+                STATE.checkout = { ...item, selectedAddons: [], currentTotal: Number(item.price), basePrice: Number(item.price), baseName: item.package_name };
+                document.getElementById('checkout-cust-name').innerText = item.cust_name || 'Walk-In Guest';
+                document.getElementById('checkout-main-service').innerText = `${item.package_name} (${UTIL.formatRp(item.price)})`;
+                const addList = document.getElementById('checkout-addons-list'); addList.innerHTML = '';
+                STATE.addons.forEach(a => {
+                    addList.insertAdjacentHTML('beforeend', `
+                        <label class="flex items-center justify-between p-4 bg-zinc-50 rounded-2xl border border-zinc-100 cursor-pointer hover:bg-zinc-100 transition-all">
+                            <div class="flex items-center gap-3"><input type="checkbox" onchange="CASHIER_LOGIC.toggleAddon(this, '${a.NAME}', ${a.PRICE})" class="w-5 h-5 rounded-lg accent-zinc-900"><span class="text-[11px] font-bold uppercase text-zinc-700 italic">${a.NAME}</span></div>
+                            <span class="text-[10px] font-black text-blue-600 tracking-tighter">+ ${UTIL.formatRp(a.PRICE)}</span>
+                        </label>`);
                 });
-            }
+                this.updateCheckoutDisplay();
+                document.getElementById('modal-checkout').classList.replace('hidden', 'flex');
+            },
+            toggleAddon(el, name, price) {
+                if(el.checked) STATE.checkout.selectedAddons.push({name, price});
+                else STATE.checkout.selectedAddons = STATE.checkout.selectedAddons.filter(x => x.name !== name);
+                this.updateCheckoutDisplay();
+            },
+            updateCheckoutDisplay() {
+                const extra = STATE.checkout.selectedAddons.reduce((sum, x) => sum + x.price, 0);
+                STATE.checkout.currentTotal = STATE.checkout.basePrice + extra;
+                document.getElementById('checkout-total-display').innerText = UTIL.formatRp(STATE.checkout.currentTotal);
+            },
+            async confirmCheckout() {
+                UTIL.showLoading("SAVING...");
+                const finalName = [STATE.checkout.baseName, ...STATE.checkout.selectedAddons.map(x => x.name)].join(" + ");
+                try {
+                    await UTIL.post({ 
+                        action: 'update_status', id: Number(STATE.checkout.id), status: 'DONE', 
+                        new_price: STATE.checkout.currentTotal, new_package_name: finalName 
+                    });
+                    document.getElementById('modal-checkout').classList.replace('flex','hidden');
+                    await this.loadData();
+                } catch(e) { alert("Error saving transaction"); } finally { UTIL.hideLoading(); }
+            },
+
+            // --- CONFIG ---
+            renderConfig() {
+                const render = (list, containerId) => {
+                    const c = document.getElementById(containerId); c.innerHTML = '';
+                    list.forEach(p => c.insertAdjacentHTML('beforeend', `
+                        <div class="flex justify-between items-center p-4 bg-zinc-50 rounded-2xl border border-zinc-100">
+                            <div><p class="font-bold text-[11px] uppercase text-zinc-800 italic tracking-tight">${p.NAME}</p><p class="text-[10px] font-bold text-blue-600 tracking-tighter">${UTIL.formatRp(p.PRICE)}</p></div>
+                            <button onclick="CASHIER_LOGIC.openPackageModal('${p.CATEGORY}', ${JSON.stringify(p).replace(/"/g, '&quot;')})" class="text-[9px] font-black uppercase text-zinc-300 hover:text-zinc-900 transition-all tracking-widest">Edit</button>
+                        </div>`));
+                };
+                render(STATE.packages, 'config-primer-list');
+                render(STATE.addons, 'config-addon-list');
+            },
+            openPackageModal(cat, data = null) {
+                document.getElementById('pkg-category').value = cat;
+                document.getElementById('pkg-id').value = data ? data.id : '';
+                document.getElementById('pkg-name').value = data ? data.NAME : '';
+                document.getElementById('pkg-price').value = data ? data.PRICE : '';
+                document.getElementById('pkg-modal-title').innerText = data ? 'Edit Item' : `New ${cat}`;
+                document.getElementById('btn-delete-pkg').classList.toggle('hidden', !data);
+                document.getElementById('modal-pkg').classList.replace('hidden', 'flex');
+            },
+            async savePackage() {
+                const id = document.getElementById('pkg-id').value;
+                const payload = {
+                    action: 'manage_package', operation_type: id ? 'edit' : 'add',
+                    package_id: id, name: document.getElementById('pkg-name').value.toUpperCase(),
+                    price: Number(document.getElementById('pkg-price').value), category: document.getElementById('pkg-category').value
+                };
+                if(!payload.name || !payload.price) return alert("Isi data!");
+                UTIL.showLoading("SYNCING...");
+                try { await UTIL.post(payload); document.getElementById('modal-pkg').classList.replace('flex','hidden'); await this.loadData(); } catch(e){} finally { UTIL.hideLoading(); }
+            },
+            async deletePackage() {
+                if(!confirm("Hapus?")) return;
+                UTIL.showLoading("DELETING...");
+                try { await UTIL.post({ action: 'manage_package', operation_type: 'delete', package_id: document.getElementById('pkg-id').value }); document.getElementById('modal-pkg').classList.replace('flex','hidden'); await this.loadData(); } catch(e){} finally { UTIL.hideLoading(); }
+            },
+
+            // --- MISC ---
+            processReport() {
+                if(!STATE.rawReport) return;
+                const month = document.getElementById('report-month').value;
+                const daily = {};
+                STATE.rawReport.bookings.filter(b => b.tanggal.startsWith(month)).forEach(b => {
+                    const d = b.tanggal.substring(0,10); const v = Number(b.price)||0;
+                    if(!daily[d]) daily[d] = {c:0, r:0, e:0};
+                    daily[d].c++; daily[d].r += v;
+                });
+                STATE.rawReport.expenses.filter(e => e.tanggal.startsWith(month)).forEach(e => {
+                    const d = e.tanggal.substring(0,10); const v = Number(e.nominal)||0;
+                    if(!daily[d]) daily[d] = {c:0, r:0, e:0};
+                    daily[d].e += v;
+                });
+                const tbody = document.getElementById('report-table-body'); tbody.innerHTML = '';
+                Object.keys(daily).sort().forEach(d => {
+                    tbody.insertAdjacentHTML('beforeend', `<tr><td class="p-4 tracking-tighter">${d}</td><td class="p-4 text-center text-zinc-400">${daily[d].c}</td><td class="p-4 text-right text-zinc-900 tracking-tighter">${UTIL.formatRp(daily[d].r)}</td><td class="p-4 text-right text-red-400 tracking-tighter">${UTIL.formatRp(daily[d].e)}</td></tr>`);
+                });
+            },
+            exportPDF() { html2pdf().from(document.getElementById('printable-report')).save(); },
+            openExpenseModal() { alert("Use existing n8n expense flow."); }
         };
 
-        window.onload = () => APP_INIT.run();
-        const APP_INIT = { run() { LOGIN_SYSTEM.init(); } };
+        window.onload = () => LOGIN_SYSTEM.init();
     </script>
 </body>
 </html>
