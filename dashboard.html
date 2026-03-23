@@ -13,6 +13,7 @@
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #F5F5F7; color: #1D1D1F; -webkit-tap-highlight-color: transparent; overflow-x: hidden; }
         .apple-shadow { box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04); }
+        .apple-shadow-lg { box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08); }
         .apple-card { background: #FFFFFF; border: 1px solid #E5E5EA; border-radius: 20px; }
         .glass-header { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid #E5E5EA; }
         .btn-press:active { transform: scale(0.97); }
@@ -41,7 +42,7 @@
                 <input type="text" id="userInput" placeholder="STAFF ID (KASIR)" autocomplete="off" class="w-full bg-zinc-50 text-zinc-900 font-bold uppercase text-center text-sm px-4 py-4 rounded-2xl outline-none border border-zinc-200 focus:border-zinc-400 transition-all placeholder-zinc-400">
                 <input type="password" id="pinInput" placeholder="PIN CODE" inputmode="numeric" pattern="[0-9]*" maxlength="4" class="w-full bg-zinc-50 text-zinc-900 font-black tracking-[1em] text-center text-xl px-4 py-4 rounded-2xl outline-none border border-zinc-200 focus:border-zinc-400 transition-all placeholder-zinc-400 placeholder:tracking-normal placeholder:font-bold placeholder:text-sm">
                 
-                <button onclick="LOGIN_SYSTEM.submit()" class="btn-press w-full bg-zinc-900 text-white font-bold text-sm py-4 rounded-2xl shadow-md mt-4 hover:bg-zinc-800 transition-all uppercase tracking-widest">Login</button>
+                <button onclick="LOGIN_SYSTEM.submit()" class="btn-press w-full bg-zinc-900 text-[#FFE600] font-bold text-sm py-4 rounded-2xl shadow-md mt-4 hover:bg-zinc-800 transition-all uppercase tracking-widest">Login</button>
                 <p id="error-msg" class="text-red-500 font-bold text-xs mt-2 opacity-0 transition-opacity">Akses Ditolak</p>
             </div>
         </div>
@@ -75,33 +76,34 @@
             </div>
 
             <section class="flex-1 flex flex-col gap-4">
-                <div class="grid grid-cols-3 gap-2 sm:gap-3 shrink-0">
-                    <div class="apple-card p-3 sm:p-4 bg-white apple-shadow"><p class="text-[8px] sm:text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1">Omset (Today)</p><p id="sum-omset" class="font-bold text-sm sm:text-xl text-blue-600 truncate">Rp 0</p></div>
-                    <div class="apple-card p-3 sm:p-4 bg-white apple-shadow"><p class="text-[8px] sm:text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1">Expense</p><p id="sum-expense" class="font-bold text-sm sm:text-xl text-red-600 truncate">Rp 0</p></div>
-                    <div class="apple-card p-3 sm:p-4 bg-zinc-900 text-white apple-shadow border-none"><p class="text-[8px] sm:text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1">Net Flow</p><p id="sum-profit" class="font-bold text-sm sm:text-xl text-[#FFE600] truncate">Rp 0</p></div>
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 shrink-0">
+                    <div class="apple-card p-3 sm:p-4 bg-white apple-shadow"><p class="text-[8px] sm:text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Gross Omset</p><p id="sum-omset" class="font-bold text-sm sm:text-lg text-blue-600 truncate">Rp 0</p></div>
+                    <div class="apple-card p-3 sm:p-4 bg-white apple-shadow"><p class="text-[8px] sm:text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Komisi Capster</p><p id="sum-komisi" class="font-bold text-sm sm:text-lg text-orange-500 truncate">Rp 0</p></div>
+                    <div class="apple-card p-3 sm:p-4 bg-white apple-shadow"><p class="text-[8px] sm:text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Pengeluaran</p><p id="sum-expense" class="font-bold text-sm sm:text-lg text-red-500 truncate">Rp 0</p></div>
+                    <div class="apple-card p-3 sm:p-4 bg-zinc-900 text-white apple-shadow border-none"><p class="text-[8px] sm:text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Setoran Laci</p><p id="sum-profit" class="font-bold text-sm sm:text-lg text-[#FFE600] truncate">Rp 0</p></div>
                 </div>
 
                 <div class="apple-card apple-shadow flex flex-col min-h-[400px]">
-                    <div class="p-4 sm:p-5 border-b border-zinc-100 flex justify-between items-center bg-white rounded-t-[20px] shrink-0">
+                    <div class="p-4 sm:p-5 border-b border-zinc-100 flex justify-between items-center bg-white rounded-t-[24px] shrink-0">
                         <div><h2 class="font-bold text-lg sm:text-xl tracking-tight text-zinc-800">Live Queue</h2><p class="text-[10px] font-semibold text-zinc-500 uppercase tracking-wide mt-0.5">Antrean Hari Ini</p></div>
                     </div>
-                    <div id="queue-container" class="flex-1 p-4 sm:p-5 space-y-4 bg-zinc-50/50 rounded-b-[20px]"></div>
+                    <div id="queue-container" class="flex-1 p-4 sm:p-5 space-y-4 bg-zinc-50/50 rounded-b-[24px] overflow-y-auto"></div>
                 </div>
             </section>
 
             <section class="w-full lg:w-96 flex flex-col gap-4 shrink-0">
-                <button onclick="CASHIER_LOGIC.openExpenseModal()" class="btn-press w-full bg-zinc-900 text-[#FFE600] font-bold text-sm py-4 sm:py-5 rounded-2xl shadow-md hover:bg-zinc-800 transition-all flex justify-center items-center gap-2">
+                <button onclick="CASHIER_LOGIC.openExpenseModal()" class="btn-press w-full bg-zinc-900 text-[#FFE600] font-bold text-sm py-4 sm:py-5 rounded-[24px] shadow-md hover:bg-zinc-800 transition-all flex justify-center items-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Catat Pengeluaran
                 </button>
                 <div class="flex-1 lg:flex-none lg:h-full apple-card apple-shadow flex flex-col overflow-hidden min-h-[250px] lg:min-h-0">
-                    <div class="p-4 sm:p-5 border-b border-zinc-100 bg-white rounded-t-[20px] shrink-0"><h2 class="font-bold text-base sm:text-lg tracking-tight text-zinc-800">Petty Cash</h2><p class="text-[10px] font-semibold text-zinc-400 uppercase mt-1">Pengeluaran Hari Ini</p></div>
-                    <div id="expense-container" class="flex-1 overflow-y-auto p-4 space-y-3 bg-zinc-50/50 rounded-b-[20px]"></div>
+                    <div class="p-4 sm:p-5 border-b border-zinc-100 bg-white rounded-t-[24px] shrink-0"><h2 class="font-bold text-base sm:text-lg tracking-tight text-zinc-800">Petty Cash</h2><p class="text-[10px] font-semibold text-zinc-400 uppercase mt-1">Pengeluaran Hari Ini</p></div>
+                    <div id="expense-container" class="flex-1 overflow-y-auto p-4 space-y-3 bg-zinc-50/50 rounded-b-[24px]"></div>
                 </div>
             </section>
         </main>
 
         <main id="tab-report" class="flex-1 flex flex-col p-4 md:p-8 hidden animate-slide-up">
-            <div class="max-w-5xl w-full mx-auto flex flex-col h-full gap-6">
+            <div class="max-w-6xl w-full mx-auto flex flex-col h-full gap-6">
                 <div class="flex flex-col sm:flex-row justify-between items-end gap-4 bg-white p-5 rounded-2xl apple-shadow border border-zinc-200 shrink-0">
                     <div class="w-full sm:w-auto">
                         <label class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2 block">Pilih Bulan Laporan</label>
@@ -115,7 +117,7 @@
                         <div class="flex items-center gap-4">
                             <img src="https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png" class="h-12 sm:h-14 drop-shadow-sm">
                             <div>
-                                <h2 class="font-black text-xl sm:text-2xl text-zinc-900 uppercase italic tracking-tighter">Laporan Keuangan</h2>
+                                <h2 class="font-black text-xl sm:text-2xl text-zinc-900 uppercase italic tracking-tighter">Laporan Audit & Bagi Hasil</h2>
                                 <p id="report-branch-label" class="text-xs font-bold text-zinc-500 uppercase tracking-widest mt-1">Cabang ...</p>
                             </div>
                         </div>
@@ -125,54 +127,69 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6 shrink-0">
-                        <div class="bg-zinc-50 p-4 rounded-[16px] border border-zinc-100">
-                            <p class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Total Transaksi</p>
-                            <p id="rep-total-trx" class="font-black text-xl text-zinc-900">0</p>
-                            <p class="text-[9px] font-bold text-zinc-500 mt-2 border-t border-zinc-200 pt-2">AOV: <span id="rep-aov" class="text-zinc-800">Rp 0</span></p>
-                        </div>
+                    <h3 class="font-black text-xs text-zinc-800 uppercase tracking-widest mb-3 shrink-0">1. Ringkasan Finansial</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8 shrink-0">
                         <div class="bg-blue-50 p-4 rounded-[16px] border border-blue-100">
                             <p class="text-[9px] font-bold text-blue-500 uppercase tracking-widest mb-1">Gross Revenue</p>
                             <p id="rep-total-revenue" class="font-black text-xl text-blue-700 truncate">Rp 0</p>
+                            <p class="text-[9px] font-bold text-blue-400 mt-2 border-t border-blue-200 pt-2"><span id="rep-total-trx">0</span> Trx (AOV: <span id="rep-aov">Rp 0</span>)</p>
+                        </div>
+                        <div class="bg-orange-50 p-4 rounded-[16px] border border-orange-100">
+                            <p class="text-[9px] font-bold text-orange-500 uppercase tracking-widest mb-1">Komisi Barber</p>
+                            <p id="rep-total-komisi" class="font-black text-xl text-orange-700 truncate">Rp 0</p>
+                            <p class="text-[9px] font-bold text-orange-400 mt-2 border-t border-orange-200 pt-2">Beban Gaji/Bagi Hasil</p>
                         </div>
                         <div class="bg-red-50 p-4 rounded-[16px] border border-red-100">
-                            <p class="text-[9px] font-bold text-red-500 uppercase tracking-widest mb-1">Pengeluaran</p>
+                            <p class="text-[9px] font-bold text-red-500 uppercase tracking-widest mb-1">Petty Cash</p>
                             <p id="rep-total-expense" class="font-black text-xl text-red-700 truncate">Rp 0</p>
+                            <p class="text-[9px] font-bold text-red-400 mt-2 border-t border-red-200 pt-2">Pengeluaran Toko</p>
                         </div>
                         <div class="bg-zinc-900 p-4 rounded-[16px] border border-zinc-800">
-                            <p class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Net Profit Bersih</p>
+                            <p class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Net / Setoran Owner</p>
                             <p id="rep-net-profit" class="font-black text-xl text-[#FFE600] truncate">Rp 0</p>
-                            <p class="text-[8px] font-bold text-zinc-500 mt-2 border-t border-zinc-700 pt-2">Dipotong Komisi 40%</p>
+                            <p class="text-[8px] font-bold text-zinc-500 mt-2 border-t border-zinc-700 pt-2">Gross - Komisi - Petty Cash</p>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 shrink-0">
-                        <div class="flex items-center gap-4 bg-white border border-zinc-200 p-4 rounded-[16px]">
-                            <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center text-lg">🏆</div>
-                            <div>
-                                <p class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest">Capster Terlaris</p>
-                                <p id="rep-top-capster" class="font-black text-xs text-zinc-800 uppercase mt-0.5">-</p>
-                            </div>
+                    <h3 class="font-black text-xs text-zinc-800 uppercase tracking-widest mb-3 shrink-0">2. Rekap Bagi Hasil Capster (Payroll)</h3>
+                    <div id="rep-capster-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8 shrink-0">
                         </div>
-                        <div class="flex items-center gap-4 bg-white border border-zinc-200 p-4 rounded-[16px]">
-                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-lg">✂️</div>
-                            <div>
-                                <p class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest">Layanan Favorit</p>
-                                <p id="rep-top-package" class="font-black text-xs text-zinc-800 uppercase mt-0.5">-</p>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="flex-1 overflow-x-auto p-0 border border-zinc-100 rounded-[16px]">
-                        <table class="w-full text-left border-collapse min-w-[500px]">
-                            <thead class="bg-zinc-50 sticky top-0 border-b border-zinc-200">
-                                <tr><th class="p-4 text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Tanggal</th><th class="p-4 text-[10px] font-bold text-zinc-500 uppercase text-center tracking-widest">Jml Cukur</th><th class="p-4 text-[10px] font-bold text-zinc-500 uppercase text-right tracking-widest">Pemasukan</th><th class="p-4 text-[10px] font-bold text-zinc-500 uppercase text-right tracking-widest">Pengeluaran</th></tr>
+                    <h3 class="font-black text-xs text-zinc-800 uppercase tracking-widest mb-3 shrink-0">3. Log Pemasukan Detail</h3>
+                    <div class="overflow-x-auto border border-zinc-200 rounded-[16px] mb-8 shrink-0">
+                        <table class="w-full text-left border-collapse min-w-[700px]">
+                            <thead class="bg-zinc-50 border-b border-zinc-200">
+                                <tr>
+                                    <th class="p-3 text-[9px] font-bold text-zinc-500 uppercase tracking-widest">Tgl & Jam</th>
+                                    <th class="p-3 text-[9px] font-bold text-zinc-500 uppercase tracking-widest">Pelanggan</th>
+                                    <th class="p-3 text-[9px] font-bold text-zinc-500 uppercase tracking-widest">Layanan</th>
+                                    <th class="p-3 text-[9px] font-bold text-zinc-500 uppercase tracking-widest">Capster</th>
+                                    <th class="p-3 text-[9px] font-bold text-zinc-500 uppercase text-right tracking-widest">Tarif (Gross)</th>
+                                    <th class="p-3 text-[9px] font-bold text-orange-600 uppercase text-right tracking-widest">Komisi</th>
+                                    <th class="p-3 text-[9px] font-bold text-zinc-900 uppercase text-right tracking-widest">Hak Owner</th>
+                                </tr>
                             </thead>
-                            <tbody id="report-table-body" class="divide-y divide-zinc-100 text-xs sm:text-sm">
-                                <tr><td colspan="4" class="p-8 text-center text-zinc-400 font-medium">Pilih bulan laporan untuk menampilkan data...</td></tr>
-                            </tbody>
+                            <tbody id="report-table-income" class="divide-y divide-zinc-100 text-xs">
+                                </tbody>
                         </table>
                     </div>
+
+                    <h3 class="font-black text-xs text-zinc-800 uppercase tracking-widest mb-3 shrink-0">4. Log Pengeluaran Kas (Petty Cash)</h3>
+                    <div class="overflow-x-auto border border-zinc-200 rounded-[16px] shrink-0">
+                        <table class="w-full text-left border-collapse min-w-[500px]">
+                            <thead class="bg-red-50 border-b border-red-100">
+                                <tr>
+                                    <th class="p-3 text-[9px] font-bold text-red-500 uppercase tracking-widest w-32">Tanggal</th>
+                                    <th class="p-3 text-[9px] font-bold text-red-500 uppercase tracking-widest w-40">Kategori</th>
+                                    <th class="p-3 text-[9px] font-bold text-red-500 uppercase tracking-widest">Deskripsi Item</th>
+                                    <th class="p-3 text-[9px] font-bold text-red-500 uppercase text-right tracking-widest w-40">Nominal Keluar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="report-table-expense" class="divide-y divide-red-50 text-xs">
+                                </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
         </main>
@@ -182,7 +199,7 @@
                 <div class="apple-card p-5 sm:p-6 apple-shadow">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="font-bold text-lg text-zinc-800">Layanan Utama (Primer)</h2>
-                        <button onclick="CASHIER_LOGIC.openPackageModal('PRIMER')" class="btn-press bg-zinc-900 text-white px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest">+ Add New</button>
+                        <button onclick="CASHIER_LOGIC.openPackageModal('PRIMER')" class="btn-press bg-zinc-900 text-[#FFE600] px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest">+ Add New</button>
                     </div>
                     <div id="config-primer-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                 </div>
@@ -190,7 +207,7 @@
                 <div class="apple-card p-5 sm:p-6 apple-shadow">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="font-bold text-lg text-zinc-800">Daftar Add-Ons</h2>
-                        <button onclick="CASHIER_LOGIC.openPackageModal('ADD ON')" class="btn-press bg-zinc-900 text-white px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest">+ Add New</button>
+                        <button onclick="CASHIER_LOGIC.openPackageModal('ADD ON')" class="btn-press bg-zinc-900 text-[#FFE600] px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest">+ Add New</button>
                     </div>
                     <div id="config-addon-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                 </div>
@@ -228,7 +245,7 @@
                 
                 <div class="flex gap-3 pt-4">
                     <button onclick="document.getElementById('modal-swap-capster').classList.replace('flex','hidden')" class="btn-press flex-1 bg-zinc-100 text-zinc-600 py-3.5 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-zinc-200 transition-all">Batal</button>
-                    <button onclick="CASHIER_LOGIC.submitSwapCapster()" class="btn-press flex-[2] bg-yellow-400 text-zinc-900 py-3.5 rounded-xl font-bold text-xs uppercase tracking-widest shadow-md hover:bg-yellow-500 transition-all">Pindah</button>
+                    <button onclick="CASHIER_LOGIC.submitSwapCapster()" class="btn-press flex-[2] bg-[#FFE600] text-zinc-900 py-3.5 rounded-xl font-bold text-xs uppercase tracking-widest shadow-md transition-all">Pindah</button>
                 </div>
             </div>
         </div>
@@ -247,8 +264,7 @@
                 
                 <div>
                     <p class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-2 ml-1">Pilih Tambahan (Opsional)</p>
-                    <div id="checkout-addons-list" class="space-y-2">
-                        </div>
+                    <div id="checkout-addons-list" class="space-y-2"></div>
                 </div>
             </div>
 
@@ -286,9 +302,9 @@
     <div id="modal-cancel" class="fixed inset-0 z-[60] bg-zinc-900/40 backdrop-blur-sm hidden flex-col items-center justify-center p-4 transition-all">
         <div class="bg-white w-full max-w-sm rounded-[24px] p-6 shadow-2xl animate-slide-up border border-red-100">
             <div class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center mb-4"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div>
-            <h2 class="font-bold text-xl text-zinc-900 mb-2 tracking-tight">Batalkan Booking?</h2><p class="text-sm text-zinc-500 mb-6 leading-relaxed">Jadwal ini akan dihapus dari antrean. Ketik <span class="font-black text-red-600">YAKIN</span> untuk melanjutkan.</p>
+            <h2 class="font-bold text-xl text-zinc-900 mb-2 tracking-tight">Hapus / Batalkan?</h2><p class="text-xs text-zinc-500 mb-6 leading-relaxed">Jadwal ini akan dihapus dari sistem. Ketik <span class="font-black text-red-600">YAKIN</span> untuk melanjutkan.</p>
             <input type="text" id="cancel-confirm-text" placeholder="Ketik YAKIN" class="w-full bg-zinc-50 text-center text-red-600 font-black tracking-widest text-lg px-4 py-3 rounded-xl outline-none border border-red-200 focus:border-red-400 mb-4">
-            <div class="flex gap-3"><button onclick="CASHIER_LOGIC.closeCancelModal()" class="btn-press flex-1 bg-zinc-100 text-zinc-600 py-3.5 rounded-xl font-bold text-sm hover:bg-zinc-200 transition-all">Kembali</button><button id="btn-submit-cancel" onclick="CASHIER_LOGIC.processCancel()" class="btn-press flex-1 bg-red-600 text-white py-3.5 rounded-xl font-bold text-sm shadow-md hover:bg-red-700 transition-all opacity-50 cursor-not-allowed" disabled>Batalkan</button></div>
+            <div class="flex gap-3"><button onclick="CASHIER_LOGIC.closeCancelModal()" class="btn-press flex-1 bg-zinc-100 text-zinc-600 py-3.5 rounded-xl font-bold text-sm hover:bg-zinc-200 transition-all">Kembali</button><button id="btn-submit-cancel" onclick="CASHIER_LOGIC.processCancel()" class="btn-press flex-1 bg-red-600 text-white py-3.5 rounded-xl font-bold text-sm shadow-md hover:bg-red-700 transition-all opacity-50 cursor-not-allowed" disabled>Hapus</button></div>
         </div>
     </div>
 
@@ -301,7 +317,7 @@
         const CONFIG = {
             TENANT_ID: "YHB",
             WEBHOOK_URL: 'https://n8n-mzbmiib3etk4.kangkung.sumopod.my.id/webhook/a6512d05-a51a-4289-9063-9a4f17ac745a',
-            COMMISSION_RATE: 0.40
+            PUBLIC_WEBHOOK_URL: 'https://n8n-mzbmiib3etk4.kangkung.sumopod.my.id/webhook/dbp-public'
         };
 
         const STATE = { user: null, cancelTargetId: null, sysDates: null, queue: [], expenses: [], packages: [], addons: [], checkout: null, rawReportData: null };
@@ -322,7 +338,7 @@
         const LOGIN_SYSTEM = {
             pin: "",
             init() {
-                const saved = localStorage.getItem('yhb_v14_user');
+                const saved = localStorage.getItem('yhb_v17_user');
                 if (saved) { STATE.user = JSON.parse(saved); this.route(); }
                 document.getElementById('pinInput').addEventListener('keypress', function(e) { if (e.key === 'Enter') LOGIN_SYSTEM.submit(); });
             },
@@ -334,7 +350,7 @@
                 try {
                     const data = await UTIL.post({ action: 'login', username: u, password: p });
                     const res = data[0] || data;
-                    if (res.success) { STATE.user = res.user; localStorage.setItem('yhb_v14_user', JSON.stringify(res.user)); this.route(); } 
+                    if (res.success) { STATE.user = res.user; localStorage.setItem('yhb_v17_user', JSON.stringify(res.user)); this.route(); } 
                     else throw new Error();
                 } catch (e) { this.triggerError("AKSES DITOLAK"); } finally { UTIL.hideLoading(); document.getElementById('pinInput').value = ''; }
             },
@@ -344,7 +360,7 @@
                 document.getElementById('view-cashier').classList.replace('hidden', 'flex');
                 CASHIER_LOGIC.init();
             },
-            logout() { localStorage.removeItem('yhb_v14_user'); location.reload(); }
+            logout() { localStorage.removeItem('yhb_v17_user'); location.reload(); }
         };
 
         const CASHIER_LOGIC = {
@@ -355,7 +371,7 @@
                 
                 const now = new Date(); document.getElementById('report-month').value = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
                 this.loadData();
-                setInterval(() => this.loadData(true), 60000); // Auto sync every 1 min
+                setInterval(() => this.loadData(true), 60000); 
 
                 document.getElementById('cancel-confirm-text').addEventListener('input', function() {
                     const btn = document.getElementById('btn-submit-cancel');
@@ -372,7 +388,6 @@
                 document.getElementById(`tab-${tab}`).classList.remove('hidden');
                 const activeBtn = document.getElementById(`tab-btn-${tab}`);
                 if(activeBtn) { activeBtn.classList.remove('text-zinc-500'); activeBtn.classList.add('tab-active', 'text-zinc-900'); }
-                
                 if(tab === 'report') this.processReport();
             },
             async loadData(silent = false) {
@@ -381,14 +396,11 @@
                 if(!silent) UTIL.showLoading("Menyinkronkan Data...");
                 
                 try {
-                    // Panggil data kasir
                     const data = await UTIL.post({ action: 'get_cashier_data', branch: STATE.user.branch });
                     const res = data[0] || data;
-                    
                     if (res.success) { 
                         STATE.sysDates = res.sys_dates; 
                         
-                        // ANTI DUPE
                         STATE.queue = Array.from(new Map((res.queue || []).map(item => [item.id, item])).values());
                         STATE.expenses = Array.from(new Map((res.expenses || []).map(item => [item.id, item])).values());
                         STATE.packages = Array.from(new Map((res.packages || []).map(item => [item.id, item])).values());
@@ -399,8 +411,6 @@
                         this.updateSummary(); 
                         this.renderConfig();
                     }
-
-                    // Panggil data report untuk jaga-jaga
                     const repData = await UTIL.post({ action: 'get_cashier_report', branch: STATE.user.branch });
                     STATE.rawReportData = repData[0] || repData;
                     if(!document.getElementById('tab-report').classList.contains('hidden')) {
@@ -412,16 +422,38 @@
                     UTIL.hideLoading();
                 }
             },
+            
+            // --- BAGI HASIL DYNAMIC ---
+            calculateCommission(capsterName, price) {
+                const p = Number(price) || 0;
+                const cName = String(capsterName || '').toUpperCase();
+                // Aturan khusus BUR = 60%, sisanya 50%
+                if(cName.includes('BUR')) return p * 0.60;
+                return p * 0.50; 
+            },
+
             updateSummary() {
-                let omset = 0; let exp = 0;
-                STATE.queue.forEach(q => { if((q.status === 'DONE' || q.status === 'SUCCESS') && UTIL.cleanDate(q.tanggal) === STATE.sysDates.today) omset += (Number(q.price)||0); });
-                STATE.expenses.forEach(e => { if(UTIL.cleanDate(e.tanggal) === STATE.sysDates.today) exp += (Number(e.nominal)||0); });
+                let omset = 0; let exp = 0; let komisi = 0;
+                
+                STATE.queue.forEach(q => { 
+                    if((q.status === 'DONE' || q.status === 'SUCCESS') && UTIL.cleanDate(q.tanggal) === STATE.sysDates.today) {
+                        omset += (Number(q.price)||0);
+                        komisi += this.calculateCommission(q.caps_in_charge || q.capster_id, q.price);
+                    } 
+                });
+                STATE.expenses.forEach(e => { 
+                    if(UTIL.cleanDate(e.tanggal) === STATE.sysDates.today) {
+                        exp += (Number(e.nominal)||0); 
+                    }
+                });
+                
                 document.getElementById('sum-omset').innerText = UTIL.formatRp(omset); 
+                document.getElementById('sum-komisi').innerText = UTIL.formatRp(komisi); 
                 document.getElementById('sum-expense').innerText = UTIL.formatRp(exp); 
-                document.getElementById('sum-profit').innerText = UTIL.formatRp(omset - exp);
+                document.getElementById('sum-profit').innerText = UTIL.formatRp(omset - komisi - exp); 
             },
             
-            // --- QUEUE RENDERING ---
+            // --- QUEUE ---
             renderQueue() {
                 const container = document.getElementById('queue-container'); 
                 container.innerHTML = ''; 
@@ -440,8 +472,6 @@
                     let aBtns = '';
                     if (!isDone) {
                         const cBtn = `<button onclick="CASHIER_LOGIC.openCancelModal('${item.id}')" class="btn-press bg-white border border-red-200 text-red-600 px-3 py-2 rounded-lg text-[11px] font-bold hover:bg-red-50 transition-all">Cancel</button>`;
-                        
-                        // NEW: SWAP CAPSTER BUTTON
                         const swapBtn = `<button onclick="CASHIER_LOGIC.openSwapModal('${item.id}', '${item.cust_name}')" class="btn-press bg-yellow-50 border border-yellow-200 text-yellow-700 px-3 py-2 rounded-lg text-[11px] font-bold hover:bg-yellow-100 transition-all">Pindah</button>`;
 
                         let waBtn = '';
@@ -454,15 +484,12 @@
                         const defaultPkgName = String(item.package_name || "").replace(/'/g, "\\'"); 
                         
                         let pBtn = isPending ? `<button onclick="CASHIER_LOGIC.updateStatus('${item.id}', 'ON DUTY', ${defaultPrice}, '${defaultPkgName}')" class="btn-press bg-blue-600 text-white px-4 py-2 rounded-lg text-[11px] font-bold shadow-sm hover:bg-blue-700 transition-all">Mulai</button>` : `<button onclick="CASHIER_LOGIC.openCheckout('${item.id}')" class="btn-press bg-zinc-900 text-[#FFE600] px-4 py-2 rounded-lg text-[11px] font-bold shadow-sm hover:bg-zinc-800 transition-all">Selesai</button>`;
-                        
                         aBtns = `<div class="flex flex-wrap items-center justify-end gap-2 mt-3 sm:mt-0">${waBtn}${swapBtn}${cBtn}${pBtn}</div>`;
                     }
                     
                     container.insertAdjacentHTML('beforeend', `
                         <div class="${isDone ? 'bg-zinc-50 border-zinc-100 opacity-60' : 'bg-white border-zinc-200 apple-shadow'} border rounded-[16px] p-4 flex flex-col sm:flex-row justify-between sm:items-center transition-all mb-3 relative group">
-                            
-                            ${isDone ? `<button onclick="CASHIER_LOGIC.openCancelModal('${item.id}')" class="absolute top-2 right-2 hidden group-hover:flex w-6 h-6 items-center justify-center bg-red-100 text-red-600 rounded-full hover:bg-red-200 transition-all"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>` : ''}
-
+                            ${isDone ? `<button onclick="CASHIER_LOGIC.openCancelModal('${item.id}')" class="absolute top-2 right-2 hidden group-hover:flex w-6 h-6 items-center justify-center bg-red-100 text-red-600 rounded-full hover:bg-red-200 transition-all cursor-pointer"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>` : ''}
                             <div>
                                 <div class="flex items-center gap-3 mb-1"><span class="text-base font-bold text-zinc-900">${item.jam}</span>${sBadge}</div>
                                 <h3 class="font-bold text-[15px] text-zinc-800 leading-none mb-1.5">${item.cust_name || 'Walk-In'}</h3>
@@ -483,8 +510,7 @@
                 document.getElementById('modal-swap-capster').classList.replace('hidden', 'flex');
 
                 try {
-                    // Fetch list capster terbaru dari cabang yang sama
-                    const res = await fetch(CONFIG.WEBHOOK_URL, {
+                    const res = await fetch(CONFIG.PUBLIC_WEBHOOK_URL, {
                         method: 'POST', headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify({ action: 'get_staff_list', branch_name: STATE.user.branch, tenant_id: CONFIG.TENANT_ID })
                     });
@@ -507,12 +533,7 @@
                 UTIL.showLoading("Memindahkan...");
 
                 try {
-                    await UTIL.post({ 
-                        action: 'swap_capster', 
-                        id: Number(bookingId), 
-                        new_capster_id: newCapsterId,
-                        new_capster_name: newCapsterName
-                    });
+                    await UTIL.post({ action: 'swap_capster', id: Number(bookingId), new_capster_id: newCapsterId, new_capster_name: newCapsterName });
                     await this.loadData(true);
                 } catch (e) { alert("Gagal pindah."); } finally { UTIL.hideLoading(); }
             },
@@ -531,10 +552,9 @@
                         </div>
                         <div class="flex items-center gap-3">
                             <span class="font-bold text-red-500 text-sm">- ${UTIL.formatRp(item.nominal)}</span>
-                            <button onclick="CASHIER_LOGIC.deleteExpense('${item.id}')" class="hidden group-hover:flex w-8 h-8 items-center justify-center bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-all border border-red-100">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                            </button>
+                            <button onclick="CASHIER_LOGIC.deleteExpense('${item.id}')" class="hidden sm:group-hover:flex w-8 h-8 items-center justify-center bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-all border border-red-100"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
                         </div>
+                        <button onclick="CASHIER_LOGIC.deleteExpense('${item.id}')" class="sm:hidden absolute top-1 right-1 text-red-400 p-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
                     </div>`); 
                 });
             },
@@ -546,52 +566,28 @@
                 if(!desc || !nom) return alert("Isi form lengkap!"); 
                 this.closeExpenseModal(); UTIL.showLoading("Menyimpan..."); 
                 try { 
-                    await UTIL.post({ 
-                        action: 'add_expense', 
-                        tanggal: STATE.sysDates.today, 
-                        branch: STATE.user.branch, 
-                        cashier_id: STATE.user.staff_id, 
-                        kategori: kat, 
-                        deskripsi: desc, 
-                        nominal: Number(nom) 
-                    }); 
+                    await UTIL.post({ action: 'add_expense', tanggal: STATE.sysDates.today, branch: STATE.user.branch, cashier_id: STATE.user.staff_id, kategori: kat, deskripsi: desc, nominal: Number(nom) }); 
                     await this.loadData(true); 
                 } catch (e) { alert("Gagal Simpan"); } finally { UTIL.hideLoading(); } 
             },
             async deleteExpense(expenseId) {
                 if(!confirm("Yakin hapus pengeluaran ini? Uang akan kembali ditambahkan ke saldo.")) return;
                 UTIL.showLoading("Menghapus...");
-                try { 
-                    await UTIL.post({ action: 'delete_expense', expense_id: expenseId }); 
-                    await this.loadData(true); 
-                } catch (e) { alert("Gagal Hapus"); } finally { UTIL.hideLoading(); }
+                try { await UTIL.post({ action: 'delete_expense', expense_id: expenseId }); await this.loadData(true); } catch (e) { alert("Gagal Hapus"); } finally { UTIL.hideLoading(); }
             },
 
-            // --- UPDATE STATUS ---
+            // --- UPDATE STATUS & CHECKOUT ---
             async updateStatus(id, newStatus, priceFallback, pkgNameFallback) { 
                 UTIL.showLoading("Update..."); 
-                try { 
-                    await UTIL.post({ 
-                        action: 'update_status', 
-                        id: Number(id), 
-                        status: newStatus,
-                        new_price: priceFallback,
-                        new_package_name: pkgNameFallback
-                    }); 
-                    await this.loadData(true); 
-                } catch (e) { alert("Gagal Update"); } finally { UTIL.hideLoading(); } 
+                try { await UTIL.post({ action: 'update_status', id: Number(id), status: newStatus, new_price: priceFallback, new_package_name: pkgNameFallback }); await this.loadData(true); } catch (e) { alert("Gagal Update"); } finally { UTIL.hideLoading(); } 
             },
-            
-            // --- CANCEL / DELETE BOOKING ---
             openCancelModal(id) { STATE.cancelTargetId = id; document.getElementById('cancel-confirm-text').value = ''; document.getElementById('btn-submit-cancel').disabled = true; document.getElementById('btn-submit-cancel').classList.add('opacity-50', 'cursor-not-allowed'); document.getElementById('modal-cancel').classList.replace('hidden', 'flex'); },
             closeCancelModal() { STATE.cancelTargetId = null; document.getElementById('modal-cancel').classList.replace('flex', 'hidden'); },
             async processCancel() { 
-                if(!STATE.cancelTargetId) return; this.closeCancelModal(); UTIL.showLoading("Membatalkan/Menghapus..."); 
-                try { await UTIL.post({ action: 'cancel_book', id: Number(STATE.cancelTargetId) }); await this.loadData(true); } 
-                catch (e) { alert("Gagal Cancel"); } finally { UTIL.hideLoading(); } 
+                if(!STATE.cancelTargetId) return; this.closeCancelModal(); UTIL.showLoading("Menghapus/Membatalkan..."); 
+                try { await UTIL.post({ action: 'cancel_book', id: Number(STATE.cancelTargetId) }); await this.loadData(true); } catch (e) { alert("Gagal"); } finally { UTIL.hideLoading(); } 
             },
 
-            // --- CHECKOUT LOGIC (WITH ADD ON) ---
             openCheckout(id) {
                 const item = STATE.queue.find(x => x.id == id);
                 if(!item) return;
@@ -628,13 +624,7 @@
                 UTIL.showLoading("Mencatat Transaksi...");
                 const finalName = [STATE.checkout.baseName, ...STATE.checkout.selectedAddons.map(x => x.name)].join(" + ");
                 try {
-                    await UTIL.post({ 
-                        action: 'update_status', 
-                        id: Number(STATE.checkout.id), 
-                        status: 'DONE', 
-                        new_price: STATE.checkout.currentTotal, 
-                        new_package_name: finalName 
-                    });
+                    await UTIL.post({ action: 'update_status', id: Number(STATE.checkout.id), status: 'DONE', new_price: STATE.checkout.currentTotal, new_package_name: finalName });
                     document.getElementById('modal-checkout').classList.replace('flex','hidden');
                     await this.loadData(true);
                 } catch(e) { alert("Error saving transaction"); } finally { UTIL.hideLoading(); }
@@ -676,63 +666,114 @@
                 try { await UTIL.post({ action: 'manage_package', operation_type: 'delete', package_id: document.getElementById('pkg-id').value }); document.getElementById('modal-pkg').classList.replace('flex','hidden'); await this.loadData(true); } catch(e){} finally { UTIL.hideLoading(); }
             },
 
-            // --- REPORT (FIXED) ---
+            // --- ADVANCED REPORT (PAYROLL & AUDIT LOGS) ---
             processReport() {
                 if(!STATE.rawReportData) return;
                 const month = document.getElementById('report-month').value; 
-                if(!month) return; // Wait until month is selected
+                if(!month) return;
                 
                 document.getElementById('printable-report').classList.remove('hidden');
                 
-                const dailyStats = {}; let grandRev = 0; let grandExp = 0;
-                let capsterStats = {}; let packageStats = {};
+                let grandRev = 0; let grandExp = 0; let grandKomisi = 0; let totalTrx = 0;
+                let capsterStats = {}; 
+                let logIncomeHTML = ''; let logExpenseHTML = '';
                 
-                STATE.rawReportData.bookings.filter(b => UTIL.cleanDate(b.tanggal).startsWith(month)).forEach(b => { 
-                    if(b.status === 'DONE' || b.status === 'SUCCESS') {
-                        const d = UTIL.cleanDate(b.tanggal); const v = Number(b.price)||0; 
-                        const cName = b.caps_in_charge || b.capster_id || 'Unknown';
-                        const pName = b.package_name || 'Unknown';
-                        
-                        if(!dailyStats[d]) dailyStats[d]={c:0,r:0,e:0}; 
-                        dailyStats[d].c++; dailyStats[d].r+=v; grandRev+=v; 
-                        capsterStats[cName] = (capsterStats[cName] || 0) + v;
-                        packageStats[pName] = (packageStats[pName] || 0) + 1;
-                    }
+                // Process Bookings (Income Log & Payroll)
+                const monthBookings = STATE.rawReportData.bookings.filter(b => UTIL.cleanDate(b.tanggal).startsWith(month) && (b.status === 'DONE' || b.status === 'SUCCESS')).sort((a,b) => `${a.tanggal} ${a.jam}`.localeCompare(`${b.tanggal} ${b.jam}`));
+                
+                monthBookings.forEach(b => { 
+                    const tglJam = `${UTIL.cleanDate(b.tanggal)} ${b.jam}`;
+                    const v = Number(b.price)||0; 
+                    const cName = String(b.caps_in_charge || b.capster_id || 'Unknown').toUpperCase();
+                    const pName = b.package_name || 'Unknown';
+                    const k = this.calculateCommission(cName, v);
+                    const yhbShare = v - k;
+
+                    grandRev += v; 
+                    grandKomisi += k;
+                    totalTrx++;
+                    
+                    if(!capsterStats[cName]) capsterStats[cName] = { count: 0, gross: 0, komisi: 0, yhb: 0 };
+                    capsterStats[cName].count++;
+                    capsterStats[cName].gross += v;
+                    capsterStats[cName].komisi += k;
+                    capsterStats[cName].yhb += yhbShare;
+
+                    // Table Row (Income)
+                    logIncomeHTML += `
+                    <tr class="hover:bg-zinc-50 transition-colors">
+                        <td class="p-3 font-semibold text-zinc-900">${tglJam}</td>
+                        <td class="p-3 text-zinc-700">${b.cust_name || '-'}</td>
+                        <td class="p-3 text-zinc-600 truncate max-w-[150px]">${pName}</td>
+                        <td class="p-3 font-bold text-zinc-800">${cName}</td>
+                        <td class="p-3 text-right text-blue-600 font-semibold">${UTIL.formatRp(v)}</td>
+                        <td class="p-3 text-right text-orange-600 font-semibold">${UTIL.formatRp(k)}</td>
+                        <td class="p-3 text-right text-zinc-900 font-black">${UTIL.formatRp(yhbShare)}</td>
+                    </tr>`;
                 });
 
-                STATE.rawReportData.expenses.filter(e => UTIL.cleanDate(e.tanggal).startsWith(month)).forEach(e => { 
-                    const d = UTIL.cleanDate(e.tanggal); const v = Number(e.nominal)||0; 
-                    if(!dailyStats[d]) dailyStats[d]={c:0,r:0,e:0}; 
-                    dailyStats[d].e+=v; grandExp+=v; 
+                // Process Expenses (Expense Log)
+                const monthExpenses = STATE.rawReportData.expenses.filter(e => UTIL.cleanDate(e.tanggal).startsWith(month)).sort((a,b) => a.tanggal.localeCompare(b.tanggal));
+                
+                monthExpenses.forEach(e => { 
+                    const v = Number(e.nominal)||0; 
+                    grandExp += v; 
+                    
+                    logExpenseHTML += `
+                    <tr class="hover:bg-red-50/50 transition-colors">
+                        <td class="p-3 font-semibold text-zinc-900">${UTIL.cleanDate(e.tanggal)}</td>
+                        <td class="p-3 text-zinc-600 font-bold">${e.kategori}</td>
+                        <td class="p-3 text-zinc-700">${e.deskripsi}</td>
+                        <td class="p-3 text-right text-red-600 font-bold">${UTIL.formatRp(v)}</td>
+                    </tr>`;
                 });
 
-                const totalTrx = Object.values(dailyStats).reduce((sum, item) => sum + item.c, 0);
                 const aov = totalTrx > 0 ? (grandRev / totalTrx) : 0;
-                const netProfit = grandRev - grandExp - (grandRev * CONFIG.COMMISSION_RATE); 
+                const netProfit = grandRev - grandKomisi - grandExp; 
 
-                const topCapster = Object.entries(capsterStats).sort((a,b) => b[1]-a[1])[0];
-                const topPackage = Object.entries(packageStats).sort((a,b) => b[1]-a[1])[0];
-
+                // Populate Global Cards
                 document.getElementById('report-month-label').innerText = month;
-                document.getElementById('rep-total-trx').innerText = totalTrx; document.getElementById('rep-aov').innerText = UTIL.formatRp(aov);
-                document.getElementById('rep-total-revenue').innerText = UTIL.formatRp(grandRev); document.getElementById('rep-total-expense').innerText = UTIL.formatRp(grandExp);
+                document.getElementById('rep-total-trx').innerText = totalTrx; 
+                document.getElementById('rep-aov').innerText = UTIL.formatRp(aov);
+                document.getElementById('rep-total-revenue').innerText = UTIL.formatRp(grandRev); 
+                document.getElementById('rep-total-komisi').innerText = UTIL.formatRp(grandKomisi);
+                document.getElementById('rep-total-expense').innerText = UTIL.formatRp(grandExp);
                 document.getElementById('rep-net-profit').innerText = UTIL.formatRp(netProfit);
-                
-                document.getElementById('rep-top-capster').innerText = topCapster ? `${UTIL.toTitleCase(topCapster[0])}` : '-';
-                document.getElementById('rep-top-package').innerText = topPackage ? `${UTIL.toTitleCase(topPackage[0])}` : '-';
-                
-                const tbody = document.getElementById('report-table-body'); tbody.innerHTML = '';
-                const sorted = Object.keys(dailyStats).sort();
-                if(sorted.length===0) { tbody.innerHTML = `<tr><td colspan="4" class="p-8 text-center text-zinc-400 font-medium">Tidak ada data di bulan ini.</td></tr>`; return; }
-                
-                sorted.forEach(d => { tbody.insertAdjacentHTML('beforeend', `<tr class="border-b border-zinc-100 hover:bg-zinc-50 transition-colors"><td class="p-4 text-zinc-900 font-semibold">${d}</td><td class="p-4 text-center text-zinc-600">${dailyStats[d].c}</td><td class="p-4 text-right text-blue-600 font-semibold">${UTIL.formatRp(dailyStats[d].r)}</td><td class="p-4 text-right text-red-600 font-semibold">${UTIL.formatRp(dailyStats[d].e)}</td></tr>`); });
+
+                // Populate Capster Payroll Cards
+                const capsterGrid = document.getElementById('rep-capster-grid');
+                if(Object.keys(capsterStats).length === 0) {
+                    capsterGrid.innerHTML = '<div class="col-span-full p-4 border border-dashed border-zinc-300 rounded-[16px] text-center text-zinc-400 text-xs font-bold uppercase">Belum ada data Capster bekerja</div>';
+                } else {
+                    capsterGrid.innerHTML = Object.keys(capsterStats).sort().map(c => {
+                        const d = capsterStats[c];
+                        const splitText = c.includes('BUR') ? 'Bagi Hasil (60:40)' : 'Bagi Hasil (50:50)';
+                        return `
+                        <div class="border border-zinc-200 rounded-[16px] p-4 bg-white shadow-sm">
+                            <div class="flex justify-between items-center mb-3 border-b border-zinc-100 pb-3">
+                                <h4 class="font-black text-lg text-zinc-900 uppercase">${c}</h4>
+                                <span class="bg-zinc-100 text-zinc-500 font-bold text-[8px] px-2 py-1 rounded uppercase tracking-widest">${d.count} Tamu</span>
+                            </div>
+                            <div class="space-y-2 mb-3">
+                                <div class="flex justify-between text-[10px]"><span class="font-bold text-zinc-500 uppercase tracking-widest">Gross Omset</span><span class="font-black text-blue-600">${UTIL.formatRp(d.gross)}</span></div>
+                                <div class="flex justify-between text-[10px]"><span class="font-bold text-zinc-500 uppercase tracking-widest">Hak Capster</span><span class="font-black text-orange-500">${UTIL.formatRp(d.komisi)}</span></div>
+                                <div class="flex justify-between text-[10px]"><span class="font-bold text-zinc-500 uppercase tracking-widest">Hak Owner (YHB)</span><span class="font-black text-zinc-800">${UTIL.formatRp(d.yhb)}</span></div>
+                            </div>
+                            <div class="bg-zinc-50 rounded-lg p-2 text-center border border-zinc-100">
+                                <span class="text-[8px] font-bold text-zinc-400 uppercase tracking-widest">${splitText}</span>
+                            </div>
+                        </div>`;
+                    }).join('');
+                }
+
+                // Populate Tables
+                document.getElementById('report-table-income').innerHTML = logIncomeHTML || `<tr><td colspan="7" class="p-6 text-center text-zinc-400 text-xs font-bold">Tidak ada pemasukan.</td></tr>`;
+                document.getElementById('report-table-expense').innerHTML = logExpenseHTML || `<tr><td colspan="4" class="p-6 text-center text-zinc-400 text-xs font-bold">Tidak ada pengeluaran.</td></tr>`;
             },
-            exportPDF() { UTIL.showLoading("Generate PDF..."); html2pdf().set({margin:0.2, filename:`YHB_Report_${document.getElementById('report-month').value}.pdf`, html2canvas:{scale:2}, jsPDF:{unit:'in',format:'a4',orientation:'portrait'}}).from(document.getElementById('printable-report')).save().then(() => UTIL.hideLoading()); }
+            exportPDF() { UTIL.showLoading("Generate PDF..."); html2pdf().set({margin:0.2, filename:`YHB_Audit_${document.getElementById('report-month').value}.pdf`, html2canvas:{scale:2}, jsPDF:{unit:'in',format:'a4',orientation:'landscape'}}).from(document.getElementById('printable-report')).save().then(() => UTIL.hideLoading()); }
         };
 
-        window.onload = () => {
-            LOGIN_SYSTEM.init();
-        };
+        window.onload = () => { LOGIN_SYSTEM.init(); };
     </script>
 </body>
 </html>
