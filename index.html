@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title id="meta-title">Booking | Yellow Barber</title>
-    <link id="meta-icon" rel="icon" type="image/png" href="https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png">
+    <link id="meta-icon" rel="icon" type="image/png" href="">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
     <style>
-        /* CORE STYLES - CALVIN KLEIN VIBE */
+        /* CORE STYLES - MINIMALIST PREMIUM */
         body { font-family: 'Montserrat', sans-serif; -webkit-tap-highlight-color: transparent; background-color: #FAFAFA; color: #111111; overflow-x: hidden; }
+        .uppercase-wider { text-transform: uppercase; letter-spacing: 0.15em; }
         
         /* SCROLLBAR */
         .hide-scrollbar::-webkit-scrollbar { display: none; }
@@ -26,8 +27,8 @@
         .taktil:active { transform: scale(0.96); }
         .taktil-hover:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.06); }
 
-        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-        .animate-shimmer { background: linear-gradient(90deg, #111 25%, #999 50%, #111 75%); background-size: 200% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 2.5s infinite linear; }
+        @keyframes shimer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+        .animate-shimer { background: linear-gradient(90deg, #111 25%, #999 50%, #111 75%); background-size: 200% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimer 2.5s infinite linear; }
         
         @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
         .animate-slide-up { animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
@@ -38,9 +39,9 @@
 
     <div id="splash-screen" class="fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center overflow-hidden">
         <div class="relative z-10 flex flex-col items-center">
-            <img id="splash-logo" src="https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png" class="w-32 h-auto mb-8 drop-shadow-xl">
+            <img id="splash-logo" src="" class="w-32 h-auto mb-8 drop-shadow-xl">
             <div class="text-center">
-                <h1 class="text-[10px] font-black tracking-[0.4em] animate-shimmer uppercase">Loading Experience</h1>
+                <h1 class="text-[10px] font-black tracking-[0.4em] animate-shimer uppercase-wider">Loading Experience</h1>
             </div>
         </div>
     </div>
@@ -48,7 +49,7 @@
     <div id="success-screen" class="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md hidden flex-col items-center justify-center p-6 overflow-hidden">
         <div class="bg-white w-full max-w-sm rounded-[32px] p-8 flex flex-col items-center animate-slide-up text-center card-shadow">
             <div class="w-16 h-16 bg-[#FFE600] rounded-full flex items-center justify-center mb-6 text-black text-2xl font-black shadow-lg shadow-yellow-400/20">✓</div>
-            <h1 class="font-black text-2xl tracking-tighter mb-6 uppercase italic">Booking Confirmed</h1>
+            <h1 class="font-black text-2xl tracking-tighter mb-6 uppercaseitalic">Booking Confirmed</h1>
             
             <div class="w-full space-y-4 text-[11px] font-bold text-zinc-500 mb-8 bg-zinc-50 p-6 rounded-3xl border border-zinc-100">
                 <div class="flex justify-between items-center pb-3 border-b border-zinc-200">
@@ -62,29 +63,29 @@
                 </div>
             </div>
             
-            <button onclick="location.reload()" class="w-full bg-black text-[#FFE600] py-4 rounded-full font-black uppercase tracking-[0.2em] text-xs taktil mb-4 shadow-xl">Selesai</button>
-            <a href="#" id="receipt-maps" target="_blank" class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest underline">Buka Rute Maps</a>
+            <button onclick="location.reload()" class="w-full bg-black text-[#FFE600] py-4 rounded-full font-black uppercase-wider text-xs taktil mb-4 shadow-xl">Selesai</button>
+            <a href="#" id="receipt-maps" target="_blank" class="text-[9px] font-bold text-zinc-400 uppercase-wider tracking-widest underline">Buka Rute Maps</a>
         </div>
     </div>
 
     <nav class="sticky top-0 z-50 glass-nav px-6 py-4 flex justify-between items-center">
-        <img id="nav-logo" src="https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png" class="h-7 w-auto drop-shadow-sm">
-        <div class="text-[9px] font-black uppercase tracking-[0.2em] text-black bg-[#FFE600] px-4 py-1.5 rounded-full animate-pulse shadow-sm">Live</div>
+        <img id="nav-logo" src="" class="h-7 w-auto drop-shadow-sm">
+        <div class="text-[9px] font-black uppercase-wider text-black bg-[#FFE600] px-4 py-1.5 rounded-full animate-pulse shadow-sm">Live</div>
     </nav>
 
     <main id="app" class="max-w-md mx-auto px-5 mt-8 relative z-10">
         
         <section id="step-initial" class="animate-slide-up flex flex-col items-center text-center">
             <h1 class="font-black text-4xl mb-2 tracking-tighter uppercase leading-[0.9] italic">Yellow<br>Barber</h1>
-            <p class="text-[9px] font-bold text-zinc-400 mb-10 uppercase tracking-[0.3em]">Premium Grooming Experience</p>
+            <p class="text-[9px] font-bold text-zinc-400 mb-10 uppercase-wider">Premium Grooming Experience</p>
 
             <div class="w-full mb-12">
-                <h3 class="font-black text-[10px] text-zinc-400 tracking-[0.3em] uppercase mb-6 border-b border-zinc-200 pb-3">Select Branch</h3>
+                <h3 class="font-black text-[10px] text-zinc-400 tracking-[0.3em] uppercase-wider mb-6 border-b border-zinc-200 pb-3">Select Branch</h3>
                 <div id="branch-list" class="space-y-6"></div>
             </div>
 
             <div class="w-full mb-10">
-                <h3 class="font-black text-[10px] text-zinc-400 tracking-[0.3em] uppercase mb-6 border-b border-zinc-200 pb-3">Top 10 Sultan</h3>
+                <h3 class="font-black text-[10px] text-zinc-400 tracking-[0.3em] uppercase-wider mb-6 border-b border-zinc-200 pb-3">Top 10 Sultan</h3>
                 <ul id="leaderboard-list" class="space-y-2">
                     <li class="text-center py-4 animate-pulse font-bold text-[10px] text-zinc-400 uppercase tracking-widest">Loading...</li>
                 </ul>
@@ -92,7 +93,7 @@
         </section>
 
         <section id="step-staff" class="hidden animate-slide-up flex flex-col items-center">
-            <button onclick="APP_LOGIC.resetToStep1()" class="text-[9px] font-black text-zinc-500 mb-8 uppercase tracking-[0.3em] border border-zinc-200 px-6 py-2.5 rounded-full taktil hover:bg-zinc-50">
+            <button onclick="APP_LOGIC.resetToStep1()" class="text-[9px] font-black text-zinc-500 mb-8 uppercase-wider border border-zinc-200 px-6 py-2.5 rounded-full taktil hover:bg-zinc-50">
                 ← Go Back
             </button>
             
@@ -111,7 +112,7 @@
                 <p class="text-[8px] uppercase text-zinc-400 font-bold tracking-widest mb-0.5">Total Biaya</p>
                 <p id="display-price" class="text-lg font-black text-white tracking-tighter italic">Rp 0</p>
             </div>
-            <button onclick="APP_LOGIC.openBookingForm()" class="bg-[#FFE600] text-black px-8 py-3.5 rounded-[16px] font-black text-xs uppercase tracking-[0.2em] taktil shadow-lg italic">Lanjut</button>
+            <button onclick="APP_LOGIC.openBookingForm()" class="bg-[#FFE600] text-black px-8 py-3.5 rounded-[16px] font-black text-xs uppercase-wider taktil shadow-lg italic">Lanjut</button>
         </div>
     </div>
 
@@ -119,7 +120,7 @@
         <div class="bg-white w-full max-w-sm p-6 sm:p-8 rounded-[32px] animate-slide-up max-h-[90vh] overflow-y-auto hide-scrollbar relative card-shadow">
             <div class="w-12 h-1 bg-zinc-200 rounded-full mx-auto mb-8"></div>
             <h2 class="font-black text-2xl mb-2 text-center tracking-tighter uppercase italic">Detail Booking</h2>
-            <p class="text-[9px] font-bold text-zinc-400 text-center mb-8 uppercase tracking-[0.2em]">Pilih Jadwal & Data Diri</p>
+            <p class="text-[9px] font-bold text-zinc-400 text-center mb-8 uppercase-wider">Pilih Jadwal & Data Diri</p>
             
             <div class="space-y-6">
                 <div>
@@ -140,17 +141,14 @@
                 </div>
                 
                 <div class="pt-4 space-y-3">
-                    <button id="btn-submit" onclick="APP_LOGIC.submitBooking()" class="w-full bg-black text-[#FFE600] py-4 rounded-[16px] font-black text-[10px] uppercase tracking-[0.2em] taktil shadow-xl italic">Book Sekarang</button>
-                    <button onclick="APP_LOGIC.closeModal()" class="w-full text-[10px] font-bold text-zinc-400 py-3 taktil uppercase tracking-widest underline text-center block">Batal</button>
+                    <button id="btn-submit" onclick="APP_LOGIC.submitBooking()" class="w-full bg-black text-[#FFE600] py-4 rounded-[16px] font-black text-[10px] uppercaseitalic taktil shadow-xl">Book Sekarang</button>
+                    <button onclick="APP_LOGIC.closeModal()" class="w-full text-[10px] font-bold text-zinc-400 py-3 taktil uppercase-wider underline text-center block">Batal</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // ==============================================================
-        // 🤖 CONFIG YHB
-        // ==============================================================
         const CONFIG = {
             TENANT_ID: "YHB",
             BRAND_NAME: "YELLOW BARBER",
@@ -170,7 +168,10 @@
 
             async init() {
                 document.getElementById('meta-title').innerText = `Booking | ${CONFIG.BRAND_NAME}`;
-                
+                document.getElementById('meta-icon').href = CONFIG.LOGO_URL;
+                document.getElementById('splash-logo').src = CONFIG.LOGO_URL;
+                document.getElementById('nav-logo').src = CONFIG.LOGO_URL;
+
                 try {
                     const fetchPromise = fetch(CONFIG.WEBHOOK_URL, {
                         method: 'POST', headers: {'Content-Type': 'application/json'},
@@ -275,34 +276,43 @@
                 if (!staffs || staffs.length === 0 || !staffs[0].id) { container.innerHTML = `<p class="text-zinc-400 font-bold text-xs text-center py-10 uppercase tracking-widest">Capster belum tersedia.</p>`; return; }
 
                 container.innerHTML = staffs.map((s, index) => {
+                    const imgUrl = s.photo1 || 'https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/ZAMIL%20PORTRAIT.png';
+                    const rating = (Number(s.rating || 0) + 4.0).toFixed(1);
                     const role = s.role ? s.role.toUpperCase() : 'CAPSTER';
                     
-                    // FILTER HANYA LAYANAN PRIMER
+                    // KUNCI: FILTER HANYA LAYANAN PRIMER DI SINI (Step 2)
                     const primerServices = (s.services || []).filter(srv => srv.CATEGORY === 'PRIMER' || !srv.CATEGORY);
                     if(primerServices.length === 0) return '';
 
+                    // BIKIN GRID PRICELIST COMPACT
                     const servicesHtml = primerServices.map(ser => {
                         const finalPrice = Number(ser.price || ser.PRICE);
                         const serviceName = ser.name || ser.NAME;
                         return `
-                        <button onclick="APP_LOGIC.prepareBooking('${s.id}', '${ser.id}', ${finalPrice}, '${serviceName}')" class="w-full max-w-[320px] flex justify-between items-center py-4 px-5 rounded-[20px] border border-zinc-200 bg-white hover:border-black transition-all taktil card-shadow">
-                            <span class="text-[11px] font-black text-black uppercase tracking-wider italic">${serviceName}</span>
-                            <span class="text-[10px] font-black text-black bg-zinc-100 px-3 py-1.5 rounded-full italic">Rp ${finalPrice.toLocaleString('id-ID')}</span>
+                        <button onclick="APP_LOGIC.prepareBooking('${s.id}', '${ser.id}', ${finalPrice}, '${serviceName}')" class="flex flex-col items-center justify-center text-center p-3 rounded-xl border border-zinc-200 bg-white hover:border-black hover:bg-zinc-50 transition-all taktil card-shadow space-y-1">
+                            <span class="text-[10px] font-black text-black uppercaseitalic tracking-wider leading-tight">${serviceName}</span>
+                            <span class="text-[9px] font-black text-white bg-black px-2.5 py-1 rounded-full italic shadow-md">Rp ${finalPrice.toLocaleString('id-ID')}</span>
                         </button>
                         `;
                     }).join('');
 
-                    // UI TANPA FOTO (CALVIN KLEIN STYLE - TEXT CENTRIC)
+                    // UI DENGAN SEKAT PEMBEDA ( image_65bb54.png )
                     return `
-                    <div class="w-full flex flex-col items-center animate-slide-up mb-12" style="animation-delay: ${index * 0.1}s">
+                    <div class="bg-white rounded-[24px] border border-zinc-100 card-shadow overflow-hidden animate-slide-up" style="animation-delay: ${index * 0.1}s">
                         
-                        <div class="w-full max-w-[320px] text-center mb-5 pb-5 border-b border-zinc-200">
-                            <h4 class="font-black text-3xl text-black tracking-tighter uppercase mb-2 italic">${s.dbp_staff_name}</h4>
-                            <span class="inline-block text-[9px] font-bold text-black bg-zinc-100 border border-zinc-200 px-4 py-1.5 rounded-full uppercase tracking-[0.2em] shadow-sm">${role}</span>
+                        <div class="flex items-center gap-4 p-5 bg-white border-b-2 border-zinc-100">
+                            <img src="${imgUrl}" class="w-16 h-16 rounded-full object-cover border-2 border-zinc-100 shadow-inner">
+                            <div>
+                                <h4 class="font-black text-xl text-black uppercase tracking-tighter mb-1 leading-none italic">${s.dbp_staff_name}</h4>
+                                <span class="inline-block text-[8px] font-bold text-black bg-zinc-100 border border-zinc-200 px-3 py-1 rounded-full uppercase-wider shadow-sm mb-2">${role}</span>
+                                <div class="flex items-center gap-1.5 text-black font-black text-[9px]"><span class="text-amber-500">★</span> ${rating} <span class="font-medium text-zinc-400 ml-1">Reviews (40+)</span></div>
+                            </div>
                         </div>
 
-                        <div class="w-full flex flex-col items-center gap-3">
-                            ${servicesHtml}
+                        <div class="p-5 bg-zinc-50/50">
+                            <div class="grid grid-cols-2 gap-3">
+                                ${servicesHtml}
+                            </div>
                         </div>
                     </div>`;
                 }).join('');
@@ -350,10 +360,13 @@
                 const booked = staffData ? (staffData.booked_slots || []) : [];
 
                 container.innerHTML = CONFIG.AVAILABLE_HOURS.map(h => {
+                    // Cek booked slots (format must match Webhook: YYYY-MM-DD | HH:MM)
                     if (booked.some(slot => String(slot).includes(selectedDate) && String(slot).includes(h))) {
-                        return `<button disabled class="w-full bg-zinc-100 border border-zinc-200 text-zinc-300 py-3 rounded-[12px] text-[10px] font-black opacity-50 cursor-not-allowed">FULL</button>`;
+                        
+                        // FIX: TULISAN FULL DIBUAT KENTARA ( image_65bef0.png )
+                        return `<button disabled class="time-btn w-full bg-red-100 text-red-700 border-2 border-red-300 py-3 rounded-[12px] text-[10px] font-black opacity-60 cursor-not-allowed line-through">FULL</button>`;
                     }
-                    return `<button id="btn-time-${h.replace(':','')}" onclick="APP_LOGIC.selectTime('${h}')" class="time-btn w-full bg-zinc-50 text-zinc-500 border border-zinc-200 py-3 rounded-[12px] text-[10px] font-black transition-all taktil">${h}</button>`;
+                    return `<button id="btn-time-${h.replace(':','')}" onclick="APP_LOGIC.selectTime('${h}')" class="time-btn w-full bg-zinc-50 text-zinc-500 border border-zinc-200 py-3 rounded-[12px] text-[10px] font-black transition-all taktil">BOOK</button>`;
                 }).join('');
             },
 
