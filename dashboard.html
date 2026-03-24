@@ -7,43 +7,49 @@
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #F5F5F7; color: #1D1D1F; -webkit-tap-highlight-color: transparent; overflow-x: hidden; }
+        /* CK STRICT STYLING */
+        body { font-family: 'Jost', sans-serif; background-color: #F5F5F7; color: #111111; -webkit-tap-highlight-color: transparent; overflow-x: hidden; }
+        .ck-font { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 400; }
+        .ck-bold { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+        
         .apple-shadow { box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04); }
         .apple-shadow-lg { box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08); }
         .apple-card { background: #FFFFFF; border: 1px solid #E5E5EA; border-radius: 20px; }
         .glass-header { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid #E5E5EA; }
         .btn-press:active { transform: scale(0.97); }
+        
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #D1D1D6; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #999999; }
+        
         @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
         .animate-slide-up { animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
         .animate-pulse-dot { animation: pulse-dot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
-        .tab-active { background: #1D1D1F !important; color: #FFFFFF !important; font-weight: 700 !important; }
         
+        .tab-active { background: #111111 !important; color: #FFFFFF !important; font-weight: 600 !important; }
         #view-cashier { padding-bottom: 80px; }
     </style>
 </head>
-<body class="h-screen w-screen overflow-hidden text-zinc-900">
+<body class="h-screen w-screen overflow-hidden">
 
     <div id="view-login" class="h-full w-full flex flex-col items-center justify-center px-6 absolute inset-0 z-40 bg-white transition-all duration-700">
         <div class="w-full max-w-sm flex flex-col items-center animate-slide-up">
             <img src="https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png" class="h-20 w-auto mb-6" alt="Logo YHB">
-            <h1 class="font-bold text-2xl tracking-tight mb-1 text-zinc-900">System Access</h1>
-            <p class="text-xs font-medium text-zinc-400 uppercase tracking-widest mb-8">Authorized Personnel Only</p>
+            <h1 class="ck-font text-2xl tracking-widest mb-1 text-black">System Access</h1>
+            <p class="text-[10px] font-medium text-zinc-400 uppercase tracking-widest mb-8">Authorized Personnel Only</p>
             
             <div class="w-full apple-card apple-shadow p-6 mb-8 text-center space-y-4">
-                <input type="text" id="userInput" placeholder="STAFF ID (KASIR)" autocomplete="off" class="w-full bg-zinc-50 text-zinc-900 font-bold uppercase text-center text-sm px-4 py-4 rounded-2xl outline-none border border-zinc-200 focus:border-zinc-400 transition-all placeholder-zinc-400">
-                <input type="password" id="pinInput" placeholder="PIN CODE" inputmode="numeric" pattern="[0-9]*" maxlength="4" class="w-full bg-zinc-50 text-zinc-900 font-black tracking-[1em] text-center text-xl px-4 py-4 rounded-2xl outline-none border border-zinc-200 focus:border-zinc-400 transition-all placeholder-zinc-400 placeholder:tracking-normal placeholder:font-bold placeholder:text-sm">
+                <input type="text" id="userInput" placeholder="STAFF ID (KASIR)" autocomplete="off" class="w-full bg-zinc-50 text-black ck-bold text-center text-sm px-4 py-4 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400 transition-all placeholder-zinc-400">
+                <input type="password" id="pinInput" placeholder="PIN CODE" inputmode="numeric" pattern="[0-9]*" maxlength="4" class="w-full bg-zinc-50 text-black font-medium tracking-[1em] text-center text-xl px-4 py-4 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400 transition-all placeholder-zinc-400 placeholder:tracking-normal placeholder:font-medium placeholder:text-sm">
                 
-                <button onclick="LOGIN_SYSTEM.submit()" class="btn-press w-full bg-zinc-900 text-[#FFE600] font-bold text-sm py-4 rounded-2xl shadow-md mt-4 hover:bg-zinc-800 transition-all uppercase tracking-widest">Login</button>
-                <p id="error-msg" class="text-red-500 font-bold text-xs mt-2 opacity-0 transition-opacity">Akses Ditolak</p>
+                <button onclick="LOGIN_SYSTEM.submit()" class="btn-press w-full bg-black text-[#FFE600] font-semibold text-sm py-4 rounded-xl shadow-md mt-4 hover:bg-zinc-800 transition-all uppercase tracking-widest">Login</button>
+                <p id="error-msg" class="text-red-500 font-medium text-xs mt-2 opacity-0 transition-opacity">Akses Ditolak</p>
             </div>
         </div>
     </div>
@@ -52,52 +58,52 @@
         <header class="glass-header sticky top-0 p-4 flex justify-between items-center shrink-0 z-20">
             <div class="flex items-center gap-3 sm:gap-4">
                 <img src="https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png" class="h-8 sm:h-10 drop-shadow-sm">
-                <div><h1 class="font-bold tracking-tight text-sm sm:text-lg leading-none text-zinc-900">Cashier Terminal</h1><p id="cashier-branch-name" class="text-[9px] sm:text-[11px] font-semibold text-zinc-500 uppercase tracking-wide mt-1">LOADING...</p></div>
+                <div><h1 class="ck-bold text-sm sm:text-lg leading-none text-black">Cashier Terminal</h1><p id="cashier-branch-name" class="text-[9px] sm:text-[10px] font-medium text-zinc-500 uppercase tracking-widest mt-1">LOADING...</p></div>
             </div>
             
             <div class="hidden md:flex bg-zinc-100 p-1 rounded-xl border border-zinc-200">
-                <button onclick="CASHIER_LOGIC.switchTab('queue')" id="tab-btn-queue" class="px-5 py-1.5 rounded-lg text-xs font-semibold tab-active transition-all">Queue</button>
-                <button onclick="CASHIER_LOGIC.switchTab('report')" id="tab-btn-report" class="px-5 py-1.5 rounded-lg text-xs font-semibold text-zinc-500 transition-all">Reports</button>
-                <button onclick="CASHIER_LOGIC.switchTab('config')" id="tab-btn-config" class="px-5 py-1.5 rounded-lg text-xs font-semibold text-zinc-500 transition-all">Pricelist</button>
+                <button onclick="CASHIER_LOGIC.switchTab('queue')" id="tab-btn-queue" class="px-5 py-1.5 rounded-md text-xs font-medium tab-active transition-all">Queue</button>
+                <button onclick="CASHIER_LOGIC.switchTab('report')" id="tab-btn-report" class="px-5 py-1.5 rounded-md text-xs font-medium text-zinc-500 transition-all">Reports</button>
+                <button onclick="CASHIER_LOGIC.switchTab('config')" id="tab-btn-config" class="px-5 py-1.5 rounded-md text-xs font-medium text-zinc-500 transition-all">Pricelist</button>
             </div>
 
             <div class="flex gap-2 sm:gap-4 items-center">
-                <div class="flex items-center gap-2 text-[10px] font-bold text-zinc-400 uppercase tracking-widest hidden lg:flex"><div id="sync-indicator" class="w-2 h-2 rounded-full bg-green-500 animate-pulse-dot"></div><span id="sync-text">Auto-Sync On</span></div>
+                <div class="flex items-center gap-2 text-[9px] font-medium text-zinc-400 uppercase tracking-widest hidden lg:flex"><div id="sync-indicator" class="w-2 h-2 rounded-full bg-green-500 animate-pulse-dot"></div><span id="sync-text">Auto-Sync On</span></div>
                 <button onclick="CASHIER_LOGIC.loadData()" class="btn-press bg-white border border-zinc-200 text-zinc-700 p-2 rounded-xl shadow-sm hover:bg-zinc-50"><svg class="w-4 h-4 sm:w-5 sm:h-5" id="sync-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg></button>
-                <button onclick="LOGIN_SYSTEM.logout()" class="btn-press bg-zinc-900 text-white font-semibold text-xs px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl shadow-md hover:bg-zinc-800 transition-all">Logout</button>
+                <button onclick="LOGIN_SYSTEM.logout()" class="btn-press bg-black text-white font-medium text-xs px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl shadow-md hover:bg-zinc-800 transition-all uppercase tracking-widest">Logout</button>
             </div>
         </header>
 
         <main id="tab-queue" class="flex-1 flex flex-col lg:flex-row p-4 gap-4 animate-slide-up">
             <div class="md:hidden flex bg-zinc-100 p-1 rounded-xl border border-zinc-200 shrink-0">
-                <button onclick="CASHIER_LOGIC.switchTab('queue')" class="flex-1 py-2 rounded-lg text-xs font-bold bg-white shadow-sm text-zinc-900">Queue</button>
-                <button onclick="CASHIER_LOGIC.switchTab('report')" class="flex-1 py-2 rounded-lg text-xs font-semibold text-zinc-500">Report</button>
-                <button onclick="CASHIER_LOGIC.switchTab('config')" class="flex-1 py-2 rounded-lg text-xs font-semibold text-zinc-500">Pricelist</button>
+                <button onclick="CASHIER_LOGIC.switchTab('queue')" class="flex-1 py-2 rounded-md text-[10px] font-medium uppercase tracking-widest bg-white shadow-sm text-black">Queue</button>
+                <button onclick="CASHIER_LOGIC.switchTab('report')" class="flex-1 py-2 rounded-md text-[10px] font-medium uppercase tracking-widest text-zinc-500">Report</button>
+                <button onclick="CASHIER_LOGIC.switchTab('config')" class="flex-1 py-2 rounded-md text-[10px] font-medium uppercase tracking-widest text-zinc-500">Pricelist</button>
             </div>
 
             <section class="flex-1 flex flex-col gap-4">
                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 shrink-0">
-                    <div class="apple-card p-3 sm:p-4 bg-white apple-shadow"><p class="text-[8px] sm:text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Gross Omset</p><p id="sum-omset" class="font-bold text-sm sm:text-lg text-blue-600 truncate">Rp 0</p></div>
-                    <div class="apple-card p-3 sm:p-4 bg-white apple-shadow"><p class="text-[8px] sm:text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Komisi Capster</p><p id="sum-komisi" class="font-bold text-sm sm:text-lg text-orange-500 truncate">Rp 0</p></div>
-                    <div class="apple-card p-3 sm:p-4 bg-white apple-shadow"><p class="text-[8px] sm:text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Pengeluaran</p><p id="sum-expense" class="font-bold text-sm sm:text-lg text-red-500 truncate">Rp 0</p></div>
-                    <div class="apple-card p-3 sm:p-4 bg-zinc-900 text-white apple-shadow border-none"><p class="text-[8px] sm:text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Setoran Laci</p><p id="sum-profit" class="font-bold text-sm sm:text-lg text-[#FFE600] truncate">Rp 0</p></div>
+                    <div class="apple-card p-3 sm:p-4 bg-white apple-shadow"><p class="text-[8px] sm:text-[9px] font-medium text-zinc-400 uppercase tracking-widest mb-1">Gross Omset (Today)</p><p id="sum-omset" class="font-semibold text-sm sm:text-lg text-blue-600 truncate">Rp 0</p></div>
+                    <div class="apple-card p-3 sm:p-4 bg-white apple-shadow"><p class="text-[8px] sm:text-[9px] font-medium text-zinc-400 uppercase tracking-widest mb-1">Komisi Capster</p><p id="sum-komisi" class="font-semibold text-sm sm:text-lg text-orange-500 truncate">Rp 0</p></div>
+                    <div class="apple-card p-3 sm:p-4 bg-white apple-shadow"><p class="text-[8px] sm:text-[9px] font-medium text-zinc-400 uppercase tracking-widest mb-1">Pengeluaran</p><p id="sum-expense" class="font-semibold text-sm sm:text-lg text-red-500 truncate">Rp 0</p></div>
+                    <div class="apple-card p-3 sm:p-4 bg-black text-white apple-shadow border-none"><p class="text-[8px] sm:text-[9px] font-medium text-zinc-400 uppercase tracking-widest mb-1">Setoran Laci</p><p id="sum-profit" class="font-semibold text-sm sm:text-lg text-[#FFE600] truncate">Rp 0</p></div>
                 </div>
 
                 <div class="apple-card apple-shadow flex flex-col min-h-[400px]">
-                    <div class="p-4 sm:p-5 border-b border-zinc-100 flex justify-between items-center bg-white rounded-t-[24px] shrink-0">
-                        <div><h2 class="font-bold text-lg sm:text-xl tracking-tight text-zinc-800">Live Queue</h2><p class="text-[10px] font-semibold text-zinc-500 uppercase tracking-wide mt-0.5">Antrean Hari Ini</p></div>
+                    <div class="p-4 sm:p-5 border-b border-zinc-100 flex justify-between items-center bg-white rounded-t-[20px] shrink-0">
+                        <div><h2 class="ck-bold text-lg sm:text-xl text-black">Live Queue</h2><p class="text-[9px] font-medium text-zinc-500 uppercase tracking-widest mt-0.5">Jadwal 7 Hari Ke Depan</p></div>
                     </div>
-                    <div id="queue-container" class="flex-1 p-4 sm:p-5 space-y-4 bg-zinc-50/50 rounded-b-[24px] overflow-y-auto"></div>
+                    <div id="queue-container" class="flex-1 p-4 sm:p-5 space-y-4 bg-zinc-50/50 rounded-b-[20px] overflow-y-auto"></div>
                 </div>
             </section>
 
             <section class="w-full lg:w-96 flex flex-col gap-4 shrink-0">
-                <button onclick="CASHIER_LOGIC.openExpenseModal()" class="btn-press w-full bg-zinc-900 text-[#FFE600] font-bold text-sm py-4 sm:py-5 rounded-[24px] shadow-md hover:bg-zinc-800 transition-all flex justify-center items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Catat Pengeluaran
+                <button onclick="CASHIER_LOGIC.openExpenseModal()" class="btn-press w-full bg-black text-[#FFE600] font-semibold text-xs py-4 sm:py-5 rounded-2xl shadow-md hover:bg-zinc-800 transition-all flex justify-center items-center gap-2 uppercase tracking-widest">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Catat Pengeluaran
                 </button>
                 <div class="flex-1 lg:flex-none lg:h-full apple-card apple-shadow flex flex-col overflow-hidden min-h-[250px] lg:min-h-0">
-                    <div class="p-4 sm:p-5 border-b border-zinc-100 bg-white rounded-t-[24px] shrink-0"><h2 class="font-bold text-base sm:text-lg tracking-tight text-zinc-800">Petty Cash</h2><p class="text-[10px] font-semibold text-zinc-400 uppercase mt-1">Pengeluaran Hari Ini</p></div>
-                    <div id="expense-container" class="flex-1 overflow-y-auto p-4 space-y-3 bg-zinc-50/50 rounded-b-[24px]"></div>
+                    <div class="p-4 sm:p-5 border-b border-zinc-100 bg-white rounded-t-[20px] shrink-0"><h2 class="ck-bold text-base sm:text-lg text-black">Petty Cash</h2><p class="text-[9px] font-medium text-zinc-400 uppercase tracking-widest mt-1">Pengeluaran Hari Ini</p></div>
+                    <div id="expense-container" class="flex-1 overflow-y-auto p-4 space-y-3 bg-zinc-50/50 rounded-b-[20px]"></div>
                 </div>
             </section>
         </main>
@@ -106,67 +112,67 @@
             <div class="max-w-6xl w-full mx-auto flex flex-col h-full gap-6">
                 <div class="flex flex-col sm:flex-row justify-between items-end gap-4 bg-white p-5 rounded-2xl apple-shadow border border-zinc-200 shrink-0">
                     <div class="w-full sm:w-auto">
-                        <label class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2 block">Pilih Bulan Laporan</label>
-                        <input type="month" id="report-month" onchange="CASHIER_LOGIC.processReport()" class="w-full bg-zinc-50 border border-zinc-200 text-zinc-800 font-semibold px-4 py-2.5 rounded-xl outline-none focus:border-zinc-400 transition-all">
+                        <label class="text-[9px] font-medium text-zinc-400 uppercase tracking-widest mb-2 block">Pilih Bulan Laporan</label>
+                        <input type="month" id="report-month" onchange="CASHIER_LOGIC.processReport()" class="w-full bg-zinc-50 border border-zinc-200 text-black font-medium px-4 py-2.5 rounded-xl outline-none focus:border-zinc-400 transition-all">
                     </div>
-                    <button onclick="CASHIER_LOGIC.exportPDF()" class="w-full sm:w-auto btn-press bg-zinc-900 text-[#FFE600] px-6 py-3 rounded-xl text-sm font-bold shadow-md hover:bg-zinc-800 transition-all uppercase tracking-widest">Download PDF</button>
+                    <button onclick="CASHIER_LOGIC.exportPDF()" class="w-full sm:w-auto btn-press bg-black text-[#FFE600] px-6 py-3 rounded-xl text-xs font-semibold shadow-md hover:bg-zinc-800 transition-all uppercase tracking-widest">Download PDF</button>
                 </div>
 
                 <div id="printable-report" class="flex-1 flex flex-col bg-white rounded-[24px] apple-shadow border border-zinc-200 p-6 sm:p-8 overflow-hidden hidden" >
-                    <div class="flex justify-between items-center border-b-2 border-zinc-100 pb-6 mb-6 shrink-0">
+                    <div class="flex justify-between items-center border-b border-zinc-200 pb-6 mb-6 shrink-0">
                         <div class="flex items-center gap-4">
-                            <img src="https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png" class="h-12 sm:h-14 drop-shadow-sm">
+                            <img src="https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png" class="h-10 sm:h-12 drop-shadow-sm">
                             <div>
-                                <h2 class="font-black text-xl sm:text-2xl text-zinc-900 uppercase italic tracking-tighter">Laporan Audit & Bagi Hasil</h2>
-                                <p id="report-branch-label" class="text-xs font-bold text-zinc-500 uppercase tracking-widest mt-1">Cabang ...</p>
+                                <h2 class="ck-font text-xl sm:text-2xl text-black">Laporan Keuangan</h2>
+                                <p id="report-branch-label" class="text-[9px] font-medium text-zinc-500 uppercase tracking-widest mt-1">Cabang ...</p>
                             </div>
                         </div>
                         <div class="text-right">
-                            <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Periode</p>
-                            <p id="report-month-label" class="font-black text-lg sm:text-xl text-zinc-800">...</p>
+                            <p class="text-[9px] font-medium text-zinc-400 uppercase tracking-widest mb-1">Periode</p>
+                            <p id="report-month-label" class="ck-bold text-lg sm:text-xl text-black">...</p>
                         </div>
                     </div>
 
-                    <h3 class="font-black text-xs text-zinc-800 uppercase tracking-widest mb-3 shrink-0">1. Ringkasan Finansial</h3>
+                    <h3 class="ck-bold text-xs text-zinc-800 mb-3 shrink-0">1. Ringkasan Finansial</h3>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8 shrink-0">
-                        <div class="bg-blue-50 p-4 rounded-[16px] border border-blue-100">
-                            <p class="text-[9px] font-bold text-blue-500 uppercase tracking-widest mb-1">Gross Revenue</p>
-                            <p id="rep-total-revenue" class="font-black text-xl text-blue-700 truncate">Rp 0</p>
-                            <p class="text-[9px] font-bold text-blue-400 mt-2 border-t border-blue-200 pt-2"><span id="rep-total-trx">0</span> Trx (AOV: <span id="rep-aov">Rp 0</span>)</p>
+                        <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                            <p class="text-[8px] font-medium text-blue-500 uppercase tracking-widest mb-1">Gross Revenue</p>
+                            <p id="rep-total-revenue" class="font-semibold text-lg text-blue-700 truncate">Rp 0</p>
+                            <p class="text-[8px] font-medium text-blue-400 mt-2 border-t border-blue-200 pt-2"><span id="rep-total-trx">0</span> Trx (AOV: <span id="rep-aov">Rp 0</span>)</p>
                         </div>
-                        <div class="bg-orange-50 p-4 rounded-[16px] border border-orange-100">
-                            <p class="text-[9px] font-bold text-orange-500 uppercase tracking-widest mb-1">Komisi Barber</p>
-                            <p id="rep-total-komisi" class="font-black text-xl text-orange-700 truncate">Rp 0</p>
-                            <p class="text-[9px] font-bold text-orange-400 mt-2 border-t border-orange-200 pt-2">Beban Gaji/Bagi Hasil</p>
+                        <div class="bg-orange-50 p-4 rounded-xl border border-orange-100">
+                            <p class="text-[8px] font-medium text-orange-500 uppercase tracking-widest mb-1">Komisi Barber</p>
+                            <p id="rep-total-komisi" class="font-semibold text-lg text-orange-700 truncate">Rp 0</p>
+                            <p class="text-[8px] font-medium text-orange-400 mt-2 border-t border-orange-200 pt-2">Beban Gaji/Bagi Hasil</p>
                         </div>
-                        <div class="bg-red-50 p-4 rounded-[16px] border border-red-100">
-                            <p class="text-[9px] font-bold text-red-500 uppercase tracking-widest mb-1">Petty Cash</p>
-                            <p id="rep-total-expense" class="font-black text-xl text-red-700 truncate">Rp 0</p>
-                            <p class="text-[9px] font-bold text-red-400 mt-2 border-t border-red-200 pt-2">Pengeluaran Toko</p>
+                        <div class="bg-red-50 p-4 rounded-xl border border-red-100">
+                            <p class="text-[8px] font-medium text-red-500 uppercase tracking-widest mb-1">Petty Cash</p>
+                            <p id="rep-total-expense" class="font-semibold text-lg text-red-700 truncate">Rp 0</p>
+                            <p class="text-[8px] font-medium text-red-400 mt-2 border-t border-red-200 pt-2">Pengeluaran Toko</p>
                         </div>
-                        <div class="bg-zinc-900 p-4 rounded-[16px] border border-zinc-800">
-                            <p class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Net / Setoran Owner</p>
-                            <p id="rep-net-profit" class="font-black text-xl text-[#FFE600] truncate">Rp 0</p>
-                            <p class="text-[8px] font-bold text-zinc-500 mt-2 border-t border-zinc-700 pt-2">Gross - Komisi - Petty Cash</p>
+                        <div class="bg-black p-4 rounded-xl border border-zinc-800">
+                            <p class="text-[8px] font-medium text-zinc-400 uppercase tracking-widest mb-1">Net / Setoran Owner</p>
+                            <p id="rep-net-profit" class="font-semibold text-lg text-[#FFE600] truncate">Rp 0</p>
+                            <p class="text-[8px] font-medium text-zinc-500 mt-2 border-t border-zinc-700 pt-2">Gross - Komisi - Petty Cash</p>
                         </div>
                     </div>
 
-                    <h3 class="font-black text-xs text-zinc-800 uppercase tracking-widest mb-3 shrink-0">2. Rekap Bagi Hasil Capster (Payroll)</h3>
+                    <h3 class="ck-bold text-xs text-zinc-800 mb-3 shrink-0">2. Rekap Bagi Hasil Capster</h3>
                     <div id="rep-capster-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8 shrink-0">
                         </div>
 
-                    <h3 class="font-black text-xs text-zinc-800 uppercase tracking-widest mb-3 shrink-0">3. Log Pemasukan Detail</h3>
-                    <div class="overflow-x-auto border border-zinc-200 rounded-[16px] mb-8 shrink-0">
+                    <h3 class="ck-bold text-xs text-zinc-800 mb-3 shrink-0">3. Log Pemasukan</h3>
+                    <div class="overflow-x-auto border border-zinc-200 rounded-xl mb-8 shrink-0">
                         <table class="w-full text-left border-collapse min-w-[700px]">
                             <thead class="bg-zinc-50 border-b border-zinc-200">
                                 <tr>
-                                    <th class="p-3 text-[9px] font-bold text-zinc-500 uppercase tracking-widest">Tgl & Jam</th>
-                                    <th class="p-3 text-[9px] font-bold text-zinc-500 uppercase tracking-widest">Pelanggan</th>
-                                    <th class="p-3 text-[9px] font-bold text-zinc-500 uppercase tracking-widest">Layanan</th>
-                                    <th class="p-3 text-[9px] font-bold text-zinc-500 uppercase tracking-widest">Capster</th>
-                                    <th class="p-3 text-[9px] font-bold text-zinc-500 uppercase text-right tracking-widest">Tarif (Gross)</th>
-                                    <th class="p-3 text-[9px] font-bold text-orange-600 uppercase text-right tracking-widest">Komisi</th>
-                                    <th class="p-3 text-[9px] font-bold text-zinc-900 uppercase text-right tracking-widest">Hak Owner</th>
+                                    <th class="p-3 text-[8px] font-medium text-zinc-500 uppercase tracking-widest">Tgl & Jam</th>
+                                    <th class="p-3 text-[8px] font-medium text-zinc-500 uppercase tracking-widest">Pelanggan</th>
+                                    <th class="p-3 text-[8px] font-medium text-zinc-500 uppercase tracking-widest">Layanan</th>
+                                    <th class="p-3 text-[8px] font-medium text-zinc-500 uppercase tracking-widest">Capster</th>
+                                    <th class="p-3 text-[8px] font-medium text-zinc-500 uppercase text-right tracking-widest">Tarif (Gross)</th>
+                                    <th class="p-3 text-[8px] font-medium text-orange-600 uppercase text-right tracking-widest">Komisi</th>
+                                    <th class="p-3 text-[8px] font-medium text-black uppercase text-right tracking-widest">Hak Owner</th>
                                 </tr>
                             </thead>
                             <tbody id="report-table-income" class="divide-y divide-zinc-100 text-xs">
@@ -174,15 +180,15 @@
                         </table>
                     </div>
 
-                    <h3 class="font-black text-xs text-zinc-800 uppercase tracking-widest mb-3 shrink-0">4. Log Pengeluaran Kas (Petty Cash)</h3>
-                    <div class="overflow-x-auto border border-zinc-200 rounded-[16px] shrink-0">
+                    <h3 class="ck-bold text-xs text-zinc-800 mb-3 shrink-0">4. Log Pengeluaran</h3>
+                    <div class="overflow-x-auto border border-zinc-200 rounded-xl shrink-0">
                         <table class="w-full text-left border-collapse min-w-[500px]">
                             <thead class="bg-red-50 border-b border-red-100">
                                 <tr>
-                                    <th class="p-3 text-[9px] font-bold text-red-500 uppercase tracking-widest w-32">Tanggal</th>
-                                    <th class="p-3 text-[9px] font-bold text-red-500 uppercase tracking-widest w-40">Kategori</th>
-                                    <th class="p-3 text-[9px] font-bold text-red-500 uppercase tracking-widest">Deskripsi Item</th>
-                                    <th class="p-3 text-[9px] font-bold text-red-500 uppercase text-right tracking-widest w-40">Nominal Keluar</th>
+                                    <th class="p-3 text-[8px] font-medium text-red-500 uppercase tracking-widest w-32">Tanggal</th>
+                                    <th class="p-3 text-[8px] font-medium text-red-500 uppercase tracking-widest w-40">Kategori</th>
+                                    <th class="p-3 text-[8px] font-medium text-red-500 uppercase tracking-widest">Deskripsi Item</th>
+                                    <th class="p-3 text-[8px] font-medium text-red-500 uppercase text-right tracking-widest w-40">Nominal Keluar</th>
                                 </tr>
                             </thead>
                             <tbody id="report-table-expense" class="divide-y divide-red-50 text-xs">
@@ -198,16 +204,16 @@
             <div class="max-w-4xl mx-auto space-y-6 pb-10">
                 <div class="apple-card p-5 sm:p-6 apple-shadow">
                     <div class="flex justify-between items-center mb-6">
-                        <h2 class="font-bold text-lg text-zinc-800">Layanan Utama (Primer)</h2>
-                        <button onclick="CASHIER_LOGIC.openPackageModal('PRIMER')" class="btn-press bg-zinc-900 text-[#FFE600] px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest">+ Add New</button>
+                        <h2 class="ck-bold text-lg text-black">Layanan Utama</h2>
+                        <button onclick="CASHIER_LOGIC.openPackageModal('PRIMER')" class="btn-press bg-black text-[#FFE600] px-4 py-2 rounded-xl text-[9px] font-medium uppercase tracking-widest">+ Add New</button>
                     </div>
                     <div id="config-primer-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                 </div>
                 
                 <div class="apple-card p-5 sm:p-6 apple-shadow">
                     <div class="flex justify-between items-center mb-6">
-                        <h2 class="font-bold text-lg text-zinc-800">Daftar Add-Ons</h2>
-                        <button onclick="CASHIER_LOGIC.openPackageModal('ADD ON')" class="btn-press bg-zinc-900 text-[#FFE600] px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest">+ Add New</button>
+                        <h2 class="ck-bold text-lg text-black">Add-Ons</h2>
+                        <button onclick="CASHIER_LOGIC.openPackageModal('ADD ON')" class="btn-press bg-black text-[#FFE600] px-4 py-2 rounded-xl text-[9px] font-medium uppercase tracking-widest">+ Add New</button>
                     </div>
                     <div id="config-addon-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                 </div>
@@ -217,14 +223,14 @@
 
     <div id="modal-expense" class="fixed inset-0 z-[60] bg-zinc-900/40 backdrop-blur-sm hidden flex-col items-center justify-center p-4 transition-all">
         <div class="bg-white w-full max-w-sm rounded-[24px] p-6 shadow-2xl animate-slide-up border border-zinc-100 max-h-[90vh] overflow-y-auto">
-            <h2 class="font-bold text-xl mb-6 text-zinc-900 tracking-tight">Catat Pengeluaran</h2>
+            <h2 class="ck-bold text-xl mb-6 text-black tracking-tight">Catat Pengeluaran</h2>
             <div class="space-y-4">
-                <div><label class="text-[10px] font-bold text-zinc-500 mb-1 block uppercase tracking-wider">Kategori</label><select id="exp-kategori" class="w-full bg-zinc-50 text-zinc-900 font-semibold text-sm px-4 py-3.5 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400"><option value="OPERASIONAL">Operasional</option><option value="KONSUMSI">Konsumsi</option><option value="MAINTENANCE">Maintenance</option><option value="LAINNYA">Lainnya</option></select></div>
-                <div><label class="text-[10px] font-bold text-zinc-500 mb-1 block uppercase tracking-wider">Deskripsi Item</label><input type="text" id="exp-deskripsi" placeholder="Contoh: Beli Silet" class="w-full bg-zinc-50 text-zinc-900 font-semibold text-sm px-4 py-3.5 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400 placeholder-zinc-400"></div>
-                <div><label class="text-[10px] font-bold text-zinc-500 mb-1 block uppercase tracking-wider">Nominal (Rp)</label><input type="number" id="exp-nominal" placeholder="0" class="w-full bg-zinc-50 text-zinc-900 font-bold text-xl px-4 py-3.5 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400 placeholder-zinc-400"></div>
+                <div><label class="text-[9px] font-medium text-zinc-500 mb-1 block uppercase tracking-widest">Kategori</label><select id="exp-kategori" class="w-full bg-zinc-50 text-black font-medium text-sm px-4 py-3.5 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400"><option value="OPERASIONAL">Operasional</option><option value="KONSUMSI">Konsumsi</option><option value="MAINTENANCE">Maintenance</option><option value="LAINNYA">Lainnya</option></select></div>
+                <div><label class="text-[9px] font-medium text-zinc-500 mb-1 block uppercase tracking-widest">Deskripsi Item</label><input type="text" id="exp-deskripsi" placeholder="Contoh: Beli Silet" class="w-full bg-zinc-50 text-black font-medium text-sm px-4 py-3.5 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400 placeholder-zinc-400"></div>
+                <div><label class="text-[9px] font-medium text-zinc-500 mb-1 block uppercase tracking-widest">Nominal (Rp)</label><input type="number" id="exp-nominal" placeholder="0" class="w-full bg-zinc-50 text-black font-semibold text-xl px-4 py-3.5 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400 placeholder-zinc-400"></div>
                 <div class="flex gap-3 pt-4">
-                    <button onclick="CASHIER_LOGIC.closeExpenseModal()" class="btn-press flex-1 bg-zinc-100 text-zinc-600 py-3.5 rounded-xl font-bold text-sm hover:bg-zinc-200 transition-all uppercase tracking-widest">Batal</button>
-                    <button onclick="CASHIER_LOGIC.submitExpense()" class="btn-press flex-1 bg-zinc-900 text-[#FFE600] py-3.5 rounded-xl font-bold text-sm shadow-md hover:bg-zinc-800 transition-all uppercase tracking-widest">Simpan</button>
+                    <button onclick="CASHIER_LOGIC.closeExpenseModal()" class="btn-press flex-1 bg-zinc-100 text-zinc-600 py-3.5 rounded-xl font-medium text-xs hover:bg-zinc-200 transition-all uppercase tracking-widest">Batal</button>
+                    <button onclick="CASHIER_LOGIC.submitExpense()" class="btn-press flex-1 bg-black text-[#FFE600] py-3.5 rounded-xl font-medium text-xs shadow-md hover:bg-zinc-800 transition-all uppercase tracking-widest">Simpan</button>
                 </div>
             </div>
         </div>
@@ -232,20 +238,20 @@
 
     <div id="modal-swap-capster" class="fixed inset-0 z-[60] bg-zinc-900/40 backdrop-blur-sm hidden flex-col items-center justify-center p-4 transition-all">
         <div class="bg-white w-full max-w-sm rounded-[24px] p-6 shadow-2xl animate-slide-up border border-zinc-100 max-h-[90vh] overflow-y-auto">
-            <h2 class="font-bold text-xl mb-1 text-zinc-900 tracking-tight">Pindah Capster</h2>
-            <p id="swap-cust-name" class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-6">NAMA CUSTOMER</p>
+            <h2 class="ck-bold text-xl mb-1 text-black tracking-tight">Pindah Capster</h2>
+            <p id="swap-cust-name" class="text-[9px] font-medium text-zinc-400 uppercase tracking-widest mb-6">NAMA CUSTOMER</p>
             <input type="hidden" id="swap-booking-id">
 
             <div class="space-y-4">
                 <div>
-                    <label class="text-[10px] font-bold text-zinc-500 mb-1 block uppercase tracking-wider">Pilih Capster Baru</label>
-                    <select id="swap-capster-select" class="w-full bg-zinc-50 text-zinc-900 font-semibold text-sm px-4 py-3.5 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400 uppercase">
-                        </select>
+                    <label class="text-[9px] font-medium text-zinc-500 mb-1 block uppercase tracking-widest">Pilih Capster Baru</label>
+                    <select id="swap-capster-select" class="w-full bg-zinc-50 text-black font-medium text-sm px-4 py-3.5 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400 uppercase">
+                    </select>
                 </div>
                 
                 <div class="flex gap-3 pt-4">
-                    <button onclick="document.getElementById('modal-swap-capster').classList.replace('flex','hidden')" class="btn-press flex-1 bg-zinc-100 text-zinc-600 py-3.5 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-zinc-200 transition-all">Batal</button>
-                    <button onclick="CASHIER_LOGIC.submitSwapCapster()" class="btn-press flex-[2] bg-[#FFE600] text-zinc-900 py-3.5 rounded-xl font-bold text-xs uppercase tracking-widest shadow-md transition-all">Pindah</button>
+                    <button onclick="document.getElementById('modal-swap-capster').classList.replace('flex','hidden')" class="btn-press flex-1 bg-zinc-100 text-zinc-600 py-3.5 rounded-xl font-medium text-xs uppercase tracking-widest hover:bg-zinc-200 transition-all">Batal</button>
+                    <button onclick="CASHIER_LOGIC.submitSwapCapster()" class="btn-press flex-[2] bg-[#FFE600] text-black py-3.5 rounded-xl font-medium text-xs uppercase tracking-widest shadow-md transition-all">Pindah</button>
                 </div>
             </div>
         </div>
@@ -253,29 +259,29 @@
 
     <div id="modal-checkout" class="fixed inset-0 z-[60] bg-zinc-900/40 backdrop-blur-sm hidden flex-col items-center justify-center p-4 transition-all">
         <div class="bg-white w-full max-w-sm rounded-[24px] p-6 shadow-2xl animate-slide-up border border-zinc-100 max-h-[90vh] overflow-hidden flex flex-col">
-            <h2 class="font-bold text-xl text-zinc-900 tracking-tight shrink-0 mb-1">Checkout Pesanan</h2>
-            <p id="checkout-cust-name" class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-4 shrink-0">NAMA CUSTOMER</p>
+            <h2 class="ck-bold text-xl text-black tracking-tight shrink-0 mb-1">Checkout Pesanan</h2>
+            <p id="checkout-cust-name" class="text-[9px] font-medium text-zinc-400 uppercase tracking-widest mb-4 shrink-0">NAMA CUSTOMER</p>
             
             <div class="flex-1 overflow-y-auto pr-1 space-y-4 hide-scrollbar">
-                <div class="bg-zinc-50 border border-zinc-200 p-4 rounded-[16px]">
-                    <p class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Layanan Utama</p>
-                    <p id="checkout-main-service" class="font-bold text-sm text-zinc-800">...</p>
+                <div class="bg-zinc-50 border border-zinc-200 p-4 rounded-xl">
+                    <p class="text-[8px] font-medium text-zinc-400 uppercase tracking-widest mb-1">Layanan Utama</p>
+                    <p id="checkout-main-service" class="font-medium text-sm text-black">...</p>
                 </div>
                 
                 <div>
-                    <p class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-2 ml-1">Pilih Tambahan (Opsional)</p>
+                    <p class="text-[8px] font-medium text-zinc-400 uppercase tracking-widest mb-2 ml-1">Pilih Tambahan (Opsional)</p>
                     <div id="checkout-addons-list" class="space-y-2"></div>
                 </div>
             </div>
 
             <div class="border-t border-zinc-100 pt-5 mt-4 shrink-0">
                 <div class="flex justify-between items-center mb-6">
-                    <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Total Tagihan</span>
-                    <span id="checkout-total-display" class="font-bold text-2xl text-blue-600 tracking-tight">Rp 0</span>
+                    <span class="text-[9px] font-medium text-zinc-400 uppercase tracking-widest">Total Tagihan</span>
+                    <span id="checkout-total-display" class="font-semibold text-2xl text-blue-600 tracking-tight">Rp 0</span>
                 </div>
                 <div class="flex gap-3">
-                    <button onclick="document.getElementById('modal-checkout').classList.replace('flex','hidden')" class="btn-press flex-1 bg-zinc-100 text-zinc-600 py-3.5 rounded-xl font-bold text-[10px] uppercase tracking-widest hover:bg-zinc-200 transition-all">Batal</button>
-                    <button onclick="CASHIER_LOGIC.confirmCheckout()" class="btn-press flex-[2] bg-zinc-900 text-[#FFE600] py-3.5 rounded-xl font-bold text-[10px] uppercase tracking-[0.1em] shadow-md hover:bg-zinc-800 transition-all">Selesai & Catat</button>
+                    <button onclick="document.getElementById('modal-checkout').classList.replace('flex','hidden')" class="btn-press flex-1 bg-zinc-100 text-zinc-600 py-3.5 rounded-xl font-medium text-[9px] uppercase tracking-widest hover:bg-zinc-200 transition-all">Batal</button>
+                    <button onclick="CASHIER_LOGIC.confirmCheckout()" class="btn-press flex-[2] bg-black text-[#FFE600] py-3.5 rounded-xl font-medium text-[9px] uppercase tracking-widest shadow-md hover:bg-zinc-800 transition-all">Selesai</button>
                 </div>
             </div>
         </div>
@@ -283,18 +289,18 @@
 
     <div id="modal-pkg" class="fixed inset-0 z-[60] bg-zinc-900/40 backdrop-blur-sm hidden flex-col items-center justify-center p-4 transition-all">
         <div class="bg-white w-full max-w-sm rounded-[24px] p-6 shadow-2xl animate-slide-up border border-zinc-100 max-h-[90vh] overflow-y-auto">
-            <h2 id="pkg-modal-title" class="font-bold text-xl mb-6 text-zinc-900">Manage Item</h2>
+            <h2 id="pkg-modal-title" class="ck-bold text-xl mb-6 text-black">Manage Item</h2>
             <input type="hidden" id="pkg-id">
             <input type="hidden" id="pkg-category">
             <div class="space-y-4">
-                <div><label class="text-[10px] font-bold text-zinc-500 mb-1 block uppercase tracking-wider">Nama Item</label><input type="text" id="pkg-name" placeholder="Misal: CUT AND CLEAN" class="w-full bg-zinc-50 text-zinc-900 font-bold text-sm px-4 py-3.5 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400 uppercase"></div>
-                <div><label class="text-[10px] font-bold text-zinc-500 mb-1 block uppercase tracking-wider">Harga (Rp)</label><input type="number" id="pkg-price" placeholder="0" class="w-full bg-zinc-50 text-zinc-900 font-bold text-xl px-4 py-3.5 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400 placeholder-zinc-400 tracking-tight"></div>
+                <div><label class="text-[9px] font-medium text-zinc-500 mb-1 block uppercase tracking-widest">Nama Item</label><input type="text" id="pkg-name" placeholder="Misal: CUT AND CLEAN" class="w-full bg-zinc-50 text-black font-medium text-sm px-4 py-3.5 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400 uppercase"></div>
+                <div><label class="text-[9px] font-medium text-zinc-500 mb-1 block uppercase tracking-widest">Harga (Rp)</label><input type="number" id="pkg-price" placeholder="0" class="w-full bg-zinc-50 text-black font-semibold text-xl px-4 py-3.5 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400 placeholder-zinc-400 tracking-tight"></div>
                 
                 <div class="flex gap-3 pt-4">
-                    <button onclick="document.getElementById('modal-pkg').classList.replace('flex','hidden')" class="btn-press flex-1 bg-zinc-100 text-zinc-600 py-3.5 rounded-xl font-bold text-xs hover:bg-zinc-200 transition-all uppercase tracking-widest">Batal</button>
-                    <button onclick="CASHIER_LOGIC.savePackage()" class="btn-press flex-[2] bg-zinc-900 text-white py-3.5 rounded-xl font-bold text-xs shadow-md hover:bg-zinc-800 transition-all uppercase tracking-widest">Simpan</button>
+                    <button onclick="document.getElementById('modal-pkg').classList.replace('flex','hidden')" class="btn-press flex-1 bg-zinc-100 text-zinc-600 py-3.5 rounded-xl font-medium text-xs hover:bg-zinc-200 transition-all uppercase tracking-widest">Batal</button>
+                    <button onclick="CASHIER_LOGIC.savePackage()" class="btn-press flex-[2] bg-black text-[#FFE600] py-3.5 rounded-xl font-medium text-xs shadow-md hover:bg-zinc-800 transition-all uppercase tracking-widest">Simpan</button>
                 </div>
-                <button id="btn-delete-pkg" onclick="CASHIER_LOGIC.deletePackage()" class="w-full text-center text-red-500 font-bold text-[10px] uppercase underline mt-4 pt-4 border-t border-zinc-100 hidden">Hapus Item Ini</button>
+                <button id="btn-delete-pkg" onclick="CASHIER_LOGIC.deletePackage()" class="w-full text-center text-red-500 font-medium text-[9px] uppercase underline mt-4 pt-4 border-t border-zinc-100 hidden">Hapus Item Ini</button>
             </div>
         </div>
     </div>
@@ -302,15 +308,15 @@
     <div id="modal-cancel" class="fixed inset-0 z-[60] bg-zinc-900/40 backdrop-blur-sm hidden flex-col items-center justify-center p-4 transition-all">
         <div class="bg-white w-full max-w-sm rounded-[24px] p-6 shadow-2xl animate-slide-up border border-red-100">
             <div class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center mb-4"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div>
-            <h2 class="font-bold text-xl text-zinc-900 mb-2 tracking-tight">Hapus / Batalkan?</h2><p class="text-xs text-zinc-500 mb-6 leading-relaxed">Jadwal ini akan dihapus dari sistem. Ketik <span class="font-black text-red-600">YAKIN</span> untuk melanjutkan.</p>
-            <input type="text" id="cancel-confirm-text" placeholder="Ketik YAKIN" class="w-full bg-zinc-50 text-center text-red-600 font-black tracking-widest text-lg px-4 py-3 rounded-xl outline-none border border-red-200 focus:border-red-400 mb-4">
-            <div class="flex gap-3"><button onclick="CASHIER_LOGIC.closeCancelModal()" class="btn-press flex-1 bg-zinc-100 text-zinc-600 py-3.5 rounded-xl font-bold text-sm hover:bg-zinc-200 transition-all">Kembali</button><button id="btn-submit-cancel" onclick="CASHIER_LOGIC.processCancel()" class="btn-press flex-1 bg-red-600 text-white py-3.5 rounded-xl font-bold text-sm shadow-md hover:bg-red-700 transition-all opacity-50 cursor-not-allowed" disabled>Hapus</button></div>
+            <h2 class="ck-bold text-xl text-black mb-2 tracking-tight">Hapus Data?</h2><p class="text-xs text-zinc-500 mb-6 leading-relaxed">Data akan dihapus dari sistem. Ketik <span class="font-bold text-red-600">YAKIN</span> untuk melanjutkan.</p>
+            <input type="text" id="cancel-confirm-text" placeholder="Ketik YAKIN" class="w-full bg-zinc-50 text-center text-red-600 font-semibold tracking-widest text-lg px-4 py-3 rounded-xl outline-none border border-red-200 focus:border-red-400 mb-4">
+            <div class="flex gap-3"><button onclick="CASHIER_LOGIC.closeCancelModal()" class="btn-press flex-1 bg-zinc-100 text-zinc-600 py-3.5 rounded-xl font-medium text-xs hover:bg-zinc-200 transition-all uppercase tracking-widest">Batal</button><button id="btn-submit-cancel" onclick="CASHIER_LOGIC.processCancel()" class="btn-press flex-1 bg-red-600 text-white py-3.5 rounded-xl font-medium text-xs shadow-md hover:bg-red-700 transition-all opacity-50 cursor-not-allowed uppercase tracking-widest" disabled>Hapus</button></div>
         </div>
     </div>
 
     <div id="loading-overlay" class="fixed inset-0 bg-white/80 backdrop-blur-sm hidden flex-col items-center justify-center z-[200] transition-all">
-        <div class="w-10 h-10 border-4 border-zinc-200 border-t-zinc-900 rounded-full animate-spin mb-4"></div>
-        <h2 id="loading-text" class="font-bold text-zinc-800 tracking-wide text-xs uppercase">Memproses...</h2>
+        <div class="w-10 h-10 border-4 border-zinc-200 border-t-black rounded-full animate-spin mb-4"></div>
+        <h2 id="loading-text" class="ck-bold text-black tracking-wide text-[10px]">Memproses...</h2>
     </div>
 
     <script>
@@ -332,13 +338,33 @@
             post: async (payload) => {
                 const res = await fetch(CONFIG.WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({...payload, tenant_id: CONFIG.TENANT_ID}) });
                 return await res.json();
+            },
+            // Generator for next 7 days validation
+            generateNext7Days: (baseDateStr) => {
+                const dates = [];
+                const parts = baseDateStr.split('-');
+                const d = new Date(parts[0], parts[1]-1, parts[2]);
+                for(let i=0; i<7; i++) {
+                    const temp = new Date(d);
+                    temp.setDate(temp.getDate() + i);
+                    const y = temp.getFullYear();
+                    const m = String(temp.getMonth()+1).padStart(2,'0');
+                    const day = String(temp.getDate()).padStart(2,'0');
+                    dates.push(`${y}-${m}-${day}`);
+                }
+                return dates;
+            },
+            formatDateShort: (dateStr) => {
+                const mNames = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Ags", "Sep", "Okt", "Nov", "Des"];
+                const p = dateStr.split('-');
+                return `${p[2]} ${mNames[parseInt(p[1])-1]}`;
             }
         };
 
         const LOGIN_SYSTEM = {
             pin: "",
             init() {
-                const saved = localStorage.getItem('yhb_v17_user');
+                const saved = localStorage.getItem('yhb_v18_user');
                 if (saved) { STATE.user = JSON.parse(saved); this.route(); }
                 document.getElementById('pinInput').addEventListener('keypress', function(e) { if (e.key === 'Enter') LOGIN_SYSTEM.submit(); });
             },
@@ -346,11 +372,11 @@
                 const u = document.getElementById('userInput').value.toUpperCase();
                 const p = document.getElementById('pinInput').value;
                 if (!u || !p) return this.triggerError("ISI ID DAN PIN");
-                UTIL.showLoading("Verifikasi...");
+                UTIL.showLoading("VERIFIKASI...");
                 try {
                     const data = await UTIL.post({ action: 'login', username: u, password: p });
                     const res = data[0] || data;
-                    if (res.success) { STATE.user = res.user; localStorage.setItem('yhb_v17_user', JSON.stringify(res.user)); this.route(); } 
+                    if (res.success) { STATE.user = res.user; localStorage.setItem('yhb_v18_user', JSON.stringify(res.user)); this.route(); } 
                     else throw new Error();
                 } catch (e) { this.triggerError("AKSES DITOLAK"); } finally { UTIL.hideLoading(); document.getElementById('pinInput').value = ''; }
             },
@@ -360,7 +386,7 @@
                 document.getElementById('view-cashier').classList.replace('hidden', 'flex');
                 CASHIER_LOGIC.init();
             },
-            logout() { localStorage.removeItem('yhb_v17_user'); location.reload(); }
+            logout() { localStorage.removeItem('yhb_v18_user'); location.reload(); }
         };
 
         const CASHIER_LOGIC = {
@@ -383,17 +409,17 @@
                 ['queue', 'report', 'config'].forEach(t => { 
                     document.getElementById(`tab-${t}`).classList.add('hidden'); 
                     const btn = document.getElementById(`tab-btn-${t}`);
-                    if(btn) { btn.classList.remove('tab-active', 'text-zinc-900'); btn.classList.add('text-zinc-500'); }
+                    if(btn) { btn.classList.remove('tab-active', 'text-black'); btn.classList.add('text-zinc-500'); }
                 });
                 document.getElementById(`tab-${tab}`).classList.remove('hidden');
                 const activeBtn = document.getElementById(`tab-btn-${tab}`);
-                if(activeBtn) { activeBtn.classList.remove('text-zinc-500'); activeBtn.classList.add('tab-active', 'text-zinc-900'); }
+                if(activeBtn) { activeBtn.classList.remove('text-zinc-500'); activeBtn.classList.add('tab-active', 'text-black'); }
                 if(tab === 'report') this.processReport();
             },
             async loadData(silent = false) {
                 const sText = document.getElementById('sync-text'); const sIcon = document.getElementById('sync-icon');
                 if(sText) sText.innerText = "Syncing..."; if(sIcon) sIcon.classList.add('animate-spin');
-                if(!silent) UTIL.showLoading("Menyinkronkan Data...");
+                if(!silent) UTIL.showLoading("SYNCING DATA...");
                 
                 try {
                     const data = await UTIL.post({ action: 'get_cashier_data', branch: STATE.user.branch });
@@ -423,11 +449,9 @@
                 }
             },
             
-            // --- BAGI HASIL DYNAMIC ---
             calculateCommission(capsterName, price) {
                 const p = Number(price) || 0;
                 const cName = String(capsterName || '').toUpperCase();
-                // Aturan khusus BUR = 60%, sisanya 50%
                 if(cName.includes('BUR')) return p * 0.60;
                 return p * 0.50; 
             },
@@ -453,37 +477,48 @@
                 document.getElementById('sum-profit').innerText = UTIL.formatRp(omset - komisi - exp); 
             },
             
-            // --- QUEUE ---
+            // --- QUEUE (7 DAYS) ---
             renderQueue() {
                 const container = document.getElementById('queue-container'); 
                 container.innerHTML = ''; 
-                const todayData = STATE.queue.filter(d => UTIL.cleanDate(d.tanggal) === STATE.sysDates.today).sort((a,b) => a.jam.localeCompare(b.jam));
-
-                if(todayData.length === 0) { container.innerHTML = `<div class="text-center py-10 text-zinc-400 font-bold text-sm">Belum ada antrean hari ini.</div>`; return; }
                 
-                todayData.forEach(item => {
+                // Ambil tanggal dari hari ini s.d 7 hari ke depan
+                const validDates = UTIL.generateNext7Days(STATE.sysDates.today);
+
+                // Filter & Sort: Berdasarkan Tanggal lalu Jam
+                const filteredData = STATE.queue.filter(d => validDates.includes(UTIL.cleanDate(d.tanggal))).sort((a,b) => {
+                    const dateA = UTIL.cleanDate(a.tanggal);
+                    const dateB = UTIL.cleanDate(b.tanggal);
+                    if (dateA === dateB) return a.jam.localeCompare(b.jam);
+                    return dateA.localeCompare(dateB);
+                });
+
+                if(filteredData.length === 0) { container.innerHTML = `<div class="text-center py-10 text-zinc-400 font-medium text-xs uppercase tracking-widest">Belum ada jadwal.</div>`; return; }
+                
+                filteredData.forEach(item => {
                     const isDone = item.status === 'DONE' || item.status === 'SUCCESS'; 
                     const isPending = item.status === 'PENDING';
                     const cName = item.caps_in_charge || item.capster_id || 'Barber'; 
                     const waPhone = UTIL.formatWA(item.cust_phone);
                     
-                    let sBadge = isDone ? `<span class="text-[9px] font-bold uppercase px-2 py-1 rounded bg-zinc-200 text-zinc-500">✓ Selesai</span>` : (isPending ? `<span class="text-[9px] font-bold uppercase px-2 py-1 rounded bg-zinc-100 text-zinc-500">Pending</span>` : `<span class="text-[9px] font-bold uppercase px-2 py-1 rounded bg-blue-100 text-blue-700">On Duty</span>`);
+                    let sBadge = isDone ? `<span class="text-[8px] font-semibold uppercase px-2 py-1 rounded bg-zinc-200 text-zinc-500 tracking-widest">✓ Selesai</span>` : (isPending ? `<span class="text-[8px] font-semibold uppercase px-2 py-1 rounded bg-zinc-100 text-zinc-500 tracking-widest">Pending</span>` : `<span class="text-[8px] font-semibold uppercase px-2 py-1 rounded bg-blue-100 text-blue-700 tracking-widest">On Duty</span>`);
+                    const dateBadge = `<span class="text-[9px] font-medium uppercase px-2 py-1 rounded border border-zinc-200 text-zinc-500 tracking-widest bg-white">${UTIL.formatDateShort(UTIL.cleanDate(item.tanggal))}</span>`;
                     
                     let aBtns = '';
                     if (!isDone) {
-                        const cBtn = `<button onclick="CASHIER_LOGIC.openCancelModal('${item.id}')" class="btn-press bg-white border border-red-200 text-red-600 px-3 py-2 rounded-lg text-[11px] font-bold hover:bg-red-50 transition-all">Cancel</button>`;
-                        const swapBtn = `<button onclick="CASHIER_LOGIC.openSwapModal('${item.id}', '${item.cust_name}')" class="btn-press bg-yellow-50 border border-yellow-200 text-yellow-700 px-3 py-2 rounded-lg text-[11px] font-bold hover:bg-yellow-100 transition-all">Pindah</button>`;
+                        const cBtn = `<button onclick="CASHIER_LOGIC.openCancelModal('${item.id}')" class="btn-press bg-white border border-red-200 text-red-600 px-4 py-2 rounded-lg text-[9px] font-semibold hover:bg-red-50 transition-all uppercase tracking-widest">Cancel</button>`;
+                        const swapBtn = `<button onclick="CASHIER_LOGIC.openSwapModal('${item.id}', '${item.cust_name}')" class="btn-press bg-white border border-zinc-300 text-black px-4 py-2 rounded-lg text-[9px] font-semibold hover:bg-zinc-100 transition-all uppercase tracking-widest">Pindah</button>`;
 
                         let waBtn = '';
                         if (isPending && waPhone) {
-                            const wTxt = `Halo kak, kami dari Yellow Barber Cabang ${STATE.user.branch} ingin mengkonfirmasi bookingan nya untuk hari ini di jam ${item.jam} dengan barber ${cName} apakah jadi datang kak?\n\nApabila ada pembatalan atau penjadwalan ulang, bisa kita bantu dengan membalas pesan ini.\n\nFYI, untuk keterlambatan kami bisa tunggu maksimal sampai 5 menit ya, kak 🙏🏻 Terima kasih sebelumnya`;
-                            waBtn = `<a href="https://wa.me/${waPhone}?text=${encodeURIComponent(wTxt)}" target="_blank" class="btn-press bg-green-50 border border-green-200 text-green-600 px-3 py-2 rounded-lg text-[11px] font-bold hover:bg-green-100 flex items-center gap-1 transition-all">WA</a>`;
+                            const wTxt = `Halo kak, kami dari Yellow Barber Cabang ${STATE.user.branch} ingin mengkonfirmasi bookingan nya untuk tanggal ${item.tanggal} di jam ${item.jam} dengan barber ${cName} apakah jadi datang kak?\n\nApabila ada pembatalan atau penjadwalan ulang, bisa kita bantu dengan membalas pesan ini.\n\nFYI, untuk keterlambatan kami bisa tunggu maksimal sampai 5 menit ya, kak 🙏🏻 Terima kasih sebelumnya`;
+                            waBtn = `<a href="https://wa.me/${waPhone}?text=${encodeURIComponent(wTxt)}" target="_blank" class="btn-press bg-white border border-green-300 text-green-700 px-4 py-2 rounded-lg text-[9px] font-semibold hover:bg-green-50 flex items-center gap-1 transition-all uppercase tracking-widest">WA</a>`;
                         }
                         
                         const defaultPrice = Number(item.price) || 0;
                         const defaultPkgName = String(item.package_name || "").replace(/'/g, "\\'"); 
                         
-                        let pBtn = isPending ? `<button onclick="CASHIER_LOGIC.updateStatus('${item.id}', 'ON DUTY', ${defaultPrice}, '${defaultPkgName}')" class="btn-press bg-blue-600 text-white px-4 py-2 rounded-lg text-[11px] font-bold shadow-sm hover:bg-blue-700 transition-all">Mulai</button>` : `<button onclick="CASHIER_LOGIC.openCheckout('${item.id}')" class="btn-press bg-zinc-900 text-[#FFE600] px-4 py-2 rounded-lg text-[11px] font-bold shadow-sm hover:bg-zinc-800 transition-all">Selesai</button>`;
+                        let pBtn = isPending ? `<button onclick="CASHIER_LOGIC.updateStatus('${item.id}', 'ON DUTY', ${defaultPrice}, '${defaultPkgName}')" class="btn-press bg-black text-[#FFE600] px-5 py-2 rounded-lg text-[9px] font-semibold shadow-sm hover:bg-zinc-800 transition-all uppercase tracking-widest">Mulai</button>` : `<button onclick="CASHIER_LOGIC.openCheckout('${item.id}')" class="btn-press bg-black text-[#FFE600] px-5 py-2 rounded-lg text-[9px] font-semibold shadow-sm hover:bg-zinc-800 transition-all uppercase tracking-widest">Selesai</button>`;
                         aBtns = `<div class="flex flex-wrap items-center justify-end gap-2 mt-3 sm:mt-0">${waBtn}${swapBtn}${cBtn}${pBtn}</div>`;
                     }
                     
@@ -491,16 +526,15 @@
                         <div class="${isDone ? 'bg-zinc-50 border-zinc-100 opacity-60' : 'bg-white border-zinc-200 apple-shadow'} border rounded-[16px] p-4 flex flex-col sm:flex-row justify-between sm:items-center transition-all mb-3 relative group">
                             ${isDone ? `<button onclick="CASHIER_LOGIC.openCancelModal('${item.id}')" class="absolute top-2 right-2 hidden group-hover:flex w-6 h-6 items-center justify-center bg-red-100 text-red-600 rounded-full hover:bg-red-200 transition-all cursor-pointer"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>` : ''}
                             <div>
-                                <div class="flex items-center gap-3 mb-1"><span class="text-base font-bold text-zinc-900">${item.jam}</span>${sBadge}</div>
-                                <h3 class="font-bold text-[15px] text-zinc-800 leading-none mb-1.5">${item.cust_name || 'Walk-In'}</h3>
-                                <p class="text-[11px] font-semibold text-zinc-500">Barber: <span class="text-zinc-800">${cName}</span> &bull; <span class="text-zinc-800">${item.package_name}</span> &bull; ${UTIL.formatRp(item.price)}</p>
+                                <div class="flex items-center gap-3 mb-1">${dateBadge}<span class="text-sm font-semibold text-black">${item.jam}</span>${sBadge}</div>
+                                <h3 class="ck-bold text-sm text-black leading-none mb-1.5 mt-2">${item.cust_name || 'Walk-In'}</h3>
+                                <p class="text-[10px] font-medium text-zinc-500 uppercase tracking-widest"><span class="text-zinc-800">${cName}</span> &bull; <span class="text-zinc-800">${item.package_name}</span> &bull; ${UTIL.formatRp(item.price)}</p>
                             </div>
                             ${aBtns}
                         </div>`);
                 });
             },
 
-            // --- SWAP CAPSTER ---
             async openSwapModal(bookingId, custName) {
                 document.getElementById('swap-booking-id').value = bookingId;
                 document.getElementById('swap-cust-name').innerText = custName || 'Guest';
@@ -530,7 +564,7 @@
                 const [newCapsterId, newCapsterName] = selectVal.split('|');
 
                 document.getElementById('modal-swap-capster').classList.replace('flex', 'hidden');
-                UTIL.showLoading("Memindahkan...");
+                UTIL.showLoading("MEMINDAHKAN...");
 
                 try {
                     await UTIL.post({ action: 'swap_capster', id: Number(bookingId), new_capster_id: newCapsterId, new_capster_name: newCapsterName });
@@ -538,21 +572,20 @@
                 } catch (e) { alert("Gagal pindah."); } finally { UTIL.hideLoading(); }
             },
 
-            // --- EXPENSES ---
             renderExpenses() {
                 const container = document.getElementById('expense-container'); container.innerHTML = '';
                 const todayExp = STATE.expenses.filter(e => UTIL.cleanDate(e.tanggal) === STATE.sysDates.today);
-                if (todayExp.length === 0) container.innerHTML = `<div class="text-center py-6 text-zinc-400 font-semibold text-xs">Belum ada pengeluaran.</div>`;
+                if (todayExp.length === 0) container.innerHTML = `<div class="text-center py-6 text-zinc-400 font-medium text-[10px] uppercase tracking-widest">Belum ada pengeluaran.</div>`;
                 else todayExp.forEach(item => { 
                     container.insertAdjacentHTML('beforeend', `
                     <div class="bg-white border border-zinc-100 rounded-xl p-3.5 flex justify-between items-center shadow-sm group relative">
                         <div>
-                            <p class="font-bold text-zinc-800 text-sm">${item.deskripsi}</p>
-                            <p class="text-[10px] font-semibold text-zinc-400 uppercase mt-0.5">${item.kategori}</p>
+                            <p class="font-semibold text-black text-xs uppercase tracking-wide">${item.deskripsi}</p>
+                            <p class="text-[8px] font-medium text-zinc-400 uppercase tracking-widest mt-0.5">${item.kategori}</p>
                         </div>
                         <div class="flex items-center gap-3">
-                            <span class="font-bold text-red-500 text-sm">- ${UTIL.formatRp(item.nominal)}</span>
-                            <button onclick="CASHIER_LOGIC.deleteExpense('${item.id}')" class="hidden sm:group-hover:flex w-8 h-8 items-center justify-center bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-all border border-red-100"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
+                            <span class="font-semibold text-red-500 text-xs">- ${UTIL.formatRp(item.nominal)}</span>
+                            <button onclick="CASHIER_LOGIC.deleteExpense('${item.id}')" class="hidden sm:group-hover:flex w-7 h-7 items-center justify-center bg-red-50 text-red-600 rounded hover:bg-red-100 transition-all border border-red-100"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
                         </div>
                         <button onclick="CASHIER_LOGIC.deleteExpense('${item.id}')" class="sm:hidden absolute top-1 right-1 text-red-400 p-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
                     </div>`); 
@@ -564,27 +597,26 @@
                 const desc = document.getElementById('exp-deskripsi').value.trim(); const nom = document.getElementById('exp-nominal').value; 
                 const kat = document.getElementById('exp-kategori').value;
                 if(!desc || !nom) return alert("Isi form lengkap!"); 
-                this.closeExpenseModal(); UTIL.showLoading("Menyimpan..."); 
+                this.closeExpenseModal(); UTIL.showLoading("MENYIMPAN..."); 
                 try { 
                     await UTIL.post({ action: 'add_expense', tanggal: STATE.sysDates.today, branch: STATE.user.branch, cashier_id: STATE.user.staff_id, kategori: kat, deskripsi: desc, nominal: Number(nom) }); 
                     await this.loadData(true); 
                 } catch (e) { alert("Gagal Simpan"); } finally { UTIL.hideLoading(); } 
             },
             async deleteExpense(expenseId) {
-                if(!confirm("Yakin hapus pengeluaran ini? Uang akan kembali ditambahkan ke saldo.")) return;
-                UTIL.showLoading("Menghapus...");
+                if(!confirm("Yakin hapus pengeluaran ini?")) return;
+                UTIL.showLoading("MENGHAPUS...");
                 try { await UTIL.post({ action: 'delete_expense', expense_id: expenseId }); await this.loadData(true); } catch (e) { alert("Gagal Hapus"); } finally { UTIL.hideLoading(); }
             },
 
-            // --- UPDATE STATUS & CHECKOUT ---
             async updateStatus(id, newStatus, priceFallback, pkgNameFallback) { 
-                UTIL.showLoading("Update..."); 
+                UTIL.showLoading("UPDATE..."); 
                 try { await UTIL.post({ action: 'update_status', id: Number(id), status: newStatus, new_price: priceFallback, new_package_name: pkgNameFallback }); await this.loadData(true); } catch (e) { alert("Gagal Update"); } finally { UTIL.hideLoading(); } 
             },
             openCancelModal(id) { STATE.cancelTargetId = id; document.getElementById('cancel-confirm-text').value = ''; document.getElementById('btn-submit-cancel').disabled = true; document.getElementById('btn-submit-cancel').classList.add('opacity-50', 'cursor-not-allowed'); document.getElementById('modal-cancel').classList.replace('hidden', 'flex'); },
             closeCancelModal() { STATE.cancelTargetId = null; document.getElementById('modal-cancel').classList.replace('flex', 'hidden'); },
             async processCancel() { 
-                if(!STATE.cancelTargetId) return; this.closeCancelModal(); UTIL.showLoading("Menghapus/Membatalkan..."); 
+                if(!STATE.cancelTargetId) return; this.closeCancelModal(); UTIL.showLoading("MENGHAPUS..."); 
                 try { await UTIL.post({ action: 'cancel_book', id: Number(STATE.cancelTargetId) }); await this.loadData(true); } catch (e) { alert("Gagal"); } finally { UTIL.hideLoading(); } 
             },
 
@@ -596,15 +628,15 @@
                 document.getElementById('checkout-main-service').innerText = `${item.package_name} (${UTIL.formatRp(item.price)})`;
                 
                 const addList = document.getElementById('checkout-addons-list'); addList.innerHTML = '';
-                if(STATE.addons.length === 0) addList.innerHTML = '<p class="text-xs text-zinc-400 italic">Belum ada add-on di sistem. Tambahkan di tab Settings.</p>';
+                if(STATE.addons.length === 0) addList.innerHTML = '<p class="text-[9px] text-zinc-400 uppercase tracking-widest">Belum ada add-on.</p>';
                 STATE.addons.forEach(a => {
                     addList.insertAdjacentHTML('beforeend', `
-                        <label class="flex items-center justify-between p-3.5 bg-zinc-50 rounded-2xl border border-zinc-100 cursor-pointer hover:bg-zinc-100 transition-all">
+                        <label class="flex items-center justify-between p-3.5 bg-zinc-50 rounded-xl border border-zinc-100 cursor-pointer hover:bg-zinc-100 transition-all">
                             <div class="flex items-center gap-3">
-                                <input type="checkbox" onchange="CASHIER_LOGIC.toggleAddon(this, '${a.NAME}', ${a.PRICE})" class="w-5 h-5 rounded border-zinc-300 accent-zinc-900">
-                                <span class="text-[11px] font-bold uppercase text-zinc-700">${a.NAME}</span>
+                                <input type="checkbox" onchange="CASHIER_LOGIC.toggleAddon(this, '${a.NAME}', ${a.PRICE})" class="w-4 h-4 rounded border-zinc-300 accent-black">
+                                <span class="text-[9px] font-bold uppercase text-zinc-700 tracking-widest">${a.NAME}</span>
                             </div>
-                            <span class="text-[10px] font-black text-blue-600">+ ${UTIL.formatRp(a.PRICE)}</span>
+                            <span class="text-[9px] font-black text-blue-600 tracking-widest">+ ${UTIL.formatRp(a.PRICE)}</span>
                         </label>`);
                 });
                 this.updateCheckoutDisplay();
@@ -621,7 +653,7 @@
                 document.getElementById('checkout-total-display').innerText = UTIL.formatRp(STATE.checkout.currentTotal);
             },
             async confirmCheckout() {
-                UTIL.showLoading("Mencatat Transaksi...");
+                UTIL.showLoading("MENCATAT TRANSAKSI...");
                 const finalName = [STATE.checkout.baseName, ...STATE.checkout.selectedAddons.map(x => x.name)].join(" + ");
                 try {
                     await UTIL.post({ action: 'update_status', id: Number(STATE.checkout.id), status: 'DONE', new_price: STATE.checkout.currentTotal, new_package_name: finalName });
@@ -630,15 +662,14 @@
                 } catch(e) { alert("Error saving transaction"); } finally { UTIL.hideLoading(); }
             },
 
-            // --- CONFIG (PRICELIST) ---
             renderConfig() {
                 const render = (list, containerId) => {
                     const c = document.getElementById(containerId); c.innerHTML = '';
-                    if(list.length === 0) { c.innerHTML = '<p class="text-xs text-zinc-400 italic">Belum ada data.</p>'; return; }
+                    if(list.length === 0) { c.innerHTML = '<p class="text-[9px] text-zinc-400 uppercase tracking-widest">Belum ada data.</p>'; return; }
                     list.forEach(p => c.insertAdjacentHTML('beforeend', `
-                        <div class="flex justify-between items-center p-4 bg-white rounded-2xl border border-zinc-200 apple-shadow">
-                            <div><p class="font-bold text-[11px] uppercase text-zinc-800">${p.NAME}</p><p class="text-[10px] font-bold text-blue-600 mt-1">${UTIL.formatRp(p.PRICE)}</p></div>
-                            <button onclick="CASHIER_LOGIC.openPackageModal('${p.CATEGORY}', ${JSON.stringify(p).replace(/"/g, '&quot;')})" class="text-[10px] font-black uppercase text-zinc-500 hover:text-zinc-900 transition-all tracking-widest bg-zinc-100 border border-zinc-200 px-4 py-2 rounded-lg shadow-sm">Edit</button>
+                        <div class="flex justify-between items-center p-4 bg-white rounded-xl border border-zinc-200 apple-shadow">
+                            <div><p class="font-bold text-[10px] uppercase text-black tracking-widest">${p.NAME}</p><p class="text-[9px] font-bold text-blue-600 mt-1">${UTIL.formatRp(p.PRICE)}</p></div>
+                            <button onclick="CASHIER_LOGIC.openPackageModal('${p.CATEGORY}', ${JSON.stringify(p).replace(/"/g, '&quot;')})" class="text-[8px] font-bold uppercase text-zinc-500 hover:text-black transition-all tracking-widest bg-zinc-100 border border-zinc-200 px-3 py-1.5 rounded-md shadow-sm">Edit</button>
                         </div>`));
                 };
                 render(STATE.packages, 'config-primer-list');
@@ -657,16 +688,15 @@
                 const id = document.getElementById('pkg-id').value;
                 const payload = { action: 'manage_package', operation_type: id ? 'edit' : 'add', package_id: id, name: document.getElementById('pkg-name').value.toUpperCase(), price: Number(document.getElementById('pkg-price').value), category: document.getElementById('pkg-category').value };
                 if(!payload.name || !payload.price) return alert("Isi data lengkap!");
-                UTIL.showLoading("Menyimpan Layanan...");
+                UTIL.showLoading("MENYIMPAN...");
                 try { await UTIL.post(payload); document.getElementById('modal-pkg').classList.replace('flex','hidden'); await this.loadData(true); } catch(e){} finally { UTIL.hideLoading(); }
             },
             async deletePackage() {
                 if(!confirm("Yakin hapus layanan ini permanen?")) return;
-                UTIL.showLoading("Menghapus...");
+                UTIL.showLoading("MENGHAPUS...");
                 try { await UTIL.post({ action: 'manage_package', operation_type: 'delete', package_id: document.getElementById('pkg-id').value }); document.getElementById('modal-pkg').classList.replace('flex','hidden'); await this.loadData(true); } catch(e){} finally { UTIL.hideLoading(); }
             },
 
-            // --- ADVANCED REPORT (PAYROLL & AUDIT LOGS) ---
             processReport() {
                 if(!STATE.rawReportData) return;
                 const month = document.getElementById('report-month').value; 
@@ -678,11 +708,10 @@
                 let capsterStats = {}; 
                 let logIncomeHTML = ''; let logExpenseHTML = '';
                 
-                // Process Bookings (Income Log & Payroll)
                 const monthBookings = STATE.rawReportData.bookings.filter(b => UTIL.cleanDate(b.tanggal).startsWith(month) && (b.status === 'DONE' || b.status === 'SUCCESS')).sort((a,b) => `${a.tanggal} ${a.jam}`.localeCompare(`${b.tanggal} ${b.jam}`));
                 
                 monthBookings.forEach(b => { 
-                    const tglJam = `${UTIL.cleanDate(b.tanggal)} ${b.jam}`;
+                    const tglJam = `${UTIL.formatDateShort(UTIL.cleanDate(b.tanggal))} | ${b.jam}`;
                     const v = Number(b.price)||0; 
                     const cName = String(b.caps_in_charge || b.capster_id || 'Unknown').toUpperCase();
                     const pName = b.package_name || 'Unknown';
@@ -699,20 +728,18 @@
                     capsterStats[cName].komisi += k;
                     capsterStats[cName].yhb += yhbShare;
 
-                    // Table Row (Income)
                     logIncomeHTML += `
                     <tr class="hover:bg-zinc-50 transition-colors">
-                        <td class="p-3 font-semibold text-zinc-900">${tglJam}</td>
-                        <td class="p-3 text-zinc-700">${b.cust_name || '-'}</td>
-                        <td class="p-3 text-zinc-600 truncate max-w-[150px]">${pName}</td>
-                        <td class="p-3 font-bold text-zinc-800">${cName}</td>
+                        <td class="p-3 font-semibold text-black">${tglJam}</td>
+                        <td class="p-3 text-zinc-600 font-medium">${b.cust_name || '-'}</td>
+                        <td class="p-3 text-zinc-500 truncate max-w-[150px] text-[10px] tracking-widest uppercase">${pName}</td>
+                        <td class="p-3 font-bold text-black text-[10px] tracking-widest">${cName}</td>
                         <td class="p-3 text-right text-blue-600 font-semibold">${UTIL.formatRp(v)}</td>
-                        <td class="p-3 text-right text-orange-600 font-semibold">${UTIL.formatRp(k)}</td>
-                        <td class="p-3 text-right text-zinc-900 font-black">${UTIL.formatRp(yhbShare)}</td>
+                        <td class="p-3 text-right text-orange-500 font-semibold">${UTIL.formatRp(k)}</td>
+                        <td class="p-3 text-right text-black font-bold">${UTIL.formatRp(yhbShare)}</td>
                     </tr>`;
                 });
 
-                // Process Expenses (Expense Log)
                 const monthExpenses = STATE.rawReportData.expenses.filter(e => UTIL.cleanDate(e.tanggal).startsWith(month)).sort((a,b) => a.tanggal.localeCompare(b.tanggal));
                 
                 monthExpenses.forEach(e => { 
@@ -721,17 +748,16 @@
                     
                     logExpenseHTML += `
                     <tr class="hover:bg-red-50/50 transition-colors">
-                        <td class="p-3 font-semibold text-zinc-900">${UTIL.cleanDate(e.tanggal)}</td>
-                        <td class="p-3 text-zinc-600 font-bold">${e.kategori}</td>
-                        <td class="p-3 text-zinc-700">${e.deskripsi}</td>
-                        <td class="p-3 text-right text-red-600 font-bold">${UTIL.formatRp(v)}</td>
+                        <td class="p-3 font-semibold text-black">${UTIL.formatDateShort(UTIL.cleanDate(e.tanggal))}</td>
+                        <td class="p-3 text-zinc-500 text-[10px] tracking-widest uppercase">${e.kategori}</td>
+                        <td class="p-3 text-zinc-700 font-medium">${e.deskripsi}</td>
+                        <td class="p-3 text-right text-red-500 font-semibold">${UTIL.formatRp(v)}</td>
                     </tr>`;
                 });
 
                 const aov = totalTrx > 0 ? (grandRev / totalTrx) : 0;
                 const netProfit = grandRev - grandKomisi - grandExp; 
 
-                // Populate Global Cards
                 document.getElementById('report-month-label').innerText = month;
                 document.getElementById('rep-total-trx').innerText = totalTrx; 
                 document.getElementById('rep-aov').innerText = UTIL.formatRp(aov);
@@ -740,37 +766,35 @@
                 document.getElementById('rep-total-expense').innerText = UTIL.formatRp(grandExp);
                 document.getElementById('rep-net-profit').innerText = UTIL.formatRp(netProfit);
 
-                // Populate Capster Payroll Cards
                 const capsterGrid = document.getElementById('rep-capster-grid');
                 if(Object.keys(capsterStats).length === 0) {
-                    capsterGrid.innerHTML = '<div class="col-span-full p-4 border border-dashed border-zinc-300 rounded-[16px] text-center text-zinc-400 text-xs font-bold uppercase">Belum ada data Capster bekerja</div>';
+                    capsterGrid.innerHTML = '<div class="col-span-full p-4 border border-dashed border-zinc-300 rounded-[16px] text-center text-zinc-400 text-xs font-medium uppercase tracking-widest">Belum ada data Capster</div>';
                 } else {
                     capsterGrid.innerHTML = Object.keys(capsterStats).sort().map(c => {
                         const d = capsterStats[c];
                         const splitText = c.includes('BUR') ? 'Bagi Hasil (60:40)' : 'Bagi Hasil (50:50)';
                         return `
-                        <div class="border border-zinc-200 rounded-[16px] p-4 bg-white shadow-sm">
+                        <div class="border border-zinc-200 rounded-xl p-4 bg-white shadow-sm">
                             <div class="flex justify-between items-center mb-3 border-b border-zinc-100 pb-3">
-                                <h4 class="font-black text-lg text-zinc-900 uppercase">${c}</h4>
-                                <span class="bg-zinc-100 text-zinc-500 font-bold text-[8px] px-2 py-1 rounded uppercase tracking-widest">${d.count} Tamu</span>
+                                <h4 class="ck-bold text-base text-black">${c}</h4>
+                                <span class="bg-zinc-100 text-zinc-500 font-semibold text-[8px] px-2 py-1 rounded uppercase tracking-widest">${d.count} Tamu</span>
                             </div>
                             <div class="space-y-2 mb-3">
-                                <div class="flex justify-between text-[10px]"><span class="font-bold text-zinc-500 uppercase tracking-widest">Gross Omset</span><span class="font-black text-blue-600">${UTIL.formatRp(d.gross)}</span></div>
-                                <div class="flex justify-between text-[10px]"><span class="font-bold text-zinc-500 uppercase tracking-widest">Hak Capster</span><span class="font-black text-orange-500">${UTIL.formatRp(d.komisi)}</span></div>
-                                <div class="flex justify-between text-[10px]"><span class="font-bold text-zinc-500 uppercase tracking-widest">Hak Owner (YHB)</span><span class="font-black text-zinc-800">${UTIL.formatRp(d.yhb)}</span></div>
+                                <div class="flex justify-between text-[9px]"><span class="font-medium text-zinc-400 uppercase tracking-widest">Gross Omset</span><span class="font-semibold text-blue-600">${UTIL.formatRp(d.gross)}</span></div>
+                                <div class="flex justify-between text-[9px]"><span class="font-medium text-zinc-400 uppercase tracking-widest">Hak Capster</span><span class="font-semibold text-orange-500">${UTIL.formatRp(d.komisi)}</span></div>
+                                <div class="flex justify-between text-[9px]"><span class="font-medium text-zinc-400 uppercase tracking-widest">Hak Owner (YHB)</span><span class="font-bold text-black">${UTIL.formatRp(d.yhb)}</span></div>
                             </div>
-                            <div class="bg-zinc-50 rounded-lg p-2 text-center border border-zinc-100">
-                                <span class="text-[8px] font-bold text-zinc-400 uppercase tracking-widest">${splitText}</span>
+                            <div class="bg-zinc-50 rounded-md p-1.5 text-center border border-zinc-100">
+                                <span class="text-[8px] font-medium text-zinc-400 uppercase tracking-widest">${splitText}</span>
                             </div>
                         </div>`;
                     }).join('');
                 }
 
-                // Populate Tables
-                document.getElementById('report-table-income').innerHTML = logIncomeHTML || `<tr><td colspan="7" class="p-6 text-center text-zinc-400 text-xs font-bold">Tidak ada pemasukan.</td></tr>`;
-                document.getElementById('report-table-expense').innerHTML = logExpenseHTML || `<tr><td colspan="4" class="p-6 text-center text-zinc-400 text-xs font-bold">Tidak ada pengeluaran.</td></tr>`;
+                document.getElementById('report-table-income').innerHTML = logIncomeHTML || `<tr><td colspan="7" class="p-6 text-center text-zinc-400 text-[10px] uppercase tracking-widest font-medium">Tidak ada pemasukan.</td></tr>`;
+                document.getElementById('report-table-expense').innerHTML = logExpenseHTML || `<tr><td colspan="4" class="p-6 text-center text-zinc-400 text-[10px] uppercase tracking-widest font-medium">Tidak ada pengeluaran.</td></tr>`;
             },
-            exportPDF() { UTIL.showLoading("Generate PDF..."); html2pdf().set({margin:0.2, filename:`YHB_Audit_${document.getElementById('report-month').value}.pdf`, html2canvas:{scale:2}, jsPDF:{unit:'in',format:'a4',orientation:'landscape'}}).from(document.getElementById('printable-report')).save().then(() => UTIL.hideLoading()); }
+            exportPDF() { UTIL.showLoading("GENERATE PDF..."); html2pdf().set({margin:0.2, filename:`YHB_Audit_${document.getElementById('report-month').value}.pdf`, html2canvas:{scale:2}, jsPDF:{unit:'in',format:'a4',orientation:'landscape'}}).from(document.getElementById('printable-report')).save().then(() => UTIL.hideLoading()); }
         };
 
         window.onload = () => { LOGIN_SYSTEM.init(); };
