@@ -13,7 +13,7 @@
         /* CK STRICT STYLING */
         body { font-family: 'Jost', sans-serif; background-color: #FAFAFA; color: #111111; -webkit-tap-highlight-color: transparent; overflow-x: hidden; }
         .ck-font { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 500; }
-        .ck-bold { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        .ck-bold { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; }
         
         /* SCROLLBAR */
         .hide-scrollbar::-webkit-scrollbar { display: none; }
@@ -78,37 +78,18 @@
         
         <section id="step-initial" class="animate-slide-up flex flex-col items-center text-center">
             
-            <p class="ck-font text-[9px] text-zinc-500 mb-2 tracking-[0.3em]">HAIRCUT IS ART</p>
-            <h1 class="ck-bold text-4xl mb-1 tracking-widest leading-[1.1]">YELLOWBARBER</h1>
-            <p class="ck-bold text-[9px] text-zinc-400 mb-8 tracking-[0.3em]">BANDA ACEH</p>
+            <h1 class="ck-font text-2xl mb-1 tracking-[0.3em] text-zinc-500 leading-[1.2]">HAIRCUT IS ART</h1>
+            <p class="ck-bold text-3xl mb-1 tracking-[0.1em] text-black">YELLOWBARBER</p>
+            <p class="ck-font text-[10px] text-zinc-400 mb-8 tracking-[0.4em]">BANDA ACEH</p>
 
-            <a href="https://maps.app.goo.gl/c2ofSdM93ftCes2j8" target="_blank" class="mb-12 bg-black text-[#FFE600] px-8 py-3.5 rounded-full ck-bold text-[9px] tracking-widest taktil shadow-xl flex items-center justify-center gap-2 w-max">
+            <a href="https://maps.app.goo.gl/c2ofSdM93ftCes2j8" target="_blank" class="w-full max-w-[280px] flex items-center justify-center bg-black text-white border border-zinc-800 py-3.5 rounded-full ck-bold text-[9px] tracking-[0.2em] mb-12 shadow-xl hover:bg-zinc-800 transition-all taktil">
                 📍 BUKA LOKASI MAPS
             </a>
 
             <div class="w-full mb-12">
-                <h3 class="ck-bold text-[9px] text-zinc-400 tracking-[0.3em] mb-6 border-b border-zinc-200 pb-3">SELECT BRANCH</h3>
-                <div id="branch-list" class="space-y-6"></div>
-            </div>
-
-            <div class="w-full mb-12">
-                <h3 class="ck-bold text-[9px] text-zinc-400 tracking-[0.3em] mb-6 border-b border-zinc-200 pb-3">COMMUNITY</h3>
-                
-                <div onclick="window.open('https://chat.whatsapp.com/ICanCX7nHoYKPBxLi9XOUV', '_blank')" class="bg-white rounded-[24px] overflow-hidden card-shadow taktil-hover transition-all cursor-pointer border border-zinc-100">
-                    <div class="relative h-60 w-full">
-                        <img src="https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/inmid%20(%40inmidagency)%20%E2%80%A2%20Instagram-Fotos%20und%20-Videos.jpg" class="w-full h-full object-cover object-top">
-                        <div class="absolute inset-0 bg-black/40"></div>
-                        
-                        <div class="absolute top-5 left-5">
-                            <span class="bg-black text-[#FFE600] border border-[#FFE600] px-3 py-1.5 rounded text-[8px] ck-bold tracking-widest shadow-lg">RUN CLUB</span>
-                        </div>
-                        
-                        <div class="absolute bottom-6 left-6 right-6 text-left">
-                            <h3 class="ck-bold text-2xl text-white tracking-widest drop-shadow-lg mb-2">YELLO<span class="text-[#FFE600]">RUN</span></h3>
-                            <p class="ck-font text-[9px] text-zinc-200 tracking-widest leading-relaxed">YelloRun for anak muda kerenn, apabila mampuu ✌🏻</p>
-                        </div>
+                <h3 class="ck-bold text-[9px] text-zinc-400 tracking-[0.3em] mb-6 border-b border-zinc-200 pb-3">OUR SERVICES</h3>
+                <div id="grid-services" class="grid grid-cols-2 gap-4">
                     </div>
-                </div>
             </div>
 
             <div class="w-full mb-10">
@@ -196,16 +177,11 @@
             BRAND_NAME: "YELLOW BARBER",
             LOGO_URL: "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png",
             WEBHOOK_URL: 'https://n8n-mzbmiib3etk4.kangkung.sumopod.my.id/webhook/dbp-public',
-            WA_ADMIN: '6289530035907', // Nomor WhatsApp Yellow Barber
+            WA_ADMIN: '6289530035907', 
             AVAILABLE_HOURS: ["12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"],
             BRANCHES_META: {
-                "YELLOW BANDA": { 
-                    // FOTO COVER CABANG BARU (Sesuai request Github)
-                    cover: "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/preview%20yhb.jpeg", 
-                    rating: "4.9", 
-                    rev: "150+", 
-                    display_name: "BANDA ACEH" 
-                }
+                // PHOTO COVER BARU DARI GITHUB RAW
+                "YELLOW BANDA": { cover: "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/preview%20yhb.jpeg", rating: "4.9", rev: "150+", display_name: "BANDA ACEH" }
             }
         };
 
@@ -232,7 +208,7 @@
 
                     const history = payload.history_bookings || payload.bookings || [];
                     this.renderLeaderboard(history);
-                    this.renderBranches();
+                    this.renderGridServices();
                     
                     const splash = document.getElementById('splash-screen');
                     splash.classList.add('curtain-exit');
@@ -286,29 +262,42 @@
                 }).join('');
             },
 
-            renderBranches() {
-                const container = document.getElementById('branch-list');
+            // RENDERING KEDUA CARD 1:1 (CABANG & YELLOW RUN)
+            renderGridServices() {
+                const container = document.getElementById('grid-services');
                 if (this.state.branches.length === 0) return;
 
                 const isOpen = new Date().getHours() >= 12; 
 
-                container.innerHTML = this.state.branches.map((b, index) => {
+                // CARD CABANG
+                let branchesHtml = this.state.branches.map((b, index) => {
                     const meta = CONFIG.BRANCHES_META[b.dpb_branches_name] || { cover: CONFIG.LOGO_URL, display_name: b.dpb_branches_name };
-                    const status = isOpen ? `<span class="bg-[#FFE600] text-black px-3 py-1 rounded text-[7px] ck-bold tracking-widest">OPEN</span>` : `<span class="bg-black text-white px-3 py-1 rounded text-[7px] ck-bold tracking-widest">CLOSED</span>`;
+                    const status = isOpen ? `<span class="bg-[#FFE600] text-black px-2.5 py-1 rounded text-[6px] ck-bold tracking-widest shadow-sm">OPEN</span>` : `<span class="bg-black text-white px-2.5 py-1 rounded text-[6px] ck-bold tracking-widest shadow-sm">CLOSED</span>`;
 
                     return `
-                    <div onclick="APP_LOGIC.selectBranch('${b.dpb_branches_name}', '${meta.display_name}')" class="bg-white rounded-[24px] overflow-hidden card-shadow taktil-hover transition-all cursor-pointer animate-slide-up border border-zinc-100" style="animation-delay: ${index * 0.1}s">
-                        <div class="relative h-60 w-full">
-                            <img src="${meta.cover}" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-black/20"></div>
-                            <div class="absolute top-5 left-5">${status}</div>
-                            <div class="absolute bottom-5 left-5 right-5 flex justify-between items-end">
-                                <h3 class="ck-bold text-2xl text-white tracking-widest drop-shadow-lg">${meta.display_name}</h3>
-                                <div class="bg-white/90 backdrop-blur-sm text-black ck-bold text-[8px] px-3 py-2 rounded-xl shadow-sm tracking-widest">PILIH ↗</div>
-                            </div>
+                    <div onclick="APP_LOGIC.selectBranch('${b.dpb_branches_name}', '${meta.display_name}')" class="bg-black rounded-[24px] overflow-hidden card-shadow taktil-hover transition-all cursor-pointer animate-slide-up border border-zinc-100 relative aspect-square group" style="animation-delay: ${index * 0.1}s">
+                        <img src="${meta.cover}" class="w-full h-full object-cover absolute inset-0 opacity-80 group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center p-3">
+                            <span class="text-[#FFE600] ck-bold text-[10px] text-center tracking-[0.2em] drop-shadow-md">CLICK HERE<br>TO BOOK</span>
+                        </div>
+                        <div class="absolute top-3 left-3">${status}</div>
+                        <div class="absolute bottom-3 left-0 right-0 text-center px-2">
+                            <h3 class="ck-bold text-[10px] text-white tracking-[0.3em] drop-shadow-lg">${meta.display_name}</h3>
                         </div>
                     </div>`;
                 }).join('');
+
+                // CARD YELLOW RUN
+                const yellowRunHtml = `
+                <div onclick="alert('Link komunitas Yellow Run belum tersedia!')" class="bg-zinc-900 rounded-[24px] overflow-hidden card-shadow taktil-hover transition-all cursor-pointer animate-slide-up border border-zinc-800 relative aspect-square group">
+                    <img src="https://images.unsplash.com/photo-1552674605-171ff3ea36f0?auto=format&fit=crop&w=500&q=60" class="w-full h-full object-cover absolute inset-0 opacity-30 grayscale group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 flex flex-col items-center justify-center p-3">
+                        <h3 class="ck-bold text-lg text-white tracking-[0.3em] drop-shadow-lg mb-2">YELLOW<br>RUN</h3>
+                        <span class="text-[#FFE600] ck-bold text-[7px] text-center tracking-[0.2em] drop-shadow-md">CLICK HERE TO<br>JOIN OUR COMMUNITY</span>
+                    </div>
+                </div>`;
+
+                container.innerHTML = branchesHtml + yellowRunHtml;
             },
 
             async selectBranch(dbName, displayName) {
@@ -422,7 +411,6 @@
                 const selectedBtn = document.getElementById(`btn-time-${hour.replace(':','')}`); selectedBtn.classList.remove('bg-zinc-50', 'text-zinc-500', 'border-zinc-200'); selectedBtn.classList.add('bg-[#FFE600]', 'text-black', 'border-[#FFE600]');
             },
 
-            // METODE PEMBAYARAN TOGGLE
             selectPayment(method) {
                 this.state.paymentMethod = method;
                 const btnLokasi = document.getElementById('btn-pay-lokasi');
@@ -458,12 +446,11 @@
                         document.getElementById('receipt-capster').innerText = this.state.selectedStaffName; 
                         document.getElementById('receipt-time').innerText = `${tanggal} | ${jam}`;
                         
-                        // INJECT SUCCESS ACTION BUTTONS BASED ON PAYMENT METHOD
                         let actionBtnsHtml = '';
                         if(this.state.paymentMethod === 'transfer') {
                             const waMsg = encodeURIComponent(`Halo Admin Yellow Barber,\n\nSaya atas nama *${name}* ingin mengirimkan bukti transfer untuk booking pada:\nTanggal: ${tanggal}\nJam: ${jam}\nBarber: ${this.state.selectedStaffName}\n\nTerima kasih.`);
                             actionBtnsHtml = `
-                                <p class="ck-font text-[8px] text-zinc-500 tracking-widest mb-3">SATU LANGKAH LAGI</p>
+                                <p class="ck-font text-[8px] text-zinc-500 tracking-widest mb-3 mt-4">SATU LANGKAH LAGI</p>
                                 <a href="https://wa.me/${CONFIG.WA_ADMIN}?text=${waMsg}" target="_blank" class="w-full block bg-[#FFE600] text-black py-4 rounded-full ck-bold text-[10px] tracking-[0.2em] taktil mb-3 shadow-md">KIRIM BUKTI TRANSFER (WA)</a>
                                 <button onclick="location.reload()" class="w-full ck-bold text-[9px] text-zinc-400 py-3 taktil tracking-widest underline">TUTUP</button>
                             `;
