@@ -78,9 +78,14 @@
         
         <section id="step-initial" class="animate-slide-up flex flex-col items-center text-center">
             
-            <h1 class="ck-font text-2xl mb-1 tracking-[0.3em] text-zinc-500 leading-[1.2]">HAIRCUT IS ART</h1>
-            <p class="ck-bold text-3xl sm:text-4xl mb-1 tracking-[0.1em] text-black">YELLOWBARBER</p>
-            <p class="ck-font text-[11px] text-zinc-400 mb-8 tracking-[0.4em]">BANDA ACEH</p>
+            <div class="relative w-full flex flex-col items-center justify-center py-6 mb-8">
+                <div class="absolute left-0 top-1/2 -translate-y-1/2 -rotate-90 ck-font text-[8px] text-zinc-400 tracking-[0.3em] whitespace-nowrap">HAIRCUT IS ART</div>
+                
+                <div class="absolute right-0 top-1/2 -translate-y-1/2 rotate-90 ck-font text-[8px] text-zinc-400 tracking-[0.3em] whitespace-nowrap">BANDA ACEH</div>
+                
+                <h1 class="ck-bold text-3xl sm:text-4xl mb-1 tracking-[0.1em] text-black">YELLOW BARBER</h1>
+                <p class="ck-font text-[10px] text-zinc-500 tracking-[0.3em]">MINIMALISM BARBER</p>
+            </div>
 
             <a href="https://maps.app.goo.gl/c2ofSdM93ftCes2j8" target="_blank" class="w-full max-w-[280px] flex items-center justify-center bg-black text-white border border-zinc-800 py-4 rounded-full ck-bold text-[10px] tracking-[0.2em] mb-12 shadow-xl hover:bg-zinc-800 transition-all taktil">
                 📍 BUKA LOKASI MAPS
@@ -101,7 +106,6 @@
         </section>
 
         <section id="step-staff" class="hidden animate-slide-up flex flex-col items-center relative">
-            
             <div id="staff-list" class="w-full space-y-12"></div>
         </section>
     </main>
@@ -253,14 +257,12 @@
                 }).join('');
             },
 
-            // DIUBAH KE VERTIKAL STACK (MOBILE FRIENDLY)
             renderGridServices() {
                 const container = document.getElementById('grid-services');
                 if (this.state.branches.length === 0) return;
 
                 const isOpen = new Date().getHours() >= 12; 
 
-                // CARD CABANG
                 let branchesHtml = this.state.branches.map((b, index) => {
                     const meta = CONFIG.BRANCHES_META[b.dpb_branches_name] || { cover: CONFIG.LOGO_URL, display_name: b.dpb_branches_name };
                     const status = isOpen ? `<span class="bg-[#FFE600] text-black px-3 py-1.5 rounded text-[8px] ck-bold tracking-widest shadow-sm">OPEN</span>` : `<span class="bg-black text-white px-3 py-1.5 rounded text-[8px] ck-bold tracking-widest shadow-sm">CLOSED</span>`;
@@ -278,7 +280,6 @@
                     </div>`;
                 }).join('');
 
-                // CARD YelloRun (Poin 3)
                 const yellowRunHtml = `
                 <div onclick="alert('Link komunitas YelloRun belum tersedia!')" class="bg-zinc-900 rounded-[24px] overflow-hidden card-shadow taktil-hover transition-all cursor-pointer animate-slide-up border border-zinc-800 relative h-60 w-full group">
                     <img src="https://images.unsplash.com/photo-1571008887538-b36bb32f4571?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover absolute inset-0 opacity-60 group-hover:scale-105 transition-transform duration-700 mix-blend-luminosity">
@@ -296,7 +297,6 @@
                 this.state.selectedBranch = dbName;
                 document.getElementById('step-initial').classList.add('hidden');
                 document.getElementById('step-staff').classList.remove('hidden');
-                // document.getElementById('selected-branch-text').innerText = displayName; // No longer needed, logic moved to renderStaff
                 
                 document.getElementById('staff-list').innerHTML = `<div class="text-center py-20 animate-pulse"><p class="ck-font text-[10px] text-zinc-400 tracking-[0.3em]">MEMUAT CAPSTER...</p></div>`;
 
