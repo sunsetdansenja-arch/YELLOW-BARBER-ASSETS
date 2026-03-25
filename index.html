@@ -42,17 +42,17 @@
         <div class="relative z-10 flex flex-col items-center">
             <img id="splash-logo" src="https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png" class="w-32 h-auto mb-8 drop-shadow-xl">
             <div class="text-center">
-                <h1 class="ck-bold text-[10px] tracking-[0.4em] animate-shimmer">LOADING EXPERIENCE</h1>
+                <h1 class="ck-bold text-[11px] tracking-[0.4em] animate-shimmer">LOADING EXPERIENCE</h1>
             </div>
         </div>
     </div>
 
-    <div id="success-screen" class="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md hidden flex-col items-center justify-center p-6 overflow-hidden">
+    <div id="success-screen" class="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md hidden flex-col items-center justify-center p-5 overflow-hidden">
         <div class="bg-white w-full max-w-sm rounded-[32px] p-8 flex flex-col items-center animate-slide-up text-center card-shadow">
             <div class="w-16 h-16 bg-[#FFE600] rounded-full flex items-center justify-center mb-6 text-black text-2xl font-black shadow-lg shadow-yellow-400/20">✓</div>
             <h1 class="ck-bold text-xl tracking-widest mb-6">BOOKING CONFIRMED</h1>
             
-            <div class="w-full space-y-4 text-[10px] font-medium text-zinc-500 mb-8 bg-zinc-50 p-6 rounded-2xl border border-zinc-100 uppercase tracking-widest">
+            <div class="w-full space-y-4 text-[11px] font-medium text-zinc-500 mb-8 bg-zinc-50 p-6 rounded-2xl border border-zinc-100 uppercase tracking-widest">
                 <div class="flex justify-between items-center pb-3 border-b border-zinc-200">
                     <span>Branch</span><span id="receipt-branch" class="text-black font-bold text-right">...</span>
                 </div>
@@ -69,9 +69,9 @@
         </div>
     </div>
 
-    <nav class="sticky top-0 z-50 glass-nav px-6 py-4 flex justify-between items-center">
+    <nav class="sticky top-0 z-50 glass-nav px-5 py-4 flex justify-between items-center">
         <img id="nav-logo" src="https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png" class="h-6 w-auto drop-shadow-sm">
-        <div class="text-[8px] font-bold uppercase tracking-[0.2em] text-black bg-[#FFE600] px-4 py-1.5 rounded-full animate-pulse shadow-sm">LIVE</div>
+        <div class="text-[9px] font-bold uppercase tracking-[0.2em] text-black bg-[#FFE600] px-4 py-1.5 rounded-full animate-pulse shadow-sm">LIVE</div>
     </nav>
 
     <main id="app" class="max-w-md mx-auto px-5 mt-8 relative z-10">
@@ -79,35 +79,35 @@
         <section id="step-initial" class="animate-slide-up flex flex-col items-center text-center">
             
             <h1 class="ck-font text-2xl mb-1 tracking-[0.3em] text-zinc-500 leading-[1.2]">HAIRCUT IS ART</h1>
-            <p class="ck-bold text-3xl mb-1 tracking-[0.1em] text-black">YELLOWBARBER</p>
-            <p class="ck-font text-[10px] text-zinc-400 mb-8 tracking-[0.4em]">BANDA ACEH</p>
+            <p class="ck-bold text-3xl sm:text-4xl mb-1 tracking-[0.1em] text-black">YELLOWBARBER</p>
+            <p class="ck-font text-[11px] text-zinc-400 mb-8 tracking-[0.4em]">BANDA ACEH</p>
 
-            <a href="https://maps.app.goo.gl/c2ofSdM93ftCes2j8" target="_blank" class="w-full max-w-[280px] flex items-center justify-center bg-black text-white border border-zinc-800 py-3.5 rounded-full ck-bold text-[9px] tracking-[0.2em] mb-12 shadow-xl hover:bg-zinc-800 transition-all taktil">
+            <a href="https://maps.app.goo.gl/c2ofSdM93ftCes2j8" target="_blank" class="w-full max-w-[280px] flex items-center justify-center bg-black text-white border border-zinc-800 py-4 rounded-full ck-bold text-[10px] tracking-[0.2em] mb-12 shadow-xl hover:bg-zinc-800 transition-all taktil">
                 📍 BUKA LOKASI MAPS
             </a>
 
             <div class="w-full mb-12">
-                <h3 class="ck-bold text-[9px] text-zinc-400 tracking-[0.3em] mb-6 border-b border-zinc-200 pb-3">OUR SERVICES</h3>
-                <div id="grid-services" class="grid grid-cols-2 gap-4">
+                <h3 class="ck-bold text-[10px] text-zinc-400 tracking-[0.3em] mb-6 border-b border-zinc-200 pb-3">OUR SERVICES</h3>
+                <div id="grid-services" class="flex flex-col gap-6">
                     </div>
             </div>
 
             <div class="w-full mb-10">
-                <h3 class="ck-bold text-[9px] text-zinc-400 tracking-[0.3em] mb-6 border-b border-zinc-200 pb-3">TOP 10 SULTAN</h3>
-                <ul id="leaderboard-list" class="space-y-2">
-                    <li class="text-center py-4 animate-pulse ck-font text-[9px] text-zinc-400 tracking-widest">LOADING...</li>
+                <h3 class="ck-bold text-[10px] text-zinc-400 tracking-[0.3em] mb-6 border-b border-zinc-200 pb-3">TOP 10 SULTAN</h3>
+                <ul id="leaderboard-list" class="space-y-3">
+                    <li class="text-center py-4 animate-pulse ck-font text-[10px] text-zinc-400 tracking-widest">LOADING...</li>
                 </ul>
             </div>
         </section>
 
         <section id="step-staff" class="hidden animate-slide-up flex flex-col items-center">
-            <button onclick="APP_LOGIC.resetToStep1()" class="ck-bold text-[8px] text-zinc-500 mb-8 tracking-[0.3em] border border-zinc-200 px-6 py-2.5 rounded-full taktil hover:bg-zinc-50">
+            <button onclick="APP_LOGIC.resetToStep1()" class="ck-bold text-[10px] text-zinc-500 mb-8 tracking-[0.3em] border border-zinc-200 px-8 py-3 rounded-full taktil hover:bg-zinc-50">
                 ← GO BACK
             </button>
             
-            <div class="inline-flex items-center bg-zinc-100 px-5 py-2.5 mb-10 rounded-full border border-zinc-200 shadow-sm">
-                <span class="w-2 h-2 rounded-full bg-[#FFE600] mr-2 animate-pulse shadow-sm"></span>
-                <p id="selected-branch-text" class="ck-bold text-[9px] text-black tracking-[0.2em]"></p>
+            <div class="inline-flex items-center bg-zinc-100 px-6 py-3 mb-10 rounded-full border border-zinc-200 shadow-sm">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#FFE600] mr-3 animate-pulse shadow-sm"></span>
+                <p id="selected-branch-text" class="ck-bold text-[10px] text-black tracking-[0.2em]"></p>
             </div>
             
             <div id="staff-list" class="w-full space-y-12"></div>
@@ -115,57 +115,57 @@
     </main>
 
     <div id="bottom-bar" class="fixed bottom-6 left-5 right-5 z-40 hidden animate-slide-up">
-        <div class="max-w-sm mx-auto bg-black p-3.5 rounded-[24px] flex justify-between items-center shadow-2xl border border-zinc-800">
+        <div class="max-w-sm mx-auto bg-black p-4 rounded-[24px] flex justify-between items-center shadow-2xl border border-zinc-800">
             <div class="pl-4">
-                <p class="ck-font text-[7px] text-zinc-400 tracking-widest mb-0.5">TOTAL BIAYA</p>
-                <p id="display-price" class="ck-bold text-lg text-white tracking-widest">Rp 0</p>
+                <p class="ck-font text-[9px] text-zinc-400 tracking-widest mb-0.5">TOTAL BIAYA</p>
+                <p id="display-price" class="ck-bold text-xl text-white tracking-widest">Rp 0</p>
             </div>
-            <button onclick="APP_LOGIC.openBookingForm()" class="bg-[#FFE600] text-black px-8 py-3.5 rounded-[16px] ck-bold text-[10px] tracking-[0.2em] taktil shadow-lg">LANJUT</button>
+            <button onclick="APP_LOGIC.openBookingForm()" class="bg-[#FFE600] text-black px-8 py-3.5 rounded-[16px] ck-bold text-[11px] tracking-[0.2em] taktil shadow-lg">LANJUT</button>
         </div>
     </div>
 
     <div id="modal-book" class="fixed inset-0 z-[60] bg-black/60 backdrop-blur-md hidden flex items-end sm:items-center justify-center p-4 transition-opacity duration-300">
         <div class="bg-white w-full max-w-sm p-6 sm:p-8 rounded-[32px] animate-slide-up max-h-[90vh] overflow-y-auto hide-scrollbar relative card-shadow">
-            <div class="w-12 h-1 bg-zinc-200 rounded-full mx-auto mb-8"></div>
-            <h2 class="ck-bold text-xl mb-2 text-center tracking-widest">DETAIL BOOKING</h2>
-            <p class="ck-font text-[8px] text-zinc-400 text-center mb-8 tracking-[0.2em]">PILIH JADWAL & DATA DIRI</p>
+            <div class="w-12 h-1.5 bg-zinc-200 rounded-full mx-auto mb-8"></div>
+            <h2 class="ck-bold text-2xl mb-2 text-center tracking-widest">DETAIL BOOKING</h2>
+            <p class="ck-font text-[10px] text-zinc-400 text-center mb-8 tracking-[0.2em]">PILIH JADWAL & DATA DIRI</p>
             
             <div class="space-y-6">
                 <div>
-                    <p class="ck-bold text-[8px] text-zinc-800 mb-3 tracking-widest pl-1">TANGGAL</p>
-                    <div id="date-slots" class="flex gap-2 overflow-x-auto hide-scrollbar pb-2 px-1"></div>
+                    <p class="ck-bold text-[10px] text-zinc-800 mb-3 tracking-widest pl-1">TANGGAL</p>
+                    <div id="date-slots" class="flex gap-3 overflow-x-auto hide-scrollbar pb-2 px-1"></div>
                     <input type="hidden" id="booking_date" value="">
                 </div>
                 
                 <div>
-                    <p class="ck-bold text-[8px] text-zinc-800 mb-3 tracking-widest pl-1">WAKTU (12:00 - 00:00)</p>
+                    <p class="ck-bold text-[10px] text-zinc-800 mb-3 tracking-widest pl-1">WAKTU (12:00 - 00:00)</p>
                     <div id="time-slots" class="grid grid-cols-4 gap-2"></div>
                     <input type="hidden" id="booking_time" value="">
                 </div>
                 
                 <div class="space-y-3 pt-2 border-t border-zinc-100">
-                    <p class="ck-bold text-[8px] text-zinc-800 tracking-widest pl-1 mt-4">DATA DIRI</p>
-                    <input type="text" id="cust_name" placeholder="NAMA LENGKAP" class="w-full bg-zinc-50 border border-zinc-200 rounded-[16px] px-5 py-4 focus:border-black outline-none ck-bold text-[10px] text-black placeholder-zinc-400 transition-all tracking-widest" autocomplete="off">
-                    <input type="tel" id="cust_phone" placeholder="WHATSAPP (08...)" class="w-full bg-zinc-50 border border-zinc-200 rounded-[16px] px-5 py-4 focus:border-black outline-none ck-bold text-[10px] text-black placeholder-zinc-400 transition-all tracking-widest" autocomplete="off">
+                    <p class="ck-bold text-[10px] text-zinc-800 tracking-widest pl-1 mt-4">DATA DIRI</p>
+                    <input type="text" id="cust_name" placeholder="NAMA LENGKAP" class="w-full bg-zinc-50 border border-zinc-200 rounded-[16px] px-5 py-4 focus:border-black outline-none ck-bold text-[11px] text-black placeholder-zinc-400 transition-all tracking-widest" autocomplete="off">
+                    <input type="tel" id="cust_phone" placeholder="WHATSAPP (08...)" class="w-full bg-zinc-50 border border-zinc-200 rounded-[16px] px-5 py-4 focus:border-black outline-none ck-bold text-[11px] text-black placeholder-zinc-400 transition-all tracking-widest" autocomplete="off">
                 </div>
 
                 <div class="space-y-3 pt-2 border-t border-zinc-100">
-                    <p class="ck-bold text-[8px] text-zinc-800 tracking-widest pl-1 mt-4">METODE PEMBAYARAN</p>
-                    <div class="grid grid-cols-2 gap-2 mb-2">
-                        <button id="btn-pay-lokasi" onclick="APP_LOGIC.selectPayment('lokasi')" class="w-full bg-black text-white border border-black py-3.5 rounded-[12px] ck-bold text-[8px] tracking-[0.2em] transition-all taktil">DI LOKASI</button>
-                        <button id="btn-pay-transfer" onclick="APP_LOGIC.selectPayment('transfer')" class="w-full bg-zinc-50 text-zinc-500 border border-zinc-200 py-3.5 rounded-[12px] ck-bold text-[8px] tracking-[0.2em] transition-all taktil">TRANSFER</button>
+                    <p class="ck-bold text-[10px] text-zinc-800 tracking-widest pl-1 mt-4">METODE PEMBAYARAN</p>
+                    <div class="grid grid-cols-2 gap-3 mb-2">
+                        <button id="btn-pay-lokasi" onclick="APP_LOGIC.selectPayment('lokasi')" class="w-full bg-black text-white border border-black py-4 rounded-[12px] ck-bold text-[10px] tracking-[0.2em] transition-all taktil">DI LOKASI</button>
+                        <button id="btn-pay-transfer" onclick="APP_LOGIC.selectPayment('transfer')" class="w-full bg-zinc-50 text-zinc-500 border border-zinc-200 py-4 rounded-[12px] ck-bold text-[10px] tracking-[0.2em] transition-all taktil">TRANSFER</button>
                     </div>
                     
-                    <div id="transfer-info" class="hidden bg-zinc-50 p-5 rounded-[16px] border border-zinc-200 text-center animate-slide-up">
-                        <p class="ck-font text-[8px] text-zinc-500 tracking-widest mb-2">TRANSFER KE BANK BSI</p>
-                        <p class="ck-bold text-lg text-black tracking-widest">2000080608</p>
-                        <p class="ck-font text-[8px] text-zinc-400 tracking-widest mt-2">A/N YELLOW BARBER</p>
+                    <div id="transfer-info" class="hidden bg-zinc-50 p-5 rounded-[16px] border border-zinc-200 text-center animate-slide-up mt-3">
+                        <p class="ck-font text-[10px] text-zinc-500 tracking-widest mb-2">TRANSFER KE BANK BSI</p>
+                        <p class="ck-bold text-xl text-black tracking-widest">2000080608</p>
+                        <p class="ck-font text-[9px] text-zinc-400 tracking-widest mt-2">A/N YELLOW BARBER</p>
                     </div>
                 </div>
                 
-                <div class="pt-4 space-y-3">
-                    <button id="btn-submit" onclick="APP_LOGIC.submitBooking()" class="w-full bg-black text-[#FFE600] py-4 rounded-[16px] ck-bold text-[10px] tracking-[0.2em] taktil shadow-xl">BOOK SEKARANG</button>
-                    <button onclick="APP_LOGIC.closeModal()" class="w-full ck-bold text-[9px] text-zinc-400 py-3 taktil tracking-widest underline text-center block">BATAL</button>
+                <div class="pt-6 space-y-3">
+                    <button id="btn-submit" onclick="APP_LOGIC.submitBooking()" class="w-full bg-black text-[#FFE600] py-4 rounded-[16px] ck-bold text-[11px] tracking-[0.2em] taktil shadow-xl">BOOK SEKARANG</button>
+                    <button onclick="APP_LOGIC.closeModal()" class="w-full ck-bold text-[10px] text-zinc-400 py-3 taktil tracking-widest underline text-center block mt-2">BATAL</button>
                 </div>
             </div>
         </div>
@@ -180,7 +180,6 @@
             WA_ADMIN: '6289530035907', 
             AVAILABLE_HOURS: ["12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"],
             BRANCHES_META: {
-                // PHOTO COVER BARU DARI GITHUB RAW
                 "YELLOW BANDA": { cover: "https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/preview%20yhb.jpeg", rating: "4.9", rev: "150+", display_name: "BANDA ACEH" }
             }
         };
@@ -229,7 +228,7 @@
                 if (Array.isArray(historyData)) { normalizedData = historyData.map(item => item.json ? item.json : item); }
 
                 if(!normalizedData || normalizedData.length === 0) { 
-                    container.innerHTML = `<li class="text-center py-4 ck-font text-[9px] text-zinc-400 tracking-[0.2em]">BELUM ADA DATA SULTAN</li>`; return; 
+                    container.innerHTML = `<li class="text-center py-4 ck-font text-[10px] text-zinc-400 tracking-[0.2em]">BELUM ADA DATA SULTAN</li>`; return; 
                 }
 
                 const sums = {};
@@ -245,7 +244,7 @@
 
                 const top10 = Object.values(sums).sort((a,b) => b.total - a.total).slice(0, 10);
                 if(top10.length === 0) {
-                    container.innerHTML = `<li class="text-center py-4 ck-font text-[9px] text-zinc-400 tracking-[0.2em]">BELUM ADA TRANSAKSI VALID</li>`; return;
+                    container.innerHTML = `<li class="text-center py-4 ck-font text-[10px] text-zinc-400 tracking-[0.2em]">BELUM ADA TRANSAKSI VALID</li>`; return;
                 }
 
                 container.innerHTML = top10.map((s, index) => {
@@ -255,45 +254,45 @@
                     <li class="flex items-center justify-between py-3 border-b border-zinc-100 last:border-0">
                         <div class="flex items-center gap-4">
                             <span class="ck-bold text-sm w-4 text-center ${badge}">${index+1}</span>
-                            <span class="ck-bold text-[10px] text-black tracking-widest">${s.name}</span>
+                            <span class="ck-bold text-[11px] text-black tracking-widest">${s.name}</span>
                         </div>
-                        <span class="ck-font text-[8px] text-zinc-400 tracking-widest">IDR ${(s.total/1000).toFixed(0)}K</span>
+                        <span class="ck-font text-[10px] text-zinc-400 tracking-widest">IDR ${(s.total/1000).toFixed(0)}K</span>
                     </li>`;
                 }).join('');
             },
 
-            // RENDERING KEDUA CARD 1:1 (CABANG & YELLOW RUN)
+            // DIUBAH KE VERTIKAL STACK (MOBILE FRIENDLY)
             renderGridServices() {
                 const container = document.getElementById('grid-services');
                 if (this.state.branches.length === 0) return;
 
                 const isOpen = new Date().getHours() >= 12; 
 
-                // CARD CABANG
+                // CARD CABANG (VERTIKAL FULL WIDTH)
                 let branchesHtml = this.state.branches.map((b, index) => {
                     const meta = CONFIG.BRANCHES_META[b.dpb_branches_name] || { cover: CONFIG.LOGO_URL, display_name: b.dpb_branches_name };
-                    const status = isOpen ? `<span class="bg-[#FFE600] text-black px-2.5 py-1 rounded text-[6px] ck-bold tracking-widest shadow-sm">OPEN</span>` : `<span class="bg-black text-white px-2.5 py-1 rounded text-[6px] ck-bold tracking-widest shadow-sm">CLOSED</span>`;
+                    const status = isOpen ? `<span class="bg-[#FFE600] text-black px-3 py-1.5 rounded text-[8px] ck-bold tracking-widest shadow-sm">OPEN</span>` : `<span class="bg-black text-white px-3 py-1.5 rounded text-[8px] ck-bold tracking-widest shadow-sm">CLOSED</span>`;
 
                     return `
-                    <div onclick="APP_LOGIC.selectBranch('${b.dpb_branches_name}', '${meta.display_name}')" class="bg-black rounded-[24px] overflow-hidden card-shadow taktil-hover transition-all cursor-pointer animate-slide-up border border-zinc-100 relative aspect-square group" style="animation-delay: ${index * 0.1}s">
-                        <img src="${meta.cover}" class="w-full h-full object-cover absolute inset-0 opacity-80 group-hover:scale-105 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center p-3">
-                            <span class="text-[#FFE600] ck-bold text-[10px] text-center tracking-[0.2em] drop-shadow-md">CLICK HERE<br>TO BOOK</span>
+                    <div onclick="APP_LOGIC.selectBranch('${b.dpb_branches_name}', '${meta.display_name}')" class="bg-black rounded-[24px] overflow-hidden card-shadow taktil-hover transition-all cursor-pointer animate-slide-up border border-zinc-100 relative h-60 w-full group" style="animation-delay: ${index * 0.1}s">
+                        <img src="${meta.cover}" class="w-full h-full object-cover absolute inset-0 opacity-70 group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center p-4">
+                            <span class="text-[#FFE600] ck-bold text-xs text-center tracking-[0.2em] drop-shadow-md">CLICK HERE<br>TO BOOK</span>
                         </div>
-                        <div class="absolute top-3 left-3">${status}</div>
-                        <div class="absolute bottom-3 left-0 right-0 text-center px-2">
-                            <h3 class="ck-bold text-[10px] text-white tracking-[0.3em] drop-shadow-lg">${meta.display_name}</h3>
+                        <div class="absolute top-4 left-4">${status}</div>
+                        <div class="absolute bottom-4 left-0 right-0 text-center px-4">
+                            <h3 class="ck-bold text-base text-white tracking-[0.3em] drop-shadow-lg">${meta.display_name}</h3>
                         </div>
                     </div>`;
                 }).join('');
 
-                // CARD YELLOW RUN
+                // CARD YELLOW RUN (VERTIKAL FULL WIDTH)
                 const yellowRunHtml = `
-                <div onclick="alert('Link komunitas Yellow Run belum tersedia!')" class="bg-zinc-900 rounded-[24px] overflow-hidden card-shadow taktil-hover transition-all cursor-pointer animate-slide-up border border-zinc-800 relative aspect-square group">
-                    <img src="https://images.unsplash.com/photo-1552674605-171ff3ea36f0?auto=format&fit=crop&w=500&q=60" class="w-full h-full object-cover absolute inset-0 opacity-30 grayscale group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute inset-0 flex flex-col items-center justify-center p-3">
-                        <h3 class="ck-bold text-lg text-white tracking-[0.3em] drop-shadow-lg mb-2">YELLOW<br>RUN</h3>
-                        <span class="text-[#FFE600] ck-bold text-[7px] text-center tracking-[0.2em] drop-shadow-md">CLICK HERE TO<br>JOIN OUR COMMUNITY</span>
+                <div onclick="alert('Link komunitas Yellow Run belum tersedia!')" class="bg-zinc-900 rounded-[24px] overflow-hidden card-shadow taktil-hover transition-all cursor-pointer animate-slide-up border border-zinc-800 relative h-60 w-full group">
+                    <img src="https://images.unsplash.com/photo-1552674605-171ff3ea36f0?auto=format&fit=crop&w=800&q=60" class="w-full h-full object-cover absolute inset-0 opacity-30 grayscale group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 flex flex-col items-center justify-center p-4">
+                        <h3 class="ck-bold text-2xl text-white tracking-[0.3em] drop-shadow-lg mb-3">YELLOW<br>RUN</h3>
+                        <span class="text-[#FFE600] ck-bold text-[10px] text-center tracking-[0.2em] drop-shadow-md">CLICK HERE TO<br>JOIN OUR COMMUNITY</span>
                     </div>
                 </div>`;
 
@@ -307,7 +306,7 @@
                 document.getElementById('step-staff').classList.remove('hidden');
                 document.getElementById('selected-branch-text').innerText = displayName;
                 
-                document.getElementById('staff-list').innerHTML = `<div class="text-center py-20 animate-pulse"><p class="ck-font text-[9px] text-zinc-400 tracking-[0.3em]">MEMUAT CAPSTER...</p></div>`;
+                document.getElementById('staff-list').innerHTML = `<div class="text-center py-20 animate-pulse"><p class="ck-font text-[10px] text-zinc-400 tracking-[0.3em]">MEMUAT CAPSTER...</p></div>`;
 
                 try {
                     const res = await fetch(CONFIG.WEBHOOK_URL, {
@@ -322,7 +321,7 @@
 
             renderStaff(staffs) {
                 const container = document.getElementById('staff-list');
-                if (!staffs || staffs.length === 0 || !staffs[0].id) { container.innerHTML = `<p class="ck-font text-[9px] text-zinc-400 text-center py-10 tracking-[0.2em]">CAPSTER BELUM TERSEDIA.</p>`; return; }
+                if (!staffs || staffs.length === 0 || !staffs[0].id) { container.innerHTML = `<p class="ck-font text-[10px] text-zinc-400 text-center py-10 tracking-[0.2em]">CAPSTER BELUM TERSEDIA.</p>`; return; }
 
                 container.innerHTML = staffs.map((s, index) => {
                     const role = s.role ? s.role.toUpperCase() : 'CAPSTER';
@@ -335,20 +334,20 @@
                         const serviceName = ser.name || ser.NAME;
                         return `
                         <button onclick="APP_LOGIC.prepareBooking('${s.id}', '${ser.id}', ${finalPrice}, '${serviceName}')" class="flex flex-col items-center justify-center text-center p-4 rounded-xl border border-zinc-200 bg-white hover:border-black hover:bg-zinc-50 transition-all taktil card-shadow space-y-2">
-                            <span class="ck-bold text-[9px] text-black tracking-widest leading-tight">${serviceName}</span>
-                            <span class="ck-bold text-[8px] text-zinc-500 bg-zinc-100 px-3 py-1.5 rounded-full tracking-widest">Rp ${finalPrice.toLocaleString('id-ID')}</span>
+                            <span class="ck-bold text-[10px] text-black tracking-widest leading-tight">${serviceName}</span>
+                            <span class="ck-bold text-[9px] text-zinc-500 bg-zinc-100 px-3 py-1.5 rounded-full tracking-widest">Rp ${finalPrice.toLocaleString('id-ID')}</span>
                         </button>
                         `;
                     }).join('');
 
                     return `
-                    <div class="bg-white rounded-[24px] border border-zinc-100 card-shadow overflow-hidden animate-slide-up" style="animation-delay: ${index * 0.1}s">
+                    <div class="bg-white rounded-[24px] border border-zinc-100 card-shadow overflow-hidden animate-slide-up w-full" style="animation-delay: ${index * 0.1}s">
                         <div class="p-6 bg-white border-b border-zinc-100 text-center">
                             <h4 class="ck-bold text-2xl text-black tracking-widest mb-2">${s.dbp_staff_name}</h4>
-                            <span class="inline-block ck-font text-[8px] text-zinc-500 bg-zinc-50 border border-zinc-200 px-4 py-1.5 rounded-full tracking-[0.2em] shadow-sm">${role}</span>
+                            <span class="inline-block ck-font text-[9px] text-zinc-500 bg-zinc-50 border border-zinc-200 px-4 py-1.5 rounded-full tracking-[0.2em] shadow-sm">${role}</span>
                         </div>
                         <div class="p-6 bg-zinc-50/50">
-                            <div class="grid grid-cols-2 gap-3">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 ${servicesHtml}
                             </div>
                         </div>
@@ -380,7 +379,7 @@
             closeModal() { document.getElementById('modal-book').classList.add('hidden'); },
 
             renderDateSlots() {
-                document.getElementById('date-slots').innerHTML = this.generateDates().map(d => `<button id="btn-date-${d.value}" onclick="APP_LOGIC.selectDate('${d.value}')" class="date-btn flex-shrink-0 bg-zinc-50 border border-zinc-200 px-5 py-3 rounded-[16px] ck-bold text-[9px] tracking-widest text-zinc-500 taktil whitespace-nowrap">${d.display}</button>`).join('');
+                document.getElementById('date-slots').innerHTML = this.generateDates().map(d => `<button id="btn-date-${d.value}" onclick="APP_LOGIC.selectDate('${d.value}')" class="date-btn flex-shrink-0 bg-zinc-50 border border-zinc-200 px-6 py-3.5 rounded-[16px] ck-bold text-[10px] tracking-widest text-zinc-500 taktil whitespace-nowrap">${d.display}</button>`).join('');
             },
 
             selectDate(dateValue) {
@@ -392,16 +391,16 @@
 
             renderTimeSlots() {
                 const container = document.getElementById('time-slots'); const selectedDate = document.getElementById('booking_date').value;
-                if (!selectedDate) { container.innerHTML = `<div class="col-span-4 text-center py-4 ck-bold text-[8px] text-zinc-400 tracking-widest">PILIH TANGGAL</div>`; return; }
+                if (!selectedDate) { container.innerHTML = `<div class="col-span-4 text-center py-5 ck-bold text-[10px] text-zinc-400 tracking-widest">PILIH TANGGAL</div>`; return; }
 
                 const staffData = this.state.staffs.find(s => s.id == this.state.selectedStaff);
                 const booked = staffData ? (staffData.booked_slots || []) : [];
 
                 container.innerHTML = CONFIG.AVAILABLE_HOURS.map(h => {
                     if (booked.some(slot => String(slot).includes(selectedDate) && String(slot).includes(h))) {
-                        return `<button disabled class="time-btn w-full bg-red-100 text-red-700 border border-red-300 py-3 rounded-[12px] ck-bold text-[9px] tracking-widest opacity-60 cursor-not-allowed line-through">FULL</button>`;
+                        return `<button disabled class="time-btn w-full bg-red-100 text-red-700 border-2 border-red-300 py-3.5 rounded-[12px] ck-bold text-[10px] tracking-widest opacity-60 cursor-not-allowed line-through">FULL</button>`;
                     }
-                    return `<button id="btn-time-${h.replace(':','')}" onclick="APP_LOGIC.selectTime('${h}')" class="time-btn w-full bg-zinc-50 text-zinc-500 border border-zinc-200 py-3 rounded-[12px] ck-bold text-[9px] tracking-widest transition-all taktil">${h}</button>`;
+                    return `<button id="btn-time-${h.replace(':','')}" onclick="APP_LOGIC.selectTime('${h}')" class="time-btn w-full bg-zinc-50 text-zinc-500 border border-zinc-200 py-3.5 rounded-[12px] ck-bold text-[10px] tracking-widest transition-all taktil">${h}</button>`;
                 }).join('');
             },
 
@@ -418,12 +417,12 @@
                 const infoTransfer = document.getElementById('transfer-info');
 
                 if(method === 'lokasi') {
-                    btnLokasi.className = "w-full bg-black text-white border border-black py-3.5 rounded-[12px] ck-bold text-[8px] tracking-[0.2em] transition-all taktil";
-                    btnTransfer.className = "w-full bg-zinc-50 text-zinc-500 border border-zinc-200 py-3.5 rounded-[12px] ck-bold text-[8px] tracking-[0.2em] transition-all taktil";
+                    btnLokasi.className = "w-full bg-black text-white border border-black py-4 rounded-[12px] ck-bold text-[10px] tracking-[0.2em] transition-all taktil";
+                    btnTransfer.className = "w-full bg-zinc-50 text-zinc-500 border border-zinc-200 py-4 rounded-[12px] ck-bold text-[10px] tracking-[0.2em] transition-all taktil";
                     infoTransfer.classList.add('hidden');
                 } else {
-                    btnTransfer.className = "w-full bg-black text-white border border-black py-3.5 rounded-[12px] ck-bold text-[8px] tracking-[0.2em] transition-all taktil";
-                    btnLokasi.className = "w-full bg-zinc-50 text-zinc-500 border border-zinc-200 py-3.5 rounded-[12px] ck-bold text-[8px] tracking-[0.2em] transition-all taktil";
+                    btnTransfer.className = "w-full bg-black text-white border border-black py-4 rounded-[12px] ck-bold text-[10px] tracking-[0.2em] transition-all taktil";
+                    btnLokasi.className = "w-full bg-zinc-50 text-zinc-500 border border-zinc-200 py-4 rounded-[12px] ck-bold text-[10px] tracking-[0.2em] transition-all taktil";
                     infoTransfer.classList.remove('hidden');
                 }
             },
@@ -450,14 +449,14 @@
                         if(this.state.paymentMethod === 'transfer') {
                             const waMsg = encodeURIComponent(`Halo Admin Yellow Barber,\n\nSaya atas nama *${name}* ingin mengirimkan bukti transfer untuk booking pada:\nTanggal: ${tanggal}\nJam: ${jam}\nBarber: ${this.state.selectedStaffName}\n\nTerima kasih.`);
                             actionBtnsHtml = `
-                                <p class="ck-font text-[8px] text-zinc-500 tracking-widest mb-3 mt-4">SATU LANGKAH LAGI</p>
-                                <a href="https://wa.me/${CONFIG.WA_ADMIN}?text=${waMsg}" target="_blank" class="w-full block bg-[#FFE600] text-black py-4 rounded-full ck-bold text-[10px] tracking-[0.2em] taktil mb-3 shadow-md">KIRIM BUKTI TRANSFER (WA)</a>
-                                <button onclick="location.reload()" class="w-full ck-bold text-[9px] text-zinc-400 py-3 taktil tracking-widest underline">TUTUP</button>
+                                <p class="ck-font text-[10px] text-zinc-500 tracking-widest mb-3 mt-4">SATU LANGKAH LAGI</p>
+                                <a href="https://wa.me/${CONFIG.WA_ADMIN}?text=${waMsg}" target="_blank" class="w-full block bg-[#FFE600] text-black py-4 rounded-full ck-bold text-[11px] tracking-[0.2em] taktil mb-3 shadow-md">KIRIM BUKTI TRANSFER (WA)</a>
+                                <button onclick="location.reload()" class="w-full ck-bold text-[10px] text-zinc-400 py-3 taktil tracking-widest underline">TUTUP</button>
                             `;
                         } else {
                             actionBtnsHtml = `
-                                <button onclick="location.reload()" class="w-full bg-black text-[#FFE600] py-4 rounded-full ck-bold text-[10px] tracking-[0.2em] taktil mb-4 shadow-xl">SELESAI</button>
-                                <a href="#" id="receipt-maps" target="_blank" class="text-[9px] ck-bold text-zinc-400 tracking-widest underline">BUKA RUTE MAPS</a>
+                                <button onclick="location.reload()" class="w-full bg-black text-[#FFE600] py-4 rounded-full ck-bold text-[11px] tracking-[0.2em] taktil mb-4 shadow-xl">SELESAI</button>
+                                <a href="#" id="receipt-maps" target="_blank" class="text-[10px] ck-bold text-zinc-400 tracking-widest underline">BUKA RUTE MAPS</a>
                             `;
                         }
                         document.getElementById('success-action-btns').innerHTML = actionBtnsHtml;
