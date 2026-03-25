@@ -78,11 +78,7 @@
         
         <section id="step-initial" class="animate-slide-up flex flex-col items-center text-center">
             
-            <div class="relative w-full flex flex-col items-center justify-center py-6 mb-8">
-                <div class="absolute left-0 top-1/2 -translate-y-1/2 -rotate-90 ck-font text-[8px] text-zinc-400 tracking-[0.3em] whitespace-nowrap">HAIRCUT IS ART</div>
-                
-                <div class="absolute right-0 top-1/2 -translate-y-1/2 rotate-90 ck-font text-[8px] text-zinc-400 tracking-[0.3em] whitespace-nowrap">BANDA ACEH</div>
-                
+            <div class="w-full flex flex-col items-center justify-center py-4 mb-8">
                 <h1 class="ck-bold text-3xl sm:text-4xl mb-1 tracking-[0.1em] text-black">YELLOW BARBER</h1>
                 <p class="ck-font text-[10px] text-zinc-500 tracking-[0.3em]">MINIMALISM BARBER</p>
             </div>
@@ -271,6 +267,7 @@
                     <div onclick="APP_LOGIC.selectBranch('${b.dpb_branches_name}', '${meta.display_name}')" class="bg-black rounded-[24px] overflow-hidden card-shadow taktil-hover transition-all cursor-pointer animate-slide-up border border-zinc-100 relative h-60 w-full group" style="animation-delay: ${index * 0.1}s">
                         <img src="${meta.cover}" class="w-full h-full object-cover absolute inset-0 opacity-70 group-hover:scale-105 transition-transform duration-700">
                         <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center p-4">
+                            <span class="text-white ck-font text-[8px] text-center tracking-[0.3em] mb-2 drop-shadow-md">HAIRCUT IS ART</span>
                             <span class="text-[#FFE600] ck-bold text-xs text-center tracking-[0.2em] drop-shadow-md">CLICK HERE<br>TO BOOK</span>
                         </div>
                         <div class="absolute top-4 left-4">${status}</div>
