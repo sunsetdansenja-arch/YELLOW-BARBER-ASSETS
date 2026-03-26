@@ -18,8 +18,12 @@
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .card-shadow { box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04); }
+        /* REFINED GLASS MORPHISM DEFS */
+        .glass-nav-ref { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.03); }
+        .glass-card-ref { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(0,0,0,0.03); }
+        .glass-bar-ref { background: rgba(21, 21, 21, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.05); }
+
+        .card-shadow { box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03); }
         
         .taktil { transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.2s, color 0.2s; }
         .taktil:active { transform: scale(0.96); }
@@ -45,11 +49,11 @@
     </div>
 
     <div id="success-screen" class="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md hidden flex-col items-center justify-center p-5 overflow-hidden">
-        <div class="bg-white w-full max-w-sm rounded-[32px] p-8 flex flex-col items-center animate-slide-up text-center card-shadow">
+        <div class="bg-white/80 backdrop-blur-lg w-full max-w-sm rounded-[32px] p-8 flex flex-col items-center animate-slide-up text-center card-shadow border border-white/20">
             <div class="w-16 h-16 bg-[#FFE600] rounded-full flex items-center justify-center mb-6 text-black text-2xl font-black shadow-lg shadow-yellow-400/20">✓</div>
             <h1 class="ck-bold text-xl tracking-widest mb-6">BOOKING CONFIRMED</h1>
             
-            <div class="w-full space-y-4 text-[11px] font-medium text-zinc-500 mb-8 bg-zinc-50 p-6 rounded-2xl border border-zinc-100 uppercase tracking-widest">
+            <div class="w-full space-y-4 text-[11px] font-medium text-zinc-500 mb-8 bg-white/40 backdrop-blur-sm p-6 rounded-2xl border border-white/20 uppercase tracking-widest">
                 <div class="flex justify-between items-center pb-3 border-b border-zinc-200">
                     <span>Branch</span><span id="receipt-branch" class="text-black font-bold text-right">...</span>
                 </div>
@@ -65,7 +69,7 @@
         </div>
     </div>
 
-    <nav class="sticky top-0 z-50 glass-nav px-5 py-4 flex justify-between items-center">
+    <nav class="sticky top-0 z-50 glass-nav-ref px-5 py-4 flex justify-between items-center">
         <img id="nav-logo" src="https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png" class="h-6 w-auto drop-shadow-sm">
         <div class="text-[9px] font-bold uppercase tracking-[0.2em] text-black bg-[#FFE600] px-4 py-1.5 rounded-full animate-pulse shadow-sm">LIVE</div>
     </nav>
@@ -101,7 +105,7 @@
     </main>
 
     <div id="bottom-bar" class="fixed bottom-6 left-5 right-5 z-40 hidden animate-slide-up">
-        <div class="max-w-sm mx-auto bg-black p-4 rounded-[24px] flex justify-between items-center shadow-2xl border border-zinc-800">
+        <div class="max-w-sm mx-auto glass-bar-ref p-4 rounded-[24px] flex justify-between items-center shadow-2xl">
             <div class="pl-4">
                 <p class="ck-font text-[9px] text-zinc-400 tracking-widest mb-0.5">TOTAL BIAYA</p>
                 <p id="display-price" class="ck-bold text-xl text-white tracking-widest">Rp 0</p>
@@ -111,7 +115,7 @@
     </div>
 
     <div id="modal-book" class="fixed inset-0 z-[60] bg-black/60 backdrop-blur-md hidden flex items-end sm:items-center justify-center p-4 transition-opacity duration-300">
-        <div class="bg-white w-full max-w-sm p-6 sm:p-8 rounded-[32px] animate-slide-up max-h-[90vh] overflow-y-auto hide-scrollbar relative card-shadow">
+        <div class="bg-white/80 backdrop-blur-lg w-full max-w-sm p-6 sm:p-8 rounded-[32px] animate-slide-up max-h-[90vh] overflow-y-auto hide-scrollbar relative card-shadow border border-white/20">
             <div class="w-12 h-1.5 bg-zinc-200 rounded-full mx-auto mb-8"></div>
             <h2 class="ck-bold text-2xl mb-2 text-center tracking-widest">DETAIL BOOKING</h2>
             <p class="ck-font text-[10px] text-zinc-400 text-center mb-8 tracking-[0.2em]">PILIH JADWAL & DATA DIRI</p>
@@ -127,18 +131,18 @@
                     <div id="time-slots" class="grid grid-cols-4 gap-2"></div>
                     <input type="hidden" id="booking_time" value="">
                 </div>
-                <div class="space-y-3 pt-2 border-t border-zinc-100">
+                <div class="space-y-3 pt-2 border-t border-zinc-100/50">
                     <p class="ck-bold text-[10px] text-zinc-800 tracking-widest pl-1 mt-4">DATA DIRI</p>
-                    <input type="text" id="cust_name" placeholder="NAMA LENGKAP" class="w-full bg-zinc-50 border border-zinc-200 rounded-[16px] px-5 py-4 focus:border-black outline-none ck-bold text-[11px] text-black placeholder-zinc-400 transition-all tracking-widest" autocomplete="off">
-                    <input type="tel" id="cust_phone" placeholder="WHATSAPP (08...)" class="w-full bg-zinc-50 border border-zinc-200 rounded-[16px] px-5 py-4 focus:border-black outline-none ck-bold text-[11px] text-black placeholder-zinc-400 transition-all tracking-widest" autocomplete="off">
+                    <input type="text" id="cust_name" placeholder="NAMA LENGKAP" class="w-full bg-white/40 backdrop-blur-sm border border-zinc-200 rounded-[16px] px-5 py-4 focus:border-black outline-none ck-bold text-[11px] text-black placeholder-zinc-400 transition-all tracking-widest" autocomplete="off">
+                    <input type="tel" id="cust_phone" placeholder="WHATSAPP (08...)" class="w-full bg-white/40 backdrop-blur-sm border border-zinc-200 rounded-[16px] px-5 py-4 focus:border-black outline-none ck-bold text-[11px] text-black placeholder-zinc-400 transition-all tracking-widest" autocomplete="off">
                 </div>
-                <div class="space-y-3 pt-2 border-t border-zinc-100">
+                <div class="space-y-3 pt-2 border-t border-zinc-100/50">
                     <p class="ck-bold text-[10px] text-zinc-800 tracking-widest pl-1 mt-4">METODE PEMBAYARAN</p>
                     <div class="grid grid-cols-2 gap-3 mb-2">
                         <button id="btn-pay-lokasi" onclick="APP_LOGIC.selectPayment('lokasi')" class="w-full bg-black text-white border border-black py-4 rounded-[12px] ck-bold text-[10px] tracking-[0.2em] transition-all taktil">DI LOKASI</button>
-                        <button id="btn-pay-transfer" onclick="APP_LOGIC.selectPayment('transfer')" class="w-full bg-zinc-50 text-zinc-500 border border-zinc-200 py-4 rounded-[12px] ck-bold text-[10px] tracking-[0.2em] transition-all taktil">TRANSFER</button>
+                        <button id="btn-pay-transfer" onclick="APP_LOGIC.selectPayment('transfer')" class="w-full bg-white/40 text-zinc-500 border border-zinc-200 py-4 rounded-[12px] ck-bold text-[10px] tracking-[0.2em] transition-all taktil">TRANSFER</button>
                     </div>
-                    <div id="transfer-info" class="hidden bg-zinc-50 p-5 rounded-[16px] border border-zinc-200 text-center animate-slide-up mt-3">
+                    <div id="transfer-info" class="hidden bg-white/40 backdrop-blur-sm p-5 rounded-[16px] border border-zinc-200 text-center animate-slide-up mt-3">
                         <p class="ck-font text-[10px] text-zinc-500 tracking-widest mb-2">TRANSFER KE BANK BSI</p>
                         <p class="ck-bold text-xl text-black tracking-widest">2000080608</p>
                         <p class="ck-font text-[9px] text-zinc-400 tracking-widest mt-2">A/N YELLOW BARBER</p>
@@ -252,7 +256,6 @@
                     </div>`;
                 }).join('');
                 
-                // MENGUBAH FUNGSI ONCLICK YELLORUN KE WHATSAPP LINK
                 const yellowRunHtml = `
                 <div onclick="window.open('https://chat.whatsapp.com/ICanCX7nHoYKPBxLi9XOUV', '_blank')" class="bg-zinc-900 rounded-[24px] overflow-hidden card-shadow taktil-hover transition-all cursor-pointer animate-slide-up border border-zinc-800 relative h-60 w-full group">
                     <img src="https://images.unsplash.com/photo-1571008887538-b36bb32f4571?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover absolute inset-0 opacity-60 group-hover:scale-105 transition-transform duration-700 mix-blend-luminosity">
@@ -282,6 +285,16 @@
             renderStaff(staffs) {
                 const container = document.getElementById('staff-list');
                 if (!staffs || staffs.length === 0 || !staffs[0].id) { container.innerHTML = `<p class="ck-font text-[10px] text-zinc-400 text-center py-10 tracking-[0.2em]">CAPSTER BELUM TERSEDIA.</p>`; return; }
+
+                // === [NEW DYNAMIC SORTING LOGIC: MOST IDLE FIRST] ===
+                // Murni di Frontend: Urutkan capster berdasarkan jumlah antrean paling sedikit ke paling banyak
+                staffs.sort((a, b) => {
+                    const bookingsA = (a.booked_slots || []).length;
+                    const bookingsB = (b.booked_slots || []).length;
+                    return bookingsA - bookingsB; // Ascending order (kecil ke besar)
+                });
+                // ===================================================
+
                 container.innerHTML = staffs.map((s, index) => {
                     const role = s.role ? s.role.toUpperCase() : 'CAPSTER';
                     const primerServices = (s.services || []).filter(srv => srv.CATEGORY === 'PRIMER' || !srv.CATEGORY);
@@ -290,23 +303,23 @@
                         const finalPrice = Number(ser.price || ser.PRICE);
                         const serviceName = ser.name || ser.NAME;
                         return `
-                        <button onclick="APP_LOGIC.prepareBooking('${s.id}', '${ser.id}', ${finalPrice}, '${serviceName}')" class="flex flex-col items-center justify-center text-center p-4 rounded-xl border border-zinc-200 bg-white hover:border-black hover:bg-zinc-50 transition-all taktil card-shadow space-y-2">
+                        <button onclick="APP_LOGIC.prepareBooking('${s.id}', '${ser.id}', ${finalPrice}, '${serviceName}')" class="flex flex-col items-center justify-center text-center p-4 rounded-xl border border-white/20 bg-white/40 hover:border-black hover:bg-white transition-all taktil card-shadow space-y-2">
                             <span class="ck-bold text-[10px] text-black tracking-widest leading-tight">${serviceName}</span>
-                            <span class="ck-bold text-[9px] text-zinc-500 bg-zinc-100 px-3 py-1.5 rounded-full tracking-widest">Rp ${finalPrice.toLocaleString('id-ID')}</span>
+                            <span class="ck-bold text-[9px] text-zinc-500 bg-white/40 px-3 py-1.5 rounded-full tracking-widest border border-white/20 shadow-inner">Rp ${finalPrice.toLocaleString('id-ID')}</span>
                         </button>
                         `;
                     }).join('');
                     return `
-                    <div class="bg-white rounded-[24px] border border-zinc-100 card-shadow overflow-hidden animate-slide-up w-full" style="animation-delay: ${index * 0.1}s">
-                        <div class="p-6 bg-white border-b border-zinc-100 text-center flex flex-col items-center">
-                            <button onclick="APP_LOGIC.resetToStep1()" class="ck-font text-[9px] text-zinc-500 mb-6 tracking-[0.3em] border border-zinc-200 px-6 py-2 rounded-full taktil hover:bg-zinc-50">← Go Back</button>
-                            <div class="inline-flex items-center bg-zinc-100 px-4 py-2 mb-6 rounded-full border border-zinc-200 shadow-sm">
+                    <div class="glass-card-ref rounded-[24px] card-shadow overflow-hidden animate-slide-up w-full border border-white/10" style="animation-delay: ${index * 0.1}s">
+                        <div class="p-6 bg-white/20 border-b border-white/10 text-center flex flex-col items-center">
+                            <button onclick="APP_LOGIC.resetToStep1()" class="ck-font text-[9px] text-zinc-500 mb-6 tracking-[0.3em] border border-zinc-200 px-6 py-2 rounded-full taktil backdrop-blur-sm bg-white/20 hover:bg-white">← Go Back</button>
+                            <div class="inline-flex items-center bg-white/30 backdrop-blur-sm px-4 py-2 mb-6 rounded-full border border-zinc-200 shadow-inner">
                                 <p class="ck-bold text-[9px] text-black tracking-[0.2em]">📍 BANDA ACEH</p>
                             </div>
-                            <h4 class="font-black italic text-3xl text-black uppercase tracking-tighter mb-2 leading-none">${s.dbp_staff_name}</h4>
-                            <span class="inline-block ck-font text-[9px] text-zinc-500 bg-zinc-50 border border-zinc-200 px-4 py-1.5 rounded-full tracking-[0.2em] shadow-sm">${role}</span>
+                            <h4 class="ck-bold text-3xl text-black tracking-widest mb-2 leading-none">${s.dbp_staff_name}</h4>
+                            <span class="inline-block ck-font text-[9px] text-zinc-500 bg-white/30 backdrop-blur-sm border border-zinc-200 px-4 py-1.5 rounded-full tracking-[0.2em] shadow-inner">${role}</span>
                         </div>
-                        <div class="p-6 bg-zinc-50/50">
+                        <div class="p-6 bg-white/10">
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 ${servicesHtml}
                             </div>
@@ -336,13 +349,13 @@
             closeModal() { document.getElementById('modal-book').classList.add('hidden'); },
 
             renderDateSlots() {
-                document.getElementById('date-slots').innerHTML = this.generateDates().map(d => `<button id="btn-date-${d.value}" onclick="APP_LOGIC.selectDate('${d.value}')" class="date-btn flex-shrink-0 bg-zinc-50 border border-zinc-200 px-6 py-3.5 rounded-[16px] ck-bold text-[10px] tracking-widest text-zinc-500 taktil whitespace-nowrap">${d.display}</button>`).join('');
+                document.getElementById('date-slots').innerHTML = this.generateDates().map(d => `<button id="btn-date-${d.value}" onclick="APP_LOGIC.selectDate('${d.value}')" class="date-btn flex-shrink-0 bg-white/40 backdrop-blur-sm border border-zinc-200 px-6 py-3.5 rounded-[16px] ck-bold text-[10px] tracking-widest text-zinc-500 taktil whitespace-nowrap">${d.display}</button>`).join('');
             },
 
             selectDate(dateValue) {
                 document.getElementById('booking_date').value = dateValue;
-                document.querySelectorAll('.date-btn').forEach(btn => { btn.classList.remove('bg-black', 'text-white', 'border-black'); btn.classList.add('bg-zinc-50', 'text-zinc-500', 'border-zinc-200'); });
-                const selectedBtn = document.getElementById(`btn-date-${dateValue}`); selectedBtn.classList.remove('bg-zinc-50', 'text-zinc-500', 'border-zinc-200'); selectedBtn.classList.add('bg-black', 'text-white', 'border-black');
+                document.querySelectorAll('.date-btn').forEach(btn => { btn.classList.remove('bg-black', 'text-white', 'border-black'); btn.classList.add('bg-white/40', 'text-zinc-500', 'border-zinc-200'); });
+                const selectedBtn = document.getElementById(`btn-date-${dateValue}`); selectedBtn.classList.remove('bg-white/40', 'text-zinc-500', 'border-zinc-200'); selectedBtn.classList.add('bg-black', 'text-white', 'border-black');
                 document.getElementById('booking_time').value = ''; this.renderTimeSlots();
             },
 
@@ -353,16 +366,16 @@
                 const booked = staffData ? (staffData.booked_slots || []) : [];
                 container.innerHTML = CONFIG.AVAILABLE_HOURS.map(h => {
                     if (booked.some(slot => String(slot).includes(selectedDate) && String(slot).includes(h))) {
-                        return `<button disabled class="time-btn w-full bg-red-100 text-red-700 border-2 border-red-300 py-3.5 rounded-[12px] ck-bold text-[10px] tracking-widest opacity-60 cursor-not-allowed line-through">FULL</button>`;
+                        return `<button disabled class="time-btn w-full bg-red-100/70 text-red-700 border-2 border-red-300 py-3.5 rounded-[12px] ck-bold text-[10px] tracking-widest opacity-60 cursor-not-allowed line-through">FULL</button>`;
                     }
-                    return `<button id="btn-time-${h.replace(':','')}" onclick="APP_LOGIC.selectTime('${h}')" class="time-btn w-full bg-zinc-50 text-zinc-500 border border-zinc-200 py-3.5 rounded-[12px] ck-bold text-[10px] tracking-widest transition-all taktil">${h}</button>`;
+                    return `<button id="btn-time-${h.replace(':','')}" onclick="APP_LOGIC.selectTime('${h}')" class="time-btn w-full bg-white/40 text-zinc-500 border border-zinc-200 py-3.5 rounded-[12px] ck-bold text-[10px] tracking-widest transition-all taktil">${h}</button>`;
                 }).join('');
             },
 
             selectTime(hour) {
                 document.getElementById('booking_time').value = hour;
-                document.querySelectorAll('.time-btn').forEach(btn => { btn.classList.remove('bg-[#FFE600]', 'text-black', 'border-[#FFE600]'); btn.classList.add('bg-zinc-50', 'text-zinc-500', 'border-zinc-200'); });
-                const selectedBtn = document.getElementById(`btn-time-${hour.replace(':','')}`); selectedBtn.classList.remove('bg-zinc-50', 'text-zinc-500', 'border-zinc-200'); selectedBtn.classList.add('bg-[#FFE600]', 'text-black', 'border-[#FFE600]');
+                document.querySelectorAll('.time-btn').forEach(btn => { btn.classList.remove('bg-[#FFE600]', 'text-black', 'border-[#FFE600]'); btn.classList.add('bg-white/40', 'text-zinc-500', 'border-zinc-200'); });
+                const selectedBtn = document.getElementById(`btn-time-${hour.replace(':','')}`); selectedBtn.classList.remove('bg-white/40', 'text-zinc-500', 'border-zinc-200'); selectedBtn.classList.add('bg-[#FFE600]', 'text-black', 'border-[#FFE600]');
             },
 
             selectPayment(method) {
@@ -371,12 +384,12 @@
                 const btnTransfer = document.getElementById('btn-pay-transfer');
                 const infoTransfer = document.getElementById('transfer-info');
                 if(method === 'lokasi') {
-                    btnLokasi.className = "w-full bg-black text-white border border-black py-4 rounded-[12px] ck-bold text-[10px] tracking-[0.2em] transition-all taktil";
-                    btnTransfer.className = "w-full bg-zinc-50 text-zinc-500 border border-zinc-200 py-4 rounded-[12px] ck-bold text-[10px] tracking-[0.2em] transition-all taktil";
+                    btnLokasi.className = "w-full bg-black text-white border border-black py-4 rounded-[12px] ck-bold text-[10px] tracking-[0.2em] transition-all taktil shadow-md";
+                    btnTransfer.className = "w-full bg-white/40 text-zinc-500 border border-zinc-200 py-4 rounded-[12px] ck-bold text-[10px] tracking-[0.2em] transition-all taktil";
                     infoTransfer.classList.add('hidden');
                 } else {
-                    btnTransfer.className = "w-full bg-black text-white border border-black py-4 rounded-[12px] ck-bold text-[10px] tracking-[0.2em] transition-all taktil";
-                    btnLokasi.className = "w-full bg-zinc-50 text-zinc-500 border border-zinc-200 py-4 rounded-[12px] ck-bold text-[10px] tracking-[0.2em] transition-all taktil";
+                    btnTransfer.className = "w-full bg-black text-white border border-black py-4 rounded-[12px] ck-bold text-[10px] tracking-[0.2em] transition-all taktil shadow-md";
+                    btnLokasi.className = "w-full bg-white/40 text-zinc-500 border border-zinc-200 py-4 rounded-[12px] ck-bold text-[10px] tracking-[0.2em] transition-all taktil";
                     infoTransfer.classList.remove('hidden');
                 }
             },
