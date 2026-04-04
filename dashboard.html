@@ -91,7 +91,13 @@
 
                 <div class="apple-card apple-shadow flex flex-col min-h-[400px]">
                     <div class="p-4 sm:p-5 border-b border-zinc-100 flex justify-between items-center bg-white rounded-t-[20px] shrink-0">
-                        <div><h2 class="ck-bold text-lg sm:text-xl text-black">Live Queue</h2><p class="text-[9px] font-medium text-zinc-500 uppercase tracking-widest mt-0.5">Jadwal 7 Hari Ke Depan</p></div>
+                        <div>
+                            <h2 class="ck-bold text-lg sm:text-xl text-black">Live Queue</h2>
+                            <p class="text-[9px] font-medium text-zinc-500 uppercase tracking-widest mt-0.5">Jadwal 7 Hari Ke Depan</p>
+                        </div>
+                        <button onclick="CASHIER_LOGIC.openWalkinModal()" class="btn-press bg-[#FFE600] text-black px-4 py-2 rounded-xl text-[9px] sm:text-[10px] font-bold uppercase tracking-widest shadow-sm hover:bg-yellow-400 transition-all">
+                            + Walk-In
+                        </button>
                     </div>
                     <div id="queue-container" class="flex-1 p-4 sm:p-5 space-y-4 bg-zinc-50/50 rounded-b-[20px] overflow-y-auto"></div>
                 </div>
@@ -221,6 +227,54 @@
         </main>
     </div>
 
+    <!-- MODAL WALK-IN BARU -->
+    <div id="modal-walkin" class="fixed inset-0 z-[60] bg-zinc-900/40 backdrop-blur-sm hidden flex-col items-center justify-center p-4 transition-all">
+        <div class="bg-white w-full max-w-sm rounded-[24px] p-6 shadow-2xl animate-slide-up border border-zinc-100 max-h-[90vh] overflow-y-auto">
+            <h2 class="ck-bold text-xl mb-6 text-black tracking-tight">Input Order Walk-in</h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="text-[9px] font-medium text-zinc-500 mb-1 block uppercase tracking-widest">Nama Pelanggan</label>
+                    <input type="text" id="walkin-name" placeholder="Misal: Walk-In / Budi" class="w-full bg-zinc-50 text-black font-medium text-sm px-4 py-3.5 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400">
+                </div>
+                <div>
+                    <label class="text-[9px] font-medium text-zinc-500 mb-1 block uppercase tracking-widest">No. WhatsApp (Opsional)</label>
+                    <input type="tel" id="walkin-phone" placeholder="08..." class="w-full bg-zinc-50 text-black font-medium text-sm px-4 py-3.5 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400">
+                </div>
+                <div>
+                    <label class="text-[9px] font-medium text-zinc-500 mb-1 block uppercase tracking-widest">Pilih Barber</label>
+                    <select id="walkin-capster" class="w-full bg-zinc-50 text-black font-medium text-sm px-4 py-3.5 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400 uppercase">
+                        <option value="">Loading...</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-[9px] font-medium text-zinc-500 mb-1 block uppercase tracking-widest">Layanan Utama</label>
+                    <select id="walkin-package" class="w-full bg-zinc-50 text-black font-medium text-sm px-4 py-3.5 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400 uppercase">
+                        <option value="">Pilih Layanan</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-[9px] font-medium text-zinc-500 mb-1 block uppercase tracking-widest">Jam</label>
+                        <input type="time" id="walkin-time" class="w-full bg-zinc-50 text-black font-medium text-sm px-4 py-3.5 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400">
+                    </div>
+                    <div>
+                        <label class="text-[9px] font-medium text-zinc-500 mb-1 block uppercase tracking-widest">Pembayaran</label>
+                        <select id="walkin-payment" class="w-full bg-zinc-50 text-black font-medium text-sm px-4 py-3.5 rounded-xl outline-none border border-zinc-200 focus:border-zinc-400 uppercase">
+                            <option value="lokasi">Di Lokasi</option>
+                            <option value="transfer">Transfer</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex gap-3 pt-4 border-t border-zinc-100 mt-2">
+                    <button onclick="CASHIER_LOGIC.closeWalkinModal()" class="btn-press flex-1 bg-zinc-100 text-zinc-600 py-3.5 rounded-xl font-medium text-xs hover:bg-zinc-200 transition-all uppercase tracking-widest">Batal</button>
+                    <button onclick="CASHIER_LOGIC.submitWalkin()" class="btn-press flex-[2] bg-black text-[#FFE600] py-3.5 rounded-xl font-medium text-xs shadow-md hover:bg-zinc-800 transition-all uppercase tracking-widest">Simpan Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MODAL WALK-IN -->
+
     <div id="modal-expense" class="fixed inset-0 z-[60] bg-zinc-900/40 backdrop-blur-sm hidden flex-col items-center justify-center p-4 transition-all">
         <div class="bg-white w-full max-w-sm rounded-[24px] p-6 shadow-2xl animate-slide-up border border-zinc-100 max-h-[90vh] overflow-y-auto">
             <h2 class="ck-bold text-xl mb-6 text-black tracking-tight">Catat Pengeluaran</h2>
@@ -339,7 +393,6 @@
                 const res = await fetch(CONFIG.WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({...payload, tenant_id: CONFIG.TENANT_ID}) });
                 return await res.json();
             },
-            // Generator for next 7 days validation
             generateNext7Days: (baseDateStr) => {
                 const dates = [];
                 const parts = baseDateStr.split('-');
@@ -477,15 +530,12 @@
                 document.getElementById('sum-profit').innerText = UTIL.formatRp(omset - komisi - exp); 
             },
             
-            // --- QUEUE (7 DAYS) ---
             renderQueue() {
                 const container = document.getElementById('queue-container'); 
                 container.innerHTML = ''; 
                 
-                // Ambil tanggal dari hari ini s.d 7 hari ke depan
                 const validDates = UTIL.generateNext7Days(STATE.sysDates.today);
 
-                // Filter & Sort: Berdasarkan Tanggal lalu Jam
                 const filteredData = STATE.queue.filter(d => validDates.includes(UTIL.cleanDate(d.tanggal))).sort((a,b) => {
                     const dateA = UTIL.cleanDate(a.tanggal);
                     const dateB = UTIL.cleanDate(b.tanggal);
@@ -533,6 +583,79 @@
                             ${aBtns}
                         </div>`);
                 });
+            },
+
+            // --- FUNGSI WALK-IN BARU ---
+            async openWalkinModal() {
+                document.getElementById('walkin-name').value = 'Walk-In';
+                document.getElementById('walkin-phone').value = '';
+                
+                const now = new Date();
+                document.getElementById('walkin-time').value = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+                
+                const pkgSelect = document.getElementById('walkin-package');
+                pkgSelect.innerHTML = '<option value="">Pilih Layanan</option>' + STATE.packages.map(p => `<option value="${p.id}|${p.NAME}|${p.PRICE}">${p.NAME} - ${UTIL.formatRp(p.PRICE)}</option>`).join('');
+
+                const capSelect = document.getElementById('walkin-capster');
+                capSelect.innerHTML = '<option value="">Loading Barber...</option>';
+                document.getElementById('modal-walkin').classList.replace('hidden', 'flex');
+
+                try {
+                    const res = await fetch(CONFIG.PUBLIC_WEBHOOK_URL, {
+                        method: 'POST', headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({ action: 'get_staff_list', branch_name: STATE.user.branch, tenant_id: CONFIG.TENANT_ID })
+                    });
+                    const rawStaff = await res.json();
+                    const staffs = (Array.isArray(rawStaff) ? rawStaff : [rawStaff]).map(s => s.json ? s.json : s);
+                    capSelect.innerHTML = '<option value="">Pilih Barber</option>' + staffs.map(s => `<option value="${s.id}|${s.dbp_staff_name}">${s.dbp_staff_name}</option>`).join('');
+                } catch (e) {
+                    capSelect.innerHTML = '<option value="">Gagal Load Capster</option>';
+                }
+            },
+            closeWalkinModal() {
+                document.getElementById('modal-walkin').classList.replace('flex', 'hidden');
+            },
+            async submitWalkin() {
+                const name = document.getElementById('walkin-name').value.trim() || 'Walk-In';
+                const phone = document.getElementById('walkin-phone').value.trim() || '-';
+                const capVal = document.getElementById('walkin-capster').value;
+                const pkgVal = document.getElementById('walkin-package').value;
+                const time = document.getElementById('walkin-time').value;
+                const pay = document.getElementById('walkin-payment').value;
+
+                if(!capVal || !pkgVal || !time) return alert("Pilih Barber, Layanan, dan Jam!");
+
+                const [capId, capName] = capVal.split('|');
+                const [pkgId, pkgName, pkgPrice] = pkgVal.split('|');
+
+                this.closeWalkinModal();
+                UTIL.showLoading("MENCATAT ORDER...");
+
+                try {
+                    await fetch(CONFIG.PUBLIC_WEBHOOK_URL, {
+                        method: 'POST', headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            action: 'submit_booking',
+                            cust_name: name,
+                            cust_phone: phone,
+                            tanggal: STATE.sysDates.today,
+                            jam: time,
+                            branch_id: STATE.user.branch,
+                            capster_id: capId,
+                            package_id: pkgId,
+                            price: Number(pkgPrice),
+                            caps_in_charge: capName,
+                            package_name: pkgName,
+                            payment_method: pay,
+                            tenant_id: CONFIG.TENANT_ID
+                        })
+                    });
+                    await this.loadData(true);
+                } catch (e) {
+                    alert("Gagal mencatat order walk-in.");
+                } finally {
+                    UTIL.hideLoading();
+                }
             },
 
             async openSwapModal(bookingId, custName) {
