@@ -9,6 +9,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         /* CK STRICT STYLING */
@@ -64,6 +66,7 @@
             <div class="hidden md:flex bg-zinc-100 p-1 rounded-xl border border-zinc-200">
                 <button onclick="CASHIER_LOGIC.switchTab('queue')" id="tab-btn-queue" class="px-5 py-1.5 rounded-md text-xs font-medium tab-active transition-all">Queue</button>
                 <button onclick="CASHIER_LOGIC.switchTab('report')" id="tab-btn-report" class="px-5 py-1.5 rounded-md text-xs font-medium text-zinc-500 transition-all">Reports</button>
+                <button onclick="CASHIER_LOGIC.switchTab('analytic')" id="tab-btn-analytic" class="px-5 py-1.5 rounded-md text-xs font-medium text-zinc-500 transition-all">Analytic</button>
                 <button onclick="CASHIER_LOGIC.switchTab('config')" id="tab-btn-config" class="px-5 py-1.5 rounded-md text-xs font-medium text-zinc-500 transition-all">Pricelist</button>
             </div>
 
@@ -78,6 +81,7 @@
             <div class="md:hidden flex bg-zinc-100 p-1 rounded-xl border border-zinc-200 shrink-0">
                 <button onclick="CASHIER_LOGIC.switchTab('queue')" class="flex-1 py-2 rounded-md text-[10px] font-medium uppercase tracking-widest bg-white shadow-sm text-black">Queue</button>
                 <button onclick="CASHIER_LOGIC.switchTab('report')" class="flex-1 py-2 rounded-md text-[10px] font-medium uppercase tracking-widest text-zinc-500">Report</button>
+                <button onclick="CASHIER_LOGIC.switchTab('analytic')" class="flex-1 py-2 rounded-md text-[10px] font-medium uppercase tracking-widest text-zinc-500">Analytic</button>
                 <button onclick="CASHIER_LOGIC.switchTab('config')" class="flex-1 py-2 rounded-md text-[10px] font-medium uppercase tracking-widest text-zinc-500">Pricelist</button>
             </div>
 
@@ -175,7 +179,7 @@
                                     <th class="p-3 text-[8px] font-medium text-zinc-500 uppercase tracking-widest">Pelanggan</th>
                                     <th class="p-3 text-[8px] font-medium text-zinc-500 uppercase tracking-widest">Layanan</th>
                                     <th class="p-3 text-[8px] font-medium text-zinc-500 uppercase tracking-widest">Capster</th>
-                                    <th class="p-3 text-[8px] font-medium text-zinc-500 uppercase text-right tracking-widest">Tarif (Gross)</th>
+                                    <th class="p-3 text-[8px] font-medium text-uppercase text-right tracking-widest">Tarif (Gross)</th>
                                     <th class="p-3 text-[8px] font-medium text-orange-600 uppercase text-right tracking-widest">Komisi</th>
                                     <th class="p-3 text-[8px] font-medium text-black uppercase text-right tracking-widest">Hak Owner</th>
                                     <th class="p-3 text-[8px] font-medium text-red-500 uppercase text-center tracking-widest w-16">Aksi</th>
@@ -198,6 +202,56 @@
                             </thead>
                             <tbody id="report-table-expense" class="divide-y divide-red-50 text-xs"></tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- TAB ANALYTIC -->
+        <main id="tab-analytic" class="flex-1 flex flex-col p-4 md:p-8 hidden animate-slide-up overflow-y-auto">
+            <div class="max-w-6xl w-full mx-auto space-y-6 pb-12">
+                <div class="flex justify-between items-center bg-white p-5 rounded-2xl apple-shadow border border-zinc-200">
+                    <div>
+                        <h2 class="ck-font text-xl text-black">Performance Analytics</h2>
+                        <p class="text-[9px] font-medium text-zinc-400 uppercase tracking-widest mt-0.5">Pertumbuhan Bulanan (Maret - Present)</p>
+                    </div>
+                    <div class="bg-black text-[#FFE600] px-4 py-2 rounded-xl text-xs font-semibold tracking-widest uppercase">
+                        Live Data
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="apple-card p-4 apple-shadow bg-white">
+                        <p class="text-[9px] font-medium text-zinc-400 uppercase tracking-widest mb-1">Growth Omset (MoM)</p>
+                        <p id="ana-growth-omset" class="font-bold text-lg text-blue-600">+0%</p>
+                    </div>
+                    <div class="apple-card p-4 apple-shadow bg-white">
+                        <p class="text-[9px] font-medium text-zinc-400 uppercase tracking-widest mb-1">Rata-rata Omset / Bln</p>
+                        <p id="ana-avg-omset" class="font-bold text-lg text-black">Rp 0</p>
+                    </div>
+                    <div class="apple-card p-4 apple-shadow bg-white">
+                        <p class="text-[9px] font-medium text-zinc-400 uppercase tracking-widest mb-1">Total Pelanggan Dilayani</p>
+                        <p id="ana-total-cust" class="font-bold text-lg text-green-600">0 Tamu</p>
+                    </div>
+                    <div class="apple-card p-4 apple-shadow bg-white">
+                        <p class="text-[9px] font-medium text-zinc-400 uppercase tracking-widest mb-1">Avg Order Value (AOV)</p>
+                        <p id="ana-avg-aov" class="font-bold text-lg text-orange-500">Rp 0</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="apple-card p-5 apple-shadow bg-white">
+                        <h3 class="ck-bold text-sm text-black mb-4">Tren Gross Omset Bulanan</h3>
+                        <div class="relative h-64 w-full">
+                            <canvas id="chartRevenueTrend"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="apple-card p-5 apple-shadow bg-white">
+                        <h3 class="ck-bold text-sm text-black mb-4">Total Tamu per Barber</h3>
+                        <div class="relative h-64 w-full">
+                            <canvas id="chartCapsterPerformance"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -383,6 +437,7 @@
         };
 
         const CASHIER_LOGIC = {
+            chartInstances: {},
             init() {
                 const bName = STATE.user.branch || "YHB";
                 document.getElementById('cashier-branch-name').innerText = bName; document.getElementById('report-branch-label').innerText = bName;
@@ -396,15 +451,18 @@
                 });
             },
             switchTab(tab) {
-                ['queue', 'report', 'config'].forEach(t => { 
-                    document.getElementById(`tab-${t}`).classList.add('hidden'); 
+                ['queue', 'report', 'analytic', 'config'].forEach(t => { 
+                    const el = document.getElementById(`tab-${t}`);
+                    if(el) el.classList.add('hidden'); 
                     const btn = document.getElementById(`tab-btn-${t}`);
                     if(btn) { btn.classList.remove('tab-active', 'text-black'); btn.classList.add('text-zinc-500'); }
                 });
                 document.getElementById(`tab-${tab}`).classList.remove('hidden');
                 const activeBtn = document.getElementById(`tab-btn-${tab}`);
                 if(activeBtn) { activeBtn.classList.remove('text-zinc-500'); activeBtn.classList.add('tab-active', 'text-black'); }
+                
                 if(tab === 'report') this.processReport();
+                if(tab === 'analytic') this.processAnalytic();
             },
             async loadData(silent = false) {
                 const sText = document.getElementById('sync-text'); const sIcon = document.getElementById('sync-icon');
@@ -423,7 +481,14 @@
                     }
                     const repData = await UTIL.post({ action: 'get_cashier_report', branch: STATE.user.branch });
                     STATE.rawReportData = repData[0] || repData;
-                    if(!document.getElementById('tab-report').classList.contains('hidden')) { document.getElementById('printable-report').classList.remove('hidden'); this.processReport(); }
+                    
+                    if(!document.getElementById('tab-report').classList.contains('hidden')) { 
+                        document.getElementById('printable-report').classList.remove('hidden'); 
+                        this.processReport(); 
+                    }
+                    if(!document.getElementById('tab-analytic').classList.contains('hidden')) { 
+                        this.processAnalytic(); 
+                    }
                 } catch (e) {} finally {
                     if(sText) sText.innerText = "Auto-Sync On"; if(sIcon) sIcon.classList.remove('animate-spin');
                     UTIL.hideLoading();
@@ -515,7 +580,6 @@
                 } catch (e) { alert("Gagal mencatat order walk-in."); } finally { UTIL.hideLoading(); }
             },
 
-            // --- AGENCY HACK: MODAL CANCEL/DELETE ---
             openCancelModal(id) { 
                 STATE.cancelTargetId = id; 
                 document.getElementById('cancel-confirm-text').value = ''; 
@@ -532,7 +596,6 @@
                 this.closeCancelModal(); 
                 UTIL.showLoading("MENGHAPUS..."); 
                 try { 
-                    // Kita nembak ke route cancel_book bawaan lu (Soft Delete)
                     await UTIL.post({ action: 'cancel_book', id: Number(STATE.cancelTargetId) }); 
                     await this.loadData(true); 
                 } catch (e) { alert("Gagal Hapus Data"); } finally { UTIL.hideLoading(); } 
@@ -674,7 +737,6 @@
                     if(!capsterStats[cName]) capsterStats[cName] = { count: 0, gross: 0, komisi: 0, yhb: 0 };
                     capsterStats[cName].count++; capsterStats[cName].gross += v; capsterStats[cName].komisi += k; capsterStats[cName].yhb += yhbShare;
 
-                    // TOMBOL HAPUS MENGGUNAKAN FUNGSI CANCEL (SOFT DELETE)
                     logIncomeHTML += `
                     <tr class="hover:bg-zinc-50 transition-colors group">
                         <td class="p-3 font-semibold text-black">${tglJam}</td>
@@ -734,6 +796,97 @@
                 document.getElementById('report-table-income').innerHTML = logIncomeHTML || `<tr><td colspan="8" class="p-6 text-center text-zinc-400 text-[10px] uppercase tracking-widest font-medium">Tidak ada pemasukan.</td></tr>`;
                 document.getElementById('report-table-expense').innerHTML = logExpenseHTML || `<tr><td colspan="4" class="p-6 text-center text-zinc-400 text-[10px] uppercase tracking-widest font-medium">Tidak ada pengeluaran.</td></tr>`;
             },
+
+            processAnalytic() {
+                if(!STATE.rawReportData || !STATE.rawReportData.bookings) return;
+
+                const bookings = STATE.rawReportData.bookings.filter(b => {
+                    const date = UTIL.cleanDate(b.tanggal);
+                    const month = parseInt(date.split('-')[1]);
+                    return (b.status === 'DONE' || b.status === 'SUCCESS') && month >= 3;
+                });
+
+                const monthlyMap = {};
+                const capsterMap = {};
+
+                bookings.forEach(b => {
+                    const monthKey = UTIL.cleanDate(b.tanggal).substring(0, 7);
+                    const price = Number(b.price) || 0;
+                    const cName = String(b.caps_in_charge || b.capster_id || 'Unknown').toUpperCase();
+
+                    if(!monthlyMap[monthKey]) monthlyMap[monthKey] = { gross: 0, trx: 0 };
+                    monthlyMap[monthKey].gross += price;
+                    monthlyMap[monthKey].trx += 1;
+
+                    if(!capsterMap[cName]) capsterMap[cName] = 0;
+                    capsterMap[cName] += 1;
+                });
+
+                const labels = Object.keys(monthlyMap).sort();
+                const grossData = labels.map(l => monthlyMap[l].gross);
+
+                const totalRevenueAll = grossData.reduce((a, b) => a + b, 0);
+                const totalTrxAll = bookings.length;
+                const avgRevenue = labels.length ? (totalRevenueAll / labels.length) : 0;
+                const avgAOV = totalTrxAll ? (totalRevenueAll / totalTrxAll) : 0;
+
+                document.getElementById('ana-avg-omset').innerText = UTIL.formatRp(avgRevenue);
+                document.getElementById('ana-total-cust').innerText = `${totalTrxAll} Tamu`;
+                document.getElementById('ana-avg-aov').innerText = UTIL.formatRp(avgAOV);
+
+                if(grossData.length >= 2) {
+                    const last = grossData[grossData.length - 1];
+                    const prev = grossData[grossData.length - 2];
+                    const growth = prev > 0 ? (((last - prev) / prev) * 100).toFixed(1) : 0;
+                    document.getElementById('ana-growth-omset').innerText = `${growth >= 0 ? '+' : ''}${growth}%`;
+                }
+
+                if(this.chartInstances.revenue) this.chartInstances.revenue.destroy();
+                const ctxRev = document.getElementById('chartRevenueTrend').getContext('2d');
+                this.chartInstances.revenue = new Chart(ctxRev, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Gross Omset',
+                            data: grossData,
+                            borderColor: '#2563EB',
+                            backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                            fill: true,
+                            tension: 0.3,
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: { y: { beginAtZero: true } }
+                    }
+                });
+
+                if(this.chartInstances.capster) this.chartInstances.capster.destroy();
+                const ctxCaps = document.getElementById('chartCapsterPerformance').getContext('2d');
+                this.chartInstances.capster = new Chart(ctxCaps, {
+                    type: 'bar',
+                    data: {
+                        labels: Object.keys(capsterMap),
+                        datasets: [{
+                            label: 'Tamu Dilayani',
+                            data: Object.values(capsterMap),
+                            backgroundColor: '#111111',
+                            borderRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: { y: { beginAtZero: true } }
+                    }
+                });
+            },
+
             exportPDF() { UTIL.showLoading("GENERATE PDF..."); html2pdf().set({margin:0.2, filename:`YHB_Audit_${document.getElementById('report-month').value}.pdf`, html2canvas:{scale:2}, jsPDF:{unit:'in',format:'a4',orientation:'landscape'}}).from(document.getElementById('printable-report')).save().then(() => UTIL.hideLoading()); }
         };
 
