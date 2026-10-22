@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>YHB | System Access</title>
+    <script>try{if(localStorage.getItem('yhb_theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -36,6 +37,64 @@
         
         .tab-active { background: #111111 !important; color: #FFFFFF !important; font-weight: 600 !important; }
         #view-cashier { padding-bottom: 90px; }
+        
+        /* NIGHT MODE: hitam + kuning */
+        :root{--hm-empty:#F4F4F5}
+        .icon-sun{display:none}
+        .dark{--hm-empty:#1F1F1F;color-scheme:dark}
+        .dark .icon-moon{display:none}
+        .dark .icon-sun{display:inline}
+        .dark body,.dark #view-login,.dark .bg-\[\#F5F5F7\]{background:#0A0A0A;color:#F5F5F5}
+        .dark .bg-white,.dark .apple-card{background:#141414}
+        .dark .bg-white\/80{background:rgba(10,10,10,.8)}
+        .dark .apple-card,.dark .border-zinc-100,.dark .border-zinc-200{border-color:#2A2A2A}
+        .dark .border-zinc-300{border-color:#3A3A3A}
+        .dark .apple-shadow{box-shadow:0 4px 24px rgba(0,0,0,.5)}
+        .dark .glass-header{background:rgba(10,10,10,.88);border-color:#2A2A2A}
+        .dark .bg-zinc-50,.dark .bg-zinc-100{background:#1B1B1B}
+        .dark .bg-zinc-50\/50{background:#0F0F0F}
+        .dark .bg-zinc-200{background:#262626}
+        .dark .text-black{color:#F5F5F5}
+        .dark .text-zinc-800,.dark .text-zinc-700{color:#E4E4E7}
+        .dark .text-zinc-600{color:#B4B4BB}
+        .dark .text-zinc-500{color:#A1A1AA}
+        .dark ::placeholder{color:#71717A}
+        .dark select option{background:#141414;color:#F5F5F5}
+        .dark ::-webkit-scrollbar-thumb{background:#3F3F46}
+        .dark .hover\:bg-zinc-50:hover,.dark .hover\:bg-zinc-100:hover,.dark .hover\:bg-zinc-200:hover{background:#262626}
+        .dark .focus\:border-zinc-400:focus{border-color:#FFE600}
+        .dark .accent-black{accent-color:#FFE600}
+        .dark .border-t-black{border-top-color:#FFE600}
+        /* elemen hitam (tombol & kartu sorot) jadi kuning */
+        .dark .bg-black{background:#FFE600!important;color:#111!important}
+        .dark .text-\[\#FFE600\]{color:#111!important}
+        .dark .bg-\[\#FFE600\]{color:#111!important}
+        .dark .hover\:bg-zinc-800:hover,.dark .hover\:bg-yellow-400:hover{background:#FFF176!important}
+        .dark .bg-black .text-zinc-500{color:#3F3F46}
+        .dark .bg-black .border-zinc-700,.dark .border-zinc-800{border-color:rgba(0,0,0,.25)}
+        .dark .tab-active{background:#FFE600!important;color:#111!important}
+        .dark .chip{background:#1B1B1B;border-color:#2F2F2F;color:#F5F5F5}
+        .dark .chip-on{background:#FFE600;border-color:#FFE600;color:#111}
+        .dark .mnav-btn{color:#A1A1AA}
+        .dark .mnav-btn.active{color:#FFE600}
+        .dark .hm-label{color:#A1A1AA}
+        /* biru -> kuning, warna status disesuaikan */
+        .dark .text-blue-400{color:#CBB800}
+        .dark .text-blue-500,.dark .text-blue-600,.dark .text-blue-700{color:#FFE600}
+        .dark .bg-blue-50{background:#1A1700}
+        .dark .bg-blue-100{background:#2A2500}
+        .dark .border-blue-100,.dark .border-blue-200{border-color:#3A3300}
+        .dark .bg-orange-50{background:#2A1A0B}
+        .dark .border-orange-100,.dark .border-orange-200{border-color:#4A2F12}
+        .dark .text-orange-400{color:#FB923C}
+        .dark .text-orange-500,.dark .text-orange-600,.dark .text-orange-700{color:#FDBA74}
+        .dark .bg-red-50,.dark .bg-red-100{background:#2A1212}
+        .dark .border-red-100,.dark .border-red-200{border-color:#4A1F1F}
+        .dark .text-red-400,.dark .text-red-500,.dark .text-red-600,.dark .text-red-700{color:#F87171}
+        .dark .hover\:bg-red-50:hover,.dark .hover\:bg-red-100:hover{background:#3A1818}
+        .dark .text-green-600{color:#4ADE80}
+        .dark .divide-zinc-100>:not([hidden])~:not([hidden]){border-color:#2A2A2A}
+        .dark .divide-red-50>:not([hidden])~:not([hidden]){border-color:#3A1A1A}
         .chip{background:#F4F4F5;border:1px solid #E5E5EA;color:#111;border-radius:12px;padding:12px 16px;font-size:13px;font-weight:500;transition:all .15s}
         .chip:active{transform:scale(.97)}
         .chip-on{background:#111;color:#FFE600;border-color:#111;font-weight:600}
@@ -57,6 +116,7 @@
 <body class="h-screen w-screen overflow-hidden">
 
     <div id="view-login" class="h-full w-full flex flex-col items-center justify-center px-6 absolute inset-0 z-40 bg-white transition-all duration-700">
+        <button onclick="THEME.toggle()" title="Mode malam" aria-label="Ganti mode terang/malam" class="btn-press bg-white border border-zinc-200 text-zinc-700 p-2 rounded-xl shadow-sm hover:bg-zinc-50 absolute top-4 right-4"><svg class="icon-moon w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg><svg class="icon-sun w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" stroke-width="2"/><path stroke-linecap="round" stroke-width="2" d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4l1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
         <div class="w-full max-w-sm flex flex-col items-center animate-slide-up">
             <img src="https://raw.githubusercontent.com/sunsetdansenja-arch/YELLOW-BARBER-ASSETS/main/LOGO%20YELLOW%20BARBER.png" class="h-20 w-auto mb-6" alt="Logo YHB">
             <h1 class="ck-font text-2xl tracking-widest mb-1 text-black">System Access</h1>
@@ -89,6 +149,7 @@
 
             <div class="flex gap-2 sm:gap-4 items-center">
                 <div class="flex items-center gap-2 text-[11px] font-medium text-zinc-500 uppercase tracking-widest hidden sm:flex"><div id="sync-indicator" class="w-2 h-2 rounded-full bg-green-500 animate-pulse-dot"></div><span id="sync-text">Auto-Sync On</span></div>
+                <button onclick="THEME.toggle()" title="Mode malam" aria-label="Ganti mode terang/malam" class="btn-press bg-white border border-zinc-200 text-zinc-700 p-2 rounded-xl shadow-sm hover:bg-zinc-50"><svg class="icon-moon w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg><svg class="icon-sun w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" stroke-width="2"/><path stroke-linecap="round" stroke-width="2" d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4l1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
                 <button onclick="CASHIER_LOGIC.loadData()" class="btn-press bg-white border border-zinc-200 text-zinc-700 p-2 rounded-xl shadow-sm hover:bg-zinc-50"><svg class="w-4 h-4 sm:w-5 sm:h-5" id="sync-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg></button>
                 <button onclick="LOGIN_SYSTEM.logout()" class="btn-press bg-black text-white font-medium text-xs px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl shadow-md hover:bg-zinc-800 transition-all uppercase tracking-widest">Logout</button>
             </div>
@@ -439,6 +500,14 @@
     </div>
 
     <script>
+        const THEME = {
+            toggle() {
+                const dark = document.documentElement.classList.toggle('dark');
+                try { localStorage.setItem('yhb_theme', dark ? 'dark' : 'light'); } catch (e) {}
+                if (typeof CASHIER_LOGIC !== 'undefined' && STATE.rawReportData) CASHIER_LOGIC.refreshReportTab();
+            }
+        };
+
         const CONFIG = {
             TENANT_ID: "YHB",
             WEBHOOK_URL: 'https://n8n-mzbmiib3etk4.kangkung.sumopod.my.id/webhook/a6512d05-a51a-4289-9063-9a4f17ac745a',
@@ -934,6 +1003,8 @@
 
             processAnalytic() {
                 if(!STATE.rawReportData || !STATE.rawReportData.bookings) return;
+                const dark = document.documentElement.classList.contains('dark');
+                Chart.defaults.color = dark ? '#A1A1AA' : '#666666'; Chart.defaults.borderColor = dark ? '#2A2A2A' : 'rgba(0,0,0,0.1)';
                 const bookings = STATE.rawReportData.bookings.filter(b => b.status === 'DONE' || b.status === 'SUCCESS');
                 const monthly = {}, capCount = {}, capGross = {}, svc = {}, heat = {};
                 let hMin = 24, hMax = 0, heatMax = 0, heatBest = null;
@@ -977,9 +1048,9 @@
                         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => money ? UTIL.formatRp(ctx.parsed.y) : ctx.parsed.y + ' ' + opts.label } } }, scales: { y: { beginAtZero: true, ticks: { callback: (v) => money ? short(v) : v } } } }
                     });
                 };
-                mk('revenue', 'chartRevenueTrend', 'line', labels, grossData, { label: 'Omset', border: '#2563EB', bg: 'rgba(37,99,235,0.1)', money: true });
-                mk('capster', 'chartCapsterPerformance', 'bar', Object.keys(capCount), Object.values(capCount), { label: 'tamu', border: '#111111', bg: '#111111' });
-                mk('capsterOmset', 'chartCapsterOmset', 'bar', Object.keys(capGross), Object.values(capGross), { label: 'Omset', border: '#111111', bg: '#FFE600', money: true });
+                mk('revenue', 'chartRevenueTrend', 'line', labels, grossData, { label: 'Omset', border: dark ? '#FFE600' : '#2563EB', bg: dark ? 'rgba(255,230,0,0.12)' : 'rgba(37,99,235,0.1)', money: true });
+                mk('capster', 'chartCapsterPerformance', 'bar', Object.keys(capCount), Object.values(capCount), { label: 'tamu', border: dark ? '#D4D4D8' : '#111111', bg: dark ? '#D4D4D8' : '#111111' });
+                mk('capsterOmset', 'chartCapsterOmset', 'bar', Object.keys(capGross), Object.values(capGross), { label: 'Omset', border: dark ? '#FFE600' : '#111111', bg: '#FFE600', money: true });
 
                 const svcList = Object.entries(svc).sort((a, b) => b[1].n - a[1].n).slice(0, 8); const maxN = svcList.length ? svcList[0][1].n : 1;
                 document.getElementById('svc-list').innerHTML = svcList.length ? svcList.map(([name, d]) => `
@@ -993,15 +1064,15 @@
                 let cells = '<div></div>' + hrs.map(h => `<div class="hm-label">${String(h).padStart(2, '0')}</div>`).join('');
                 days.forEach((dn, d) => {
                     cells += `<div class="hm-label" style="justify-content:flex-start">${dn}</div>`;
-                    hrs.forEach(h => { const v = (heat[d] && heat[d][h]) || 0; const bg = v ? `rgba(255,230,0,${(0.2 + 0.8 * v / heatMax).toFixed(2)})` : '#F4F4F5'; cells += `<div class="hm-cell" title="${dayFull[d]} ${String(h).padStart(2, '0')}:00 \u2014 ${v} transaksi" style="background:${bg}">${v || ''}</div>`; });
+                    hrs.forEach(h => { const v = (heat[d] && heat[d][h]) || 0; const bg = v ? `rgba(255,230,0,${(0.2 + 0.8 * v / heatMax).toFixed(2)})` : 'var(--hm-empty)'; cells += `<div class="hm-cell" title="${dayFull[d]} ${String(h).padStart(2, '0')}:00 \u2014 ${v} transaksi" style="background:${bg}">${v || ''}</div>`; });
                 });
                 hm.innerHTML = `<div class="hm-grid" style="grid-template-columns:44px repeat(${hrs.length},minmax(26px,1fr))">${cells}</div>`;
                 document.getElementById('heatmap-insight').innerText = `Paling ramai: ${dayFull[heatBest.dow]} sekitar jam ${String(heatBest.h).padStart(2, '0')}:00 (${heatMax} transaksi).`;
             },
 
             exportPDF() {
-                const el = document.getElementById('printable-report'); el.classList.add('pdf-mode'); UTIL.showLoading("GENERATE PDF...");
-                const done = () => { el.classList.remove('pdf-mode'); UTIL.hideLoading(); };
+                const el = document.getElementById('printable-report'); const wasDark = document.documentElement.classList.contains('dark'); document.documentElement.classList.remove('dark'); el.classList.add('pdf-mode'); UTIL.showLoading("GENERATE PDF...");
+                const done = () => { if(wasDark) document.documentElement.classList.add('dark'); el.classList.remove('pdf-mode'); UTIL.hideLoading(); };
                 html2pdf().set({margin:0.2, filename:`YHB_Audit_${document.getElementById('report-month').value}.pdf`, html2canvas:{scale:2}, jsPDF:{unit:'in',format:'a4',orientation:'landscape'}}).from(el).save().then(done).catch(() => { done(); UTIL.toast('Gagal membuat PDF.'); });
             }
         };
