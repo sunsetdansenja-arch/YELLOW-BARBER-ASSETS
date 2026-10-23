@@ -742,35 +742,6 @@
                 } catch (e) { UTIL.toast("Gagal mencatat walk-in. Coba lagi."); } finally { UTIL.hideLoading(); }
             },
 
-            async openWalkinModal() {
-                document.getElementById('walkin-name').value = 'Walk-In'; document.getElementById('walkin-phone').value = '';
-                const now = new Date(); document.getElementById('walkin-time').value = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
-                const pkgSelect = document.getElementById('walkin-package');
-                pkgSelect.innerHTML = '<option value="">Pilih Layanan</option>' + STATE.packages.map(p => `<option value="${p.id}|${p.NAME}|${p.PRICE}">${p.NAME} - ${UTIL.formatRp(p.PRICE)}</option>`).join('');
-                const capSelect = document.getElementById('walkin-capster'); capSelect.innerHTML = '<option value="">Loading Barber...</option>';
-                document.getElementById('modal-walkin').classList.replace('hidden', 'flex');
-
-                try {
-                    const res = await fetch(CONFIG.PUBLIC_WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ action: 'get_staff_list', branch_name: STATE.user.branch, tenant_id: CONFIG.TENANT_ID }) });
-                    const rawStaff = await res.json(); const staffs = (Array.isArray(rawStaff) ? rawStaff : [rawStaff]).map(s => s.json ? s.json : s);
-                    capSelect.innerHTML = '<option value="">Pilih Barber</option>' + staffs.map(s => `<option value="${s.id}|${s.dbp_staff_name}">${s.dbp_staff_name}</option>`).join('');
-                } catch (e) { capSelect.innerHTML = '<option value="">Gagal Load Capster</option>'; }
-            },
-            closeWalkinModal() { document.getElementById('modal-walkin').classList.replace('flex', 'hidden'); },
-            async submitWalkin() {
-                const name = document.getElementById('walkin-name').value.trim() || 'Walk-In'; const phone = document.getElementById('walkin-phone').value.trim() || '-';
-                const capVal = document.getElementById('walkin-capster').value; const pkgVal = document.getElementById('walkin-package').value;
-                const time = document.getElementById('walkin-time').value; const pay = document.getElementById('walkin-payment').value;
-                if(!capVal || !pkgVal || !time) return UTIL.toast("Pilih Barber, Layanan, dan Jam!");
-                const [capId, capName] = capVal.split('|'); const [pkgId, pkgName, pkgPrice] = pkgVal.split('|');
-
-                this.closeWalkinModal(); UTIL.showLoading("MENCATAT ORDER...");
-                try {
-                    await fetch(CONFIG.PUBLIC_WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ action: 'submit_booking', cust_name: name, cust_phone: phone, tanggal: STATE.sysDates.today, jam: time, branch_id: STATE.user.branch, capster_id: capId, package_id: pkgId, price: Number(pkgPrice), caps_in_charge: capName, package_name: pkgName, payment_method: pay, tenant_id: CONFIG.TENANT_ID }) });
-                    await this.loadData(true);
-                } catch (e) { UTIL.toast("Gagal mencatat order walk-in."); } finally { UTIL.hideLoading(); }
-            },
-
             openCancelModal(id) { 
                 STATE.cancelTargetId = id; 
                 document.getElementById('cancel-confirm-text').value = ''; 
