@@ -651,8 +651,12 @@
                 finally { if(!silent) UTIL.hideLoading(); }
             },
             calculateCommission(capsterName, price) {
-                const p = Number(price) || 0; const cName = String(capsterName || '').toUpperCase();
-                if(cName.includes('BUR')) return p * 0.60; return p * 0.50; 
+                const p = Number(price) || 0;
+                const cName = String(capsterName || '').trim().toLowerCase();
+                // Persentase yang dihitung di sini adalah bagian capster.
+                if(cName === 'rahmad') return p * 0.40; // 60% YHB, 40% Rahmad
+                if(cName === 'zamil' || cName === 'azizi') return p * 0.50;
+                return 0; // Capster di luar daftar resmi tidak dihitung sebagai komisi.
             },
             updateSummary() {
                 let omset = 0; let exp = 0; let komisi = 0;
@@ -704,10 +708,15 @@
                 container.innerHTML = html;
             },
 
+            filterAllowedStaff(staffs) {
+                const allowed = ['zamil', 'rahmad', 'azizi'];
+                return (staffs || []).filter(s => allowed.includes(String(s.dbp_staff_name || '').trim().toLowerCase()));
+            },
             async fetchStaff() {
                 try {
                     const res = await fetch(CONFIG.PUBLIC_WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ action: 'get_staff_list', branch_name: STATE.user.branch, tenant_id: CONFIG.TENANT_ID }) });
-                    const raw = await res.json(); STATE.staff = (Array.isArray(raw) ? raw : [raw]).map(s => s.json ? s.json : s);
+                    const raw = await res.json();
+                    STATE.staff = this.filterAllowedStaff((Array.isArray(raw) ? raw : [raw]).map(s => s.json ? s.json : s));
                 } catch (e) {}
                 return STATE.staff || [];
             },
@@ -769,7 +778,7 @@
                 document.getElementById('modal-swap-capster').classList.replace('hidden', 'flex');
                 try {
                     const res = await fetch(CONFIG.PUBLIC_WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ action: 'get_staff_list', branch_name: STATE.user.branch, tenant_id: CONFIG.TENANT_ID }) });
-                    const rawStaff = await res.json(); const staffs = (Array.isArray(rawStaff) ? rawStaff : [rawStaff]).map(s => s.json ? s.json : s);
+                    const rawStaff = await res.json(); const staffs = this.filterAllowedStaff((Array.isArray(rawStaff) ? rawStaff : [rawStaff]).map(s => s.json ? s.json : s));
                     selectEl.innerHTML = staffs.map(s => `<option value="${s.id}|${s.dbp_staff_name}">${s.dbp_staff_name} (${s.role || 'Barber'})</option>`).join('');
                 } catch (e) { selectEl.innerHTML = '<option value="">Gagal Load Capster</option>'; }
             },
