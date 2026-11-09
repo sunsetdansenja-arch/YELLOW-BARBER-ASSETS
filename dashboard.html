@@ -654,7 +654,7 @@
                 const p = Number(price) || 0;
                 const cName = String(capsterName || '').trim().toLowerCase();
                 // Persentase yang dihitung di sini adalah bagian capster.
-                if(cName === 'rahmad') return p * 0.40; // 60% YHB, 40% Rahmad
+                if(cName === 'rahmat' || cName === 'rahmad') return p * 0.60; // 60% Rahmat, 40% YHB
                 if(cName === 'zamil' || cName === 'azizi') return p * 0.50;
                 return 0; // Capster di luar daftar resmi tidak dihitung sebagai komisi.
             },
@@ -961,7 +961,7 @@
                 if(Object.keys(capsterStats).length === 0) { capsterGrid.innerHTML = '<div class="col-span-full p-4 border border-dashed border-zinc-300 rounded-[16px] text-center text-zinc-500 text-xs font-medium uppercase tracking-widest">Belum ada data Capster</div>'; } 
                 else {
                     capsterGrid.innerHTML = Object.keys(capsterStats).sort().map(c => {
-                        const d = capsterStats[c]; const splitText = c.includes('BUR') ? 'Bagi Hasil (60:40)' : 'Bagi Hasil (50:50)';
+                        const d = capsterStats[c]; const splitText = (c === 'RAHMAT' || c === 'RAHMAD') ? 'Bagi Hasil (60:40)' : 'Bagi Hasil (50:50)';
                         return `
                         <div class="border border-zinc-200 rounded-xl p-4 bg-white shadow-sm">
                             <div class="flex justify-between items-center mb-3 border-b border-zinc-100 pb-3">
